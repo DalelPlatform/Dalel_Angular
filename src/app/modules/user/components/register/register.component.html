@@ -1,0 +1,38 @@
+<form #registerForm="ngForm" (ngSubmit)="onRegister()">
+    <div>
+      <label>User Name:</label>
+      <input type="text" name="userName" [(ngModel)]="user.userName" required>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" name="email" [(ngModel)]="user.email" required>
+    </div>
+    <div>
+      <label>National ID:</label>
+      <input type="text" name="nationalId" [(ngModel)]="user.nationalId" required>
+    </div>
+    <div>
+      <label>Phone Number:</label>
+      <input type="text" name="phoneNumber" [(ngModel)]="user.phoneNumber" required>
+    </div>
+    <div>
+      <label>Password:</label>
+      <input type="password" name="password" [(ngModel)]="user.password" required>
+    </div>
+    <div>
+      <label>Confirm Password:</label>
+      <input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" required>
+    </div>
+    <div>
+      <label>Role:</label>
+      <select name="role" [(ngModel)]="user.role" required>
+        <option value="ServiceProvider">Service Provider</option>
+        <option value="Client">Client</option>
+      </select>
+    </div>
+    <div *ngIf="user.role === 'ServiceProvider'">
+      <label>Category Services ID:</label>
+      <input type="number" name="categoryServicesId" [(ngModel)]="user.categoryServicesId" required>
+    </div>
+    <button type="submit" [disabled]="!registerForm.valid">Register</button>
+  </form>
