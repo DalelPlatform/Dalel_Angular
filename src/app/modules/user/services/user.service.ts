@@ -49,4 +49,13 @@ export class AccountService {
     return match ? decodeURIComponent(match[2]) : '';
   }
   
+  getUserProfile(): Observable<IUserRegister> {
+    return this.http.get<IUserRegister>(`${this.apiUrl}/test`);
+  }
+
+  updateUserProfile(userData: Partial<IUserRegister>): Observable<IUserRegister> {
+    return this.http.put<IUserRegister>(`${this.apiUrl}/test`, userData);
+  }
+
+
 }

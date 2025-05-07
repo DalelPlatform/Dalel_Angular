@@ -21,4 +21,7 @@ export class AppComponent {
   goToLogout() {
     this.router.navigate(['/logout']);
   }
+  goToCompleteProfile() {
+    this.router.navigate(['/complete-profile']);
+  }
 }
