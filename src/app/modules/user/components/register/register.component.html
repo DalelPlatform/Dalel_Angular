@@ -1,47 +1,64 @@
-<div class="container">
-  <h1>Create Account</h1>
-  <form>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" required class="form-control" [(ngModel)] = "user.Email"  name="email">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">User Name</label>
-      <input type="text"  class="form-control" [(ngModel)]="user.UserName" name="UserName">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
-      <input type="text" class="form-control" [(ngModel)]="user.PhoneNumber" name="PhoneNumber">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">National Id</label>
-      <input type="text" class="form-control" [(ngModel)]="user.NationalId" name="NationalId">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Password</label>
-      <input type="password" class="form-control" [(ngModel)]="user.Password" name="Password">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-      <input type="password" class="form-control" [(ngModel)]="user.ConfirmPassowrd" name="ConformPassowrd">
-      
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Role</label>
-      <select [(ngModel)]="user.Role" class="form-control" name="Role">
-        <option  value="Client">Client</option>
-        <option  value="ServiceProvider">Service Provider</option>
-        <option  value="Drivers">Drivers</option>
-        <option  value="HomeChef">Home Chef</option>
-        <option  value="HotelOwners">Hotel Owner</option>
-        <option  value="PropertyOwner">Property Owner</option>
-        <option  value="RestaurantOwner">Restaurant Owner</option>
-        <option  value="TravelAgencyOwners">Travel Agency Owners</option>
+<div class="container mt-5 mb-5" style="max-width: 600px;">
+  <div class="card shadow-lg rounded-4 p-4">
+    <h2 class="text-center mb-4 Title">Create Account</h2>
 
-        
-      </select>
-    </div>
-    
-    <button type="button" class="btn btn-primary" (click)="Send()">Submit</button>
-  </form>
+    <form #form="ngForm">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">Email address</label>
+          <input type="email" class="form-control" [(ngModel)]="user.Email" name="email" required #email="ngModel">
+          <div class="text-danger" *ngIf="email.touched && email.invalid">Email is required and must be valid</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" [(ngModel)]="user.UserName" name="UserName" required #userName="ngModel">
+          <div class="text-danger" *ngIf="userName.touched && userName.invalid">Username is required</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Phone Number</label>
+          <input type="text" class="form-control" [(ngModel)]="user.PhoneNumber" name="PhoneNumber">
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">National ID</label>
+          <input type="text" class="form-control" [(ngModel)]="user.NationalId" name="NationalId" required #nationalId="ngModel">
+          <div class="text-danger" *ngIf="nationalId.touched && nationalId.invalid">National ID is required</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="user.Password" name="Password" required #password="ngModel">
+          <div class="text-danger" *ngIf="password.touched && password.invalid">Password is required</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" [(ngModel)]="user.ConfirmPassowrd" name="ConfirmPassowrd" required #confirmPassword="ngModel">
+          <div class="text-danger" *ngIf="confirmPassword.touched && confirmPassword.invalid">Confirmation is required</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Role</label>
+          <select class="form-select" [(ngModel)]="user.Role" name="Role" required #role="ngModel">
+            <option disabled selected value="">Select a role</option>
+            <option value="Client">Client</option>
+            <option value="ServiceProvider">Service Provider</option>
+            <option value="Drivers">Drivers</option>
+            <option value="HomeChef">Home Chef</option>
+            <option value="HotelOwners">Hotel Owner</option>
+            <option value="PropertyOwner">Property Owner</option>
+            <option value="RestaurantOwner">Restaurant Owner</option>
+            <option value="TravelAgencyOwners">Travel Agency Owners</option>
+          </select>
+          <div class="text-danger" *ngIf="role.touched && role.invalid">Role is required</div>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="button" class="btn submit-l btn-lg" [disabled]="form.invalid" (click)="Send()">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
