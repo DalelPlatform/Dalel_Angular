@@ -11,19 +11,20 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class LoginComponent {
   user: { identifier: string; password: string } = {
-    identifier: '', 
+    identifier: '',
     password: ''
   };
   constructor(private accountSrv: AccountService,
-     private cookieService: CookieService
+     private cookieService: CookieService,
+     
   ) { }
   Send() {
     this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
       next: (res) => {
         console.log(res);
 
-        this.cookieService.set('Token', res.Token); 
-        this.cookieService.set('Role', res.Role);    
+        this.cookieService.set('Token', res.Token);
+        this.cookieService.set('Role', res.Role);
       },
       error: (err) => {
         console.log(err);

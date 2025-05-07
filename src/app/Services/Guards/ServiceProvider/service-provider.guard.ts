@@ -2,16 +2,15 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
-export const authGuard: CanActivateFn = (route, state) => {
-  // const token = localStorage.getItem('access_token');
-  // const token = Inject(CookieService).getItem('Token')
+export const serviceProviderGuard: CanActivateFn = (route, state) => {
   const cookieService = inject(CookieService).get('Token');
+  const role = inject(CookieService).get('Role');
 
 
-  if (cookieService) {
+  if (cookieService && role == "ServiceProvider") {
     return true;
   } else {
-    alert('Please log in to access this page');
+    alert('This page is not valid');
     return false;
   }
 };

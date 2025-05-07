@@ -1,14 +1,25 @@
-<div class="container">
-  <h1>Login</h1>
-  <form>
-    <div class="mb-3">
-      <label for="exampleInputIdentifier" class="form-label">Username or Email</label>
-      <input type="text" required class="form-control" [(ngModel)]="user.identifier" name="identifier">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" [(ngModel)]="user.password" name="password">
-    </div>
-    <button type="button" class="btn btn-primary" (click)="Send()">Submit</button>
-  </form>
+<div class="container mt-5 mb-5" style="max-width: 600px;">
+  <div class="card shadow-lg rounded-4 p-4">
+    <h2 class="text-center mb-4 Title">Login</h2>
+    
+    <form #form="ngForm">
+      <div class="row g-3">
+        <div class="col-12">
+          <label class="form-label">Username or Email</label>
+          <input type="text" class="form-control" [(ngModel)]="user.identifier" name="identifier" required #identifier="ngModel">
+          <div class="text-danger" *ngIf="identifier.touched && identifier.invalid">Username or Email is required</div>
+        </div>
+
+        <div class="col-12">
+          <label class="form-label">Password</label>
+          <input type="password" class="form-control" [(ngModel)]="user.password" name="password" required #password="ngModel">
+          <div class="text-danger" *ngIf="password.touched && password.invalid">Password is required</div>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="button" class="btn submit-l btn-lg" [disabled]="form.invalid" (click)="Send()">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
