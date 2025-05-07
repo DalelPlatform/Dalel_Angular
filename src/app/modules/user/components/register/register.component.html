@@ -1,38 +1,47 @@
-<form #registerForm="ngForm" (ngSubmit)="onRegister()">
-    <div>
-      <label>User Name:</label>
-      <input type="text" name="userName" [(ngModel)]="user.userName" required>
+<div class="container">
+  <h1>Create Account</h1>
+  <form>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" required class="form-control" [(ngModel)] = "user.Email"  name="email">
     </div>
-    <div>
-      <label>Email:</label>
-      <input type="email" name="email" [(ngModel)]="user.email" required>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">User Name</label>
+      <input type="text"  class="form-control" [(ngModel)]="user.UserName" name="UserName">
     </div>
-    <div>
-      <label>National ID:</label>
-      <input type="text" name="nationalId" [(ngModel)]="user.nationalId" required>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+      <input type="text" class="form-control" [(ngModel)]="user.PhoneNumber" name="PhoneNumber">
     </div>
-    <div>
-      <label>Phone Number:</label>
-      <input type="text" name="phoneNumber" [(ngModel)]="user.phoneNumber" required>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">National Id</label>
+      <input type="text" class="form-control" [(ngModel)]="user.NationalId" name="NationalId">
     </div>
-    <div>
-      <label>Password:</label>
-      <input type="password" name="password" [(ngModel)]="user.password" required>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="user.Password" name="Password">
     </div>
-    <div>
-      <label>Confirm Password:</label>
-      <input type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" required>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" [(ngModel)]="user.ConfirmPassowrd" name="ConformPassowrd">
+      
     </div>
-    <div>
-      <label>Role:</label>
-      <select name="role" [(ngModel)]="user.role" required>
-        <option value="ServiceProvider">Service Provider</option>
-        <option value="Client">Client</option>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Role</label>
+      <select [(ngModel)]="user.Role" class="form-control" name="Role">
+        <option  value="Client">Client</option>
+        <option  value="ServiceProvider">Service Provider</option>
+        <option  value="Drivers">Drivers</option>
+        <option  value="HomeChef">Home Chef</option>
+        <option  value="HotelOwners">Hotel Owner</option>
+        <option  value="PropertyOwner">Property Owner</option>
+        <option  value="RestaurantOwner">Restaurant Owner</option>
+        <option  value="TravelAgencyOwners">Travel Agency Owners</option>
+
+        
       </select>
     </div>
-    <div *ngIf="user.role === 'ServiceProvider'">
-      <label>Category Services ID:</label>
-      <input type="number" name="categoryServicesId" [(ngModel)]="user.categoryServicesId" required>
-    </div>
-    <button type="submit" [disabled]="!registerForm.valid">Register</button>
+    
+    <button type="button" class="btn btn-primary" (click)="Send()">Submit</button>
   </form>
+</div>

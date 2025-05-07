@@ -1,10 +1,11 @@
-export interface User {
-    userName: string;
-    email: string;
-    nationalId: string;
-    phoneNumber: string;
-    password: string;
-    confirmPassword: string;
-    role: string;
-    categoryServicesId?: number;
-  }
+export interface IUserRegister{
+    
+  UserName: string;
+  Email: string;
+  NationalId: string;
+  PhoneNumber: string;
+  Password: string;
+  ConfirmPassowrd: string;
+  Role: string;
+  
+}

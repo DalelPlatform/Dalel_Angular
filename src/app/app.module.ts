@@ -1,13 +1,25 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+// src/app/app.module.ts
+
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; 
+import { AccountModule } from './modules/user/user-module'; 
+import { routes } from './app.routes';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
+  declarations: [
+    AppComponent
+  ],
   imports: [
-    FormsModule,
-    HttpClientModule
-    // ...
-  ]
+    BrowserModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes), // عشان <router-outlet> تشتغل
+    AccountModule
+  ],
+  providers: [[CookieService]],
+  bootstrap: [AppComponent]
 })
-export class UserModule {}
 export class AppModule {}

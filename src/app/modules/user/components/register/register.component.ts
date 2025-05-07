@@ -1,27 +1,78 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { User } from '../../models/user.model';
+import { Component, OnInit } from '@angular/core';
+import { IUserRegister } from '../../models/user.model'; 
+import { AccountService } from '../../services/user.service';
+import { HttpClient } from '@angular/common/http';
+import { forkJoin } from 'rxjs';
+
 
 @Component({
   selector: 'app-register',
-  imports: [],
+  standalone:false,
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
 export class RegisterComponent {
-  user: User = {
-    userName: '',
-    email: '',
-    nationalId: '',
-    phoneNumber: '',
-    password: '',
-    confirmPassword: '',
-    role: ''
+  user:IUserRegister={
+    UserName: '',
+    Email: '',
+    NationalId: '',
+    PhoneNumber: '',
+    Password: '',
+    ConfirmPassowrd: '',
+    Role: ''
   };
-
-  @Output() registerEvent = new EventEmitter<User>();
-
-  onRegister() {
-    this.registerEvent.emit(this.user);
-  }
+  constructor(private accountSrv:AccountService) { }
+  //
+  Send() {
+    if (
+      !this.user.UserName || 
+      !this.user.Email || 
+      !this.user.Password || 
+      !this.user.ConfirmPassowrd || 
+      !this.user.Role || 
+      !this.user.NationalId || 
+      !this.user.PhoneNumber
+    ) {
+      alert('Please fill all fields');
+      return;
+    }
+  
+    const username$ = this.accountSrv.CheckUsername(this.user.UserName);
+    const email$ = this.accountSrv.CheckEmail(this.user.Email);
+    const nationalId$ = this.accountSrv.CheckNationalId(this.user.NationalId);
+  
+    forkJoin([username$, email$, nationalId$]).subscribe({
+      next: ([resUsername, resEmail, resNatId]) => {
+        if (resUsername?.status === 400) {
+          alert('Username is already taken');
+          return;
+        }
+        if (resEmail?.status === 400) {
+          alert('Email is already taken');
+          return;
+        }
+        if (resNatId?.status === 400) {
+          alert('National ID is already used');
+          return;
+        }
+  
+        // All good, proceed with registration
+        this.accountSrv.Register(this.user).subscribe({
+          next: (res) => {
+            if (res?.Success || res?.Status === 200) {
+              alert('Registration successful!');
+            } else {
+              alert('Registration failed.');
+            }
+          },
+          error: (err) => {
+            alert('Registration failed: ' + (err.message || 'Unknown error'));
+          }
+        });
+      },
+      error: (err) => {
+        alert('Validation request failed: ' + (err.message || 'Unknown error'));
+      }
+    });
+  }  
 }

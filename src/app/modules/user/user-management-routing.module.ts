@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './pages/login-page/login-page.component';
-import { RegisterPageComponent } from './pages/register-page/register-page.component';
-import { LogoutPageComponent } from './pages/logout-page/logout-page.component';
-
-const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
-  { path: 'logout', component: LogoutPageComponent }
-];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
-})
-export class UserRoutingModule {}
+import { Routes } from "@angular/router";
+import { LoginComponent } from "./components/login/login.component";
+import { RegisterComponent } from "./components/register/register.component";
+import { LogoutComponent } from "./components/logout/logout.component";
+export let accountroutes:Routes=[
+    {path:'Login',component:LoginComponent},
+    {path:'Register',component:RegisterComponent},
+    {path:'Logout',component:LogoutComponent},
+    { path: '', redirectTo: 'Login', pathMatch: 'full' }
+    
+]
