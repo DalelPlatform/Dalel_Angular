@@ -1,0 +1,29 @@
+<p>profile-form works!</p>
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <!-- Common Fields -->
+    <input type="text" formControlName="UserName" placeholder="User Name" />
+    <input type="email" formControlName="Email" placeholder="Email" />
+    <input type="text" formControlName="NationalId" placeholder="National ID" />
+    <input type="text" formControlName="PhoneNumber" placeholder="Phone Number" />
+  
+    <!-- Conditional Role-Specific Fields -->
+    <ng-container *ngIf="role === 'ServiceProvider'">
+      <input type="text" formControlName="WorkType" placeholder="Work Type" />
+      <input type="text" formControlName="LicenseNumber" placeholder="License Number" />
+      <input type="text" formControlName="Address" placeholder="Address" />
+      <!-- Add more fields when needed-->
+    </ng-container>
+  
+    <ng-container *ngIf="role === 'Driver'">
+      <input type="text" formControlName="LicenseNumber" placeholder="License Number" />
+      <input type="text" formControlName="Avaliablitiy" placeholder="Availability" />
+    </ng-container>
+  
+    <ng-container *ngIf="role === 'HomeChef'">
+      <input type="text" formControlName="FoodSafetyCertificate" placeholder="Food Safety Certificate" />
+      <input type="text" formControlName="BankDetails" placeholder="Bank Details" />
+    </ng-container>
+  
+    <button type="submit">Save</button>
+  </form>
+  
