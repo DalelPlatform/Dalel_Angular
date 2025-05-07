@@ -1,23 +1,26 @@
 
+// src/app/app.module.ts
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
+import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; 
+import { AccountModule } from './modules/user/user-module'; 
+import { routes } from './app.routes';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
-  declarations:[
-    AppComponent,
-  
+  declarations: [
+    AppComponent
   ],
   imports: [
-  SharedModule,
     BrowserModule,
-   AppRoutingModule
-    // ...
+    HttpClientModule,
+    RouterModule.forRoot(routes), // عشان <router-outlet> تشتغل
+    AccountModule
   ],
-  
-  bootstrap: [AppComponent],
+  providers: [[CookieService]],
+  bootstrap: [AppComponent]
 })
-// export class UserModule {}
 export class AppModule {}
