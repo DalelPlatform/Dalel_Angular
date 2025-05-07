@@ -64,7 +64,7 @@ export class ProfileFormComponent implements OnInit {
         };
         break;
 
-      // Add other roles here similarly
+      // Add other roles 
     }
 
     this.profileForm = this.fb.group({
