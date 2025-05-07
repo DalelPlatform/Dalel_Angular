@@ -6,11 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
 
 @NgModule({
-  declarations: [NavbarComponent,FooterComponent,ProfileComponent],
+  declarations: [NavbarComponent,FooterComponent,ProfileComponent,SidebarComponent],
   imports: [
     CommonModule,
     HttpClientModule,
