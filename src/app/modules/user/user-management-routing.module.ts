@@ -1,4 +1,13 @@
 import { Routes } from "@angular/router";
+<<<<<<< HEAD
+
+export let accountroutes:Routes=[
+    {
+      // path : 'edit' , component :
+    }
+
+]
+=======
 import { LoginComponent } from "./components/login/login.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { LogoutComponent } from "./components/logout/logout.component";
@@ -10,3 +19,4 @@ export let accountroutes:Routes=[
     { path: '', redirectTo: 'Login', pathMatch: 'full' },
     { path: 'complete-profile', component: CompleteProfilePageComponent },
 ]
+>>>>>>> 0ee238b0146ad6a0348d921fbd696c8f662dd90c
