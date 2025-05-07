@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './modules/user/components/login/login.component';
 import { RegisterComponent } from './modules/user/components/register/register.component';
 import { LogoutComponent } from './modules/user/components/logout/logout.component';
+import { ProfileComponent } from './shared/components/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -13,6 +14,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
 
     { path: 'logout', component: LogoutComponent },
+    {path:"accoutProfile",component:ProfileComponent},
     { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

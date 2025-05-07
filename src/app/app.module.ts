@@ -9,16 +9,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccountModule } from './modules/user/user-module'; 
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // SharedModule
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes), // عشان <router-outlet> تشتغل
-    AccountModule
+    AccountModule,
+    SharedModule
   ],
   providers: [[CookieService]],
   bootstrap: [AppComponent]
