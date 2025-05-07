@@ -43,6 +43,7 @@ export class AccountService {
       params: { nationalId }
     });
   }
+
   getRole(): string {
     const match = document.cookie.match(new RegExp('(^| )userRole=([^;]+)'));
     return match ? decodeURIComponent(match[2]) : '';
