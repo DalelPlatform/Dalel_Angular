@@ -43,15 +43,16 @@ export class RegisterComponent {
   
     forkJoin([username$, email$, nationalId$]).subscribe({
       next: ([resUsername, resEmail, resNatId]) => {
-        if (resUsername?.status === 400) {
+        if (resUsername?.Status === 400) {
           alert('Username is already taken');
           return;
         }
-        if (resEmail?.status === 400) {
+        if (resEmail?.Status === 400) {
           alert('Email is already taken');
           return;
         }
-        if (resNatId?.status === 400) {
+        console.log(resNatId);
+        if (resNatId?.Status === 400) {
           alert('National ID is already used');
           return;
         }
