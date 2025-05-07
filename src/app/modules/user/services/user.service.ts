@@ -1,51 +1,51 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { IUserRegister } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AuthResponse } from '../models/auth-response.model'; 
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-  private apiUrl = 'http://localhost:5000/api/Account'; // backend URL(Dummy لحد م اشوف الباك شغال على بورت كام)
+export class AccountService {
+  private apiUrl = 'http://localhost:5070/api/Account/'; 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  register(userData: any): Observable<AuthResponse> {
-    return this.http.post(`${this.apiUrl}/Register`, userData).pipe(
-      map((response: AuthResponse) => {
-        if (response && response.Success) {
-          if (response.token) localStorage.setItem('token', response.token);
-          if (response.role) localStorage.setItem('role', response.role);
-        }
-        return response;
-      })
-    );
+  Login(UserNameOrEmail: string, Password: string): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apiUrl + 'Login', { UserNameOrEmail, Password }, { headers });
   }
 
-  login(credentials: { userName: string; password: string }): Observable<AuthResponse> {
-    return this.http.post(`${this.apiUrl}/Login`, credentials).pipe(
-      map((response: AuthResponse) => {
-        if (response && response.Success) {
-          if (response.token) localStorage.setItem('token', response.token);
-          if (response.role) localStorage.setItem('role', response.role);
-        }
-        return response;
-      })
-    );
+  // Register
+  Register(user: IUserRegister): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apiUrl + 'Register', user, { headers });
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
+  Logout(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apiUrl + 'Signout', {}, { headers });
   }
-
-  getRole(): string | null {
-    return localStorage.getItem('role');
+  CheckUsername(username: string): Observable<any> {
+    return this.http.get(this.apiUrl + 'CheckUsername', {
+      params: { username }
+    });
   }
-
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+  
+  CheckEmail(email: string): Observable<any> {
+    return this.http.get(this.apiUrl + 'CheckEmail', {
+      params: { email }
+    });
   }
+  
+  CheckNationalId(nationalId: string): Observable<any> {
+    return this.http.get(this.apiUrl + 'CheckNationalId', {
+      params: { nationalId }
+    });
+  }
+  getRole(): string {
+    const match = document.cookie.match(new RegExp('(^| )userRole=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : '';
+  }
+  
 }

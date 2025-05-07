@@ -1,0 +1,15 @@
+<!-- Navigation Menu -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand">{{ title }}</a>
+      <div class="navbar-nav">
+        <button class="nav-link btn btn-outline-primary" (click)="goToLogin()">Login</button>
+        <button class="nav-link btn btn-outline-primary" (click)="goToRegister()">Register</button>
+        <button class="nav-link btn btn-outline-primary" (click)="goToLogout()">Logout</button>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <router-outlet></router-outlet>
+  </div>
+  
