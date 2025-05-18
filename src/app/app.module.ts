@@ -10,7 +10,8 @@ import { AccountModule } from './modules/user/user-module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
-
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,9 +20,13 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes), // عشان <router-outlet> تشتغل
+    RouterModule.forRoot(routes), 
     AccountModule,
-    SharedModule
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
+    
   ],
   providers: [[CookieService]],
   bootstrap: [AppComponent]

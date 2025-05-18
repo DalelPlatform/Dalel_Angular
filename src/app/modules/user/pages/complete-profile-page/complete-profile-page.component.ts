@@ -20,4 +20,5 @@ export class CompleteProfilePageComponent implements OnInit {
       this.role = user.Role;
     });
   }
+  
 }

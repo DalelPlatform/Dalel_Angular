@@ -12,6 +12,7 @@ export class LogoutComponent {
   onLogout() {
     this.deleteCookie('Token');
     this.deleteCookie('Role');
+    this.deleteCookie('UserId');
 
     this.logoutEvent.emit();
   }

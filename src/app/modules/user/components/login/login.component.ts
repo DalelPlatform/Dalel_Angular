@@ -22,9 +22,10 @@ export class LoginComponent {
     this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
       next: (res) => {
         console.log(res);
-
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
+        this.cookieService.set('UserId', res.UserId);
+        
       },
       error: (err) => {
         console.log(err);

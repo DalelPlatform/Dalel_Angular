@@ -4,4 +4,5 @@ export let accountroutes:Routes=[
     //   // path : 'edit' , component :
     // }
 
+
 ]
