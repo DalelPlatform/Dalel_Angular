@@ -10,6 +10,7 @@ import { CompleteProfilePageComponent } from "./pages/complete-profile-page/comp
 import { ProfileFormComponent } from "./components/profile-form/profile-form.component";
 import { ServiceProviderProfileComponent } from "./components/service-provider-profile/service-provider-profile.component";
 
+
 @NgModule({ 
     declarations :[  
         LoginComponent,
@@ -17,6 +18,7 @@ import { ServiceProviderProfileComponent } from "./components/service-provider-p
         CompleteProfilePageComponent,
         ProfileFormComponent,
         ServiceProviderProfileComponent,
+        
 
         
     ],
