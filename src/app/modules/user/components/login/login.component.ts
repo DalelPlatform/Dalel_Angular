@@ -2,7 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: false,
@@ -16,6 +16,7 @@ export class LoginComponent {
   };
   constructor(private accountSrv: AccountService,
      private cookieService: CookieService,
+     private router: Router
      
   ) { }
   Send() {
@@ -24,8 +25,12 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
-        this.cookieService.set('UserId', res.UserId);
-        
+         if(res.Role ==="TravelAgencyOwner"){
+                 this.router.navigate(['/AgencycompleteProfile']);
+              }
+              else{
+                  this.router.navigate(['/login']);
+              }
       },
       error: (err) => {
         console.log(err);

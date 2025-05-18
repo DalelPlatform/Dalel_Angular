@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-register',
   standalone: false,
@@ -22,7 +21,7 @@ export class RegisterComponent {
     ConfirmPassowrd: '',
     Role: ''
   };
-  constructor(private accountSrv: AccountService, private router: Router) { }
+  constructor(private accountSrv:AccountService,private router: Router) { }
   //
   Send() {
     if (
@@ -62,7 +61,9 @@ export class RegisterComponent {
         this.accountSrv.Register(this.user).subscribe({
           next: (res) => {
             if (res?.Success || res?.Status === 200) {
+              console.log(res)
               alert('Registration successful!');
+             
               if (this.user.Role === 'ServiceProvider') {
                 this.router.navigate(['/user/complete-profile']);
               }
