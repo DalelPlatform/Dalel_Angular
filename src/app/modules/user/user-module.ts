@@ -16,6 +16,8 @@ import { ServiceProviderProfileComponent } from "./components/service-provider-p
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { UserLayoutComponent } from "./components/user-layout/user-layout.component";
+import { SharedModule } from "../../shared/shared.module";
 
 
 
@@ -30,28 +32,26 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 
         ChangePasswordComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
+        ResetPasswordComponent,
 
+    
         
-
 
         
     ],
     imports: [
-        CommonModule,
-        FormsModule,
-
-        RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,   
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,      // needed for reactive forms
-        RouterModule.forChild(accountRoutes) ,    
-
-        RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,        
-
-    ],
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(accountRoutes),
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule, // needed for reactive forms
+    RouterModule.forChild(accountRoutes),
+    RouterModule.forChild(accountRoutes),
+    ReactiveFormsModule,
+    SharedModule
+],
     providers: [
         provideHttpClient(withFetch())
     ],

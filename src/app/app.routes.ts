@@ -32,6 +32,13 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
 
+  {
+    path: 'agancy', 
+    loadChildren: () => import('./modules/agancyowner/agancyowner.module').then(m => m.AgancyownerModule)
+  },
+
+
+
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
