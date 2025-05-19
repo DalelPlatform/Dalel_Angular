@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // src/app/modules/user/user-management-routing.module.ts
 
 import { NgModule } from '@angular/core';
@@ -26,5 +27,5 @@ export const accountRoutes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(accountRoutes)],
   exports: [RouterModule]
-})
-export class UserManagementRoutingModule { }
+});
+

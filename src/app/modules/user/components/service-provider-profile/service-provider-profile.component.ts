@@ -283,7 +283,10 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
+
   standalone: false,
+
+
   selector: 'app-service-provider-profile',
   templateUrl: './service-provider-profile.component.html',
   styleUrls: ['./service-provider-profile.component.css']

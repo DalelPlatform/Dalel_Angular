@@ -3,6 +3,7 @@ import { IUserRegister } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import {tap} from 'rxjs/operators';
+
 import {
   ChangePasswordRequest, ChangePasswordResponse
 } from '../models/change-password.model';
@@ -12,6 +13,9 @@ import {
 import {
   ResetPasswordRequest, ResetPasswordResponse
 } from '../models/reset-password.model';
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +88,7 @@ export class AccountService {
         tap(() => this.isFirstLogin.next(false)) 
       );
   }
+
   changePassword(body: ChangePasswordRequest): Observable<ChangePasswordResponse> {
     return this.http.post<ChangePasswordResponse>(
       `${this.apiUrl}ChangePassword`, body
@@ -101,6 +106,7 @@ export class AccountService {
       `${this.apiUrl}ResetPassword`, body
     );
   }
+
   
 
 }
