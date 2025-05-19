@@ -1,0 +1,133 @@
+  <div class="container">
+    <div class="d-lg-none my-3">
+        <button class="btn w-100 save-btn" 
+        data-bs-toggle="offcanvas" data-bs-target="#profileMenu" aria-controls="profileMenu"
+        type="button" >
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </div>
+   <div class="row my-3 gx-lg-5 side_bar">
+    
+
+    <div class=" col-lg-3">
+       <app-sidebar></app-sidebar>
+    </div>
+     <div class="col-12 col-lg-9 ">
+        <div class="row">
+            <div class="profile-box">
+                <h6 class=" m-0 p-0">Complete Your Profile</h6>
+                <p class="text-muted m-0 p-0">Get the best out of booking by adding the remaining details!</p>
+                <div class="progress mb-3 mt-2 mt-lg-0">
+                    <div class="progress-bar" style="width: 85%"></div>
+                </div>
+                <div class="info-box shadow-sm flex-column flex-lg-row align-items-start align-items-lg-center">
+                    <span class="verified-item"><i class="fas fa-check-circle"></i> Verified Email</span>
+                    <span class="verified-item"><i class="fas fa-check-circle"></i> Verified Mobile Number</span>
+                    <span class="complete-info verified-item"><i class="fas fa-plus-circle"></i> Complete Basic Info</span>
+                </div>
+            </div>
+        </div>
+         <div class="row my-3">
+            <div class="form-container">
+                <h5 class="fw-bold">Personal Information</h5>
+                <hr>
+                <label class="form-label">Upload your profile photo*</label>
+                <div class="mb-3 d-flex align-items-center">
+                    <img src="https://booking.webestica.com/assets/images/avatar/01.jpg" class="profile-img" alt="Profile">
+                    <button class="ms-3 change-btn">Change</button>
+                </div>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Full Name*</label>
+                            <input type="text" class="form-control" value="Jacqueline Miller">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email address*</label>
+                            <input type="email" class="form-control" value="hellogmail.com">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile number*</label>
+                            <input type="text" class="form-control" value="222 555 666">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Nationality*</label>
+                            <select class="form-select">
+                                <option selected>Paris</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Birth*</label>
+                            <input type="text" class="form-control" value="29 Aug 1996">
+                        </div>
+                        <div class="col-md-6 mb-3 mt-2">
+                            <label class="form-label">Select Gender*</label>
+                            <div class="gender-options">
+                                <label><input type="radio" class="form-check-input" name="gender" checked> Male</label>
+                                <label><input type="radio" class="form-check-input" name="gender"> Female</label>
+                                <label><input type="radio" class="form-check-input" name="gender"> Others</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control">2119 N Division Ave, New Hampshire, York, United States</textarea>
+                        </div>
+                        <div class="col-12 text-end">
+                            <button type="submit" class="save-btn">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="form-container mt-3">
+                <h5 class="update-title">Update email</h5>
+                <p>Your current email address is <a href="#" class="current-email">examplegmail.com</a></p>
+                <hr>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Enter your new email id<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" placeholder="Enter your email id">
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="save-btn">Save Email</button>
+                    </div>
+                </form>
+            </div>
+            <div class="form-container mt-3">
+                <h5 class="update-title">Update Password</h5>
+                <p>Your current email address is <a href="#" class="current-email">examplegmail.com</a></p>
+                <hr>
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label">Current password</label>
+                        <input type="password" class="form-control" placeholder="Enter your password">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Enter new password</label>
+                        <input type="password" class="form-control" placeholder="Enter new password">
+                    </div>
+            
+                      <div class="input-group mb-3">
+                        <input type="password" 
+                         placeholder="Recipient's username" 
+                         [type]="showPassword ? 'text' : 'password'"
+                         class="form-control password"
+                         name="password"
+                         >
+                        <span class="input-group-text" style="background-color: white;cursor: pointer;">
+                            <i  class="fa" [ngClass]="!showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                            (click)="togglePassword()"></i></span>
+                      </div>
+                    <div class="mb-3">
+                        <label class="form-label">Confirm new password</label>
+                        <input type="password" class="form-control" placeholder="Confirm new password">
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="save-btn">Change Password</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
+   </div>
+
+  </div>
