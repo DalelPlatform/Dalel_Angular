@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from '../../services/user.service';
-import { IUserRegister } from '../../models/user.model';
+import { AccountService } from '../../../modules/user/services/user.service';
+import { IUserRegister } from '../../../modules/user/models/user.model';
 
 @Component({
   selector: 'app-complete-profile-page',
@@ -20,5 +20,5 @@ export class CompleteProfilePageComponent implements OnInit {
       this.role = user.Role;
     });
   }
-  
+
 }

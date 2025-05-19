@@ -9,7 +9,7 @@ import { accountRoutes } from './user-management-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { provideHttpClient, withFetch } from "@angular/common/http";
-import { CompleteProfilePageComponent } from "./pages/complete-profile-page/complete-profile-page.component";
+import { CompleteProfilePageComponent } from "../../shared/components/complete-profile-page/complete-profile-page.component";
 import { ProfileFormComponent } from "./components/profile-form/profile-form.component";
 import { ServiceProviderProfileComponent } from "./components/service-provider-profile/service-provider-profile.component";
 
@@ -20,8 +20,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 
 
 
-@NgModule({ 
-    declarations :[  
+@NgModule({
+    declarations :[
         LoginComponent,
         RegisterComponent,
         CompleteProfilePageComponent,
@@ -32,24 +32,24 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
         ForgotPasswordComponent,
         ResetPasswordComponent
 
-        
 
 
-        
+
+
     ],
     imports: [
         CommonModule,
         FormsModule,
 
         RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,   
+        ReactiveFormsModule,
         CommonModule,
         FormsModule,
         ReactiveFormsModule,      // needed for reactive forms
-        RouterModule.forChild(accountRoutes) ,    
+        RouterModule.forChild(accountRoutes) ,
 
         RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,        
+        ReactiveFormsModule,
 
     ],
     providers: [
