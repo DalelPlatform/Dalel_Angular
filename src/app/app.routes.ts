@@ -38,8 +38,12 @@ export const routes: Routes = [
   },
 
   {
-    path: 'agancy', 
+    path: 'agancy',
     loadChildren: () => import('./modules/agancyowner/agancyowner.module').then(m => m.AgancyownerModule)
+  },
+  {
+    path:'restaurant',
+    loadChildren:() => import('./modules/Restaurant/restaurant.module').then(restaurant => restaurant.RestaurantModuleModule)
   },
 
 

@@ -9,6 +9,8 @@ import {environment} from '../../../environments/environment';
 export class PropertyOwnerService {
 
   constructor(private http: HttpClient) {}
+
+
   registerProperty(data: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
