@@ -25,34 +25,12 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
-        if (res.Role === "TravelAgencyOwner") {
-          this.router.navigate(['/AgencycompleteProfile']);
-        }
-        else {
-          this.router.navigate(['/login']);
-        }
-        if(res.Role === "ServiceProvider") {
-          this.router.navigate(['/complete-ServiceProvider-profile']);
-        }
-        else{
-          this.router.navigate(['/login']);
-        }
-        // if (res.role === 'ServiceProvider') {
-        //   this.profileService.checkProfileCompletion().subscribe({
-        //     next: (isComplete) => {
-        //       if (!isComplete) {
-        //         this.router.navigate(['/complete-profile']);
-        //       } else {
-        //         this.router.navigate(['/account']);
-        //       }
-        //     },
-        //     error: () => {
-        //       this.router.navigate(['/unauthorized']);
-        //     }
-        //   });
-        // } else {
-        //   this.router.navigate(['/account']);
-        // }
+         if(res.Role ==="TravelAgencyOwner"){
+                 this.router.navigate(['/agancy/owner/create-agency']);
+              }
+              else{
+                  this.router.navigate(['/login']);
+              }
       },
       error: (err) => {
         console.log(err);
