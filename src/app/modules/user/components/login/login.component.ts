@@ -27,7 +27,7 @@ export class LoginComponent {
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
          if(res.Role ==="TravelAgencyOwner"){
-                 this.router.navigate(['/AgencycompleteProfile']);
+                 this.router.navigate(['/agancy/owner/create-agency']);
               }
               else{
                   this.router.navigate(['/login']);
