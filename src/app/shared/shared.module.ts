@@ -22,8 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-     
+    // ToastrModule.forRoot() // ToastrModule added
+
   ],
   exports:[
     NavbarComponent,FooterComponent,RouterLink,

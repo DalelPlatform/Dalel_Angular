@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="addRestaurantForm" (ngSubmit)="addRestaurantFormFun()" novalidate>
+<form [formGroup]="addRestaurantForm">
   <div class="mb-3">
     <label for="Name" class="form-label">Restaurant Name</label>
     <input type="text" class="form-control" id="Name" formControlName="Name">
@@ -223,7 +223,7 @@
     <input (change)="ChooseFile($event)" type="file" class="form-control" id="RestaurantImage" required >
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="addRestaurantForm.invalid">Submit</button>
+  <button type="submit" class="btn btn-primary" (ngSubmit)="addRestaurantFormFun()" [disabled]="addRestaurantForm.invalid">Submit</button>
 </form>
 
 
