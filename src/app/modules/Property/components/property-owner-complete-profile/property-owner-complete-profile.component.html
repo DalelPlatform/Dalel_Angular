@@ -1,5 +1,5 @@
 <h2>Complete Your Agency Profile</h2>
-<form [formGroup]="agencyForm" (ngSubmit)="submit()">
+<form [formGroup]="propertyForm" (ngSubmit)="submit()">
 
   <input formControlName="BusinessName" placeholder="Business Name" />
   <input formControlName="Description" placeholder="Description" />
@@ -15,7 +15,7 @@
       <input formControlName="DocumentFile" placeholder="Document File" />
     </div>
   </div>
- 
+
 
   <button type="submit">Submit Agency</button>
 </form>

@@ -67,6 +67,10 @@ export class RegisterComponent {
               if (this.user.Role === 'ServiceProvider') {
                 this.router.navigate(['/user/complete-profile']);
               }
+              if (this.user.Role === 'HotelOwner') {
+                this.router.navigate(['/hotel-owner']);
+              }
+              
             } else {
               alert('Registration failed.');
             }

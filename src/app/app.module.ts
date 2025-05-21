@@ -1,17 +1,17 @@
 
-// src/app/app.module.ts
-
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; 
-import { AccountModule } from './modules/user/user-module'; 
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'; 
+import { AccountModule } from './modules/user/user-module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
+import { authInterceptor } from './Services/Interceptors/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,10 +25,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
+    CoreModule
     
     
   ],
-  providers: [[CookieService]],
+  providers: [CookieService, 
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([authInterceptor,])
+    )
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
