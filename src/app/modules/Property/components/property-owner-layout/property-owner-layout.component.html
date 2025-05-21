@@ -1,0 +1,44 @@
+<div class="sidebar-container" [class.collapsed]="isSidebarCollapsed">
+  <div class="sidebar-header">
+    <div class="profile-section">
+      <div class="profile-image">
+        <img src="assets/profile-placeholder.png" alt="Property Owner Profile">
+      </div>
+      <div class="profile-info">
+        <h3 class="owner-name">John Doe</h3>
+        <p class="owner-status">Property Owner</p>
+      </div>
+    </div>
+    <button class="toggle-button" (click)="toggleSidebar()">
+      <i class="icon" [ngClass]="isSidebarCollapsed ? 'icon-menu' : 'icon-close'"></i>
+    </button>
+  </div>
+
+  <div class="sidebar-menu">
+    <ul class="nav-links">
+      <li *ngFor="let item of navItems"
+          class="nav-item"
+          [class.active]="item.active">
+        <a [routerLink]="item.path"
+           (click)="navigateTo(item.path)"
+           [attr.data-title]="item.title">
+          <i class="icon" [ngClass]="item.icon"></i>
+          <span>{{item.title}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="sidebar-footer">
+    <a href="#/help">
+      <i class="icon icon-help"></i>
+      <span>Help & Support</span>
+    </a>
+    <a href="#/logout" (click)="logout()">
+      <i class="icon icon-logout"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

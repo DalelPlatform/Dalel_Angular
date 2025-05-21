@@ -1,0 +1,202 @@
+/* Sidebar Component Styles */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100vh;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Collapsed state for responsive design */
+.sidebar-container.collapsed {
+  width: 70px;
+}
+
+/* Sidebar Header Styles */
+.sidebar-header {
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #3498db;
+  flex-shrink: 0;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.owner-status {
+  margin: 0;
+  font-size: 12px;
+  color: #3498db;
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #ecf0f1;
+  cursor: pointer;
+  font-size: 20px;
+  display: none;
+}
+
+/* Sidebar Menu Styles */
+.sidebar-menu {
+  flex: 1;
+  padding: 15px 0;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.nav-item.active {
+  background-color: #3498db;
+}
+
+.nav-item.active a {
+  color: white;
+}
+
+.icon {
+  margin-right: 15px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+}
+
+/* Using Font Awesome icons as placeholders */
+.icon-dashboard:before { content: "\f0e4"; }
+.icon-properties:before { content: "\f1ad"; }
+.icon-add:before { content: "\f067"; }
+.icon-tenants:before { content: "\f0c0"; }
+.icon-maintenance:before { content: "\f0ad"; }
+.icon-payments:before { content: "\f155"; }
+.icon-documents:before { content: "\f15c"; }
+.icon-settings:before { content: "\f013"; }
+.icon-help:before { content: "\f059"; }
+.icon-logout:before { content: "\f08b"; }
+.icon-menu:before { content: "\f0c9"; }
+.icon-close:before { content: "\f00d"; }
+
+/* Sidebar Footer Styles */
+.sidebar-footer {
+  padding: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar-footer a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-footer a:hover {
+  color: #3498db;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: block;
+  }
+
+  .sidebar-container.collapsed {
+    width: 70px;
+  }
+
+  .sidebar-container.collapsed .profile-info,
+  .sidebar-container.collapsed .nav-item span,
+  .sidebar-container.collapsed .sidebar-footer span {
+    display: none;
+  }
+
+  .sidebar-container.collapsed .profile-section {
+    justify-content: center;
+  }
+
+  .sidebar-container.collapsed .nav-item a {
+    justify-content: center;
+    padding: 15px 0;
+  }
+
+  .sidebar-container.collapsed .icon {
+    margin-right: 0;
+    font-size: 20px;
+  }
+
+  .sidebar-container.collapsed .sidebar-footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  /* Show tooltip on hover for mobile view */
+  .sidebar-container.collapsed .nav-item a:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    background-color: #34495e;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1;
+  }
+}

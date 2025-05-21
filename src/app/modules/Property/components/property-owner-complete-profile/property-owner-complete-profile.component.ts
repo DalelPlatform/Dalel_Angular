@@ -13,7 +13,7 @@ import { PropertyOwnerService } from '../../../../Services/Property/property-own
   styleUrl: './property-owner-complete-profile.component.css'
 })
 export class PropertyOwnerCompleteProfileComponent {
-  propertyForm!: FormGroup;
+  profileForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -24,34 +24,21 @@ export class PropertyOwnerCompleteProfileComponent {
     this.initForm();
   }
   initForm() {
-    this.propertyForm = this.fb.group({
-      BusinessName: [''],
-      Description: [''],
-      ContactInfo: [''],
-      BusinessCategory: [''],
+    this.profileForm = this.fb.group({
+      FirstName: [''],
+      LastName: [''],
+      Location: [''],
       Address: [''],
       City: [''],
-      BuildingNo: [0],
-      Street: [''],
-      Latitude: [0],
-      Longitude: [0],
-      VerificationStatus: [0],
-      ownerId: [this.cookieService.get('Token')],
+      ProfileImg: [''],
+      ModificationBy: [this.cookieService.get('Token')],
 
-      VerificationDocument: this.fb.array([
-        this.fb.group({
-          DocumentType: [''],
-          DocumentFile: [''],
-          status: [0],
-          PropertyId: [0]
-        })
-      ])
     });
   }
 
   submit() {
     const token = this.cookieService.get('Token');
-    const formData = this.propertyForm.value;
+    const formData = this.profileForm.value;
 
     this.propertyService.registerProperty(formData,token).subscribe({
       next: () => {

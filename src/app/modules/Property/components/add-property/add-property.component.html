@@ -1,0 +1,289 @@
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Add a New Property</h2>
+  <form [formGroup]="propertyForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+    <!-- Property Details -->
+    <h4 class="mb-3">Property Details</h4>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="Description" class="form-label">Description</label>
+        <textarea
+          id="Description"
+          formControlName="Description"
+          placeholder="Describe your property"
+          class="form-control"
+          rows="3"
+          [class.is-invalid]="propertyForm.get('Description')?.touched && propertyForm.get('Description')?.invalid"
+          required
+        ></textarea>
+        <div class="invalid-feedback">
+          Please provide a description.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="Amenities" class="form-label">Amenities</label>
+        <input
+          id="Amenities"
+          formControlName="Amenities"
+          placeholder="List amenities (e.g., WiFi, Pool)"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('Amenities')?.touched && propertyForm.get('Amenities')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please list the amenities.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="NumberOfRooms" class="form-label">Number of Rooms</label>
+        <input
+          id="NumberOfRooms"
+          formControlName="NumberOfRooms"
+          type="number"
+          placeholder="Number of rooms"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('NumberOfRooms')?.touched && propertyForm.get('NumberOfRooms')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the number of rooms.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="BuildingNo" class="form-label">Building Number</label>
+        <input
+          id="BuildingNo"
+          formControlName="BuildingNo"
+          type="number"
+          placeholder="Building number"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('BuildingNo')?.touched && propertyForm.get('BuildingNo')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the building number.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="FloorNo" class="form-label">Floor Number</label>
+        <input
+          id="FloorNo"
+          formControlName="FloorNo"
+          type="number"
+          placeholder="Floor number"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('FloorNo')?.touched && propertyForm.get('FloorNo')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the floor number.
+        </div>
+      </div>
+    </div>
+
+    <!-- Location Details -->
+    <h4 class="mb-3">Location Details</h4>
+    <div class="mb-3">
+      <label for="Address" class="form-label">Address</label>
+      <input
+        id="Address"
+        formControlName="Address"
+        placeholder="Enter the property address"
+        class="form-control"
+        [class.is-invalid]="propertyForm.get('Address')?.touched && propertyForm.get('Address')?.invalid"
+        required
+      />
+      <div class="invalid-feedback">
+        Please enter the address.
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="City" class="form-label">City</label>
+        <input
+          id="City"
+          formControlName="City"
+          placeholder="City"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('City')?.touched && propertyForm.get('City')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the city.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="Region" class="form-label">Region</label>
+        <input
+          id="Region"
+          formControlName="Region"
+          placeholder="Region"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('Region')?.touched && propertyForm.get('Region')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the region.
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="Street" class="form-label">Street</label>
+        <input
+          id="Street"
+          formControlName="Street"
+          placeholder="Street"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('Street')?.touched && propertyForm.get('Street')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the street.
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="Latitude" class="form-label">Latitude</label>
+        <input
+          id="Latitude"
+          formControlName="Latitude"
+          type="number"
+          step="any"
+          placeholder="Latitude"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('Latitude')?.touched && propertyForm.get('Latitude')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the latitude.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="Longitude" class="form-label">Longitude</label>
+        <input
+          id="Longitude"
+          formControlName="Longitude"
+          type="number"
+          step="any"
+          placeholder="Longitude"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('Longitude')?.touched && propertyForm.get('Longitude')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter the longitude.
+        </div>
+      </div>
+    </div>
+
+    <!-- Additional Details -->
+    <h4 class="mb-3">Additional Details</h4>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="PhoneNumber" class="form-label">Phone Number</label>
+        <input
+          id="PhoneNumber"
+          formControlName="PhoneNumber"
+          type="tel"
+          placeholder="Phone number"
+          class="form-control"
+          [class.is-invalid]="propertyForm.get('PhoneNumber')?.touched && propertyForm.get('PhoneNumber')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter a phone number.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-check">
+          <input
+            id="CancellationOptions"
+            formControlName="CancellationOptions"
+            type="checkbox"
+            class="form-check-input"
+          />
+          <label for="CancellationOptions" class="form-check-label">Cancellation Options</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <div class="form-check">
+          <input
+            id="IsForRent"
+            formControlName="IsForRent"
+            type="checkbox"
+            class="form-check-input"
+          />
+          <label for="IsForRent" class="form-check-label">Is For Rent</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <label for="VerificationStatus" class="form-label">Verification Status</label>
+        <input
+          id="VerificationStatus"
+          formControlName="VerificationStatus"
+          type="number"
+          placeholder="Verification status"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-4">
+        <label for="CancelationCharges" class="form-label">Cancellation Charges</label>
+        <input
+          id="CancelationCharges"
+          formControlName="CancelationCharges"
+          type="number"
+          placeholder="Cancellation charges"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <!-- Verification Documents -->
+<!--    <h4 class="mb-3">Verification Documents</h4>-->
+<!--    <div formArrayName="VerificationDocument">-->
+<!--      <div [formGroupName]="0">-->
+<!--        <div class="row mb-3">-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="DocumentType" class="form-label">Document Type</label>-->
+<!--            <input-->
+<!--              id="DocumentType"-->
+<!--              formControlName="DocumentType"-->
+<!--              placeholder="Document type"-->
+<!--              class="form-control"-->
+<!--              [class.is-invalid]="propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentType')?.touched && propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentType')?.invalid"-->
+<!--              required-->
+<!--            />-->
+<!--            <div class="invalid-feedback">-->
+<!--              Please enter the document type.-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div class="col-md-6">-->
+<!--            <label for="DocumentFile" class="form-label">Document File</label>-->
+<!--            <input-->
+<!--              id="DocumentFile"-->
+<!--              formControlName="DocumentFile"-->
+<!--              placeholder="Document file"-->
+<!--              class="form-control"-->
+<!--              [class.is-invalid]="propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentFile')?.touched && propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentFile')?.invalid"-->
+<!--              required-->
+<!--            />-->
+<!--            <div class="invalid-feedback">-->
+<!--              Please provide a document file.-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="propertyForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>
