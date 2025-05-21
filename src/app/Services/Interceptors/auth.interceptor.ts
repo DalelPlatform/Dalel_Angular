@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   HttpInterceptorFn
 } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('access_token');
-
+console.log("in ineterceptor")
+  const cookies = inject(CookieService)
+  const token = cookies.get('Token');
   const authReq = token
     ? req.clone({
         setHeaders: {
@@ -15,4 +17,5 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     : req;
 
   return next(authReq);
+
 };

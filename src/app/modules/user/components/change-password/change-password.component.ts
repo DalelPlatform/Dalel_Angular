@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './change-password.component.html'
 })
 export class ChangePasswordComponent implements OnInit {
-  form!: FormGroup;           // <-- declare, but don’t initialize here
+  form!: FormGroup;
   isSubmitting = false;
   serverMessage = '';
 
@@ -22,27 +22,23 @@ export class ChangePasswordComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // now fb is available
     this.form = this.fb.group({
-      currentPassword: ['', [Validators.required]],
+      currentPassword: ['', Validators.required],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]]
+      confirmPassword: ['', Validators.required]
     }, { validators: this.passwordsMatch });
   }
 
-  // type the group as AbstractControl or FormGroup
   passwordsMatch(group: AbstractControl) {
-    const form = group as FormGroup;
-    const np = form.get('newPassword')?.value;
-    const cp = form.get('confirmPassword')?.value;
-    return np === cp ? null : { mismatch: true };
+    const gp = group as FormGroup;
+    return gp.get('newPassword')?.value === gp.get('confirmPassword')?.value
+      ? null : { mismatch: true };
   }
 
   onSubmit() {
     if (this.form.invalid) return;
     this.isSubmitting = true;
 
-    // build a strictly-typed body
     const body: ChangePasswordRequest = {
       currentPassword: this.form.get('currentPassword')!.value,
       newPassword: this.form.get('newPassword')!.value,
@@ -51,9 +47,13 @@ export class ChangePasswordComponent implements OnInit {
 
     this.accountSrv.changePassword(body).subscribe({
       next: res => {
-        this.serverMessage = res.Message;
-        if (res.Success) {
+        // read either Message or Massage
+        this.serverMessage = (res as any).Message ?? (res as any).Massage;
+        // success check via Status (or via injected Success)
+        if ((res as any).Status === 200 || (res as any).Success) {
           this.router.navigate(['/login'], { queryParams: { changed: true } });
+        } else {
+          this.isSubmitting = false;
         }
       },
       error: err => {

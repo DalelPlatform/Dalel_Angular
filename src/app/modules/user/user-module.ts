@@ -15,12 +15,9 @@ import { ServiceProviderProfileComponent } from "./components/service-provider-p
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { UserLayoutComponent } from "./components/user-layout/user-layout.component";
+import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.component';
+import { CompleteProfilePageComponent } from "../../shared/components/complete-profile-page/complete-profile-page.component";
 import { SharedModule } from "../../shared/shared.module";
-import {
-  CompleteProfilePageComponent
-} from '../../shared/components/complete-profile-page/complete-profile-page.component';
-
 
 
 
@@ -35,9 +32,8 @@ import {
         ChangePasswordComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
-
-
-
+        HotelOwnerComponent
+        
 
 
     ],

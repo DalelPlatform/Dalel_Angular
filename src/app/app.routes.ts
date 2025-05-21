@@ -21,6 +21,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'complete-ServiceProvider-profile', component: ServiceProviderProfileComponent, canActivate: [authGuard] },
 
+  { path: 'logout', component: LogoutComponent,canActivate: [authGuard] },
+  {path: 'AgencycompleteProfile', component: AgencycompleteProfileComponent,canActivate: [authGuard]   },
   {
     path: 'logout',
     component: LogoutComponent,
