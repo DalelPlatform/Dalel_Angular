@@ -9,7 +9,6 @@ import { accountRoutes } from './user-management-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { provideHttpClient, withFetch } from "@angular/common/http";
-import { CompleteProfilePageComponent } from "./pages/complete-profile-page/complete-profile-page.component";
 import { ProfileFormComponent } from "./components/profile-form/profile-form.component";
 import { ServiceProviderProfileComponent } from "./components/service-provider-profile/service-provider-profile.component";
 
@@ -17,11 +16,13 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.component';
+import { CompleteProfilePageComponent } from "../../shared/components/complete-profile-page/complete-profile-page.component";
+import { SharedModule } from "../../shared/shared.module";
 
 
 
-@NgModule({ 
-    declarations :[  
+@NgModule({
+    declarations :[
         LoginComponent,
         RegisterComponent,
         CompleteProfilePageComponent,
@@ -35,23 +36,20 @@ import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.compon
         
 
 
-        
     ],
     imports: [
-        CommonModule,
-        FormsModule,
-
-        RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,   
-        CommonModule,
-        FormsModule,
-        ReactiveFormsModule,      // needed for reactive forms
-        RouterModule.forChild(accountRoutes) ,    
-
-        RouterModule.forChild(accountRoutes),
-        ReactiveFormsModule,        
-
-    ],
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(accountRoutes),
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule, // needed for reactive forms
+    RouterModule.forChild(accountRoutes),
+    RouterModule.forChild(accountRoutes),
+    ReactiveFormsModule,
+    SharedModule
+],
     providers: [
         provideHttpClient(withFetch())
     ],

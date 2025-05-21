@@ -7,17 +7,23 @@ import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { UserLayoutComponent } from '../modules/user/components/user-layout/user-layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
-  declarations: [NavbarComponent,FooterComponent,ProfileComponent,SidebarComponent],
+  declarations: [NavbarComponent,FooterComponent,ProfileComponent,SidebarComponent, UserLayoutComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    // ToastrModule.forRoot() // ToastrModule added
+
   ],
   exports:[
     NavbarComponent,FooterComponent,RouterLink,

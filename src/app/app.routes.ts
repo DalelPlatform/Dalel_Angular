@@ -5,10 +5,11 @@ import { RegisterComponent } from './modules/user/components/register/register.c
 import { LogoutComponent } from './modules/user/components/logout/logout.component';
 import { authGuard } from './Services/Guards/auth.guard';
 import { ProfileFormComponent } from './modules/user/components/profile-form/profile-form.component';
-import { CompleteProfilePageComponent } from './modules/user/pages/complete-profile-page/complete-profile-page.component';
-import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
+import { CompleteProfilePageComponent } from './shared/components/complete-profile-page/complete-profile-page.component';
+// import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
 import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
+import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
 
 
 export const routes: Routes = [
