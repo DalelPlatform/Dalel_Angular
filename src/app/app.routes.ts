@@ -10,6 +10,7 @@ import { AgencycompleteProfileComponent } from './modules/user/components/agency
 import { ProfileComponent } from './shared/components/profile/profile.component';
 import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
 
+
 export const routes: Routes = [
   {
     path: 'account',
@@ -21,16 +22,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'complete-ServiceProvider-profile', component: ServiceProviderProfileComponent, canActivate: [authGuard] },
 
-  {
-    path: 'logout',
-    component: LogoutComponent,
-    canActivate: [authGuard]
-  },
-  {
-    path: 'AgencycompleteProfile',
-    component: AgencycompleteProfileComponent,
-    canActivate: [authGuard]
-  },
+  { path: 'logout', component: LogoutComponent,canActivate: [authGuard] },
+  {path: 'AgencycompleteProfile', component: AgencycompleteProfileComponent,canActivate: [authGuard]   },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

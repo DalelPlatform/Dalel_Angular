@@ -16,7 +16,7 @@ import { ServiceProviderProfileComponent } from "./components/service-provider-p
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-
+import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.component';
 
 
 
@@ -30,8 +30,8 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 
         ChangePasswordComponent,
         ForgotPasswordComponent,
-        ResetPasswordComponent
-
+        ResetPasswordComponent,
+        HotelOwnerComponent
         
 
 
