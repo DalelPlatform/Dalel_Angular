@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { CompleteProfilePageComponent } from "./pages/complete-profile-page/complete-profile-page.component";
 import { ProfileFormComponent } from "./components/profile-form/profile-form.component";
-import { ServiceProviderProfileComponent } from "./components/service-provider-profile/service-provider-profile.component";
+import { CompleteProfileServiceProviderComponent } from "../ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component";
 
 
 @NgModule({ 
@@ -17,7 +17,7 @@ import { ServiceProviderProfileComponent } from "./components/service-provider-p
         RegisterComponent,
         CompleteProfilePageComponent,
         ProfileFormComponent,
-        ServiceProviderProfileComponent,
+        CompleteProfileServiceProviderComponent,
         
 
         
