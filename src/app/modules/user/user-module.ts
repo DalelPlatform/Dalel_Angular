@@ -26,7 +26,6 @@ import { SharedModule } from "../../shared/shared.module";
         RegisterComponent,
         CompleteProfilePageComponent,
         ProfileFormComponent,
-        CompleteProfileServiceProviderComponent,
         ChangePasswordComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
