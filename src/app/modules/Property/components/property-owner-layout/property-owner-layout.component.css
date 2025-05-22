@@ -1,11 +1,11 @@
-/* Sidebar Component Styles */
+/* Sidebar Component Styles - Gradient Theme with #5143d9 and #8e44ec */
 .sidebar-container {
   display: flex;
   flex-direction: column;
   width: 280px;
   height: 100vh;
-  background-color: #2c3e50;
-  color: #ecf0f1;
+  background-color: #ffffff;
+  color: #333333;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   overflow-y: auto;
@@ -20,10 +20,12 @@
 /* Sidebar Header Styles */
 .sidebar-header {
   padding: 20px 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(142, 68, 236, 0.2);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+  color: #ffffff;
 }
 
 .profile-section {
@@ -37,7 +39,7 @@
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid #3498db;
+  border: 2px solid #ffffff;
   flex-shrink: 0;
 }
 
@@ -56,21 +58,24 @@
   margin: 0;
   font-size: 16px;
   font-weight: 600;
+  color: #ffffff;
 }
 
 .owner-status {
   margin: 0;
   font-size: 12px;
-  color: #3498db;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .toggle-button {
   background: none;
   border: none;
-  color: #ecf0f1;
+  color: #ffffff;
   cursor: pointer;
   font-size: 20px;
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Sidebar Menu Styles */
@@ -94,54 +99,58 @@
   display: flex;
   align-items: center;
   padding: 12px 20px;
-  color: #ecf0f1;
+  color: #333333;
   text-decoration: none;
   transition: all 0.2s ease;
 }
 
 .nav-item:hover {
-  background-color: rgba(52, 152, 219, 0.1);
+  background-color: rgba(142, 68, 236, 0.1);
 }
 
 .nav-item.active {
-  background-color: #3498db;
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
 }
 
 .nav-item.active a {
   color: white;
 }
 
-.icon {
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 15px;
-  font-size: 18px;
-  width: 20px;
-  text-align: center;
+  width: 24px;
+  height: 24px;
 }
 
-/* Using Font Awesome icons as placeholders */
-.icon-dashboard:before { content: "\f0e4"; }
-.icon-properties:before { content: "\f1ad"; }
-.icon-add:before { content: "\f067"; }
-.icon-tenants:before { content: "\f0c0"; }
-.icon-maintenance:before { content: "\f0ad"; }
-.icon-payments:before { content: "\f155"; }
-.icon-documents:before { content: "\f15c"; }
-.icon-settings:before { content: "\f013"; }
-.icon-help:before { content: "\f059"; }
-.icon-logout:before { content: "\f08b"; }
-.icon-menu:before { content: "\f0c9"; }
-.icon-close:before { content: "\f00d"; }
+.icon-wrapper svg {
+  stroke: #5143d9;
+  transition: all 0.2s ease;
+}
+
+.nav-item.active .icon-wrapper svg {
+  stroke: #ffffff;
+}
+
+.nav-text {
+  font-size: 15px;
+  font-weight: 500;
+}
 
 /* Sidebar Footer Styles */
 .sidebar-footer {
   padding: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(142, 68, 236, 0.2);
   display: flex;
   justify-content: space-between;
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+  color: #ffffff;
 }
 
 .sidebar-footer a {
-  color: #ecf0f1;
+  color: #ffffff;
   text-decoration: none;
   font-size: 14px;
   display: flex;
@@ -149,13 +158,17 @@
 }
 
 .sidebar-footer a:hover {
-  color: #3498db;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-footer .icon-wrapper svg {
+  stroke: #ffffff;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
   .toggle-button {
-    display: block;
+    display: flex;
   }
 
   .sidebar-container.collapsed {
@@ -163,8 +176,7 @@
   }
 
   .sidebar-container.collapsed .profile-info,
-  .sidebar-container.collapsed .nav-item span,
-  .sidebar-container.collapsed .sidebar-footer span {
+  .sidebar-container.collapsed .nav-text {
     display: none;
   }
 
@@ -177,9 +189,8 @@
     padding: 15px 0;
   }
 
-  .sidebar-container.collapsed .icon {
+  .sidebar-container.collapsed .icon-wrapper {
     margin-right: 0;
-    font-size: 20px;
   }
 
   .sidebar-container.collapsed .sidebar-footer {
@@ -193,10 +204,77 @@
     content: attr(data-title);
     position: absolute;
     left: 70px;
-    background-color: #34495e;
+    background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+    color: #ffffff;
     padding: 5px 10px;
     border-radius: 4px;
     white-space: nowrap;
     z-index: 1;
+  }
+}
+
+/* App Layout Styles */
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* Add this to your global styles.css or styles.scss */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    position: relative;
+  }
+
+  .sidebar-container.collapsed + .main-content {
+    margin-left: 70px;
+  }
+
+  .main-content {
+    padding: 20px;
+    position: absolute;
+    left: 280px;
+    width: calc(100% - 280px);
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-container.collapsed ~ .main-content {
+    left: 70px;
+    width: calc(100% - 70px);
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 15px;
+  }
+
+  .sidebar-container.collapsed ~ .main-content {
+    left: 0;
+    width: 100%;
   }
 }

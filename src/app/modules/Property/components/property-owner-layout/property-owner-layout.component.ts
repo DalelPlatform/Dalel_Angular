@@ -13,7 +13,7 @@ export class PropertyOwnerLayoutComponent implements OnInit {
   navItems = [
     { path: '/dashboard', title: 'Dashboard', icon: 'icon-dashboard', active: true },
     { path: '/properties', title: 'My Properties', icon: 'icon-properties', active: false },
-    { path: '/add-property', title: 'Add Property', icon: 'icon-add', active: false },
+    { path: '/property/owner/add-property', title: 'Add Property', icon: 'icon-add', active: true },
     { path: '/tenants', title: 'Tenants', icon: 'icon-tenants', active: false },
     { path: '/maintenance', title: 'Maintenance', icon: 'icon-maintenance', active: false },
     { path: '/payments', title: 'Payments', icon: 'icon-payments', active: false },

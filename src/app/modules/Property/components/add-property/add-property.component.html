@@ -245,37 +245,45 @@
       </div>
     </div>
 
-    <!-- Verification Documents -->
-<!--    <h4 class="mb-3">Verification Documents</h4>-->
-<!--    <div formArrayName="VerificationDocument">-->
-<!--      <div [formGroupName]="0">-->
-<!--        <div class="row mb-3">-->
-<!--          <div class="col-md-6">-->
-<!--            <label for="DocumentType" class="form-label">Document Type</label>-->
+    <!-- Photo Upload Section -->
+<!--    <h4 class="mb-3">Property Photos</h4>-->
+<!--    <div class="row mb-4">-->
+<!--      <div class="col-12">-->
+<!--        <div class="photo-upload-container">-->
+<!--          <label for="PropertyPhotos" class="form-label">Upload Property Photos</label>-->
+<!--          <div class="custom-file-upload">-->
 <!--            <input-->
-<!--              id="DocumentType"-->
-<!--              formControlName="DocumentType"-->
-<!--              placeholder="Document type"-->
-<!--              class="form-control"-->
-<!--              [class.is-invalid]="propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentType')?.touched && propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentType')?.invalid"-->
-<!--              required-->
+<!--              type="file"-->
+<!--              id="PropertyPhotos"-->
+<!--              formControlName="PropertyPhotos"-->
+<!--              class="file-input"-->
+<!--              accept="image/*"-->
+<!--              multiple-->
+<!--              (change)="onFileSelected($event)"-->
 <!--            />-->
-<!--            <div class="invalid-feedback">-->
-<!--              Please enter the document type.-->
+<!--            <div class="upload-area" (click)="triggerFileInput()">-->
+<!--              <div class="upload-icon">-->
+<!--                <i class="fas fa-cloud-upload-alt"></i>-->
+<!--              </div>-->
+<!--              <div class="upload-text">-->
+<!--                <span class="primary-text">Drag & drop photos here</span>-->
+<!--                <span class="secondary-text">or click to browse files</span>-->
+<!--              </div>-->
 <!--            </div>-->
 <!--          </div>-->
-<!--          <div class="col-md-6">-->
-<!--            <label for="DocumentFile" class="form-label">Document File</label>-->
-<!--            <input-->
-<!--              id="DocumentFile"-->
-<!--              formControlName="DocumentFile"-->
-<!--              placeholder="Document file"-->
-<!--              class="form-control"-->
-<!--              [class.is-invalid]="propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentFile')?.touched && propertyForm.get('VerificationDocument')?.get('0')?.get('DocumentFile')?.invalid"-->
-<!--              required-->
-<!--            />-->
-<!--            <div class="invalid-feedback">-->
-<!--              Please provide a document file.-->
+<!--          <div class="selected-files-preview" *ngIf="selectedFiles && selectedFiles.length > 0">-->
+<!--            <div class="preview-title">Selected Photos ({{selectedFiles.length}})</div>-->
+<!--            <div class="preview-container">-->
+<!--              <div class="preview-item" *ngFor="let file of selectedFiles; let i = index">-->
+<!--                <div class="preview-image" [style.backgroundImage]="'url(' + previewUrls[i] + ')'"></div>-->
+<!--                <div class="preview-info">-->
+<!--                  <div class="preview-name">{{file.name}}</div>-->
+<!--                  <div class="preview-size">{{formatFileSize(file.size)}}</div>-->
+<!--                </div>-->
+<!--                <button type="button" class="preview-remove" (click)="removeFile(i)">-->
+<!--                  <i class="fas fa-times"></i>-->
+<!--                </button>-->
+<!--              </div>-->
 <!--            </div>-->
 <!--          </div>-->
 <!--        </div>-->
