@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'; 
+import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AccountModule } from './modules/user/user-module';
-import { ServiceproviderModule } from './modules/ServiceProvider/serviceprovider.module';
+import { ServiceproviderModule } from './modules/serviceprovider/serviceprovider.module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
+import { LoaderComponent } from "./component/loader/loader.component";
+import { loaderInterceptor } from './Services/Interceptors/loader/loader.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,20 +23,19 @@ import { authInterceptor } from './Services/Interceptors/auth.interceptor';
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes), 
+    RouterModule.forRoot(routes),
     AccountModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    ServiceproviderModule
-    
-    
-  ],
-  providers: [CookieService, 
+    ServiceproviderModule,
+    LoaderComponent
+],
+  providers: [CookieService,
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor,])
+      withInterceptors([authInterceptor,loaderInterceptor])
     )
   ],
   bootstrap: [AppComponent]

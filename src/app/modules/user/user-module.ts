@@ -8,15 +8,16 @@ import { accountRoutes } from './user-management-routing.module';
 
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { provideHttpClient, withFetch } from "@angular/common/http";
+import { provideHttpClient, withFetch, withInterceptors } from "@angular/common/http";
 import { ProfileFormComponent } from "./components/profile-form/profile-form.component";
-import { CompleteProfileServiceProviderComponent } from "../ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component";
+// import { CompleteProfileServiceProviderComponent } from "../ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component";
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.component';
 import { CompleteProfilePageComponent } from "../../shared/components/complete-profile-page/complete-profile-page.component";
 import { SharedModule } from "../../shared/shared.module";
+import { loaderInterceptor } from "../../Services/Interceptors/loader/loader.interceptor";
 
 
 
@@ -30,7 +31,7 @@ import { SharedModule } from "../../shared/shared.module";
         ForgotPasswordComponent,
         ResetPasswordComponent,
         HotelOwnerComponent
-        
+
 
 
     ],
@@ -41,15 +42,15 @@ import { SharedModule } from "../../shared/shared.module";
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule, // needed for reactive forms
-    RouterModule.forChild(accountRoutes),
-    RouterModule.forChild(accountRoutes),
-    ReactiveFormsModule,
     SharedModule
 ],
     providers: [
-        provideHttpClient(withFetch())
+        provideHttpClient(withFetch(),
+        withInterceptors([loaderInterceptor])
+      ),
+
     ],
+
 
 })
 export class AccountModule { }
