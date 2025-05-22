@@ -21,6 +21,7 @@ let routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
+    
     RouterModule.forChild(routes),
     ReactiveFormsModule
   ],

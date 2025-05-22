@@ -8,9 +8,9 @@ import { AgencyService } from '../../../Services/TravelAgency/agency.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-agencycomplete-profile',
+    standalone:false,
   templateUrl: './agencycomplete-profile.component.html',
   styleUrl: './agencycomplete-profile.component.css',
-  standalone:false
 })
 export class AgencycompleteProfileComponent {
    agencyForm!: FormGroup;

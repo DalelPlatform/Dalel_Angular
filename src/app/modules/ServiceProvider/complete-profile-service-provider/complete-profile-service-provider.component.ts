@@ -22,7 +22,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
   currentStep: string = 'location';
   selectedAreas: string[] = ['Brooklyn', 'Manhattan', 'Staten Island'];
   selectedCategories: string[] = ['Roofing', 'Interior design', 'Flooring'];
-
+  formData: FormData = new FormData();
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -113,8 +113,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.profileForm.patchValue({ image: file });
-      this.profileForm.get('image')?.updateValueAndValidity();
-
+      this.formData.append('image',file);
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrl = reader.result;
@@ -127,8 +126,8 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.profileForm.patchValue({ projectMedia: file });
-      this.profileForm.get('projectMedia')?.updateValueAndValidity();
+      this.formData.append('projectMedia', file);
+      
     }
   }
 
@@ -159,7 +158,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
             this.router.navigate(['/account']);
           } else {
             this.loadSchedules();
-            this.getServiceProviderData();
+            // this.getServiceProviderData();
           }
         } catch (e) {
           console.error('Error parsing response as JSON:', e);
@@ -207,65 +206,64 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     });
   }
 
-  getServiceProviderData(): void {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.cookieService.get('Token')}`
-    });
+  // getServiceProviderData(): void {
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${this.cookieService.get('Token')}`
+  //   });
 
-    this.http.get(`http://localhost:5070/api/Serviceprovider/${this.userId}`, { headers, responseType: 'text' }).subscribe({
-      next: (response: string) => {
-        try {
-          const data = JSON.parse(response);
-          if (data.Success && data.Data) {
-            const providerData = data.Data;
-            this.profileForm.patchValue({
-              country: providerData.Country,
-              city: providerData.City,
-              district: providerData.District,
-              zipCode: providerData.ZipCode,
-              addressLine: providerData.AddressLine,
-              serviceAreas: providerData.ServiceAreas,
-              categories: providerData.Categories,
-              about: providerData.About,
-              website: providerData.Website,
-              price: providerData.Price,
-              priceUnit: providerData.PriceUnit,
-              projectName: providerData.ProjectName,
-              projectDescription: providerData.ProjectDescription,
-              projectPrice: providerData.ProjectPrice,
-              projectPriceUnit: providerData.ProjectPriceUnit,
-              projectVideoLink: providerData.ProjectVideoLink
-            });
+  //   this.http.post(`http://localhost:5070/api/Serviceprovider/create`, this.formData).subscribe({
+  //     next: (data: any) => {
+  //       try {
+  //         if (data.Success && data.Data) {
+  //           const providerData = data.Data;
+  //           this.profileForm.patchValue({
+  //             country: providerData.Country,
+  //             city: providerData.City,
+  //             // district: providerData.District,
+  //             // zipCode: providerData.ZipCode,
+  //             addressLine: providerData.Address,
+  //             // serviceAreas: providerData.ServiceAreas,
+  //             categories: providerData.CategoryServicesId,
+  //             about: providerData.About,
+  //             website: providerData.Website,
+  //             price: providerData.Price,
+  //             priceUnit: providerData.PriceUnit,
+  //           //   projectName: providerData.ProjectName,
+  //           //   projectDescription: providerData.ProjectDescription,
+  //           //   projectPrice: providerData.ProjectPrice,
+  //           //   projectPriceUnit: providerData.ProjectPriceUnit,
+  //           //   projectVideoLink: providerData.ProjectVideoLink
+  //           });
 
-            this.selectedAreas = providerData.ServiceAreas ? providerData.ServiceAreas.split(', ') : [];
-            this.selectedCategories = providerData.Categories ? providerData.Categories.split(', ') : [];
+  //           this.selectedAreas = providerData.ServiceAreas ? providerData.ServiceAreas.split(', ') : [];
+  //           this.selectedCategories = providerData.Categories ? providerData.Categories.split(', ') : [];
 
-            if (providerData.Services) {
-              const servicesArray = this.profileForm.get('services') as FormArray;
-              servicesArray.clear();
-              providerData.Services.forEach((service: any) => {
-                servicesArray.push(this.fb.group({
-                  name: [service.name],
-                  enabled: [service.enabled]
-                }));
-              });
-            }
+  //           if (providerData.Services) {
+  //             const servicesArray = this.profileForm.get('services') as FormArray;
+  //             servicesArray.clear();
+  //             providerData.Services.forEach((service: any) => {
+  //               servicesArray.push(this.fb.group({
+  //                 name: [service.name],
+  //                 enabled: [service.enabled]
+  //               }));
+  //             });
+  //           }
 
-            if (providerData.ImageUrl) {
-              this.previewUrl = providerData.ImageUrl;
-            }
-          }
-        } catch (e) {
-          console.error('Error parsing service provider data response as JSON:', e);
-          this.saveError = 'Failed to fetch service provider data.';
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching service provider data:', error);
-        this.saveError = 'Failed to fetch service provider data.';
-      }
-    });
-  }
+  //           if (providerData.ImageUrl) {
+  //             this.previewUrl = providerData.ImageUrl;
+  //           }
+  //         }
+  //       } catch (e) {
+  //         console.error('Error parsing service provider data response as JSON:', e);
+  //         this.saveError = 'Failed to fetch service provider data.';
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.error('Error fetching service provider data:', error);
+  //       this.saveError = 'Failed to fetch service provider data.';
+  //     }
+  //   });
+  // }
 
   onSubmit(): void {
     if (this.profileForm.invalid || !this.userId || !this.userName) {
@@ -274,20 +272,19 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     }
 
     const token = this.cookieService.get('Token');
-    const formData = new FormData();
-    formData.append('Image', this.profileForm.get('Image')?.value);
-    formData.append('UserName', this.userName);
-    formData.append('About', this.profileForm.get('about')?.value);
-    formData.append('Website', this.profileForm.get('website')?.value);
-    formData.append('Price', this.profileForm.get('price')?.value);
-    formData.append('PriceUnit', this.profileForm.get('priceUnit')?.value);
+    this.formData.append('Image', this.profileForm.get('Image')?.value);
+    this.formData.append('UserName', this.userName);
+    this.formData.append('About', this.profileForm.get('about')?.value);
+    this.formData.append('Website', this.profileForm.get('website')?.value);
+    this.formData.append('Price', this.profileForm.get('price')?.value);
+    this.formData.append('PriceUnit', this.profileForm.get('priceUnit')?.value);
     // formData.append('Country', this.profileForm.get('country')?.value);
-    formData.append('City', this.profileForm.get('city')?.value);
+    this.formData.append('City', this.profileForm.get('city')?.value);
     // formData.append('District', this.profileForm.get('district')?.value);
     // formData.append('ZipCode', this.profileForm.get('zipCode')?.value);
-    formData.append('Address', this.profileForm.get('addressLine')?.value);
+    this.formData.append('Address', this.profileForm.get('addressLine')?.value);
     // formData.append('ServiceAreas', this.profileForm.get('serviceAreas')?.value);
-    formData.append('CategoryServicesId', this.profileForm.get('categories')?.value);
+    this.formData.append('CategoryServicesId', this.profileForm.get('categories')?.value);
     // formData.append('Services', JSON.stringify(this.profileForm.get('services')?.value));
     // formData.append('ProjectName', this.profileForm.get('projectName')?.value);
     // formData.append('ProjectDescription', this.profileForm.get('projectDescription')?.value);
@@ -295,7 +292,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     // formData.append('ProjectPriceUnit', this.profileForm.get('projectPriceUnit')?.value);
     // formData.append('ProjectMedia', this.profileForm.get('projectMedia')?.value);
     // formData.append('ProjectVideoLink', this.profileForm.get('projectVideoLink')?.value);
-
+    console.log(this.profileForm.status)
     const scheduleData = this.schedules.value
       .map((Schedules: any, index: number) => ({
         WorKDay: index,
@@ -308,7 +305,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    this.http.post('http://localhost:5070/api/Serviceprovider/create', formData, { headers }).subscribe({
+    this.http.post('http://localhost:5070/api/Serviceprovider/create', this.formData, { headers }).subscribe({
       next: (response: any) => {
         if (response.Success) {
           this.updateSchedules(scheduleData);

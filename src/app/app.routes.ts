@@ -6,7 +6,6 @@ import { LogoutComponent } from './modules/user/components/logout/logout.compone
 import { authGuard } from './Services/Guards/auth.guard';
 import { ProfileFormComponent } from './modules/user/components/profile-form/profile-form.component';
 import { CompleteProfilePageComponent } from './shared/components/complete-profile-page/complete-profile-page.component';
-// import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
 import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';  
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
@@ -14,7 +13,6 @@ export const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./modules/user/user-module').then(m => m.AccountModule),
-
     canActivate: [authGuard]
   },
   { path: 'login', component: LoginComponent },

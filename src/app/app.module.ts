@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'; 
 import { AccountModule } from './modules/user/user-module';
 import { ServiceproviderModule } from './modules/ServiceProvider/serviceprovider.module';
+import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
@@ -27,7 +28,7 @@ import { authInterceptor } from './Services/Interceptors/auth.interceptor';
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    ServiceproviderModule
+    ServiceproviderModule,
     
     
   ],
