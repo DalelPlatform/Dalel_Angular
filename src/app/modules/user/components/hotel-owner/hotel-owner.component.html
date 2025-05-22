@@ -1,0 +1,141 @@
+<h2>HotelOwner Dashboard</h2>
+
+<form #hotelForm="ngForm" (ngSubmit)="onSubmit(hotelForm)" novalidate>
+    <!-- Name -->
+    <div>
+        <label for="Name">Name</label>
+        <input id="Name" name="Name" required minlength="3" maxlength="100" [(ngModel)]="hotel.Name"
+            #nameModel="ngModel" />
+        <div *ngIf="nameModel.invalid && nameModel.touched">
+            <small *ngIf="nameModel.errors?.['required']">Name is required.</small>
+            <small *ngIf="nameModel.errors?.['minlength']">
+                Minimum 3 characters.
+            </small>
+            <small *ngIf="nameModel.errors?.['maxlength']">
+                Maximum 100 characters.
+            </small>
+        </div>
+    </div>
+
+    <!-- Description -->
+    <div>
+        <label for="Description">Description</label>
+        <textarea id="Description" name="Description" required minlength="20" maxlength="500"
+            [(ngModel)]="hotel.Description" #descModel="ngModel"></textarea>
+        <div *ngIf="descModel.invalid && descModel.touched">
+            <small *ngIf="descModel.errors?.['required']">
+                Description is required.
+            </small>
+            <small *ngIf="descModel.errors?.['minlength']">
+                Minimum 20 characters.
+            </small>
+            <small *ngIf="descModel.errors?.['maxlength']">
+                Maximum 500 characters.
+            </small>
+        </div>
+    </div>
+
+    <!-- City -->
+    <div>
+        <label for="City">City</label>
+        <input id="City" name="City" required minlength="2" [(ngModel)]="hotel.City" #cityModel="ngModel" />
+        <div *ngIf="cityModel.invalid && cityModel.touched">
+            <small *ngIf="cityModel.errors?.['required']">City is required.</small>
+            <small *ngIf="cityModel.errors?.['minlength']">
+                Minimum 2 characters.
+            </small>
+        </div>
+    </div>
+
+    <!-- Street -->
+    <div>
+        <label for="Street">Street</label>
+        <input id="Street" name="Street" required minlength="2" [(ngModel)]="hotel.Street" #streetModel="ngModel" />
+        <div *ngIf="streetModel.invalid && streetModel.touched">
+            <small *ngIf="streetModel.errors?.['required']">Street is required.</small>
+            <small *ngIf="streetModel.errors?.['minlength']">
+                Minimum 2 characters.
+            </small>
+        </div>
+    </div>
+
+    <!-- Address -->
+    <div>
+        <label for="Address">Address</label>
+        <input id="Address" name="Address" required minlength="5" maxlength="250" [(ngModel)]="hotel.Address"
+            #addressModel="ngModel" />
+        <div *ngIf="addressModel.invalid && addressModel.touched">
+            <small *ngIf="addressModel.errors?.['required']">Address is required.</small>
+            <small *ngIf="addressModel.errors?.['minlength']">
+                Minimum 5 characters.
+            </small>
+            <small *ngIf="addressModel.errors?.['maxlength']">
+                Maximum 250 characters.
+            </small>
+        </div>
+    </div>
+
+    <!-- Latitude & Longitude -->
+    <div>
+        <label for="Latitude">Latitude</label>
+        <input type="number" id="Latitude" name="Latitude" required min="-90" max="90" [(ngModel)]="hotel.Latitude"
+            #latModel="ngModel" />
+        <div *ngIf="latModel.invalid && latModel.touched">
+            <small *ngIf="latModel.errors?.['required']">Latitude is required.</small>
+            <small *ngIf="latModel.errors?.['min']">Min -90.</small>
+            <small *ngIf="latModel.errors?.['max']">Max 90.</small>
+        </div>
+    </div>
+
+    <div>
+        <label for="Longitude">Longitude</label>
+        <input type="number" id="Longitude" name="Longitude" required min="-180" max="180" [(ngModel)]="hotel.Longitude"
+            #lngModel="ngModel" />
+        <div *ngIf="lngModel.invalid && lngModel.touched">
+            <small *ngIf="lngModel.errors?.['required']">Longitude is required.</small>
+            <small *ngIf="lngModel.errors?.['min']">Min -180.</small>
+            <small *ngIf="lngModel.errors?.['max']">Max 180.</small>
+        </div>
+    </div>
+
+    <!-- Phone Number -->
+    <div>
+        <label for="PhoneNumber">Phone Number</label>
+        <input id="PhoneNumber" name="PhoneNumber" required pattern="^[0-9\-\+]{9,15}$" [(ngModel)]="hotel.PhoneNumber"
+            #phoneModel="ngModel" />
+        <div *ngIf="phoneModel.invalid && phoneModel.touched">
+            <small *ngIf="phoneModel.errors?.['required']">
+                Phone number is required.
+            </small>
+            <small *ngIf="phoneModel.errors?.['pattern']">
+                Invalid format.
+            </small>
+        </div>
+    </div>
+
+    <!-- Cancellation Options -->
+    <div>
+        <label>
+            <input type="checkbox" name="CancelationOptions" [(ngModel)]="hotel.CancelationOptions" />
+            Cancellation Options
+        </label>
+    </div>
+    <div *ngIf="hotel.CancelationOptions">
+        <label for="CancelationCharges">Cancellation Charges</label>
+        <input type="number" id="CancelationCharges" name="CancelationCharges" required min="0"
+            [(ngModel)]="hotel.CancelationCharges" #chargeModel="ngModel" />
+        <div *ngIf="chargeModel.invalid && chargeModel.touched">
+            <small *ngIf="chargeModel.errors?.['required']">
+                Charges are required.
+            </small>
+            <small *ngIf="chargeModel.errors?.['min']">Cannot be negative.</small>
+        </div>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit" [disabled]="hotelForm.invalid || isSubmitting">
+        Save Hotel
+    </button>
+
+    <div *ngIf="serverMessage">{{ serverMessage }}</div>
+</form>
