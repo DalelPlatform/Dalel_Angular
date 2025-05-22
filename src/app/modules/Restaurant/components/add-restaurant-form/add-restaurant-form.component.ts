@@ -103,7 +103,8 @@ export class AddRestaurantFormComponent {
 
   }
   addRestaurantFormFun() {
-
+    // console.log("this is form data : " ,this.addRestaurantForm);
+    console.log(this.addRestaurantForm.controls);
     this.isLoading = true; // Show loader before request
     // Append form values to FormData
     const formValue = this.addRestaurantForm.value;

@@ -1,229 +1,332 @@
+<div class="page">
 
 
-<form [formGroup]="addRestaurantForm">
-  <div class="mb-3">
-    <label for="Name" class="form-label">Restaurant Name</label>
-    <input type="text" class="form-control" id="Name" formControlName="Name">
+  <div class="container my-box ">
+    <div class="form-container">
+      <h2 class="form-title">Add New Restaurant</h2>
+
+      <form [formGroup]="addRestaurantForm" (ngSubmit)="addRestaurantFormFun()">
+        <div class="mb-4">
+          <label for="Name" class="form-label">Restaurant Name</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-utensils"></i>
+            <input type="text" class="form-control" id="Name" formcontrolname="Name"
+              placeholder="Enter restaurant name">
+          </div>
+
+          <!-- Error messages for 'Name' field -->
+
+          @if(formControls['Name'].invalid && formControls['Name'].touched ){
+          <div id=NameHelp class="form-text text-danger">
+            @if(formControls['Name'].hasError('required')){
+            <span>Required</span>
+            }
+
+            @else if(formControls['Name'].hasError('minlength')){
+            <span>Item name must contain at least 3 letter</span>
+            }
+
+            @else if(formControls['Name'].hasError('maxlength')){
+            <span>Item name must contain max 100 letter</span>
+            }
+          </div>
+          }
+        </div>
 
 
-    @if(formControls['Name'].invalid && formControls['Name'].touched ){
-    <div id=NameHelp class="form-text text-danger">
-      @if(formControls['Name'].hasError('required')){
-      <span>Required</span>
-      }
 
-      @else if(formControls['Name'].hasError('minlength')){
-      <span>Item name must contain at least 3 letter</span>
-      }
+        <div class="mb-4">
+          <label for="Description" class="form-label">Description</label>
+          <textarea class="form-control" id="Description" formcontrolname="Description" rows="4"
+            placeholder="Tell us about your restaurant"></textarea>
 
-      @else if(formControls['Name'].hasError('maxlength')){
-      <span>Item name must contain max 100 letter</span>
-      }
+
+          <div id="DescriptionHelp" class="form-text text-danger">
+            <!-- Error messages for 'Description' field -->
+            @if(formControls['Description'].invalid && formControls['Description'].touched ){
+            <div id=DescriptionHelp class="form-text text-danger">
+              @if(formControls['Description'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['Description'].hasError('minlength')){
+              <span>Item name must contain at least 20 letter</span>
+              }
+
+              @else if(formControls['Description'].hasError('maxlength')){
+              <span>Item name must contain max 200 letter</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="NumberOfRooms" class="form-label">Number of Rooms</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-door-open"></i>
+              <input type="number" class="form-control" id="NumberOfRooms" formcontrolname="NumberOfRooms"
+                placeholder="0">
+            </div>
+            @if(formControls['NumberOfRooms'].invalid && formControls['NumberOfRooms'].touched ){
+            <div id=NumberOfRoomsHelp class="form-text text-danger">
+              @if(formControls['NumberOfRooms'].hasError('required')){
+              <span>Required</span>
+              }
+
+            </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="BuildingNo" class="form-label">Building Number</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-regular fa-building"></i>
+              <input type="number" class="form-control" id="BuildingNo" formcontrolname="BuildingNo"
+                placeholder="Restaurant Building Number">
+            </div>
+
+
+            @if(formControls['BuildingNo'].invalid && formControls['BuildingNo'].touched ){
+            <div id=BuildingNoHelp class="form-text text-danger">
+              @if(formControls['BuildingNo'].hasError('required')){
+              <span>Required</span>
+              }
+
+
+            </div>
+            }
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="Address" class="form-label">Address</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-location-dot"></i>
+              <input type="text" class="form-control" id="Address" formcontrolname="Address"
+                placeholder="restaurant@example.com">
+            </div>
+            <!-- validation -->
+            @if(formControls['Address'].invalid && formControls['Address'].touched ){
+            <div id=AddressHelp class="form-text text-danger">
+              @if(formControls['Address'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['Address'].hasError('minlength')){
+              <span>Item name must contain at least 5 letter</span>
+              }
+
+              @else if(formControls['Address'].hasError('maxlength')){
+              <span>Item name must contain max 250 letter</span>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="Phone" class="form-label">Phone Number</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-phone"></i>
+              <input type="text" class="form-control" id="Phone" formcontrolname="Phone" placeholder="+1 (555) 123-4567"
+                autocomplete="tel">
+            </div>
+
+
+            @if(formControls['PhoneNumber'].invalid && formControls['PhoneNumber'].touched ){
+            <div id=PhoneNumberHelp class="form-text text-danger">
+              @if(formControls['PhoneNumber'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['PhoneNumber'].hasError('minlength')){
+              <span>Item name must contain at least 7 letter</span>
+              }
+
+              @else if(formControls['PhoneNumber'].hasError('maxlength')){
+              <span>Item name must contain max 15 letter</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+
+        <!-- ======================================================= city ,region ,street-->
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="City" class="form-label">City</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-tree-city"></i>
+              <input type="text" class="form-control" id="City" formcontrolname="City" placeholder="Enter the City">
+            </div>
+            <!-- validation -->
+            @if(formControls['City'].invalid && formControls['City'].touched ){
+            <div id=CityHelp class="form-text text-danger">
+              @if(formControls['City'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['City'].hasError('minlength')){
+              <span>Item name must contain at least 2 letter</span>
+              }
+
+              @else if(formControls['City'].hasError('maxlength')){
+              <span>Item name must contain max 100 letter</span>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="Region" class="form-label">Region</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-location-crosshairs"></i>
+              <input type="text" class="form-control" id="Region" formcontrolname="Region" placeholder="Enter Region">
+            </div>
+
+
+            @if(formControls['Region'].invalid && formControls['Region'].touched ){
+            <div id=RegionHelp class="form-text text-danger">
+              @if(formControls['Region'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['Region'].hasError('minlength')){
+              <span>Item name must contain at least 2 letter</span>
+              }
+
+              @else if(formControls['Region'].hasError('maxlength')){
+              <span>Item name must contain max 100 letter</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+        <!-- ========================================================== -->
+
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="Street" class="form-label">Street</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-road"></i>
+              <input type="text" class="form-control" id="Street" formcontrolname="Street"
+                placeholder="Enter the Street">
+            </div>
+            <!-- validation -->
+            @if(formControls['Street'].invalid && formControls['Street'].touched ){
+            <div id=StreetHelp class="form-text text-danger">
+              @if(formControls['Street'].hasError('required')){
+              <span>Required</span>
+              }
+
+              @else if(formControls['Street'].hasError('minlength')){
+              <span>Item name must contain at least 2 letter</span>
+              }
+
+              @else if(formControls['Street'].hasError('maxlength')){
+              <span>Item name must contain max 150 letter</span>
+              }
+            </div>
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label for="Longitude" class="form-label">Longitude</label>
+            <div class="input-with-icon">
+              <!-- <i class="input-icon fas fa-phone"></i> -->
+              <input type="number" class="form-control" id="Longitude" formcontrolname="Longitude"
+                placeholder="Longitude">
+            </div>
+
+
+            @if(formControls['Longitude'].invalid && formControls['Longitude'].touched ){
+            <div id=LongitudeHelp class="form-text text-danger">
+              @if(formControls['Longitude'].hasError('required')){
+              <span>Required</span>
+              }
+
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- ==============================================street , longtude -->
+
+
+
+        <!-- ==============================================================latitude -->
+        <div class="row mb-4">
+          <!-- <div class="col-md-6">
+          <label for="Email" class="form-label">Street</label>
+          <div class="input-with-icon">
+            <i class="input-icon fa-solid fa-road"></i>
+            <input type="text" class="form-control" id="Email" formcontrolname="Street"
+              placeholder="Enter the Street">
+          </div>
+
+          @if(formControls['Street'].invalid && formControls['Street'].touched ){
+          <div id=StreetHelp class="form-text text-danger">
+            @if(formControls['Street'].hasError('required')){
+            <span>Required</span>
+            }
+
+            @else if(formControls['Street'].hasError('minlength')){
+            <span>Item name must contain at least 2 letter</span>
+            }
+
+            @else if(formControls['Street'].hasError('maxlength')){
+            <span>Item name must contain max 150 letter</span>
+            }
+          </div>
+          }
+        </div> -->
+
+          <div class="col-md-6">
+            <label for="Latitude" class="form-label">Latitude</label>
+            <div class="input-with-icon">
+              <!-- <i class="input-icon fas fa-phone"></i> -->
+              <input type="number" class="form-control" id="Latitude" formcontrolname="Latitude" placeholder="Latitude">
+            </div>
+
+
+            @if(formControls['Latitude'].invalid && formControls['Latitude'].touched ){
+            <div id=LatitudeHelp class="form-text text-danger">
+              @if(formControls['Latitude'].hasError('required')){
+              <span>Required</span>
+              }
+
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- ======================================================================= -->
+
+        <div class="mb-4">
+          <label class="form-label">Upload Restaurant Images</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label">
+              <div class="text-center">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <div>Drag & drop images or <span class="text-primary">browse</span></div>
+                <div class="small text-muted mt-1">Supported formats: JPEG, PNG, GIF</div>
+              </div>
+              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImage">
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-gradient">
+          <!-- [disabled]="addRestaurantForm.invalid" -->
+          <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status"
+            aria-hidden="true"></span>
+          Submit Restaurant
+        </button>
+      </form>
     </div>
-    }
-    <!-- <div class="invalid-feedback">Please provide a valid restaurant name (3-100 characters).</div> -->
   </div>
-
-
-
-  <div class="mb-3">
-    <label for="Description" class="form-label">Description</label>
-    <textarea class="form-control" id="Description" formControlName="Description"></textarea>
-
-    @if(formControls['Description'].invalid && formControls['Description'].touched ){
-    <div id=DescriptionHelp class="form-text text-danger">
-      @if(formControls['Description'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['Description'].hasError('minlength')){
-      <span>Item name must contain at least 20 letter</span>
-      }
-
-      @else if(formControls['Description'].hasError('maxlength')){
-      <span>Item name must contain max 200 letter</span>
-      }
-    </div>
-    }
-
-  </div>
-
-  <div class="mb-3">
-    <label for="NumberOfRooms" class="form-label">Number of Rooms</label>
-    <input type="number" class="form-control" id="NumberOfRooms" formControlName="NumberOfRooms">
-
-    @if(formControls['NumberOfRooms'].invalid && formControls['NumberOfRooms'].touched ){
-    <div id=NumberOfRoomsHelp class="form-text text-danger">
-      @if(formControls['NumberOfRooms'].hasError('required')){
-      <span>Required</span>
-      }
-
-    </div>
-    }
-
-  </div>
-
-  <div class="mb-3">
-    <label for="BuildingNo" class="form-label">Building Number</label>
-    <input type="number" class="form-control" id="BuildingNo" formControlName="BuildingNo">
-
-    @if(formControls['BuildingNo'].invalid && formControls['BuildingNo'].touched ){
-    <div id=BuildingNoHelp class="form-text text-danger">
-      @if(formControls['BuildingNo'].hasError('required')){
-      <span>Required</span>
-      }
-
-
-    </div>
-    }
-
-  </div>
-
-  <div class="mb-3">
-    <label for="Address" class="form-label">Address</label>
-    <input type="text" class="form-control" id="Address" formControlName="Address">
-
-
-    @if(formControls['Address'].invalid && formControls['Address'].touched ){
-    <div id=AddressHelp class="form-text text-danger">
-      @if(formControls['Address'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['Address'].hasError('minlength')){
-      <span>Item name must contain at least 5 letter</span>
-      }
-
-      @else if(formControls['Address'].hasError('maxlength')){
-      <span>Item name must contain max 250 letter</span>
-      }
-    </div>
-    }
-  </div>
-
-  <div class="mb-3">
-    <label for="City" class="form-label">City</label>
-    <input type="text" class="form-control" id="City" formControlName="City">
-
-    @if(formControls['City'].invalid && formControls['City'].touched ){
-    <div id=CityHelp class="form-text text-danger">
-      @if(formControls['City'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['City'].hasError('minlength')){
-      <span>Item name must contain at least 2 letter</span>
-      }
-
-      @else if(formControls['City'].hasError('maxlength')){
-      <span>Item name must contain max 100 letter</span>
-      }
-    </div>
-    }
-
-  </div>
-
-  <div class="mb-3">
-    <label for="Region" class="form-label">Region</label>
-    <input type="text" class="form-control" id="Region" formControlName="Region">
-
-
-    @if(formControls['Region'].invalid && formControls['Region'].touched ){
-    <div id=RegionHelp class="form-text text-danger">
-      @if(formControls['Region'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['Region'].hasError('minlength')){
-      <span>Item name must contain at least 2 letter</span>
-      }
-
-      @else if(formControls['Region'].hasError('maxlength')){
-      <span>Item name must contain max 100 letter</span>
-      }
-    </div>
-    }
-  </div>
-
-  <div class="mb-3">
-    <label for="Street" class="form-label">Street</label>
-    <input type="text" class="form-control" id="Street" formControlName="Street">
-
-    @if(formControls['Street'].invalid && formControls['Street'].touched ){
-    <div id=StreetHelp class="form-text text-danger">
-      @if(formControls['Street'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['Street'].hasError('minlength')){
-      <span>Item name must contain at least 2 letter</span>
-      }
-
-      @else if(formControls['Street'].hasError('maxlength')){
-      <span>Item name must contain max 150 letter</span>
-      }
-    </div>
-    }
-  </div>
-
-  <div class="mb-3">
-    <label for="Latitude" class="form-label">Latitude</label>
-    <input type="number" class="form-control" id="Latitude" formControlName="Latitude">
-
-    @if(formControls['Latitude'].invalid && formControls['Latitude'].touched ){
-    <div id=LatitudeHelp class="form-text text-danger">
-      @if(formControls['Latitude'].hasError('required')){
-      <span>Required</span>
-      }
-
-    </div>
-    }
-  </div>
-
-  <div class="mb-3">
-    <label for="Longitude" class="form-label">Longitude</label>
-    <input type="number" class="form-control" id="Longitude" formControlName="Longitude">
-
-    @if(formControls['Longitude'].invalid && formControls['Longitude'].touched ){
-    <div id=LongitudeHelp class="form-text text-danger">
-      @if(formControls['Longitude'].hasError('required')){
-      <span>Required</span>
-      }
-
-    </div>
-    }
-
-  </div>
-
-  <div class="mb-3">
-    <label for="PhoneNumber" class="form-label">Phone Number</label>
-    <input type="tel" class="form-control" id="PhoneNumber" formControlName="PhoneNumber">
-
-    @if(formControls['PhoneNumber'].invalid && formControls['PhoneNumber'].touched ){
-    <div id=PhoneNumberHelp class="form-text text-danger">
-      @if(formControls['PhoneNumber'].hasError('required')){
-      <span>Required</span>
-      }
-
-      @else if(formControls['PhoneNumber'].hasError('minlength')){
-      <span>Item name must contain at least 7 letter</span>
-      }
-
-      @else if(formControls['PhoneNumber'].hasError('maxlength')){
-      <span>Item name must contain max 15 letter</span>
-      }
-    </div>
-    }
-
-
-  </div>
-
-  <div class="mb-3">
-    <label for="RestaurantImage" class="form-label">Upload Restaurant Images</label>
-    <input (change)="ChooseFile($event)" type="file" class="form-control" id="RestaurantImage" required >
-  </div>
-
-  <button type="submit" class="btn btn-primary" (ngSubmit)="addRestaurantFormFun()" [disabled]="addRestaurantForm.invalid">Submit</button>
-</form>
-
-
+</div>
