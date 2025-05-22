@@ -1,11 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ServiceproviderComponent } from './serviceprovider.component';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CompleteProfileServiceProviderComponent } from './complete-profile-service-provider/complete-profile-service-provider.component';
+import { ServiceProviderLayoutComponent } from './service-provider-layout/service-provider-layout.component';
+import { RouterModule, Routes } from '@angular/router';
+import { AddProjectComponent } from './add-project/add-project.component';
+let routes: Routes = [
+  {
+     path: "service-provider-Complete-profile", component: ServiceProviderLayoutComponent
+  }
+  ,
+  {
+    path: "Service-Provider-layout",
+    component: ServiceProviderLayoutComponent,
+    children: [
+      {path: "Add-Project", component: AddProjectComponent},
+    ]
+  }
+]
 @NgModule({
-  imports: [
-    CommonModule
+  declarations: [
+    CompleteProfileServiceProviderComponent,
+    AddProjectComponent
   ],
-  declarations: [ServiceproviderComponent]
+  imports: [
+    ServiceProviderLayoutComponent,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,        
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+  ],
 })
 export class ServiceproviderModule { }

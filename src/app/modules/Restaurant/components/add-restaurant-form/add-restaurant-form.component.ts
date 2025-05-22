@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RestaurantService } from '../../../../Services/Restaurant/restaurant.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-restaurant-form',
@@ -24,7 +25,7 @@ export class AddRestaurantFormComponent {
 
 
 
-  constructor() {
+  constructor(private router : Router) {
     this.addRestaurantForm = this.fb.group({
       Name: ['', [
         Validators.required,
@@ -85,6 +86,7 @@ export class AddRestaurantFormComponent {
 
 
 
+
     })
   }
 
@@ -94,7 +96,7 @@ export class AddRestaurantFormComponent {
   }
 
   ChooseFile(event: any) {
-
+    event.preventDefault();
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.sendForm.append('RestaurantImage', files[i], files[i].name);
@@ -103,8 +105,9 @@ export class AddRestaurantFormComponent {
 
   }
   addRestaurantFormFun() {
-
-    this.isLoading = true; // Show loader before request
+    // console.log("this is form data : " ,this.addRestaurantForm);
+    console.log(this.addRestaurantForm.value);
+     // Show loader before request
     // Append form values to FormData
     const formValue = this.addRestaurantForm.value;
     for (const key in formValue) {
@@ -112,22 +115,23 @@ export class AddRestaurantFormComponent {
         this.sendForm.append(key, formValue[key]);
       }
     }
-    console.log(this.addRestaurantForm);
-    console.log(this.addRestaurantForm.controls);
+    // console.log(this.addRestaurantForm);
+    // console.log(this.addRestaurantForm.controls);
 
 
 
     this.RestaurantService.addRestaurant(this.sendForm).subscribe({
 
       next: () => {
-        this.isLoading = false; // Hide loader when response is received
+        // Hide loader when response is received
         alert("Restaurant added successfully!")
+        this.router.navigate(['/owner/restaurant-list']);
       },
 
       error: (err) => {
 
         console.error(err);
-        this.isLoading = false; // Hide loader on error
+         // Hide loader on error
         alert("Failed to Add Restaurant")
       },
     })

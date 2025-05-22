@@ -10,7 +10,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { UserLayoutComponent } from '../modules/user/components/user-layout/user-layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ToastrModule } from 'ngx-toastr';
+//import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({

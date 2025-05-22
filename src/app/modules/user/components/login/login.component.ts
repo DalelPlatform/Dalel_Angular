@@ -28,9 +28,9 @@ export class LoginComponent {
          if(res.Role ==="TravelAgencyOwner"){
                  this.router.navigate(['/agancy/owner/create-agency']);
               }
-         else if(res.Role ==="PropertyOwner"){
-          this.router.navigate(['/property/owner/']);
-         }
+              else{
+                  this.router.navigate(['/login']);
+              }
       },
       error: (err) => {
         console.log(err);
