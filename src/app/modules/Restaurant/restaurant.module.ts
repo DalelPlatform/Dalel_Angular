@@ -4,13 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddRestaurantFormComponent } from './components/add-restaurant-form/add-restaurant-form.component';
 import { RestaurantLayoutComponent } from './components/restaurant-layout/restaurant-layout.component';
 import { RouterModule, Routes } from '@angular/router';
+import { restaurantOwnerGuard } from '../../Services/Guards/RestaurantOwner/restaurant-owner.guard';
 
 let routes: Routes = [
 
   {
     path: "owner",
     component: RestaurantLayoutComponent,
-    // canActivate:
+    canActivate:[restaurantOwnerGuard],
     children: [
       { path: "add-restaurant", component: AddRestaurantFormComponent },
 

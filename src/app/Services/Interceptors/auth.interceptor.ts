@@ -16,6 +16,7 @@ console.log("in ineterceptor")
       })
     : req;
 
+    console.log(authReq)
   return next(authReq);
 
 };

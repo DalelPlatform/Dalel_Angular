@@ -10,7 +10,7 @@
           <label for="Name" class="form-label">Restaurant Name</label>
           <div class="input-with-icon">
             <i class="input-icon fas fa-utensils"></i>
-            <input type="text" class="form-control" id="Name" formcontrolname="Name"
+            <input type="text" class="form-control" id="Name" formControlName="Name"
               placeholder="Enter restaurant name">
           </div>
 
@@ -37,7 +37,7 @@
 
         <div class="mb-4">
           <label for="Description" class="form-label">Description</label>
-          <textarea class="form-control" id="Description" formcontrolname="Description" rows="4"
+          <textarea class="form-control" id="Description" formControlName="Description" rows="4"
             placeholder="Tell us about your restaurant"></textarea>
 
 
@@ -66,7 +66,7 @@
             <label for="NumberOfRooms" class="form-label">Number of Rooms</label>
             <div class="input-with-icon">
               <i class="input-icon fas fa-door-open"></i>
-              <input type="number" class="form-control" id="NumberOfRooms" formcontrolname="NumberOfRooms"
+              <input type="number" class="form-control" id="NumberOfRooms" formControlName="NumberOfRooms"
                 placeholder="0">
             </div>
             @if(formControls['NumberOfRooms'].invalid && formControls['NumberOfRooms'].touched ){
@@ -83,7 +83,7 @@
             <label for="BuildingNo" class="form-label">Building Number</label>
             <div class="input-with-icon">
               <i class="input-icon fa-regular fa-building"></i>
-              <input type="number" class="form-control" id="BuildingNo" formcontrolname="BuildingNo"
+              <input type="number" class="form-control" id="BuildingNo" formControlName="BuildingNo"
                 placeholder="Restaurant Building Number">
             </div>
 
@@ -105,7 +105,7 @@
             <label for="Address" class="form-label">Address</label>
             <div class="input-with-icon">
               <i class="input-icon fa-solid fa-location-dot"></i>
-              <input type="text" class="form-control" id="Address" formcontrolname="Address"
+              <input type="text" class="form-control" id="Address" formControlName="Address"
                 placeholder="restaurant@example.com">
             </div>
             <!-- validation -->
@@ -127,10 +127,10 @@
           </div>
 
           <div class="col-md-6">
-            <label for="Phone" class="form-label">Phone Number</label>
+            <label for="PhoneNumber" class="form-label">Phone Number</label>
             <div class="input-with-icon">
               <i class="input-icon fas fa-phone"></i>
-              <input type="text" class="form-control" id="Phone" formcontrolname="Phone" placeholder="+1 (555) 123-4567"
+              <input type="tel" class="form-control" id="PhoneNumber" formControlName="PhoneNumber" placeholder="+1 (555) 123-4567"
                 autocomplete="tel">
             </div>
 
@@ -161,7 +161,7 @@
             <label for="City" class="form-label">City</label>
             <div class="input-with-icon">
               <i class="input-icon fa-solid fa-tree-city"></i>
-              <input type="text" class="form-control" id="City" formcontrolname="City" placeholder="Enter the City">
+              <input type="text" class="form-control" id="City" formControlName="City" placeholder="Enter the City">
             </div>
             <!-- validation -->
             @if(formControls['City'].invalid && formControls['City'].touched ){
@@ -185,7 +185,7 @@
             <label for="Region" class="form-label">Region</label>
             <div class="input-with-icon">
               <i class="input-icon fa-solid fa-location-crosshairs"></i>
-              <input type="text" class="form-control" id="Region" formcontrolname="Region" placeholder="Enter Region">
+              <input type="text" class="form-control" id="Region" formControlName="Region" placeholder="Enter Region">
             </div>
 
 
@@ -213,7 +213,7 @@
             <label for="Street" class="form-label">Street</label>
             <div class="input-with-icon">
               <i class="input-icon fa-solid fa-road"></i>
-              <input type="text" class="form-control" id="Street" formcontrolname="Street"
+              <input type="text" class="form-control" id="Street" formControlName="Street"
                 placeholder="Enter the Street">
             </div>
             <!-- validation -->
@@ -238,7 +238,7 @@
             <label for="Longitude" class="form-label">Longitude</label>
             <div class="input-with-icon">
               <!-- <i class="input-icon fas fa-phone"></i> -->
-              <input type="number" class="form-control" id="Longitude" formcontrolname="Longitude"
+              <input type="number" class="form-control" id="Longitude" formControlName="Longitude"
                 placeholder="Longitude">
             </div>
 
@@ -264,7 +264,7 @@
           <label for="Email" class="form-label">Street</label>
           <div class="input-with-icon">
             <i class="input-icon fa-solid fa-road"></i>
-            <input type="text" class="form-control" id="Email" formcontrolname="Street"
+            <input type="text" class="form-control" id="Email" formControlName="Street"
               placeholder="Enter the Street">
           </div>
 
@@ -289,7 +289,7 @@
             <label for="Latitude" class="form-label">Latitude</label>
             <div class="input-with-icon">
               <!-- <i class="input-icon fas fa-phone"></i> -->
-              <input type="number" class="form-control" id="Latitude" formcontrolname="Latitude" placeholder="Latitude">
+              <input type="number" class="form-control" id="Latitude" formControlName="Latitude" placeholder="Latitude">
             </div>
 
 
