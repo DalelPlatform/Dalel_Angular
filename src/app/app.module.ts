@@ -11,6 +11,9 @@ import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,14 +21,14 @@ import { authInterceptor } from './Services/Interceptors/auth.interceptor';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     RouterModule.forRoot(routes), 
     AccountModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     
-    
+      BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
   ],
   providers: [CookieService, 
     provideHttpClient(

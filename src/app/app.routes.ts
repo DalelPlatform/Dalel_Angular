@@ -9,6 +9,7 @@ import { CompleteProfilePageComponent } from './shared/components/complete-profi
 // import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
 import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
+import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLayOut/AgencyOwnerLayOut.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'agancy', 
+     canActivate: [authGuard],
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)
   },
   {

@@ -1,5 +1,5 @@
 
-<div id="container" class="container mt-5">
+<div id="container" class="container mt-3">
 <div class="contents">
     <div class="progress px-1" style="height: 3px;">
     <div 
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-  <form [formGroup]="agencyForm" (ngSubmit)="submit()">
+  <form [formGroup]="agencyForm" (ngSubmit)="submit()" class="agencyForm">
    @if (currentStep === 1) {
      <h3 class="mb-4">Step 1: Basic Info</h3>
      <div class="labeled-input">
@@ -43,9 +43,9 @@
     Contact Info is required
   </span>
    <textarea  formControlName="Description"
-    placeholder="Description" pattern="[A-Za-z]{8}"
+    placeholder="Description"
   type="text" name="input-name" id="input-id" 
-										required rows="6"></textarea>
+										 rows="6"></textarea>
 
     <span class="text-danger"
        *ngIf="agencyForm.get('Description')?.touched && agencyForm.get('Description')?.invalid">

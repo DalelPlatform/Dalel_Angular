@@ -118,11 +118,12 @@ onFileChange(event: any, index: number) {
           this.toastr.success(res.Message)
        
         },
-        error: err => {
+        error: (err) => {
+          console.log(err)
           if (err.status === 400 && err.error?.errors) {
-     
+    this.toastr.error("Please fill all data")
       }
-         else if (err.status === 401) {
+       else if (err.status === 401) {
             this.toastr.error('Unauthorized access. Redirecting to login...')
       
         this.router.navigate(['/login']);
