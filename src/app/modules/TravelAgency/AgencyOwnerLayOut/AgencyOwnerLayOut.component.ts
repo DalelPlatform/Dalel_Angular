@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
   standalone:false
 })
 export class AgencyOwnerLayOutComponent implements OnInit {
-
+  agencyLinks = [
+    { label: 'Create Agency', icon: 'fas fa-user', route: 'create-agency' },
+    { label: 'My Bookings', icon: 'fas fa-ticket-alt', route: 'bookings' },
+    { label: 'Travelers', icon: 'fas fa-users', route: 'travelers' },
+    { label: 'Payment Details', icon: 'fas fa-credit-card', route: 'payments' },
+    { label: 'Wishlist', icon: 'fas fa-heart', route: 'wishlist' },
+    { label: 'Settings', icon: 'fas fa-cog', route: 'settings' },
+    { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },
+    { label: 'Sign Out', icon: 'fas fa-sign-out-alt', route: 'logout' },
+  ];
   constructor() { }
 
   ngOnInit() {

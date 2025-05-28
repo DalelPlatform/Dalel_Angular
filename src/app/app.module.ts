@@ -15,6 +15,9 @@ import { CoreModule } from './core/core.module';
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
 import { LoaderComponent } from "./component/loader/loader.component";
 import { loaderInterceptor } from './Services/Interceptors/loader/loader.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,15 +27,20 @@ import { loaderInterceptor } from './Services/Interceptors/loader/loader.interce
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes), 
     AccountModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
     ServiceproviderModule,
-    LoaderComponent
+    LoaderComponent,
+         BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
 ],
-  providers: [CookieService,
+  
+  providers: [CookieService, 
+     
     provideHttpClient(
       withFetch(),
       withInterceptors([authInterceptor,loaderInterceptor])
