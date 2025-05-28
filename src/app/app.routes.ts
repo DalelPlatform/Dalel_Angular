@@ -8,9 +8,11 @@ import { ProfileFormComponent } from './modules/user/components/profile-form/pro
 import { CompleteProfilePageComponent } from './shared/components/complete-profile-page/complete-profile-page.component';
 // import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
-import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
+// import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
 import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLayOut/AgencyOwnerLayOut.component';
 
+// import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
+import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
 export const routes: Routes = [
   {
     path: 'account',
@@ -18,10 +20,14 @@ export const routes: Routes = [
 
     canActivate: [authGuard]
   },
+  {
+    path:'restaurant',
+    loadChildren: () => import('./modules/Restaurant/restaurant.module').then(r => r.RestaurantModuleModule),
+    // canActivate: []
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'complete-ServiceProvider-profile', component: ServiceProviderProfileComponent, canActivate: [authGuard] },
-
+  // { path: 'complete-ServiceProvider-profile', component: CompleteProfileServiceProviderComponent , canActivate: [authGuard]},
   {
     path: 'logout',
     component: LogoutComponent,
@@ -32,18 +38,10 @@ export const routes: Routes = [
      canActivate: [authGuard],
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)
   },
-  {
-    path: 'complete-profile',
-    component: CompleteProfilePageComponent,
-   // canActivate: [authGuard]
-  },
-
-  {
-    path: 'agancy', 
-    loadChildren: () => import('./modules/agancyowner/agancyowner.module').then(m => m.AgancyownerModule)
-  },
 
 
+  { path: 'logout', component: LogoutComponent,canActivate: [authGuard] },
+  {path: 'AgencycompleteProfile', component: AgencycompleteProfileComponent,canActivate: [authGuard]   },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

@@ -6,13 +6,9 @@ import { LoaderService } from '../../Services/loader.service';
   selector: 'app-loader',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div *ngIf="loaderService.isLoading$ | async" class="loader-overlay">
-      <div class="spinner"></div>
-    </div>
-  `,
+  templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.css']
 })
 export class LoaderComponent {
-  constructor(public loaderService: LoaderService) {}
+
 }

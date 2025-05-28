@@ -10,23 +10,23 @@ import { ToastrService } from 'ngx-toastr';
   selector: 'app-agencycomplete-profile',
   templateUrl: './agencycomplete-profile.component.html',
   styleUrl: './agencycomplete-profile.component.css',
-  standalone:false
+  standalone: false
 })
 export class AgencycompleteProfileComponent {
-   agencyForm!: FormGroup;
-     currentStep: number = 1;
+  agencyForm!: FormGroup;
+  currentStep: number = 1;
   steps: number[] = [1, 2, 3];
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-     private cookieService: CookieService,
-        private agencyService: AgencyService,
-        private toastr: ToastrService,
+    private cookieService: CookieService,
+    private agencyService: AgencyService,
+    private toastr: ToastrService,
   ) {
     this.initForm();
   }
-  
+
 
   get progressPercentage(): number {
     return ((this.currentStep - 1) / (this.steps.length - 1)) * 100;
@@ -52,19 +52,19 @@ export class AgencycompleteProfileComponent {
 
   initForm() {
     this.agencyForm = this.fb.group({
-      BusinessName: ['',Validators.required],
-      Description: ['',Validators.required],
-      ContactInfo: ['',Validators.required],
-      BusinessCategory: ['',Validators.required],
-      Address: ['',Validators.required],
-      City: ['',Validators.required],
-      BuildingNo: [null,Validators.required],
-      Street: ['',Validators.required],
-      Latitude: [null,Validators.required],
-      Longitude: [null,Validators.required],
+      BusinessName: ['', Validators.required],
+      Description: ['', Validators.required],
+      ContactInfo: ['', Validators.required],
+      BusinessCategory: ['', Validators.required],
+      Address: ['', Validators.required],
+      City: ['', Validators.required],
+      BuildingNo: [null, Validators.required],
+      Street: ['', Validators.required],
+      Latitude: [null, Validators.required],
+      Longitude: [null, Validators.required],
       VerificationStatus: [0],
       ownerId: [this.cookieService.get('Token')],
-     
+
       VerificationDocument: this.fb.array([
         this.fb.group({
           DocumentType: [''],
@@ -76,22 +76,22 @@ export class AgencycompleteProfileComponent {
     });
   }
   get VerificationDocument() {
-  return this.agencyForm.get('VerificationDocument') as FormArray;
-}
-
-onFileChange(event: any, index: number) {
-  if (event.target.files && event.target.files.length > 0) {
-    const file = event.target.files[0];
-     const extension = file.name.split('.').pop()?.toLowerCase() || 'unknown';
-    this.VerificationDocument.at(index).patchValue({
-      DocumentFile: file,
-      DocumentType: extension
-    });
+    return this.agencyForm.get('VerificationDocument') as FormArray;
   }
-}
+
+  onFileChange(event: any, index: number) {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      const extension = file.name.split('.').pop()?.toLowerCase() || 'unknown';
+      this.VerificationDocument.at(index).patchValue({
+        DocumentFile: file,
+        DocumentType: extension
+      });
+    }
+  }
 
   submit() {
-     const token = this.cookieService.get('Token');
+    const token = this.cookieService.get('Token');
     const rawForm = this.agencyForm.value;
   const formData = new FormData();
   formData.append('BusinessName', rawForm.BusinessName);
@@ -131,8 +131,8 @@ onFileChange(event: any, index: number) {
         this.toastr.error('Failed to register agency. Please try again.');
       }
 
-        }
-      });
+      }
+    });
   }
 
 }

@@ -1,11 +1,17 @@
-
-<div class="container">
-    <router-outlet>
-    </router-outlet>
+<app-loader  *ngIf="serviceloader.isLoading$ | async"></app-loader>
+<div class="contailner" [ngClass]="{ 'd-none': serviceloader.isLoading$ | async}">
+  <router-outlet></router-outlet>
 </div>
+
+<!-- <app-loader></app-loader> -->
+
+
+
+
+
 
 <!-- if else show hide laoder -->
 
 
-  
-  
+
+

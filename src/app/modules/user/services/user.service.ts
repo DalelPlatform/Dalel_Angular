@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUserRegister } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import {
   ChangePasswordRequest, ChangePasswordResponse
@@ -88,12 +88,17 @@ export class AccountService {
         tap(() => this.isFirstLogin.next(false)) 
       );
   }
-
-  changePassword(body: ChangePasswordRequest): Observable<ChangePasswordResponse> {
-    return this.http.post<ChangePasswordResponse>(
-      `${this.apiUrl}ChangePassword`, body
+// user.service.ts
+changePassword(body: ChangePasswordRequest): Observable<ChangePasswordResponse & { Success: boolean }> {
+  return this.http
+    .post<ChangePasswordResponse>(`${this.apiUrl}ChangePassword`, body)
+    .pipe(
+      map(res => ({
+        ...res,
+        Success: res.Status === 200
+      }))
     );
-  }
+}
 
   forgotPassword(body: ForgotPasswordRequest): Observable<ForgotPasswordResponse> {
     return this.http.post<ForgotPasswordResponse>(

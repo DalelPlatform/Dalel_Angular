@@ -11,6 +11,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 
+//import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -20,6 +21,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+
+
   
      
   ],

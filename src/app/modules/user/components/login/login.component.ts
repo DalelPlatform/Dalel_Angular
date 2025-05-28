@@ -3,6 +3,7 @@ import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import {CompleteProfileServiceProviderService} from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
 @Component({
   selector: 'app-login',
   standalone: false,
@@ -16,8 +17,9 @@ export class LoginComponent {
   };
   constructor(private accountSrv: AccountService,
     private cookieService: CookieService,
-    private router: Router
-
+    private router: Router,
+    private ServiceProviderProfileService: CompleteProfileServiceProviderService,
+    
   ) { }
   Send() {
     this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
@@ -25,12 +27,34 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
-         if(res.Role ==="TravelAgencyOwner"){
-                 this.router.navigate(['/agancy/owner/create-agency']);
+        if (res.Role === "TravelAgencyOwner") {
+          this.router.navigate(['/AgencycompleteProfile']);
+        }
+        else {
+          this.router.navigate(['/login']);
+        }
+        // if(res.Role === "ServiceProvider") {
+        //   this.router.navigate(['/complete-ServiceProvider-profile']);
+        // }
+        // else{
+        //   this.router.navigate(['/login']);
+        // }
+        if (res.Role === 'ServiceProvider') {
+          this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
+            next: (isComplete) => {
+              if (!isComplete) {
+                this.router.navigate(['/complete-ServiceProvider-profile']);
+              } else {
+                this.router.navigate(['/account']);
               }
-              else{
-                  this.router.navigate(['/login']);
-              }
+            },
+            error: () => {
+              this.router.navigate(['/unauthorized']);
+            }
+          });
+        } else {
+          this.router.navigate(['/account']);
+        }
       },
       error: (err) => {
         console.log(err);

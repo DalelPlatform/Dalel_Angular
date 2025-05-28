@@ -4,11 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { RoleGuard } from './services/role.guard'; // Adjust the import path as necessary
+import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.component';
+import { authGuard } from '../../Services/Guards/auth.guard';
 
 export const accountRoutes: Routes = [
-   
-  { path: 'change-password', component: ChangePasswordComponent, canActivate: [RoleGuard] },
+  {path: 'hotel-owner',component: HotelOwnerComponent},
+  { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
 ];
