@@ -10,12 +10,10 @@ import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { CoreModule } from './core/core.module';
 
-=======
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
->>>>>>> c86f4300a266ab589b4e8600fe6a24cf0b9804f9
+import {LoaderComponent} from './component/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +27,8 @@ import { authInterceptor } from './Services/Interceptors/auth.interceptor';
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
-    CoreModule
+    CoreModule,
+    LoaderComponent
 
 
   ],
