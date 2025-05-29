@@ -5,13 +5,13 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AccountModule } from './modules/user/user-module';
+import { ServiceproviderModule } from './modules/serviceprovider/serviceprovider.module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
-
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
 import { LoaderComponent } from "./component/loader/loader.component";
 import { loaderInterceptor } from './Services/Interceptors/loader/loader.interceptor';
@@ -43,7 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
      
     provideHttpClient(
       withFetch(),
-      withInterceptors([authInterceptor,])
+      withInterceptors([authInterceptor,loaderInterceptor])
     )
   ],
   bootstrap: [AppComponent]
