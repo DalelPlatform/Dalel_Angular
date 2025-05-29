@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {  ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
@@ -9,7 +9,7 @@ describe('AgencyOwnerLayOutComponent', () => {
   let component: AgencyOwnerLayOutComponent;
   let fixture: ComponentFixture<AgencyOwnerLayOutComponent>;
 
-  beforeEach(async(() => {
+  beforeEach((() => {
     TestBed.configureTestingModule({
       declarations: [ AgencyOwnerLayOutComponent ]
     })

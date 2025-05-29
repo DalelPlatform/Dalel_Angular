@@ -93,42 +93,43 @@ export class AgencycompleteProfileComponent {
   submit() {
     const token = this.cookieService.get('Token');
     const rawForm = this.agencyForm.value;
-    const formData = new FormData();
-    formData.append('BusinessName', rawForm.BusinessName);
-    formData.append('Description', rawForm.Description);
-    formData.append('ContactInfo', rawForm.ContactInfo);
-    formData.append('BusinessCategory', rawForm.BusinessCategory);
-    formData.append('Address', rawForm.Address);
-    formData.append('City', rawForm.City);
-    formData.append('BuildingNo', rawForm.BuildingNo);
-    formData.append('Street', rawForm.Street);
-    formData.append('Latitude', rawForm.Latitude);
-    formData.append('Longitude', rawForm.Longitude);
-    formData.append('VerificationStatus', rawForm.VerificationStatus);
-    formData.append('ownerId', rawForm.ownerId);
-    const doc = rawForm.VerificationDocument[0];
-    formData.append('VerificationDocument[0].DocumentType', doc.DocumentType);
-    formData.append('VerificationDocument[0].DocumentFile', doc.DocumentFile);
-    formData.append('VerificationDocument[0].status', doc.status);
-    formData.append('VerificationDocument[0].DocumentFileName', doc.name);
-    console.log(doc)
-    formData.append('VerificationDocument[0].AgencyId', doc.AgencyId);
-    this.agencyService.registerAgency(formData, token).subscribe({
-      next: (res) => {
-        this.toastr.success(res.Message)
-
-      },
-      error: err => {
-        if (err.status === 400 && err.error?.errors) {
-
-        }
-        else if (err.status === 401) {
-          this.toastr.error('Unauthorized access. Redirecting to login...')
-
-          this.router.navigate(['/login']);
-        } else {
-          this.toastr.error('Failed to register agency. Please try again.');
-        }
+  const formData = new FormData();
+  formData.append('BusinessName', rawForm.BusinessName);
+  formData.append('Description', rawForm.Description);
+  formData.append('ContactInfo', rawForm.ContactInfo);
+  formData.append('BusinessCategory', rawForm.BusinessCategory);
+  formData.append('Address', rawForm.Address);
+  formData.append('City', rawForm.City);
+  formData.append('BuildingNo', rawForm.BuildingNo);
+  formData.append('Street', rawForm.Street);
+  formData.append('Latitude', rawForm.Latitude);
+  formData.append('Longitude', rawForm.Longitude);
+  formData.append('VerificationStatus', rawForm.VerificationStatus);
+  formData.append('ownerId', rawForm.ownerId);
+  const doc = rawForm.VerificationDocument[0];
+  formData.append('VerificationDocument[0].DocumentType', doc.DocumentType);
+  formData.append('VerificationDocument[0].DocumentFile', doc.DocumentFile);
+  formData.append('VerificationDocument[0].status', doc.status);
+  formData.append('VerificationDocument[0].DocumentFileName', doc.name);
+  console.log(doc)
+  formData.append('VerificationDocument[0].AgencyId', doc.AgencyId);
+  this.agencyService.registerAgency(formData,token).subscribe({
+        next: (res) => {
+          this.toastr.success(res.Message)
+       
+        },
+        error: (err) => {
+          console.log(err)
+          if (err.status === 400 && err.error?.errors) {
+    this.toastr.error("Please fill all data")
+      }
+       else if (err.status === 401) {
+            this.toastr.error('Unauthorized access. Redirecting to login...')
+      
+        this.router.navigate(['/login']);
+      } else {
+        this.toastr.error('Failed to register agency. Please try again.');
+      }
 
       }
     });

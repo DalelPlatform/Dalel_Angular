@@ -13,7 +13,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './core/core.module';
 
 import { authInterceptor } from './Services/Interceptors/auth.interceptor';
-import {LoaderComponent} from './component/loader/loader.component';
+import { LoaderComponent } from "./component/loader/loader.component";
+import { loaderInterceptor } from './Services/Interceptors/loader/loader.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,16 +27,20 @@ import {LoaderComponent} from './component/loader/loader.component';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes), 
     AccountModule,
     SharedModule,
     FormsModule,
     ReactiveFormsModule,
     CoreModule,
-    LoaderComponent
-
-
-  ],
-  providers: [CookieService,
+    ServiceproviderModule,
+    LoaderComponent,
+         BrowserAnimationsModule, // required animations module
+        ToastrModule.forRoot(), // ToastrModule added
+],
+  
+  providers: [CookieService, 
+     
     provideHttpClient(
       withFetch(),
       withInterceptors([authInterceptor,])
