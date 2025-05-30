@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   standalone:false
 })
 export class SidebarComponent {
-
+@Input() links: { label: string, icon: string, route: string }[] = [];
 }

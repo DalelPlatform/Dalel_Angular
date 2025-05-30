@@ -1,12 +1,13 @@
-<!-- <div id="container" class="container mt-5">
-  <div class="contents">
+
+<div id="container" class="container mt-3">
+<div class="contents">
     <div class="progress px-1" style="height: 3px;">
       <div class="progress-bar" role="progressbar" [style.width.%]="progressPercentage"
         [attr.aria-valuenow]="progressPercentage" aria-valuemin="0" aria-valuemax="100">
       </div>
     </div>
 
-    
+
     <div class="step-container d-flex justify-content-between my-3">
       @for (step of steps; let i = $index; track $index){
       <div class="step-circle" [class.active]="currentStep === i + 1" (click)="displayStep(i + 1)">
@@ -17,24 +18,26 @@
     </div>
   </div>
 
-  <form [formGroup]="agencyForm" (ngSubmit)="submit()">
-    @if (currentStep === 1) {
-    <h3 class="mb-4">Step 1: Basic Info</h3>
-    <div class="labeled-input">
-      <input formControlName="BusinessName" placeholder="Business Name" />
-      <span class="text-danger"
-        *ngIf="agencyForm.get('BusinessName')?.touched && agencyForm.get('BusinessName')?.invalid">
-        Business Name is required
-      </span>
+  <form [formGroup]="agencyForm" (ngSubmit)="submit()" class="agencyForm">
+   @if (currentStep === 1) {
+     <h3 class="mb-4">Step 1: Basic Info</h3>
+     <div class="labeled-input">
+        <input formControlName="BusinessName" placeholder="Business Name"  />
+  <span class="text-danger"
+       *ngIf="agencyForm.get('BusinessName')?.touched && agencyForm.get('BusinessName')?.invalid">
+    Business Name is required
+  </span>
 
-
-      <input formControlName="ContactInfo" placeholder="Contact Info" />
-      <span class="text-danger"
-        *ngIf="agencyForm.get('ContactInfo')?.touched && agencyForm.get('ContactInfo')?.invalid">
-        Contact Info is required
-      </span>
-      <textarea formControlName="Description" placeholder="Description" pattern="[A-Za-z]{8}" type="text"
-        name="input-name" id="input-id" required rows="6"></textarea>
+ 
+  <input formControlName="ContactInfo" placeholder="Contact Info" />
+   <span class="text-danger"
+       *ngIf="agencyForm.get('ContactInfo')?.touched && agencyForm.get('ContactInfo')?.invalid">
+    Contact Info is required
+  </span>
+   <textarea  formControlName="Description"
+    placeholder="Description"
+  type="text" name="input-name" id="input-id" 
+										 rows="6"></textarea>
 
       <span class="text-danger"
         *ngIf="agencyForm.get('Description')?.touched && agencyForm.get('Description')?.invalid">

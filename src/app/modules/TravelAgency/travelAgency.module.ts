@@ -4,7 +4,7 @@ import { AgencycompleteProfileComponent } from './agencycomplete-profile/agencyc
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AgencyOwnerLayOutComponent } from './AgencyOwnerLayOut/AgencyOwnerLayOut.component';
-
+import { SharedModule } from '../../shared/shared.module';
 let routes: Routes = [
 
   {
@@ -24,7 +24,7 @@ let routes: Routes = [
     
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    FormsModule
+    SharedModule,
   ],
   declarations: [AgencycompleteProfileComponent,AgencyOwnerLayOutComponent]
 })
