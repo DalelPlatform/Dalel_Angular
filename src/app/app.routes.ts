@@ -9,6 +9,7 @@ import { CompleteProfilePageComponent } from './shared/components/complete-profi
 import { ProfileComponent } from './shared/components/profile/profile.component';
 // import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
+import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 export const routes: Routes = [
   {
     path: 'account',
@@ -27,6 +28,9 @@ export const routes: Routes = [
     path: 'logout',
     component: LogoutComponent,
     canActivate: [authGuard]
+  },
+  {
+     path: "complete-ServiceProvider-profile", component: CompleteProfileServiceProviderComponent,canActivate:[authGuard]
   },
   {
     path: 'AgencycompleteProfile',

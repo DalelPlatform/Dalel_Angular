@@ -5,11 +5,8 @@ import { CompleteProfileServiceProviderComponent } from './complete-profile-serv
 import { ServiceProviderLayoutComponent } from './service-provider-layout/service-provider-layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AddProjectComponent } from './add-project/add-project.component';
+import { serviceProviderGuard } from '../../Services/Guards/ServiceProvider/service-provider.guard';
 let routes: Routes = [
-  {
-     path: "service-provider-Complete-profile", component: ServiceProviderLayoutComponent
-  }
-  ,
   {
     path: "Service-Provider-layout",
     component: ServiceProviderLayoutComponent,

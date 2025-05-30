@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AccountModule } from './modules/user/user-module';
-import { ServiceproviderModule } from './modules/serviceprovider/serviceprovider.module';
+import { ServiceproviderModule } from './modules/ServiceProvider/serviceprovider.module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';

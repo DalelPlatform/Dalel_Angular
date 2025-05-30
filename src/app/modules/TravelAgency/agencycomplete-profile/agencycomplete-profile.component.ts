@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
     standalone:false,
   templateUrl: './agencycomplete-profile.component.html',
   styleUrl: './agencycomplete-profile.component.css',
-  standalone: false
 })
 export class AgencycompleteProfileComponent {
   agencyForm!: FormGroup;
@@ -24,6 +23,7 @@ export class AgencycompleteProfileComponent {
     private cookieService: CookieService,
     private agencyService: AgencyService,
     private toastr: ToastrService,
+    
   ) {
     this.initForm();
   }
