@@ -1,0 +1,118 @@
+
+
+<div class="container">
+  <h2 class="mb-4 fw-bold heading">Create Package</h2>
+
+  <form [formGroup]="packageForm" (ngSubmit)="submit()">
+    
+    <div class="p-4 mb-4 shadow-sm bg-white rounded-3">
+      <h5 class="mb-3 text-secondary"> Package Details</h5>
+
+      <div class="mb-3">
+        <label class="form-label">Name *</label>
+        <input type="text" class="form-control" formControlName="Name" />
+          <span *ngFor="let msg of errorMessages['Name']" class="text-danger">
+            {{ msg }}
+          </span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" formControlName="Description"></textarea>
+           <span *ngFor="let msg of errorMessages['Description']" class="text-danger">
+            {{ msg }}
+          </span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Price *</label>
+        <input type="text" class="form-control" formControlName="Price" />
+       
+      </div> @if (errorMessages['Price']) {
+           <span class="text-danger">
+            {{ errorMessages['Price'] }}
+          </span>
+        }
+
+      <div class="mb-3">
+        <label class="form-label">Duration (in hours)</label>
+        <input type="number" class="form-control" formControlName="Duration" />
+         <span *ngFor="let msg of errorMessages['Duration']" class="text-danger">
+            {{ msg }}
+          </span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Terms & Policies</label>
+        <textarea class="form-control" formControlName="TermsPolicies"></textarea>
+         <span *ngFor="let msg of errorMessages['TermsPolicies']" class="text-danger">
+            {{ msg }}
+          </span>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Agency *</label>
+        <select class="form-control" formControlName="AgencyId">
+          <option value="">Select Agency</option>
+          <option *ngFor="let agency of agencies" [value]="agency.Id">{{ agency.BusinessName }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="p-4 mb-4 shadow-sm bg-white rounded-3" formArrayName="Steps">
+      <h5 class="mb-3 text-secondary">Steps</h5>
+
+      @for (item of steps.controls; track $index; let j = $index) {
+        <div class="p-3 mb-3 bg-light rounded shadow-sm" [formGroupName]="j">
+          <h6 class="mb-2 fw-semibold">Step {{ j + 1 }}</h6>
+
+          <div class="mb-2">
+            <label class="form-label">Step Name</label>
+            <input type="text" class="form-control" formControlName="Name" />
+            
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Step Description</label>
+            <textarea class="form-control" formControlName="Description"></textarea>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Step Duration</label>
+            <input type="number" class="form-control" formControlName="Duration" />
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Step Image</label>
+            <input type="file" class="form-control" (change)="onFileChange($event, j)" />
+          </div>
+        </div>
+      }
+    </div>
+    <div class="p-4 mb-4 shadow-sm bg-white rounded-3" formArrayName="Schadules">
+      <h5 class="mb-3 text-secondary">📅 Schedule</h5>
+
+      @for (item of schedules.controls; track $index; let j = $index) {
+        <div class="p-3 mb-3 bg-light rounded shadow-sm" [formGroupName]="j">
+          <h6 class="mb-2 fw-semibold">Schedule {{ j + 1 }}</h6>
+
+          <div class="mb-2">
+            <label class="form-label">Date</label>
+            <input type="date" class="form-control" formControlName="Date" />
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Slots Available</label>
+            <input type="number" class="form-control" formControlName="SlotsAvailable" />
+          </div>
+        </div>
+      }
+    </div>
+    <div class="text-end">
+      <button type="submit" class="btn submit px-4 py-2" >
+        <!-- [disabled]="packageForm.invalid" -->
+       Submit
+      </button>
+    </div>
+  </form>
+</div>
