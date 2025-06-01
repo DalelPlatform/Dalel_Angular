@@ -3,7 +3,7 @@ import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import {CompleteProfileServiceProviderService} from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
+// import {CompleteProfileServiceProviderService} from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
 @Component({
   selector: 'app-login',
   standalone: false,
@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(private accountSrv: AccountService,
     private cookieService: CookieService,
     private router: Router,
-    private ServiceProviderProfileService: CompleteProfileServiceProviderService,
+    // private ServiceProviderProfileService: CompleteProfileServiceProviderService,
     
   ) { }
   Send() {
@@ -27,33 +27,33 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
+       
         if (res.Role === "TravelAgencyOwner") {
-          this.router.navigate(['/AgencycompleteProfile']);
+           console.log("tessssssssss",res.Role)
+          this.router.navigate(['/agancy/owner/create-agency']);
         }
-        else {
-          this.router.navigate(['/login']);
-        }
+       
         // if(res.Role === "ServiceProvider") {
         //   this.router.navigate(['/complete-ServiceProvider-profile']);
         // }
         // else{
         //   this.router.navigate(['/login']);
         // }
-        if (res.Role === 'ServiceProvider') {
-          this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
-            next: (isComplete) => {
-              if (!isComplete) {
-                this.router.navigate(['/complete-ServiceProvider-profile']);
-              } else {
-                this.router.navigate(['/account']);
-              }
-            },
-            error: () => {
-              this.router.navigate(['/unauthorized']);
-            }
-          });
+        else if (res.Role === 'ServiceProvider') {
+          // this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
+          //   next: (isComplete) => {
+          //     if (!isComplete) {
+          //       this.router.navigate(['/complete-ServiceProvider-profile']);
+          //     } else {
+          //       this.router.navigate(['/account']);
+          //     }
+          //   },
+          //   error: () => {
+          //     this.router.navigate(['/unauthorized']);
+          //   }
+          // });
         } else {
-          this.router.navigate(['/account']);
+          this.router.navigate(['/login']);
         }
       },
       error: (err) => {
