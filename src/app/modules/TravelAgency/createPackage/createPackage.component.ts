@@ -60,7 +60,19 @@ this.packageForm = this.fb.group({
    get steps(): FormArray {
     return this.packageForm.get('Steps') as FormArray;
   }
+addStep() {
+  this.steps.push(this.fb.group({
+    Name: [''],
+    Description: [''],
+    Duration: [null],
+    Image: [''],
+    ImageFile: ['']
+  }));
+}
 
+removeStep(index: number) {
+  this.steps.removeAt(index);
+}
   get schedules(): FormArray {
     return this.packageForm.get('Schadules') as FormArray;
   }
