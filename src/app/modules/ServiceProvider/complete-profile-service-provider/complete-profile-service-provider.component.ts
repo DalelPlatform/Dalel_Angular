@@ -187,7 +187,7 @@ ngOnInit(): void {
       return;
     }    
     const formData = new FormData();
-    formData.append('UserId', this.userId); 
+    // formData.append('UserId', this.userId); 
     formData.append('City', this.profileForm.get('city')?.value);
     formData.append('District', this.profileForm.get('district')?.value);
     formData.append('ZipCode', this.profileForm.get('zipCode')?.value);

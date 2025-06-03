@@ -1,0 +1,74 @@
+/* Colors */
+:root {
+  --purple: #6f42c1;
+  --orange: #fd7e14;
+  --light-purple: #e2d9f3;
+}
+
+.text-purple {
+  color: var(--purple);
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.bg-purple {
+  background-color: var(--purple);
+}
+
+.bg-orange {
+  background-color: var(--orange);
+}
+
+/* Cards */
+.stat-card {
+  border-left: 4px solid var(--purple);
+  transition: transform 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(111, 66, 193, 0.1);
+}
+
+/* Table */
+.table-purple {
+  background-color: var(--purple);
+  color: white;
+}
+
+/* Buttons */
+.btn-purple {
+  background-color: var(--purple);
+  color: white;
+  border-color: var(--purple);
+}
+
+.btn-purple:hover {
+  background-color: #5a32a8;
+  border-color: #5a32a8;
+  color: white;
+}
+
+.btn-orange {
+  background-color: var(--orange);
+  color: white;
+  border-color: var(--orange);
+}
+
+.btn-orange:hover {
+  background-color: #e67312;
+  border-color: #e67312;
+  color: white;
+}
+
+/* Pagination */
+.page-link {
+  color: var(--purple);
+}
+
+.page-item.active .page-link {
+  background-color: var(--purple);
+  border-color: var(--purple);
+}

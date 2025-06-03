@@ -1,0 +1,67 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">Submit New Proposal</h3>
+        </div>
+        
+        <div class="card-body">
+          <form [formGroup]="proposalForm" (ngSubmit)="onSubmit()" novalidate>
+            <!-- Hidden Service Request ID -->
+            <input type="hidden" formControlName="serviceRequestId">
+            
+            <!-- Description Field -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Proposal Description</label>
+              <textarea class="form-control" id="description" rows="5" 
+                        formControlName="description"
+                        [class.is-invalid]="f['description'].touched && f['description'].errors"></textarea>
+              
+              <div *ngIf="f['description'].touched && f['description'].errors" class="invalid-feedback">
+                <div *ngIf="f['description'].errors['required']">Description is required</div>
+                <div *ngIf="f['description'].errors['maxlength']">
+                  Description cannot exceed 500 characters
+                </div>
+              </div>
+            </div>
+            
+            <!-- Price Field -->
+            <div class="mb-4">
+              <label for="suggestedPrice" class="form-label">Suggested Price (USD)</label>
+              <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input type="number" step="0.01" class="form-control" id="suggestedPrice"
+                       formControlName="suggestedPrice"
+                       [class.is-invalid]="f['suggestedPrice'].touched && f['suggestedPrice'].errors">
+              </div>
+              
+              <div *ngIf="f['suggestedPrice'].touched && f['suggestedPrice'].errors" class="invalid-feedback">
+                <div *ngIf="f['suggestedPrice'].errors['required']">Price is required</div>
+                <div *ngIf="f['suggestedPrice'].errors['min']">
+                  Price must be greater than 0
+                </div>
+              </div>
+            </div>
+            
+            <!-- Form Actions -->
+            <div class="d-flex justify-content-between">
+              <button type="button" class="btn btn-secondary" 
+                      (click)="navigateToServiceRequest()">
+                Cancel
+              </button>
+              
+              <button type="submit" class="btn btn-orange" [disabled]="isLoading">
+                <span *ngIf="!isLoading">Submit Proposal</span>
+                <span *ngIf="isLoading">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Submitting...
+                </span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

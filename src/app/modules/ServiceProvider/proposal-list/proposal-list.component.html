@@ -1,0 +1,49 @@
+<div class="table-responsive">
+  <table class="table table-hover align-middle">
+    <thead class="table-purple">
+      <tr>
+        <th>#</th>
+        <th>Service Request</th>
+        <th>Description</th>
+        <th>Offering Price</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let proposal of proposals; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ proposal.serviceRequestId }}</td>
+        <td>{{ proposal.description | truncate:50 }}</td>
+        <td>{{ proposal.suggestedPrice | currency:'EGP' }}</td>
+        <td>
+          <span class="badge rounded-pill" [ngClass]="getStatusClass(proposal.status)">
+            {{ proposal.status }}
+          </span>
+        </td>
+        <td>{{ proposal.createdAt | date:'shortDate' }}</td>
+        <td>
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-purple" 
+                    (click)="onAction('view', proposal.id)">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-orange" 
+                    *ngIf="proposal.status === 'Pending'"
+                    (click)="onAction('edit', proposal.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger" 
+                    (click)="onAction('delete', proposal.id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="proposals.length === 0">
+        <td colspan="7" class="text-center py-4">No Proposals Available</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

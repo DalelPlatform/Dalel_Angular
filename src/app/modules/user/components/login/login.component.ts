@@ -39,7 +39,7 @@ export class LoginComponent {
               if (!isComplete) {
                 this.router.navigate(['/complete-ServiceProvider-profile']);
               } else {
-                this.router.navigate(['/account']);
+                this.router.navigate(['/service-provider']);
               }
             },
             error: () => {
