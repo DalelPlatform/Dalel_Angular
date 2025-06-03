@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AgencyOwnerLayOutComponent } from './AgencyOwnerLayOut/AgencyOwnerLayOut.component';
 import { SharedModule } from '../../shared/shared.module';
+import { CreatePackageComponent } from './createPackage/createPackage.component';
 let routes: Routes = [
 
   {
@@ -13,6 +14,7 @@ let routes: Routes = [
     // canActivate:
     children: [
        { path: "create-agency", component: AgencycompleteProfileComponent },
+       { path: "createPackage", component: CreatePackageComponent },
 
     ]
   }
@@ -26,6 +28,6 @@ let routes: Routes = [
     ReactiveFormsModule,
     SharedModule,
   ],
-  declarations: [AgencycompleteProfileComponent,AgencyOwnerLayOutComponent]
+  declarations: [AgencycompleteProfileComponent,CreatePackageComponent,AgencyOwnerLayOutComponent]
 })
 export class TravelAgencyModule { }

@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AgencyOwnerLayOutComponent implements OnInit {
   agencyLinks = [
     { label: 'Create Agency', icon: 'fas fa-user', route: 'create-agency' },
-    { label: 'My Bookings', icon: 'fas fa-ticket-alt', route: 'bookings' },
+    { label: 'create package', icon: 'fas fa-ticket-alt', route: 'createPackage' },
     { label: 'Travelers', icon: 'fas fa-users', route: 'travelers' },
     { label: 'Payment Details', icon: 'fas fa-credit-card', route: 'payments' },
     { label: 'Wishlist', icon: 'fas fa-heart', route: 'wishlist' },

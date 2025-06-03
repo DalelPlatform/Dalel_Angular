@@ -125,7 +125,7 @@ export class AgencycompleteProfileComponent {
     this.toastr.error("Please fill all data")
       }
        else if (err.status === 401) {
-            this.toastr.error('Unauthorized access. Redirecting to login...')
+            this.toastr.error('Unauthorized access')
       
         this.router.navigate(['/login']);
       } else {

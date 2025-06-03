@@ -1,23 +1,23 @@
 /* tslint:disable:no-unused-variable */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {  ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { AddPackageComponent } from './add-package.component';
+import { CreatePackageComponent } from './createPackage.component';
 
-describe('AddPackageComponent', () => {
-  let component: AddPackageComponent;
-  let fixture: ComponentFixture<AddPackageComponent>;
+describe('CreatePackageComponent', () => {
+  let component: CreatePackageComponent;
+  let fixture: ComponentFixture<CreatePackageComponent>;
 
   beforeEach((() => {
     TestBed.configureTestingModule({
-      declarations: [ AddPackageComponent ]
+      declarations: [ CreatePackageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddPackageComponent);
+    fixture = TestBed.createComponent(CreatePackageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
