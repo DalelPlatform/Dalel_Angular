@@ -1,3 +1,10 @@
+ <div class="d-lg-none my-3">
+        <button class="btn w-100 save-btn" 
+        data-bs-toggle="offcanvas" data-bs-target="#profileMenu" aria-controls="profileMenu"
+        type="button" >
+            <i class="fas fa-bars"></i> Menu
+        </button>
+    </div>
 <div 
 class="offcanvas-lg offcanvas-start" tabindex="-1" id="profileMenu" style="z-index: 1111;"
 >
@@ -14,14 +21,18 @@ class="offcanvas-lg offcanvas-start" tabindex="-1" id="profileMenu" style="z-ind
     <p class="text-muted">hellogmail.com</p>
     <hr>
     <div class="d-flex flex-column">
-        <a href="#" class="menu-item active mb-1"><i class="fas fa-user"></i> My Profile</a>
+      @for (link of links; track $index) {
+          <a  routerLink="{{ link.route }}"
+           routerLinkActive="active" class="menu-item mb-1"><i class="{{ link.icon }}"></i> {{ link.label }}</a>
+      }
+        <!-- <a href="#" class="menu-item active mb-1"><i class="fas fa-user"></i> My Profile</a>
         <a href="#" class="menu-item"><i class="fas fa-ticket-alt"></i> My Bookings</a>
         <a href="#" class="menu-item"><i class="fas fa-users"></i> Travelers</a>
         <a href="#" class="menu-item"><i class="fas fa-credit-card"></i> Payment Details</a>
         <a href="#" class="menu-item"><i class="fas fa-heart"></i> Wishlist</a>
         <a href="#" class="menu-item"><i class="fas fa-cog"></i> Settings</a>
         <a href="#" class="menu-item "><i class="fas fa-trash"></i> Delete Profile</a>
-        <a href="#" class="menu-item sign-out text-danger"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+        <a href="#" class="menu-item sign-out text-danger"><i class="fas fa-sign-out-alt"></i> Sign Out</a> -->
     </div>
 </div>
 </div>

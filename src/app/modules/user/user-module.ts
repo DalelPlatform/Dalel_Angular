@@ -18,6 +18,7 @@ import { HotelOwnerComponent } from './components/hotel-owner/hotel-owner.compon
 import { CompleteProfilePageComponent } from "../../shared/components/complete-profile-page/complete-profile-page.component";
 import { SharedModule } from "../../shared/shared.module";
 import { loaderInterceptor } from "../../Services/Interceptors/loader/loader.interceptor";
+import { AddServiceRequestComponent } from "./components/add-service-request/add-service-request.component";
 
 
 
@@ -30,7 +31,8 @@ import { loaderInterceptor } from "../../Services/Interceptors/loader/loader.int
         ChangePasswordComponent,
         ForgotPasswordComponent,
         ResetPasswordComponent,
-        HotelOwnerComponent
+        HotelOwnerComponent,
+        AddServiceRequestComponent
 
 
 
@@ -38,10 +40,10 @@ import { loaderInterceptor } from "../../Services/Interceptors/loader/loader.int
     imports: [
     CommonModule,
     FormsModule,
-    RouterModule.forChild(accountRoutes),
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
+    RouterModule.forChild(accountRoutes),
     SharedModule
 ],
     providers: [

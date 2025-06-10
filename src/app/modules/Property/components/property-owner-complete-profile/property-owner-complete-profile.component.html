@@ -1,21 +1,85 @@
-<h2>Complete Your Agency Profile</h2>
-<form [formGroup]="propertyForm" (ngSubmit)="submit()">
-
-  <input formControlName="BusinessName" placeholder="Business Name" />
-  <input formControlName="Description" placeholder="Description" />
-  <input formControlName="ContactInfo" placeholder="Contact Info" />
-  <input formControlName="BusinessCategory" placeholder="Business Category" />
-  <input formControlName="Address" placeholder="Address" />
-  <input formControlName="City" placeholder="City" />
-  <input formControlName="BuildingNo" type="number" placeholder="Building No" />
-  <input formControlName="Street" placeholder="Street" />
-  <div formArrayName="VerificationDocument">
-    <div [formGroupName]="0">
-      <input formControlName="DocumentType" placeholder="Document Type" />
-      <input formControlName="DocumentFile" placeholder="Document File" />
+<div class="container mt-5">
+  <h2 class="mb-4 text-center">Complete Your Profile</h2>
+  <form [formGroup]="profileForm" (ngSubmit)="submit()" class="needs-validation" novalidate>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">First Name</label>
+        <input
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Enter your first name"
+          class="form-control"
+          [class.is-invalid]="profileForm.get('firstName')?.touched && profileForm.get('firstName')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your first name.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input
+          id="lastName"
+          formControlName="lastName"
+          placeholder="Enter your last name"
+          class="form-control"
+          [class.is-invalid]="profileForm.get('lastName')?.touched && profileForm.get('lastName')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your last name.
+        </div>
+      </div>
     </div>
-  </div>
 
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label for="Address" class="form-label">Address</label>
+        <input
+          id="Address"
+          formControlName="Address"
+          placeholder="Enter your Address"
+          class="form-control"
+          [class.is-invalid]="profileForm.get('Address')?.touched && profileForm.get('Address')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your Address.
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label for="Location" class="form-label">Location</label>
+        <input
+          id="Location"
+          formControlName="Location"
+          placeholder="Enter your Location"
+          class="form-control"
+          [class.is-invalid]="profileForm.get('Location')?.touched && profileForm.get('Location')?.invalid"
+          required
+        />
+        <div class="invalid-feedback">
+          Please enter your Location
+        </div>
+      </div>
+    </div>
 
-  <button type="submit">Submit Agency</button>
-</form>
+    <div class="mb-3">
+      <label for="City" class="form-label">City</label>
+      <input
+        id="City"
+        formControlName="City"
+        placeholder="Enter your City"
+        class="form-control"
+        [class.is-invalid]="profileForm.get('City')?.touched && profileForm.get('City')?.invalid"
+        required
+      />
+      <div class="invalid-feedback">
+        Please enter your City.
+      </div>
+    </div>
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid">Submit</button>
+    </div>
+  </form>
+</div>

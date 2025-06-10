@@ -1,0 +1,24 @@
+.submit{
+       /* color: #0b0a12; */
+color: white;
+    background-color: #5143d9;
+    font-weight: 600; 
+}
+.heading{
+    color: #5143d9;
+}
+.step{
+  color: #5143d9;
+   border: 1px solid #cdcdcd;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex
+;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    line-height: 21;
+    text-align: center;
+}

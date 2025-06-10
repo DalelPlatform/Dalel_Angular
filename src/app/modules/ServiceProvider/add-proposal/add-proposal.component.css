@@ -1,0 +1,47 @@
+/* Custom colors */
+:root {
+  --purple: #6f42c1;
+  --orange: #fd7e14;
+}
+
+.bg-purple {
+  background-color: var(--purple);
+}
+
+.text-purple {
+  color: var(--purple);
+}
+
+.btn-orange {
+  background-color: var(--orange);
+  color: white;
+  border-color: var(--orange);
+}
+
+.btn-orange:hover {
+  background-color: #e67312;
+  border-color: #e67312;
+  color: white;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card-header {
+  border-radius: 10px 10px 0 0 !important;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  display: block;
+}

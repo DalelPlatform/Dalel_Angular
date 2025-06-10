@@ -1,0 +1,311 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2>Add a New Property</h2>
+    <div class="header-underline"></div>
+  </div>
+
+  <form [formGroup]="propertyForm" (ngSubmit)="submit()">
+    <div class="form-section">
+      <div class="section-title">
+        <h3>Property Details</h3>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="Description">Description</label>
+          <textarea
+            id="Description"
+            formControlName="Description"
+            placeholder="Describe your property"
+            rows="3"
+            [ngClass]="{'error': propertyForm.get('Description')?.touched && propertyForm.get('Description')?.invalid}"
+            required
+          ></textarea>
+          <div class="error-message" *ngIf="propertyForm.get('Description')?.touched && propertyForm.get('Description')?.invalid">
+            Please provide a description.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Amenities">Amenities</label>
+          <input
+            id="Amenities"
+            formControlName="Amenities"
+            placeholder="List amenities (e.g., WiFi, Pool)"
+            [ngClass]="{'error': propertyForm.get('Amenities')?.touched && propertyForm.get('Amenities')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('Amenities')?.touched && propertyForm.get('Amenities')?.invalid">
+            Please list the amenities.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row three-columns">
+        <div class="form-group">
+          <label for="NumberOfRooms">Number of Rooms</label>
+          <input
+            id="NumberOfRooms"
+            formControlName="NumberOfRooms"
+            type="number"
+            placeholder="Number of rooms"
+            [ngClass]="{'error': propertyForm.get('NumberOfRooms')?.touched && propertyForm.get('NumberOfRooms')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('NumberOfRooms')?.touched && propertyForm.get('NumberOfRooms')?.invalid">
+            Please enter the number of rooms.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="BuildingNo">Building Number</label>
+          <input
+            id="BuildingNo"
+            formControlName="BuildingNo"
+            type="number"
+            placeholder="Building number"
+            [ngClass]="{'error': propertyForm.get('BuildingNo')?.touched && propertyForm.get('BuildingNo')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('BuildingNo')?.touched && propertyForm.get('BuildingNo')?.invalid">
+            Please enter the building number.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="FloorNo">Floor Number</label>
+          <input
+            id="FloorNo"
+            formControlName="FloorNo"
+            type="number"
+            placeholder="Floor number"
+            [ngClass]="{'error': propertyForm.get('FloorNo')?.touched && propertyForm.get('FloorNo')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('FloorNo')?.touched && propertyForm.get('FloorNo')?.invalid">
+            Please enter the floor number.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">
+        <h3>Location Details</h3>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="Address">Address</label>
+        <input
+          id="Address"
+          formControlName="Address"
+          placeholder="Enter the property address"
+          [ngClass]="{'error': propertyForm.get('Address')?.touched && propertyForm.get('Address')?.invalid}"
+          required
+        />
+        <div class="error-message" *ngIf="propertyForm.get('Address')?.touched && propertyForm.get('Address')?.invalid">
+          Please enter the address.
+        </div>
+      </div>
+
+      <div class="form-row three-columns">
+        <div class="form-group">
+          <label for="City">City</label>
+          <input
+            id="City"
+            formControlName="City"
+            placeholder="City"
+            [ngClass]="{'error': propertyForm.get('City')?.touched && propertyForm.get('City')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('City')?.touched && propertyForm.get('City')?.invalid">
+            Please enter the city.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Region">Region</label>
+          <input
+            id="Region"
+            formControlName="Region"
+            placeholder="Region"
+            [ngClass]="{'error': propertyForm.get('Region')?.touched && propertyForm.get('Region')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('Region')?.touched && propertyForm.get('Region')?.invalid">
+            Please enter the region.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Street">Street</label>
+          <input
+            id="Street"
+            formControlName="Street"
+            placeholder="Street"
+            [ngClass]="{'error': propertyForm.get('Street')?.touched && propertyForm.get('Street')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('Street')?.touched && propertyForm.get('Street')?.invalid">
+            Please enter the street.
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="Latitude">Latitude</label>
+          <input
+            id="Latitude"
+            formControlName="Latitude"
+            type="number"
+            step="any"
+            placeholder="Latitude"
+            [ngClass]="{'error': propertyForm.get('Latitude')?.touched && propertyForm.get('Latitude')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('Latitude')?.touched && propertyForm.get('Latitude')?.invalid">
+            Please enter the latitude.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="Longitude">Longitude</label>
+          <input
+            id="Longitude"
+            formControlName="Longitude"
+            type="number"
+            step="any"
+            placeholder="Longitude"
+            [ngClass]="{'error': propertyForm.get('Longitude')?.touched && propertyForm.get('Longitude')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('Longitude')?.touched && propertyForm.get('Longitude')?.invalid">
+            Please enter the longitude.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">
+        <h3>Additional Details</h3>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="PhoneNumber">Phone Number</label>
+          <input
+            id="PhoneNumber"
+            formControlName="PhoneNumber"
+            type="tel"
+            placeholder="Phone number"
+            [ngClass]="{'error': propertyForm.get('PhoneNumber')?.touched && propertyForm.get('PhoneNumber')?.invalid}"
+            required
+          />
+          <div class="error-message" *ngIf="propertyForm.get('PhoneNumber')?.touched && propertyForm.get('PhoneNumber')?.invalid">
+            Please enter a phone number.
+          </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+          <div class="checkbox-container">
+            <input
+              id="CancelationOptions"
+              formControlName="CancelationOptions"
+              type="checkbox"
+            />
+            <label for="CancellationOptions">Cancellation Options</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row three-columns">
+        <div class="form-group checkbox-group">
+          <div class="checkbox-container">
+            <input
+              id="IsForRent"
+              formControlName="IsForRent"
+              type="checkbox"
+            />
+            <label for="IsForRent">Is For Rent</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="VerificationStatus">Verification Status</label>
+          <input
+            id="VerificationStatus"
+            formControlName="VerificationStatus"
+            type="number"
+            placeholder="Verification status"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="CancelationCharges">Cancellation Charges</label>
+          <input
+            id="CancelationCharges"
+            formControlName="CancelationCharges"
+            type="number"
+            placeholder="Cancellation charges"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-title">
+        <h3>Property Photos</h3>
+      </div>
+
+      <div class="photo-upload-container">
+        <div class="upload-area" (click)="triggerFileInput()" #dropZone>
+          <input
+            type="file"
+            id="PropertyImages"
+            formControlName="PropertyImages"
+            class="file-input"
+            accept="image/*"
+            multiple
+            (change)="onFileSelected($event)"
+            #fileInput
+          />
+          <div class="upload-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 5V19M12 5L6 11M12 5L18 11" stroke="#dc3545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="upload-text">
+            <span class="primary-text">Drag & drop photos here</span>
+            <span class="secondary-text">or click to browse files</span>
+          </div>
+        </div>
+
+        <div class="selected-files-preview" *ngIf="selectedFiles && selectedFiles.length > 0">
+          <div class="preview-title">Selected Photos ({{selectedFiles.length}})</div>
+          <div class="preview-grid">
+            <div class="preview-item" *ngFor="let file of selectedFiles; let i = index">
+              <div class="preview-image" [style.backgroundImage]="'url(' + previewUrls[i] + ')'"></div>
+              <div class="preview-info">
+                <div class="preview-name">{{file.name}}</div>
+                <div class="preview-size">{{formatFileSize(file.size)}}</div>
+              </div>
+              <button type="button" class="preview-remove" (click)="removeFile(i)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="submit-button" [disabled]="propertyForm.invalid">
+        <span>Submit Property</span>
+      </button>
+    </div>
+  </form>
+</div>

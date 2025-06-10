@@ -1,0 +1,91 @@
+<div class="container py-4">
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-primary">Loading Data...</p>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!isLoading">
+    <div class="row mb-4">
+      <div class="col-12">
+        <h2 class="text-primary mb-3" style="color: #6f42c1 !important;">Service Provider Dashboard</h2>
+        
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+          <div class="col-md-4">
+            <div class="card h-100 border-start-0 border-end-0 border-bottom-0 border-top-3 border-primary" 
+                 style="border-top-color: #6f42c1 !important;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Total Proposal</h5>
+                <p class="display-5" style="color: #fd7e14 !important;">{{ stats.totalProposals }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-start-0 border-end-0 border-bottom-0 border-top-3 border-primary" 
+                 style="border-top-color: #6f42c1 !important;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Accepted Proposals</h5>
+                <p class="display-5" style="color: #fd7e14 !important;">{{ stats.acceptedProposals }}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="card h-100 border-start-0 border-end-0 border-bottom-0 border-top-3 border-primary" 
+                 style="border-top-color: #6f42c1 !important;">
+              <div class="card-body text-center">
+                <h5 class="card-title">Average Rating</h5>
+                <p class="display-5" style="color: #fd7e14 !important;">{{ stats.averageRating}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mb-4">
+          <li class="nav-item">
+            <button class="nav-link" 
+                    [class.active]="activeTab === 'all'"
+                    (click)="onTabChange('all')"
+                    style="color: #6f42c1;">
+                    Total Proposals
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" 
+                    [class.active]="activeTab === 'accepted'"
+                    (click)="onTabChange('accepted')"
+                    style="color: #6f42c1;">
+                    Accepted Proposals
+            </button>
+          </li>
+        </ul>
+        
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <div class="tab-pane fade" 
+               [class.show]="activeTab === 'all'"
+               [class.active]="activeTab === 'all'">
+            <app-proposal-list 
+              [proposals]="proposals"
+              (proposalAction)="handleProposalAction($event)">
+            </app-proposal-list>
+          </div>
+          
+          <div class="tab-pane fade" 
+               [class.show]="activeTab === 'accepted'"
+               [class.active]="activeTab === 'accepted'">
+            <app-accepted-proposals 
+              [proposals]="acceptedProposals">
+            </app-accepted-proposals>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

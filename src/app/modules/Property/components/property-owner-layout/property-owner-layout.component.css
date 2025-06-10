@@ -1,0 +1,280 @@
+/* Sidebar Component Styles - Gradient Theme with #5143d9 and #8e44ec */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  color: #333333;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* Collapsed state for responsive design */
+.sidebar-container.collapsed {
+  width: 70px;
+}
+
+/* Sidebar Header Styles */
+.sidebar-header {
+  padding: 20px 15px;
+  border-bottom: 1px solid rgba(142, 68, 236, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+  color: #ffffff;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.owner-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.owner-status {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar Menu Styles */
+.sidebar-menu {
+  flex: 1;
+  padding: 15px 0;
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.nav-item a {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: #333333;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(142, 68, 236, 0.1);
+}
+
+.nav-item.active {
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+}
+
+.nav-item.active a {
+  color: white;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  width: 24px;
+  height: 24px;
+}
+
+.icon-wrapper svg {
+  stroke: #5143d9;
+  transition: all 0.2s ease;
+}
+
+.nav-item.active .icon-wrapper svg {
+  stroke: #ffffff;
+}
+
+.nav-text {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Sidebar Footer Styles */
+.sidebar-footer {
+  padding: 15px;
+  border-top: 1px solid rgba(142, 68, 236, 0.2);
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+  color: #ffffff;
+}
+
+.sidebar-footer a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-footer a:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar-footer .icon-wrapper svg {
+  stroke: #ffffff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .toggle-button {
+    display: flex;
+  }
+
+  .sidebar-container.collapsed {
+    width: 70px;
+  }
+
+  .sidebar-container.collapsed .profile-info,
+  .sidebar-container.collapsed .nav-text {
+    display: none;
+  }
+
+  .sidebar-container.collapsed .profile-section {
+    justify-content: center;
+  }
+
+  .sidebar-container.collapsed .nav-item a {
+    justify-content: center;
+    padding: 15px 0;
+  }
+
+  .sidebar-container.collapsed .icon-wrapper {
+    margin-right: 0;
+  }
+
+  .sidebar-container.collapsed .sidebar-footer {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+
+  /* Show tooltip on hover for mobile view */
+  .sidebar-container.collapsed .nav-item a:hover::after {
+    content: attr(data-title);
+    position: absolute;
+    left: 70px;
+    background: linear-gradient(135deg, #5143d9 0%, #8e44ec 100%);
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    z-index: 1;
+  }
+}
+
+/* App Layout Styles */
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #ffffff;
+  overflow-y: auto;
+  height: 100vh;
+  transition: all 0.3s ease;
+}
+
+/* Add this to your global styles.css or styles.scss */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    position: relative;
+  }
+
+  .sidebar-container.collapsed + .main-content {
+    margin-left: 70px;
+  }
+
+  .main-content {
+    padding: 20px;
+    position: absolute;
+    left: 280px;
+    width: calc(100% - 280px);
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-container.collapsed ~ .main-content {
+    left: 70px;
+    width: calc(100% - 70px);
+  }
+}
+
+@media (max-width: 576px) {
+  .main-content {
+    padding: 15px;
+  }
+
+  .sidebar-container.collapsed ~ .main-content {
+    left: 0;
+    width: 100%;
+  }
+}
