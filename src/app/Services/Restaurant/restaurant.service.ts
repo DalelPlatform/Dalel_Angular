@@ -18,5 +18,18 @@ export class RestaurantService {
     return this.http.post(`${environment.baseApi}Restaurant/AddRestaurant`, data);
   }
 
+  getAllRestaurant(): Observable<any> {
+
+    return this.http.get(`${environment.baseApi}Restaurant/GetAllRestaurants`);
+  }
+
+  addMeal(data: any): Observable<any> {
+
+    return this.http.post(`${environment.baseApi}RestaurantMeal/AddMeal`, data);
+  }
+
+  getRestaurantDetails(id: number): Observable<any> {
+    return this.http.get(`${environment.baseApi}Restaurant/GetRestaurantById/${id}`);
+  }
 
 }

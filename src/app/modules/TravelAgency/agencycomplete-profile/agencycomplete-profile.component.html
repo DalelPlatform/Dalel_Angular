@@ -1,118 +1,134 @@
 <!-- <div id="container" class="container mt-5">
   <div class="contents">
-    <div class="progress px-1" style="height: 3px;">
-      <div class="progress-bar" role="progressbar" [style.width.%]="progressPercentage"
-        [attr.aria-valuenow]="progressPercentage" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress px-1" style="height: 3px;">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [style.width.%]="progressPercentage"
+        [attr.aria-valuenow]="progressPercentage"
+        aria-valuemin="0"
+        aria-valuemax="100">
       </div>
     </div>
 
     
     <div class="step-container d-flex justify-content-between my-3">
       @for (step of steps; let i = $index; track $index){
-      <div class="step-circle" [class.active]="currentStep === i + 1" (click)="displayStep(i + 1)">
-        {{ i + 1 }}
-      </div>
+        <div
+          class="step-circle"
+          [class.active]="currentStep === i + 1"
+          (click)="displayStep(i + 1)">
+          {{ i + 1 }}
+        </div>
 
       }
     </div>
   </div>
 
-  <form [formGroup]="agencyForm" (ngSubmit)="submit()">
-    @if (currentStep === 1) {
-    <h3 class="mb-4">Step 1: Basic Info</h3>
-    <div class="labeled-input">
-      <input formControlName="BusinessName" placeholder="Business Name" />
-      <span class="text-danger"
-        *ngIf="agencyForm.get('BusinessName')?.touched && agencyForm.get('BusinessName')?.invalid">
-        Business Name is required
-      </span>
+    <form [formGroup]="agencyForm" (ngSubmit)="submit()">
+     @if (currentStep === 1) {
+       <h3 class="mb-4">Step 1: Basic Info</h3>
+       <div class="labeled-input">
+          <input formControlName="BusinessName" placeholder="Business Name"  />
+    <span class="text-danger"
+         *ngIf="agencyForm.get('BusinessName')?.touched && agencyForm.get('BusinessName')?.invalid">
+      Business Name is required
+    </span>
 
 
-      <input formControlName="ContactInfo" placeholder="Contact Info" />
-      <span class="text-danger"
-        *ngIf="agencyForm.get('ContactInfo')?.touched && agencyForm.get('ContactInfo')?.invalid">
-        Contact Info is required
-      </span>
-      <textarea formControlName="Description" placeholder="Description" pattern="[A-Za-z]{8}" type="text"
-        name="input-name" id="input-id" required rows="6"></textarea>
+    <input formControlName="ContactInfo" placeholder="Contact Info" />
+     <span class="text-danger"
+         *ngIf="agencyForm.get('ContactInfo')?.touched && agencyForm.get('ContactInfo')?.invalid">
+      Contact Info is required
+    </span>
+     <textarea  formControlName="Description"
+      placeholder="Description"
+    type="text" name="input-name" id="input-id"
+                       rows="6"></textarea>
 
       <span class="text-danger"
-        *ngIf="agencyForm.get('Description')?.touched && agencyForm.get('Description')?.invalid">
-        Description is required
-      </span>
+         *ngIf="agencyForm.get('Description')?.touched && agencyForm.get('Description')?.invalid">
+      Description is required
+    </span>
       <button type="button" class="btn account" (click)="nextStep()">Next</button>
-    </div>
+       </div>
 
-    }
-    @if (currentStep === 2) {
-    <h3 class="mb-4">Step 2: Location</h3>
-    <div class="labeled-input">
-      <input formControlName="BusinessCategory" placeholder="Business Category" />
+     }
+     @if (currentStep === 2) {
+        <h3 class="mb-4">Step 2: Location</h3>
+         <div class="labeled-input">
+    <input formControlName="BusinessCategory" placeholder="Business Category" />
       <span class="text-danger"
-        *ngIf="agencyForm.get('BusinessCategory')?.touched && agencyForm.get('BusinessCategory')?.invalid">
-        Business Category is required
-      </span>
-      <input formControlName="Address" placeholder="Address" />
-      <span class="text-danger" *ngIf="agencyForm.get('Address')?.touched && agencyForm.get('Address')?.invalid">
-        Address is required
-      </span>
-      <input formControlName="City" placeholder="City" />
-      <span class="text-danger" *ngIf="agencyForm.get('City')?.touched && agencyForm.get('City')?.invalid">
-        City is required
-      </span>
-      <input formControlName="BuildingNo" type="number" placeholder="Building No" />
-      <span class="text-danger" *ngIf="agencyForm.get('BuildingNo')?.touched && agencyForm.get('BuildingNo')?.invalid">
-        Building No is required
-      </span>
-      <input formControlName="Latitude" type="number" placeholder="Latitude" />
-      <span class="text-danger" *ngIf="agencyForm.get('Latitude')?.touched && agencyForm.get('Latitude')?.invalid">
-        Latitude is required
-      </span>
-      <input formControlName="Longitude" type="number" placeholder="Longitude" />
-      <span class="text-danger" *ngIf="agencyForm.get('Longitude')?.touched && agencyForm.get('Longitude')?.invalid">
-        Longitude is required
-      </span>
-      <input formControlName="Street" placeholder="Street" />
-      <span class="text-danger" *ngIf="agencyForm.get('Street')?.touched && agencyForm.get('Street')?.invalid">
-        Street is required
-      </span>
-      <div class="flex">
-        <button type="button" class="btn account me-2" (click)="prevStep()">Previous</button>
-        <button type="button" class="btn account" (click)="nextStep()">Next</button>
-      </div>
-
+         *ngIf="agencyForm.get('BusinessCategory')?.touched && agencyForm.get('BusinessCategory')?.invalid">
+      Business Category is required
+    </span>
+    <input formControlName="Address" placeholder="Address" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('Address')?.touched && agencyForm.get('Address')?.invalid">
+      Address is required
+    </span>
+    <input formControlName="City" placeholder="City" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('City')?.touched && agencyForm.get('City')?.invalid">
+      City is required
+    </span>
+    <input formControlName="BuildingNo" type="number" placeholder="Building No" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('BuildingNo')?.touched && agencyForm.get('BuildingNo')?.invalid">
+      Building No is required
+    </span>
+    <input formControlName="Latitude" type="number" placeholder="Latitude" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('Latitude')?.touched && agencyForm.get('Latitude')?.invalid">
+      Latitude is required
+    </span>
+    <input formControlName="Longitude" type="number" placeholder="Longitude" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('Longitude')?.touched && agencyForm.get('Longitude')?.invalid">
+      Longitude is required
+    </span>
+    <input formControlName="Street" placeholder="Street" />
+      <span class="text-danger"
+         *ngIf="agencyForm.get('Street')?.touched && agencyForm.get('Street')?.invalid">
+      Street is required
+    </span>
+    <div class="flex">
+      <button type="button" class="btn account me-2" (click)="prevStep()">Previous</button>
+          <button type="button" class="btn account" (click)="nextStep()">Next</button>
     </div>
-    }
-    @if (currentStep === 3) {
-    <h3 class="mb-4">Step 3: Verification</h3>
-    <div class="labeled-input">
-      <div formArrayName="VerificationDocument" class="files_upload">
+
+          </div>
+     }
+       @if (currentStep === 3) {
+         <h3 class="mb-4">Step 3: Verification</h3>
+          <div class="labeled-input">
+    <div formArrayName="VerificationDocument" class="files_upload">
         @if(VerificationDocument.at(0).get('DocumentFile')?.value){
-        <div class="">
-          <div class="file-icon"><span>📄</span> </div>
-          <p>{{ VerificationDocument.at(0).get('DocumentFile')?.value.name }}</p>
-        </div>
-        }
-        <div [formGroupName]="0">
-          <input class="d-none" #fileInput type="file" placeholder="Document File" (change)="onFileChange($event, 0)"
-            multiple />
-          <button (click)="fileInput.click()" class="browsebtn">Browse Files</button>
-        </div>
-        <span class="text-danger"
-          *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
-          please upluad file
-        </span>
-
+  <div class="">
+    <div class="file-icon"><span>📄</span>  </div>
+       <p>{{ VerificationDocument.at(0).get('DocumentFile')?.value.name }}</p>
       </div>
-      <div class="d-flex">
+      }
+      <div [formGroupName]="0">
+        <input   class="d-none"
+        #fileInput type="file"  placeholder="Document File" (change)="onFileChange($event, 0)" multiple/>
+        <button (click)="fileInput.click()" class="browsebtn">Browse Files</button>
+      </div>
+      <span class="text-danger"
+         *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
+  please upluad file
+    </span>
+
+    </div>
+   <div class="d-flex">
         <button type="button" class="btn account me-2" (click)="prevStep()">Previous</button>
 
-        <button type="submit" class="btn submit">Submit Agency</button>
-      </div>
+    <button type="submit" class="btn submit" >Submit Agency</button>
+   </div>
     </div>
-    }
+  }
 
   </form>
 
 
-</div> -->
+  </div> -->

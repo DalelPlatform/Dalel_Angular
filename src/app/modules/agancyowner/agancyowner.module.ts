@@ -5,13 +5,14 @@ import { PackagedetailsComponent } from './compoments/packagedetails/packagedeta
 import { RouterModule, Routes } from '@angular/router';
 import { AgancyownerlayoutComponent } from './compoments/agancyownerlayout/agancyownerlayout.component';
 import { UserLayoutComponent } from '../user/components/user-layout/user-layout.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 let routes: Routes = [
 
   {
     path: "owner",
     component: AgancyownerlayoutComponent,
-    // canActivate: 
+    // canActivate:
     children: [
       { path: "add-package", component: AddPackageComponent },
       { path: "add-package", component: AddPackageComponent },
@@ -27,7 +28,7 @@ let routes: Routes = [
   //agancy/package-details/1
     path: "client",
     component: UserLayoutComponent,
-    // canActivate: 
+    // canActivate:
     children: [
       { path: "package-details/:id", component: PackagedetailsComponent },
       { path: "package-details/:id", component: PackagedetailsComponent },
@@ -44,6 +45,7 @@ let routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule
 
   ],
   declarations: [

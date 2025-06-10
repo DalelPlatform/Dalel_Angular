@@ -1,0 +1,190 @@
+<div class="page">
+  <div class="container my-box">
+    <div class="form-container">
+      <h2 class="form-title">Add Meal</h2>
+
+      <form [formGroup]="addMealForm" (ngSubmit)="addMealFun()">
+        <!-- Meal Name -->
+        <div class="mb-4">
+          <label for="Name" class="form-label">Meal Name</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-utensils"></i>
+            <input type="text" class="form-control" id="Name" formControlName="Name"
+              placeholder="Enter restaurant name">
+          </div>
+
+          @if(formControls['Name'].invalid && formControls['Name'].touched ){
+            <div id="NameHelp" class="form-text text-danger">
+              @if(formControls['Name'].hasError('required')) {
+                <span>Required</span>
+              }
+              @else if(formControls['Name'].hasError('minlength')) {
+                <span>Item name must contain at least 3 letters</span>
+              }
+              @else if(formControls['Name'].hasError('maxlength')) {
+                <span>Item name must contain max 100 letters</span>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <label for="Description" class="form-label">Description</label>
+          <textarea class="form-control" id="Description" formControlName="Description" rows="4"
+            placeholder="Tell us about your restaurant"></textarea>
+
+          @if(formControls['Description'].invalid && formControls['Description'].touched ){
+            <div id="DescriptionHelp" class="form-text text-danger">
+              @if(formControls['Description'].hasError('required')) {
+                <span>Required</span>
+              }
+              @else if(formControls['Description'].hasError('minlength')) {
+                <span>Item name must contain at least 20 letters</span>
+              }
+              @else if(formControls['Description'].hasError('maxlength')) {
+                <span>Item name must contain max 200 letters</span>
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Price and Dietary Tags -->
+        <div class="row mb-4">
+          <!-- Price -->
+          <div class="col-md-6">
+            <label for="Price" class="form-label">Price</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-door-open"></i>
+              <input type="number" class="form-control" id="Price" formControlName="Price" placeholder="0">
+            </div>
+
+            @if(formControls['Price'].invalid && formControls['Price'].touched ){
+              <div id="Price" class="form-text text-danger">
+                @if(formControls['Price'].hasError('required')) {
+                  <span>Required</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Dietary Tags -->
+          <div class="col-md-6">
+            <label for="DietaryTags" class="form-label">Dietary Tags</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-regular fa-building"></i>
+              <input type="text" class="form-control" id="DietaryTags" formControlName="DietaryTags"
+                placeholder="Dietary Tags">
+            </div>
+
+            @if(formControls['DietaryTags'].invalid && formControls['DietaryTags'].touched ){
+              <div id="DietaryTagsHelp" class="form-text text-danger">
+                @if(formControls['DietaryTags'].hasError('required')) {
+                  <span>Required</span>
+                }
+                @else if(formControls['DietaryTags'].hasError('minlength')) {
+                  <span>Item name must contain at least 3 letters</span>
+                }
+                @else if(formControls['DietaryTags'].hasError('maxlength')) {
+                  <span>Item name must contain max 100 letters</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Food Category and Piece Size -->
+        <div class="row mb-4">
+          <!-- Food Category -->
+          <div class="col-md-6">
+            <label for="FoodCategory" class="form-label">Category Of Food</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-location-dot"></i>
+              <select class="form-control" id="FoodCategory" formControlName="FoodCategory">
+                <option value="">Select Category</option>
+                <option value="Drink">Drink</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Meal">Meal</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            @if(formControls['FoodCategory'].invalid && formControls['FoodCategory'].touched ){
+              <div id="FoodCategoryHelp" class="form-text text-danger">
+                @if(formControls['FoodCategory'].hasError('required')) {
+                  <span>Required</span>
+                }
+              </div>
+            }
+          </div>
+
+
+          <!-- Piece Size -->
+          <div class="col-md-6">
+            <label for="PieceSize" class="form-label">Piece Size</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-box"></i> <!-- optional: updated icon -->
+              <select class="form-control" id="PieceSize" formControlName="PieceSize">
+                <option value="">Select Size</option>
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+              </select>
+            </div>
+
+            @if(formControls['PieceSize'].invalid && formControls['PieceSize'].touched ){
+              <div id="PieceSizeHelp" class="form-text text-danger">
+                @if(formControls['PieceSize'].hasError('required')) {
+                  <span>Required</span>
+                }
+              </div>
+            }
+          </div>
+
+        </div>
+
+        <!-- Duration -->
+        <div class="row mb-4">
+          <div class="col-md-6">
+            <label for="Duration" class="form-label">Duration</label>
+            <div class="input-with-icon">
+              <i class="input-icon fa-solid fa-tree-city"></i>
+              <input type="text" class="form-control" id="Duration" formControlName="Duration"
+                placeholder="Enter the City">
+            </div>
+
+            @if(formControls['Duration'].invalid && formControls['Duration'].touched ){
+              <div id="DurationHelp" class="form-text text-danger">
+                @if(formControls['Duration'].hasError('required')) {
+                  <span>Required</span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Upload Images -->
+        <div class="mb-4">
+          <label class="form-label">Upload Restaurant Images</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label">
+              <div class="text-center">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <div>Drag & drop images or <span class="text-primary">browse</span></div>
+                <div class="small text-muted mt-1">Supported formats: JPEG, PNG, GIF</div>
+              </div>
+              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImage">
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-gradient">
+          <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status"
+            aria-hidden="true"></span>
+          Submit Restaurant
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

@@ -22,7 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
-    // ToastrModule.forRoot() // ToastrModule added
+  //  ToastrModule.forRoot() // ToastrModule added
 
   ],
   exports:[

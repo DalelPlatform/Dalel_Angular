@@ -5,6 +5,9 @@ import { AddRestaurantFormComponent } from './components/add-restaurant-form/add
 import { RestaurantLayoutComponent } from './components/restaurant-layout/restaurant-layout.component';
 import { RouterModule, Routes } from '@angular/router';
 import { restaurantOwnerGuard } from '../../Services/Guards/RestaurantOwner/restaurant-owner.guard';
+import { GetAllRestaurantComponent } from './components/get-all-restaurant/get-all-restaurant.component';
+import { AddMealComponent } from './components/add-meal/add-meal.component';
+import { RestaurantDetailsComponent } from './components/restaurant-details/restaurant-details.component';
 
 let routes: Routes = [
 
@@ -13,9 +16,13 @@ let routes: Routes = [
     component: RestaurantLayoutComponent,
     canActivate:[restaurantOwnerGuard],
     children: [
-      { path: "add-restaurant", component: AddRestaurantFormComponent },
+      {path: "add-restaurant", component: AddRestaurantFormComponent },
+      {path : "get-all-restaurants" , component:GetAllRestaurantComponent},
+      {path : "add-meal", component:AddMealComponent},
+      {path : "restaurant-details/:id", component:RestaurantDetailsComponent},
 
-    ]
+
+      ]
   },
 
 
@@ -24,6 +31,8 @@ let routes: Routes = [
 @NgModule({
   declarations: [
     AddRestaurantFormComponent,
+    AddMealComponent,
+    RestaurantDetailsComponent
 
   ],
   imports: [

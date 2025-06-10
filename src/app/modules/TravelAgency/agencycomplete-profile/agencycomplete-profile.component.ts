@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormGroupName, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,7 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   standalone: false
 })
 export class AgencycompleteProfileComponent {
-  agencyForm!: FormGroup;
+  agencyForm! : FormGroup;
   currentStep: number = 1;
   steps: number[] = [1, 2, 3];
   constructor(
@@ -118,9 +118,10 @@ export class AgencycompleteProfileComponent {
         this.toastr.success(res.Message)
 
       },
-      error: err => {
+      error: (err) => {
+        console.log(err)
         if (err.status === 400 && err.error?.errors) {
-
+          this.toastr.error("Please fill all data")
         }
         else if (err.status === 401) {
           this.toastr.error('Unauthorized access. Redirecting to login...')
@@ -135,6 +136,3 @@ export class AgencycompleteProfileComponent {
   }
 
 }
-
-
-

@@ -21,9 +21,10 @@ let routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
     ReactiveFormsModule,
-    FormsModule
+    RouterModule.forChild(routes)
+
+
   ],
   declarations: [AgencycompleteProfileComponent,AgencyOwnerLayOutComponent]
 })
