@@ -3,23 +3,34 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
+// Define the ProfileCheckResponse interface
+  interface ProfileCheckResponse {
+  Success: boolean;
+  Data?: boolean;
+  Message: string;
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompleteProfileServiceProviderService {
-  private apiUrl = 'http://localhost:5070/api/Serviceprovider/'; 
+  private apiUrl = 'http://localhost:5070/api/ServiceProvider/'; 
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
+
 
 checkProfileCompletion(): Observable<boolean> {
   const token = this.cookieService.get('Token');
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${token}`
   });
-  return this.http.get<any>(this.apiUrl+'check-profile', { headers }).pipe(
+  const fullUrl = this.apiUrl + 'check-profile';
+  console.log('Request URL:', fullUrl); // لتسجيل URL
+  return this.http.get<ProfileCheckResponse>(fullUrl, { headers }).pipe(
     map(response => {
-      return response.Success && response.Data === true;
+      console.log('Response:', response); // لتسجيل الاستجابة الكاملة
+      return response.Success ? response.Data === true : false;
     })
   );
 }

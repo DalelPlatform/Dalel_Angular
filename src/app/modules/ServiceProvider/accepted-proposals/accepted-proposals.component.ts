@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProposalWithRating } from '../proposal.model';
+import { ProposalWithRating } from '../Models/proposal.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 @Component({

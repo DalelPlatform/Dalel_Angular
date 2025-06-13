@@ -32,8 +32,6 @@ import { AddServiceRequestComponent } from "./components/add-service-request/add
         ForgotPasswordComponent,
         ResetPasswordComponent,
         HotelOwnerComponent,
-        AddServiceRequestComponent
-
 
 
     ],
