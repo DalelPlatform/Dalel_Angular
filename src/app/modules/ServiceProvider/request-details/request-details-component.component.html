@@ -1,8 +1,9 @@
 <div *ngIf="request" class="card shadow p-4 mb-4 border-0" style="border-left: 5px solid #6f42c1;">
   <h2 class="text-purple mb-3">Request Details</h2>
   <p><strong>📍 Address:</strong> {{ request.Address }}</p>
-  <p><strong>📝 Description:</strong> {{ request.Description }}</p>
+  <p><strong class="bi bi-geo-alt-fill">📝 Description:</strong> {{ request.Description }}</p>
   <p><strong>📅 Date:</strong> {{ request.Date | date:'medium' }}</p>
+  
   <p><strong>📌 Status:</strong>
 
   </p>
