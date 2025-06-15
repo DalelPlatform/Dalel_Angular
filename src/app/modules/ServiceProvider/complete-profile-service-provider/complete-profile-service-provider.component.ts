@@ -314,7 +314,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
   userId: string | null = null;
   userName: string | null = null;
   role: string | null = null;
-  categories: any[] = []; 
+  categories: any[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -352,10 +352,10 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     this.role = this.cookieService.get('Role');
     this.userId = this.cookieService.get('Token');
   }
-    loadCategories(): void {
+  loadCategories(): void {
     this.service.getCategories().subscribe({
       next: (response) => {
-        this.categories = response.Data; 
+        this.categories = response.Data;
         console.log('Categories loaded:', response.Data);
       },
       error: (err) => {
@@ -472,14 +472,18 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.ServiceProviderForm.invalid || !this.userId || !this.userName) {
+    if (this.ServiceProviderForm.invalid || !this.userId) {
       this.ServiceProviderForm.markAllAsTouched();
-      console.log('Form is invalid or user data is missing',this.ServiceProviderForm.value, this.userId, this.userName );
-      
+      console.log('Form is invalid or user data is missing', this.ServiceProviderForm.value, this.userId);
+
       return;
     }
-
-    this.formData.append('UserName', this.userName);
+    this.formData.append('UserId', 'UserId');
+    this.formData.append('UserName', "UserName");
+    this.formData.append('ServiceArea', this.ServiceProviderForm.get('serviceAreas')?.value);
+    this.formData.append('ZipCode', this.ServiceProviderForm.get('zipCode')?.value);
+    this.formData.append('District', this.ServiceProviderForm.get('district')?.value);
+    this.formData.append('Country', this.ServiceProviderForm.get('country')?.value);
     this.formData.append('About', this.ServiceProviderForm.get('about')?.value);
     this.formData.append('Website', this.ServiceProviderForm.get('website')?.value);
     this.formData.append('Price', this.ServiceProviderForm.get('price')?.value);
@@ -488,20 +492,26 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     this.formData.append('Address', this.ServiceProviderForm.get('addressLine')?.value);
     this.formData.append('CategoryServicesId', this.ServiceProviderForm.get('categories')?.value);
 
-    const scheduleData = this.schedules.value
+    
+      let scheduleData =   this.schedules.value
       .map((schedule: any, index: number) => ({
-        WorKDay: index,
-        AvailableFrom: schedule.enabled ? schedule.availableFrom : null,
-        AvailableTo: schedule.enabled ? schedule.availableTo : null
+          ServiceProviderId: "",
+          WorKDay: index,
+          AvailableFrom: schedule.enabled ? schedule.availableFrom : null,
+          AvailableTo: schedule.enabled ? schedule.availableTo : null
+        
       }))
-      .filter((s: any) => s.AvailableFrom && s.AvailableTo);
+    .filter((s: any) => s.AvailableFrom && s.AvailableTo);
+    console.log(scheduleData);
+
+
 
     this.service.createServiceProvider(this.formData).subscribe({
       next: (res) => {
         console.log('Profile creation response:', res);
-        
+
         if (res.Success) {
-          this.service.updateSchedules(scheduleData).subscribe({
+          this.service.AddSchedules( { "Schedules":scheduleData , "ServiceProviderId":""}).subscribe({
             next: (r) => {
               if (r.Success) this.router.navigate(['/account']);
               else this.saveError = r.Message || 'Failed to save schedule.';
@@ -512,10 +522,11 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
           this.saveError = res.Message || 'Failed to save profile.';
         }
       },
-      error: (e) =>{
+      error: (e) => {
         console.log('Profile creation error:', e);
-        
+
         this.saveError = e.error?.Message || 'Error while saving profile.'
-    }});
+      }
+    });
   }
 }

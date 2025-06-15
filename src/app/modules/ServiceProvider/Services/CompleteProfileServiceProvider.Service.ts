@@ -40,7 +40,7 @@ export class CompleteProfileServiceProviderService {
     );
   }
   createServiceProvider(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/ServiceProvider/create`, formData, {
+    return this.http.put(`${this.apiUrl}ServiceProvider/create`, formData, {
       headers: this.authHeaders
     });
   }
@@ -48,16 +48,18 @@ export class CompleteProfileServiceProviderService {
     return this.http.get(`http://localhost:5070/api/CategoryServices/categories`);
   }
 
-  updateSchedules(scheduleData: any[]): Observable<any> {
-    const formData = new FormData();
-    formData.append('Schedules', JSON.stringify(scheduleData));
-
-    return this.http.put(`${this.apiUrl}/serviceproviderschedule/update`, formData, {
+  updateSchedules(scheduleData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}serviceproviderschedule/update`,scheduleData, {
+      headers: this.authHeaders
+    });
+  }
+   AddSchedules(scheduleData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}ServiceProviderSchedule/add`,scheduleData, {
       headers: this.authHeaders
     });
   }
   loadSchedules(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/serviceproviderschedule/provider`, {
+    return this.http.get(`${this.apiUrl}serviceproviderschedule/provider`, {
       headers: this.authHeaders,
       params: { pageSize: '5', pageNumber: '1' },
       responseType: 'text'
@@ -69,6 +71,6 @@ export class CompleteProfileServiceProviderService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.http.post(this.apiUrl + '/create', profile, { headers });
+    return this.http.post(this.apiUrl + 'create', profile, { headers });
   }
 }
