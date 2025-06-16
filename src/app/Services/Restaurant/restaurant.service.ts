@@ -28,8 +28,13 @@ export class RestaurantService {
     return this.http.post(`${environment.baseApi}RestaurantMeal/AddMeal`, data);
   }
 
-  getRestaurantDetails(id: number): Observable<any> {
-    return this.http.get(`${environment.baseApi}Restaurant/GetRestaurantById/${id}`);
+  getRestaurant(searchText: string): Observable<any> {
+    return this.http.get(`${environment.baseApi}Restaurant/search/${searchText}`);
   }
+  getRestaurantDetails(id: number): Observable<any> {
+    return this.http.get(`${environment.baseApi}Restaurant/${id}`);
+  }
+
+
 
 }
