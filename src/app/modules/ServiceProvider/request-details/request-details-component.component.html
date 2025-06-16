@@ -1,0 +1,35 @@
+<div *ngIf="request" class="card shadow p-4 mb-4 border-0" style="border-left: 5px solid #6f42c1;">
+  <h2 class="text-purple mb-3">Request Details</h2>
+  <p><strong>📍 Address:</strong> {{ request.Address }}</p>
+  <p><strong class="bi bi-geo-alt-fill">📝 Description:</strong> {{ request.Description }}</p>
+  <p><strong>📅 Date:</strong> {{ request.Date | date:'medium' }}</p>
+  
+  <p><strong>📌 Status:</strong>
+
+  </p>
+  
+</div>
+<div class="card shadow p-4 mb-4">
+       <button *ngIf="isServiceProvider" class="btn btn-outline-primary mb-3" (click)="onAddProposal()">
+        ➕ Add Proposal
+      </button>
+</div>
+<h3 class="text-purple">Proposals</h3>
+
+<div *ngIf="proposals.length > 0; else noProposals">
+  <div *ngFor="let proposal of proposals" class="card border-0 shadow-sm mb-3">
+    <div class="card-body">
+      <button *ngIf="isClient && request?.ClientId === currentUserId" class="btn btn-success mt-2"
+        (click)="acceptProposal(proposal.id)">
+        ✅ Accept
+      </button>
+      <h5 class="card-title text-orange">💼 Provider: {{ proposal.serviceProviderId }}</h5>
+      <p class="card-text"><strong>💰 Price:</strong> {{ proposal.suggestedPrice }} EGP</p>
+      <p class="card-text"><strong>📝 Description:</strong> {{ proposal.description }}</p>
+    </div>
+  </div>
+</div>
+
+<ng-template #noProposals>
+  <div class="alert alert-warning mt-3">No proposals found for this request.</div>
+</ng-template>

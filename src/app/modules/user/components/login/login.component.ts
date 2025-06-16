@@ -27,17 +27,11 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
-        // if(res.Role === "ServiceProvider") {
-        //   this.router.navigate(['/complete-ServiceProvider-profile']);
-        // }
-        // else{
-        //   this.router.navigate(['/login']);
-        // }
         if (res.Role === 'ServiceProvider') {
           this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
             next: (isComplete) => {
               if (!isComplete) {
-                this.router.navigate(['/complete-ServiceProvider-profile']);
+                this.router.navigate(['/CompleteProfileServiceProvider']);
               } else {
                 this.router.navigate(['/service-provider']);
               }

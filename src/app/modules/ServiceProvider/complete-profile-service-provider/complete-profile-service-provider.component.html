@@ -1,4 +1,4 @@
-<div id="container" class="container mt-5">
+<!-- <div id="container" class="container mt-5">
   <div class="contents">
     <div class="progress px-1" style="height: 3px;">
       <div class="progress-bar" role="progressbar" [style.width.%]="progressPercentage"
@@ -65,7 +65,7 @@
   <select formControlName="categories" class="form-select">
     <option value="">Select a category</option>
     @for (category of categoriesList; track category) {
-    <option [value]="category">{{ category }}</option> <!-- Display the category name directly -->
+    <option [value]="category">{{ category }}</option> 
     }
   </select>
   <span class="text-danger" *ngIf="profileForm.get('categories')?.touched && profileForm.get('categories')?.invalid">
@@ -148,4 +148,390 @@
 
     <div *ngIf="saveError" class="alert alert-danger mt-3">{{ saveError }}</div>
   </form>
+</div> -->
+<div class="container m-5">
+  <!-- Progress Bar -->
+  <div class="progress-bar-container mb-4">
+    <div class="steps d-flex justify-content-between">
+      <div class="step"
+        [ngClass]="{'active': currentStep === 'location', 'completed': ['services', 'profile', 'price', 'project'].includes(currentStep)}">
+        <div class="step-icon">
+          <i class="bi bi-building"></i>
+        </div>
+        <span>Business location</span>
+      </div>
+      <div class="step"
+        [ngClass]="{'active': currentStep === 'services', 'completed': ['profile', 'price', 'project'].includes(currentStep)}">
+        <div class="step-icon">
+          <i class="bi bi-tools"></i>
+        </div>
+        <span>Choose services</span>
+      </div>
+      <div class="step"
+        [ngClass]="{'active': currentStep === 'profile', 'completed': ['price', 'project'].includes(currentStep)}">
+        <div class="step-icon">
+          <i class="bi bi-person"></i>
+        </div>
+        <span>Profile details</span>
+      </div>
+      <div class="step" [ngClass]="{'active': currentStep === 'price', 'completed': currentStep === 'project'}">
+        <div class="step-icon">
+          <i class="bi bi-clock"></i>
+        </div>
+        <span>Price and hours</span>
+      </div>
+      <div class="step" [ngClass]="{'active': currentStep === 'project'}">
+        <div class="step-icon">
+          <i class="bi bi-folder-plus"></i>
+        </div>
+        <span>Create first project</span>
+      </div>
+    </div>
+  </div>
+  <div class="form-container" [formGroup]="ServiceProviderForm">
+    <!-- Business Location Section -->
+    <section class="form-section" *ngIf="currentStep === 'location'">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mb-4">What is your business address?</h2>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Country *</label>
+              <div class="select-wrapper">
+                <select class="form-select" formControlName="country">
+                  <option value="">Select country</option>
+                  <option value="Egypt">Egypt</option>
+                </select>
+              </div>
+              <div *ngIf="ServiceProviderForm.get('country')?.invalid && ServiceProviderForm.get('country')?.touched"
+                class="text-danger small">
+                Country is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">City *</label>
+              <div class="select-wrapper">
+                <select class="form-select" formControlName="city">
+                  <option value="">Select city</option>
+                  <option value="Aswan">Aswan</option>
+                </select>
+              </div>
+              <div *ngIf="ServiceProviderForm.get('city')?.invalid && ServiceProviderForm.get('city')?.touched"
+                class="text-danger small">
+                City is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">District *</label>
+              <div class="select-wrapper">
+                <select class="form-select" formControlName="district">
+                  <option value="">Select district</option>
+                  <option value="Aswan">Aswan</option>
+                  <option value="Edfu">Edfu</option>
+                  <option value="Selwa">Selwa</option>
+                  <option value="Abo-Sempl">Abo Sempl</option>
+                  <option value="Draw">Draw</option>
+                  <option value="Kom-Ombo">Kom-Ombo</option>
+                  <option value="Nasr-ElNoba">Nasr ElNoba</option>
+                </select>
+              </div>
+              <div *ngIf="ServiceProviderForm.get('district')?.invalid && ServiceProviderForm.get('district')?.touched"
+                class="text-danger small">
+                District is required.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Zip code *</label>
+              <input type="text" class="form-control" formControlName="zipCode" />
+              <div *ngIf="ServiceProviderForm.get('zipCode')?.invalid && ServiceProviderForm.get('zipCode')?.touched"
+                class="text-danger small">
+                Zip code is required.
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Your Address *</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                <input type="text" class="form-control" formControlName="addressLine" />
+              </div>
+              <div
+                *ngIf="ServiceProviderForm.get('addressLine')?.invalid && ServiceProviderForm.get('addressLine')?.touched"
+                class="text-danger small">
+                Address is required.
+              </div>
+            </div>
+          </div>
+          <h2 class="mt-5 mb-4">Where do you want to work?</h2>
+          <div class="mb-4">
+            <label class="form-label">Where do you offer your services? *</label>
+            <div class="search-wrapper">
+              <input type="text" class="form-control" formControlName="serviceAreas"
+                placeholder="Write area where you provide your services" />
+            </div>
+            <div
+              *ngIf="ServiceProviderForm.get('serviceAreas')?.invalid && ServiceProviderForm.get('serviceAreas')?.touched"
+              class="text-danger small">
+              Service areas are required.
+            </div>
+          </div>
+          <!-- <div class="selected-areas mb-4">
+            <span class="area-tag" *ngFor="let area of selectedAreas">{{ area }} <i class="bi bi-x-circle" (click)="removeArea(area)"></i></span>
+          </div> -->
+          <button class="btn btn-primary custom-btn" (click)="goToNextStep('services')">Go to services <i
+              class="bi bi-arrow-right-circle"></i></button>
+        </div>
+        <div class="col-md-4">
+          <img src="https://placehold.co/400x400" alt="Location illustration" class="img-fluid" />
+        </div>
+      </div>
+    </section>
+    <!-- Services Section -->
+    <section class="form-section" *ngIf="currentStep === 'services'">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mb-4">What services do you provide?</h2>
+          <div class="mb-4">
+            <label class="form-label">Categories *</label>
+            <select class="form-select" formControlName="categories">
+              <option value="">Select service type</option>
+                <option *ngFor="let category of categories" [value]="category.Id">
+                  {{ category.Name }}
+                </option>
+            </select>
+            <div
+              *ngIf="ServiceProviderForm.get('categories')?.invalid && ServiceProviderForm.get('categories')?.touched"
+              class="text-danger small">
+              category is required.
+            </div>
+          </div>
+
+          <button class="btn btn-primary custom-btn mt-4" (click)="goToNextStep('profile')">Go to profile details <i
+              class="bi bi-arrow-right-circle"></i></button>
+        </div>
+        <div class="col-md-4">
+          <img src="https://placehold.co/400x400" alt="Services illustration" class="img-fluid" />
+        </div>
+      </div>
+    </section>
+    <!-- Profile Section -->
+    <section class="form-section" *ngIf="currentStep === 'profile'">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mb-4">Add your profile photo</h2>
+          <div class="profile-photo-container mb-4 d-flex align-items-center">
+            <div class="profile-photo-container">
+              <img [src]="previewUrl || 'https://placehold.co/50x50'" alt="Profile photo" class="rounded-circle"
+                style="width: 150px; height: 150px; object-fit: cover;" />
+
+              <div class="mt-3">
+                <input type="file" id="image" (change)="onFileChange($event)" accept="image/png, image/jpeg"
+                  class="d-none" />
+                <label for="image" class="btn btn-primary">
+                  <i class="bi bi-arrow-repeat"></i> Update photo
+                </label>
+              </div>
+
+              <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+                {{ errorMessage }}
+              </div>
+            </div>
+
+            <div class="photo-instructions ms-4">
+              <p>Your profile photo will appear on your profile and directory listing.</p>
+              <p class="text-muted">PNG or JPG no bigger than 1000px wide and tall.</p>
+            </div>
+          </div>
+          <div *ngIf="ServiceProviderForm.get('image')?.invalid && ServiceProviderForm.get('image')?.touched"
+            class="text-danger small mb-4">
+            Profile photo is required.
+          </div>
+          <div class="mb-4">
+            <label class="form-label">About you and your business</label>
+            <textarea class="form-control" rows="4" formControlName="about"
+              placeholder="Tell potential customers about yourself and your business"></textarea>
+            <div *ngIf="ServiceProviderForm.get('about')?.invalid && ServiceProviderForm.get('about')?.touched"
+              class="text-danger small">
+              About section is required and must be at least 50 characters.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Have a website?</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+              <input type="url" class="form-control" formControlName="website" placeholder="https://" />
+            </div>
+            <div *ngIf="ServiceProviderForm.get('website')?.invalid && ServiceProviderForm.get('website')?.touched"
+              class="text-danger small">
+              Website must be a valid URL starting with http:// or https://.
+            </div>
+          </div>
+          <button class="btn btn-primary custom-btn" (click)="goToNextStep('price')">Go to price and hours <i
+              class="bi bi-arrow-right-circle"></i></button>
+        </div>
+        <div class="col-md-4">
+          <div class="preview-card">
+            <div class="preview-header d-flex align-items-center">
+              <div class="preview-photo me-2">
+                <img [src]="previewUrl || 'https://placehold.co/50x50'" alt="Preview" class="rounded-circle" />
+              </div>
+              <div class="preview-rating">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+              </div>
+            </div>
+            <div class="preview-content">
+              <!-- Preview content here -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Price and Hours Section -->
+    <section class="form-section" *ngIf="currentStep === 'price'">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mb-4">Add price and payment method</h2>
+          <div class="price-container mb-4">
+            <label class="form-label">Price *</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" formControlName="price" placeholder="Set a fair price" />
+              <select class="form-select w-auto" formControlName="priceUnit">
+                <option value="per_hour">per hour</option>
+              </select>
+            </div>
+            <div *ngIf="ServiceProviderForm.get('price')?.invalid && ServiceProviderForm.get('price')?.touched"
+              class="text-danger small">
+              Price is required and must be greater than 0.
+            </div>
+          </div>
+          <div class="payment-section mb-5">
+            <h3>Get paid quickly and securely online</h3>
+            <p>Enable clients to pay instantly via credit card, so you'll never have to wait for another check to clear.
+            </p>
+            <div class="card-placeholder">
+              <button class="btn btn-outline-primary"><i class="bi bi-plus"></i> Add card</button>
+            </div>
+          </div>
+          <div class="working-hours">
+            <h3 class="mb-4">Add working hours</h3>
+            <div class="hours-grid" formArrayName="schedules">
+              <div *ngFor="let schedule of schedules.controls; let i=index" class="day-row" [formGroupName]="i">
+                <div class="day-toggle">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" formControlName="enabled" [id]="'day-' + i" />
+                    <label class="form-check-label" [for]="'day-' + i">{{ daysOfWeek[i] }}</label>
+                  </div>
+                </div>
+                <div class="hours-input d-flex align-items-center">
+                  <select class="form-select me-2" formControlName="availableFrom">
+                    <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+                  </select>
+                  <span class="mx-2">to</span>
+                  <select class="form-select" formControlName="availableTo">
+                    <option *ngFor="let hour of hours" [value]="hour">{{ hour }}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary custom-btn mt-4" (click)="goToNextStep('project')">Go to first project <i
+              class="bi bi-arrow-right-circle"></i></button>
+        </div>
+        <div class="col-md-4">
+          <img src="https://placehold.co/400x400" alt="Payment illustration" class="img-fluid" />
+        </div>
+      </div>
+    </section>
+    <!-- Project Section -->
+    <section class="form-section" *ngIf="currentStep === 'project'">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mb-4">Create your first project</h2>
+          <p class="text-muted mb-4">A project is a compilation of photos showcasing your work. These photos help
+            homeowners discover and hire your business on Finder.</p>
+          <div class="mb-4">
+            <label class="form-label">Project name *</label>
+            <input type="text" class="form-control" formControlName="projectName" />
+            <div
+              *ngIf="ServiceProviderForm.get('projectName')?.invalid && ServiceProviderForm.get('projectName')?.touched"
+              class="text-danger small">
+              Project name is required.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Describe your work for the project *</label>
+            <textarea class="form-control" rows="4" formControlName="projectDescription"
+              placeholder="Tell potential customers about project"></textarea>
+            <div
+              *ngIf="ServiceProviderForm.get('projectDescription')?.invalid && ServiceProviderForm.get('projectDescription')?.touched"
+              class="text-danger small">
+              Project description is required.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Approximate price *</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" class="form-control" formControlName="projectPrice" placeholder="Set a fair price" />
+              <select class="form-select w-auto" formControlName="projectPriceUnit">
+                <option value="per_hour">per hour</option>
+              </select>
+            </div>
+            <div
+              *ngIf="ServiceProviderForm.get('projectPrice')?.invalid && ServiceProviderForm.get('projectPrice')?.touched"
+              class="text-danger small">
+              Approximate price is required and must be greater than 0.
+            </div>
+          </div>
+          <div class="photo-upload-section mb-4">
+            <label class="form-label">Add photos and videos</label>
+            <p class="text-muted">The maximum photo size is 8 MB. Formats: jpeg, jpg, png. Put the main picture first.
+            </p>
+            <p class="text-muted">The maximum video size is 10 MB. Formats: mp4, mov.</p>
+            <div class="upload-grid">
+              <div class="upload-placeholder text-center">
+                <input type="file" id="project-media" (change)="onProjectMediaChange($event)"
+                  accept="image/jpeg, image/jpg, image/png, video/mp4, video/mov" class="d-none" />
+                <label for="project-media">
+                  <i class="bi bi-plus-lg"></i>
+                  <span>Upload photos / videos</span>
+                </label>
+              </div>
+            </div>
+            <div
+              *ngIf="ServiceProviderForm.get('projectMedia')?.invalid && ServiceProviderForm.get('projectMedia')?.touched"
+              class="text-danger small">
+              At least one photo or video is required.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Link to the video</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-link-45deg"></i></span>
+              <input type="url" class="form-control" formControlName="projectVideoLink"
+                placeholder="www.youtube.com/..." />
+            </div>
+            <div
+              *ngIf="ServiceProviderForm.get('projectVideoLink')?.invalid && ServiceProviderForm.get('projectVideoLink')?.touched"
+              class="text-danger small">
+              Video link must be a valid URL.
+            </div>
+          </div>
+          <div class="d-flex gap-3">
+            <button type="button" class="btn btn-primary custom-btn" (click)="onSubmit()">Save project and become a pro <i
+                class="bi bi-arrow-right-circle"></i></button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img src="https://placehold.co/400x400" alt="Project illustration" class="img-fluid" />
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- Error Message -->
+  <div *ngIf="saveError" class="alert alert-danger mt-3">{{ saveError }}</div>
 </div>

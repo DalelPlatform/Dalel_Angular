@@ -30,7 +30,6 @@ export class AddServiceRequestComponent implements OnInit {
       preferredDate: ['', [Validators.required]],
       budget: ['', [Validators.required, Validators.min(0.01)]],
       address: ['', [Validators.required]],
-      images: [null]
     });
   }
 
