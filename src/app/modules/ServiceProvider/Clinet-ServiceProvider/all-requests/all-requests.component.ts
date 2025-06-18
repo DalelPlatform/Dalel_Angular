@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../Services/request.service';
 import { ServiceRequestDetails } from '../../Models/service-request.model';
+import { StatusTextPipe } from '../../Pipes/request-status.pipe';
 @Component({
   selector: 'app-all-requests',
   standalone: false,

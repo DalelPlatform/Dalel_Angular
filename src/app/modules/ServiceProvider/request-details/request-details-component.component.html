@@ -1,35 +1,95 @@
 <div *ngIf="request" class="card shadow p-4 mb-4 border-0" style="border-left: 5px solid #6f42c1;">
   <h2 class="text-purple mb-3">Request Details</h2>
   <p><strong>📍 Address:</strong> {{ request.Address }}</p>
-  <p><strong class="bi bi-geo-alt-fill">📝 Description:</strong> {{ request.Description }}</p>
+  <p><strong>📝 Description:</strong> {{ request.Description }}</p>
   <p><strong>📅 Date:</strong> {{ request.Date | date:'medium' }}</p>
-  
-  <p><strong>📌 Status:</strong>
+  <!-- <p class="mb-2"><strong><i class="bi bi-pencil-square text-secondary me-2"></i>Status:</strong> {{ request.Status | statusText }}</p> -->
 
-  </p>
-  
 </div>
-<div class="card shadow p-4 mb-4">
-       <button *ngIf="isServiceProvider" class="btn btn-outline-primary mb-3" (click)="onAddProposal()">
-        ➕ Add Proposal
-      </button>
+
+<!-- زرار إظهار الفورم -->
+<button class="btn btn-outline-primary mb-3" *ngIf="isServiceProvider && !showAddProposalForm"
+        (click)="showAddProposalForm = true">
+  ➕ Add Proposal
+</button>
+
+<!-- الفورم -->
+<div *ngIf="showAddProposalForm" class="card p-3 mb-4 bg-light">
+  <h5 class="text-purple">Submit Your Proposal</h5>
+  <form (ngSubmit)="submitProposal()" #proposalForm="ngForm">
+    <div class="mb-2">
+      <label>Description</label>
+      <textarea class="form-control" name="description" required [(ngModel)]="newProposal.description"></textarea>
+    </div>
+    <div class="mb-2">
+      <label>Suggested Price (EGP)</label>
+      <input type="number" class="form-control" name="suggestedPrice" required [(ngModel)]="newProposal.suggestedPrice">
+    </div>
+    <button class="btn btn-success" type="submit" [disabled]="proposalForm.invalid">✅ Submit Proposal</button>
+    <button class="btn btn-secondary ms-2" type="button" (click)="cancelProposal()">❌ Cancel</button>
+  </form>
 </div>
+
 <h3 class="text-purple">Proposals</h3>
 
+<!-- Provider -->
+
+
+
+<!-- ليستة البروبوزالز -->
 <div *ngIf="proposals.length > 0; else noProposals">
-  <div *ngFor="let proposal of proposals" class="card border-0 shadow-sm mb-3">
+  <div *ngFor="let proposal of proposals" class="card border-0 shadow-sm mb-4">
+
+    <div class="card-header bg-light d-flex align-items-center"
+         *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
+      <img [src]="provider.Image"
+           alt="Provider Image"
+           class="rounded-circle me-3"
+           style="width: 60px; height: 60px; object-fit: cover;" />
+      <div>
+        <h5 class="mb-0">{{ provider.UserName }}</h5>
+        <small class="text-muted">
+          💼 {{ provider.ServiceArea }} | 🏙️ {{ provider.City }}
+        </small><br />
+        <small class="text-muted">
+          💰 {{ provider.Price }} {{ provider.PriceUnit }}
+        </small>
+      </div>
+    </div>
+
     <div class="card-body">
-      <button *ngIf="isClient && request?.ClientId === currentUserId" class="btn btn-success mt-2"
-        (click)="acceptProposal(proposal.id)">
-        ✅ Accept
-      </button>
-      <h5 class="card-title text-orange">💼 Provider: {{ proposal.serviceProviderId }}</h5>
-      <p class="card-text"><strong>💰 Price:</strong> {{ proposal.suggestedPrice }} EGP</p>
-      <p class="card-text"><strong>📝 Description:</strong> {{ proposal.description }}</p>
+      <p class="card-text"><strong>💰 Price:</strong> {{ proposal.SuggestedPrice }} EGP</p>
+      <p class="card-text"><strong>📝 Description:</strong> {{ proposal.Description }}</p>
+      <p class="card-text"><strong>📅 Date:</strong> {{ proposal.Date | date:'medium' }}</p>
+
+        <button *ngIf="isClient"
+                class="btn btn-outline-success btn-sm mt-2"
+                (click)="openConfirmModal(proposal.Id)">
+          ✅ Accept
+        </button>
     </div>
   </div>
 </div>
-
 <ng-template #noProposals>
   <div class="alert alert-warning mt-3">No proposals found for this request.</div>
 </ng-template>
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmModalLabel">تأكيد القبول</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+      </div>
+      <div class="modal-body">
+        are you sure you want to accept this proposal?
+        <p>
+          This action will notify the service provider and finalize the proposal.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+        <button type="button" class="btn btn-success" (click)="confirmAccept()">نعم، اقبله</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -16,41 +16,51 @@ import { AddServiceRequestComponent } from '../../user/components/add-service-re
 import { DatePipe } from '@angular/common';
 import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
 import { RequestDetailsComponent } from '../request-details/request-details-component.component';
+import { StatusTextPipe } from "../Pipes/request-status.pipe";
+import { ServiceProviderAllRequestsComponent } from '../service-provider-all-requests/service-provider-all-requests.component';
 
 let routes: Routes = [
   {
     path: "ServiceProviderlayout",
     component: ServiceProviderLayoutComponent,
     children: [
-      { path: "AddProject", component: AddProjectComponent },
+      {
+        path: "AddProject", component: AddProjectComponent,
+        canActivate: [serviceProviderGuard]
+      },
+      {
+        path: "ServiceProvider", component: ServiceProviderComponent,
+        canActivate: [serviceProviderGuard]
+      },
+      {
+        path: "AcceptedProposals", component: AcceptedProposalsComponent,
+        canActivate: [serviceProviderGuard]
+      },
+      {
+        path: "ProposalList", component: ProposalListComponent,
+        canActivate: [serviceProviderGuard]
+      },
+      {
+        path: "AllRequests",
+        component: ServiceProviderAllRequestsComponent,
+        canActivate: [serviceProviderGuard]
+
+      },
+      { path: 'request/:id', component: RequestDetailsComponent }
     ]
   },
   {
     path: "AddProposal", component: AddProposalComponent,
     canActivate: [serviceProviderGuard]
   },
-  {
-    path: "ServiceProvider", component: ServiceProviderComponent,
-    canActivate: [serviceProviderGuard]
-  },
-  {
-    path: "AcceptedProposals", component: AcceptedProposalsComponent,
-    canActivate: [serviceProviderGuard]
-  },
-  {
-    path: "ProposalList", component: ProposalListComponent,
-    canActivate: [serviceProviderGuard]
-  },
+
+
   {
     path: "CompleteProfileServiceProvider", component: CompleteProfileServiceProviderComponent,
     canActivate: [serviceProviderGuard]
   },
-  {
-    path: "AllRequests",
-    component: AllRequestsComponent,
 
-  },
-  { path: 'request/:id', component: RequestDetailsComponent }
+
 
 ]
 @NgModule({
@@ -63,7 +73,7 @@ let routes: Routes = [
     AddServiceRequestComponent,
     AllRequestsComponent,
     RequestDetailsComponent,
-    
+    ServiceProviderAllRequestsComponent,
     TruncatePipe,
     CompleteProfileServiceProviderComponent
   ],
@@ -71,11 +81,11 @@ let routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule,
+    ServiceProviderLayoutComponent,
+
     RouterModule.forChild(routes),
-    HttpClientModule,
+    HttpClientModule
   ],
-  bootstrap: [AddServiceRequestComponent],
-  providers: [DatePipe],
+  providers: [DatePipe]
 })
 export class ServiceproviderModule { }
