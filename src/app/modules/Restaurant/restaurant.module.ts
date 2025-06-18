@@ -8,6 +8,8 @@ import { restaurantOwnerGuard } from '../../Services/Guards/RestaurantOwner/rest
 import { GetAllRestaurantComponent } from './components/get-all-restaurant/get-all-restaurant.component';
 import { AddMealComponent } from './components/add-meal/add-meal.component';
 import { RestaurantDetailsComponent } from './components/restaurant-details/restaurant-details.component';
+import { RestaurantSearchComponent } from './Client/restaurant-search/restaurant-search.component';
+import { RestaurantCardComponent } from './Client/restaurant-card/restaurant-card.component';
 
 let routes: Routes = [
 
@@ -32,7 +34,9 @@ let routes: Routes = [
   declarations: [
     AddRestaurantFormComponent,
     AddMealComponent,
-    RestaurantDetailsComponent
+    RestaurantDetailsComponent,
+    RestaurantSearchComponent,
+    RestaurantCardComponent
 
   ],
   imports: [

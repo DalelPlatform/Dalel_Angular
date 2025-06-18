@@ -3,7 +3,7 @@ import { IRestaurant } from '../../interfaces/irestaurant';
 
 @Component({
   selector: 'app-restaurant-card',
-  imports: [],
+  standalone: false,
   templateUrl: './restaurant-card.component.html',
   styleUrl: './restaurant-card.component.css'
 })
