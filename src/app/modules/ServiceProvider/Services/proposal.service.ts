@@ -7,14 +7,18 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class ProposalService {
-private apiUrl = `${environment.baseApi}ServiceProviderProposal`;
+  private apiUrl = `${environment.baseApi}ServiceProviderProposal`;
 
   constructor(private http: HttpClient) { }
 
   createProposal(proposalData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/create`, proposalData);
-  }
+    const formData = new FormData();
+    formData.append('description', proposalData.description);
+    formData.append('suggestedPrice', proposalData.suggestedPrice);
+    formData.append('serviceRequestId', proposalData.serviceRequestId);
 
+    return this.http.post(`${this.apiUrl}/create`, formData);
+  }
   getProposalsByRequest(requestId: number, pageSize = 5, pageNumber = 1): Observable<any> {
     return this.http.get(`${this.apiUrl}/request/${requestId}`, {
       params: { pageSize, pageNumber }
@@ -51,7 +55,7 @@ private apiUrl = `${environment.baseApi}ServiceProviderProposal`;
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-   getProviderStats(): Observable<any> {
+  getProviderStats(): Observable<any> {
     return this.http.get(`${this.apiUrl}/provider/stats`);
   }
 
