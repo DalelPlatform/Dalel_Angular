@@ -18,6 +18,7 @@ import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all
 import { RequestDetailsComponent } from '../request-details/request-details-component.component';
 import { StatusTextPipe } from "../Pipes/request-status.pipe";
 import { ServiceProviderAllRequestsComponent } from '../service-provider-all-requests/service-provider-all-requests.component';
+import { ServiceProviderSharedModule } from './service-provider-shared.module';
 
 let routes: Routes = [
   {
@@ -46,9 +47,10 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
 
       },
-      { path: 'request/:id', component: RequestDetailsComponent }
     ]
   },
+  { path: 'request/:id', component: RequestDetailsComponent },
+  
   {
     path: "AddProposal", component: AddProposalComponent,
     canActivate: [serviceProviderGuard]
@@ -81,6 +83,7 @@ let routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
 
     RouterModule.forChild(routes),
