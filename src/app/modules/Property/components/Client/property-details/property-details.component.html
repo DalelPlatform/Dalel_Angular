@@ -1,0 +1,179 @@
+<div class="property-details" *ngIf="property">
+  <!-- Header Section -->
+  <div class="property-header">
+    <div class="property-title">
+      <h1>{{property.numberOfRooms}}-Bedroom Property</h1>
+      <div class="property-location">
+        <i class="location-icon">📍</i>
+        <span>{{property.address}}, {{property.city}}, {{property.region}}</span>
+      </div>
+    </div>
+    <div class="property-status">
+      <span class="status-badge" [class]="verificationStatusClass">
+        {{verificationStatusText}}
+      </span>
+      <span class="rental-type" *ngIf="property.isForRent">For Rent</span>
+    </div>
+  </div>
+
+  <!-- Image Gallery -->
+  <div class="image-gallery" *ngIf="property.propertyImages && property.propertyImages.length > 0">
+    <div class="main-image">
+      <img [src]="property.propertyImages[currentImageIndex].imageUrl" 
+           [alt]="'Property image ' + (currentImageIndex + 1)">
+      <button class="nav-btn prev-btn" (click)="prevImage()" *ngIf="property.propertyImages.length > 1">‹</button>
+      <button class="nav-btn next-btn" (click)="nextImage()" *ngIf="property.propertyImages.length > 1">›</button>
+    </div>
+    <div class="image-thumbnails" *ngIf="property.propertyImages.length > 1">
+      <img *ngFor="let image of property.propertyImages; let i = index"
+           [src]="image.imageUrl"
+           [alt]="'Thumbnail ' + (i + 1)"
+           [class.active]="i === currentImageIndex"
+           (click)="selectImage(i)">
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="property-content">
+    <!-- Left Column -->
+    <div class="left-column">
+      <!-- Property Info -->
+      <div class="property-info">
+        <h2>Property Details</h2>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Rooms:</span>
+            <span class="value">{{property.numberOfRooms}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Building:</span>
+            <span class="value">{{property.buildingNo}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Floor:</span>
+            <span class="value">{{property.floorNo}}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Street:</span>
+            <span class="value">{{property.street}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="description-section">
+        <h2>Description</h2>
+        <p>{{property.description}}</p>
+      </div>
+
+      <!-- Amenities -->
+      <div class="amenities-section">
+        <h2>Amenities</h2>
+        <div class="amenities-grid">
+          <div class="amenity-item" *ngFor="let amenity of amenitiesList">
+            <i class="amenity-icon">✓</i>
+            <span>{{amenity}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="location-section">
+        <h2>Location</h2>
+        <div class="location-details">
+          <p><strong>Full Address:</strong> {{property.address}}, {{property.street}}, {{property.city}}, {{property.region}}</p>
+          <button class="map-btn" (click)="openMap()">
+            <i class="map-icon">🗺️</i>
+            View on Map
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column -->
+    <div class="right-column">
+      <!-- Pricing Card -->
+      <div class="pricing-card">
+        <div class="price">
+          <span class="amount">${{property.pricePerNight}}</span>
+          <span class="period">/ night</span>
+        </div>
+        
+        <div class="booking-actions">
+          <button class="book-btn" (click)="openBookingModal()">
+            Book Now
+          </button>
+          <button class="contact-btn" (click)="toggleContactInfo()">
+            Contact Owner
+          </button>
+        </div>
+
+        <!-- Cancellation Info -->
+        <div class="cancellation-info">
+          <h3>Cancellation Policy</h3>
+          <div class="policy-item">
+            <span class="policy-label">Options Available:</span>
+            <span class="policy-value">{{property.cancelationOptions ? 'Yes' : 'No'}}</span>
+          </div>
+          <div class="policy-item" *ngIf="property.cancelationOptions">
+            <span class="policy-label">Charges:</span>
+            <span class="policy-value">${{property.cancelationCharges}}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Owner Info -->
+      <div class="owner-info" *ngIf="property.propertyOwner">
+        <h3>Property Owner</h3>
+        <div class="owner-details">
+          <div class="owner-name">{{property.propertyOwner.name}}</div>
+          <div class="contact-info" *ngIf="showContactInfo">
+            <p><strong>Email:</strong> {{property.propertyOwner.email}}</p>
+            <p><strong>Phone:</strong> {{property.propertyOwner.phoneNumber}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Booking Modal -->
+<div class="modal-overlay" *ngIf="isBookingModalOpen" (click)="closeBookingModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Book Property</h2>
+      <button class="close-btn" (click)="closeBookingModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="booking-summary">
+        <h3>Booking Summary</h3>
+        <p><strong>Property:</strong> {{property?.numberOfRooms}}-Bedroom in {{property?.city}}</p>
+        <p><strong>Price:</strong> ${{property?.pricePerNight}} / night</p>
+        <p><strong>Cancellation Charges:</strong> ${{property?.cancelationCharges}}</p>
+      </div>
+      <div class="booking-form">
+        <div class="form-group">
+          <label>Check-in Date:</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Check-out Date:</label>
+          <input type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Number of Guests:</label>
+          <select class="form-control">
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="cancel-btn" (click)="closeBookingModal()">Cancel</button>
+      <button class="confirm-btn" (click)="onBookProperty()">Confirm Booking</button>
+    </div>
+  </div>
+</div>

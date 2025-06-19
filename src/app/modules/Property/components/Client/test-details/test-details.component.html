@@ -1,0 +1,321 @@
+<div class="property-details" *ngIf="property">
+  <!-- Hero Section with Image Gallery -->
+  <div class="hero-section">
+    <div class="image-gallery" *ngIf="property.propertyImages && property.propertyImages.length > 0">
+      <div class="main-image-container">
+        <img [src]="property?.propertyImages?.[currentImageIndex]?.imageUrl"
+             [alt]="'Property image ' + (currentImageIndex + 1)"
+             class="main-image">
+        <div class="image-overlay">
+          <button class="nav-btn prev-btn" (click)="prevImage()" *ngIf="property.propertyImages.length > 1">
+            <i class="arrow-left"></i>
+          </button>
+          <button class="nav-btn next-btn" (click)="nextImage()" *ngIf="property.propertyImages.length > 1">
+            <i class="arrow-right"></i>
+          </button>
+          <div class="image-counter">
+            {{currentImageIndex + 1}} / {{property.propertyImages?.length}}
+          </div>
+        </div>
+      </div>
+      <div class="thumbnail-gallery" *ngIf="property.propertyImages.length > 1">
+        <div class="thumbnail-container">
+          <img *ngFor="let image of property.propertyImages; let i = index"
+               [src]="image.imageUrl"
+               [alt]="'Thumbnail ' + (i + 1)"
+               [class.active]="i === currentImageIndex"
+               (click)="selectImage(i)"
+               class="thumbnail">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Container -->
+  <div class="content-container">
+    <!-- Property Header -->
+    <div class="property-header">
+      <div class="header-left">
+        <h1 class="property-title">Luxury {{property.numberOfRooms}}-Bedroom Apartment</h1>
+        <div class="location-info">
+          <div class="location-text">
+            <i class="location-icon"></i>
+            <span>{{property.address}}, {{property.city}}, {{property.region}}</span>
+          </div>
+          <div class="rating-info">
+            <div class="stars">
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star filled">★</span>
+              <span class="star">★</span>
+            </div>
+            <span class="rating-text">4.8 (124 reviews)</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="status-badges">
+          <span class="status-badge" [class]="verificationStatusClass">
+            <i class="verify-icon"></i>
+            {{verificationStatusText}}
+          </span>
+          <span class="rental-badge" *ngIf="property.isForRent">
+            <i class="home-icon"></i>
+            Available for Rent
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="main-grid">
+      <!-- Left Column - Details -->
+      <div class="details-column">
+        <!-- Quick Info Cards -->
+        <div class="quick-info-grid">
+          <div class="info-card">
+            <i class="bed-icon"></i>
+            <div class="info-content">
+              <span class="info-value">{{property.numberOfRooms}}</span>
+              <span class="info-label">Bedrooms</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="building-icon"></i>
+            <div class="info-content">
+              <span class="info-value">{{property.floorNo}}</span>
+              <span class="info-label">Floor</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="area-icon"></i>
+            <div class="info-content">
+              <span class="info-value">85</span>
+              <span class="info-label">m² Area</span>
+            </div>
+          </div>
+          <div class="info-card">
+            <i class="guests-icon"></i>
+            <div class="info-content">
+              <span class="info-value">4</span>
+              <span class="info-label">Guests</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Description Section -->
+        <div class="section-card">
+          <h2 class="section-title">About this place</h2>
+          <p class="description-text">{{property.description}}</p>
+          <button class="read-more-btn">Read more</button>
+        </div>
+
+        <!-- Amenities Section -->
+        <div class="section-card">
+          <h2 class="section-title">What this place offers</h2>
+          <div class="amenities-grid">
+            <div class="amenity-item" *ngFor="let amenity of amenitiesList">
+              <!-- <i class="amenity-icon" [class]="getAmenityIcon(amenity)"></i> -->
+              <span class="amenity-text">{{amenity}}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Section -->
+        <div class="section-card">
+          <h2 class="section-title">Where you'll be</h2>
+          <div class="location-content">
+            <div class="address-info">
+              <p class="full-address">{{property.address}}, {{property.street}}, {{property.city}}, {{property.region}}</p>
+              <p class="location-description">Located in the vibrant heart of {{property.city}}, this property offers easy access to local attractions, restaurants, and public transportation.</p>
+            </div>
+            <button class="map-button" (click)="openMap()">
+              <i class="map-icon"></i>
+              <span>Show on map</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Host Information -->
+        <div class="section-card" *ngIf="property.propertyOwner">
+          <h2 class="section-title">Meet your host</h2>
+          <div class="host-info">
+            <div class="host-profile">
+              <div class="host-avatar">
+                <span class="host-initial">{{property.propertyOwner?.name?.charAt(0) || ''}}</span>
+              </div>
+              <div class="host-details">
+                <h3 class="host-name">{{property.propertyOwner?.name}}</h3> 
+                <p class="host-status">Superhost · 3 years hosting</p>
+                <div class="host-stats">
+                  <span class="stat">★ 4.9 Rating</span>
+                  <span class="stat">127 Reviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="host-contact" *ngIf="showContactInfo">
+              <div class="contact-item">
+                <i class="email-icon"></i>
+                <span>{{property.propertyOwner?.email}}</span>
+              </div>
+              <div class="contact-item">
+                <i class="phone-icon"></i>
+                <span>{{property.propertyOwner?.phoneNumber}}</span>
+              </div>
+            </div>
+            <button class="contact-host-btn" (click)="toggleContactInfo()">
+              <i class="message-icon"></i>
+              {{showContactInfo ? 'Hide contact' : 'Contact host'}}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Booking Card -->
+      <div class="booking-column">
+        <div class="booking-card">
+          <div class="pricing-header">
+            <div class="price-info">
+              <span class="price-amount">${{property.pricePerNight}}</span>
+              <span class="price-period">per night</span>
+            </div>
+            <div class="rating-badge">
+              <i class="star-icon"></i>
+              <span>4.8</span>
+            </div>
+          </div>
+
+          <div class="booking-form">
+            <div class="date-inputs">
+              <div class="input-group">
+                <label class="input-label">CHECK-IN</label>
+                <input type="date" class="date-input" placeholder="Add date">
+              </div>
+              <div class="input-group">
+                <label class="input-label">CHECK-OUT</label>
+                <input type="date" class="date-input" placeholder="Add date">
+              </div>
+            </div>
+            <div class="guests-input">
+              <label class="input-label">GUESTS</label>
+              <select class="guests-select">
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5+ guests</option>
+              </select>
+              <i class="dropdown-icon"></i>
+            </div>
+          </div>
+
+          <button class="reserve-btn" (click)="openBookingModal()">
+            <span class="btn-text">Reserve</span>
+            <i class="arrow-right-icon"></i>
+          </button>
+
+          <p class="no-charge-text">You won't be charged yet</p>
+
+          <div class="price-breakdown">
+            <div class="breakdown-item">
+              <span class="breakdown-label">${{property.pricePerNight}} × 5 nights</span>
+              <span class="breakdown-value">${{property.pricePerNight * 5}}</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-label">Cleaning fee</span>
+              <span class="breakdown-value">$50</span>
+            </div>
+            <div class="breakdown-item">
+              <span class="breakdown-label">Service fee</span>
+              <span class="breakdown-value">$75</span>
+            </div>
+            <div class="breakdown-divider"></div>
+            <div class="breakdown-total">
+              <span class="total-label">Total</span>
+              <span class="total-value">${{(property.pricePerNight * 5) + 50 + 75}}</span>
+            </div>
+          </div>
+
+          <div class="cancellation-policy">
+            <h4 class="policy-title">Cancellation policy</h4>
+            <div class="policy-info">
+              <span class="policy-type">{{property.cancelationOptions ? 'Flexible' : 'Strict'}}</span>
+              <span class="policy-charges" *ngIf="property.cancelationOptions">
+                Cancellation fee: ${{property.cancelationCharges}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal-backdrop" *ngIf="isBookingModalOpen" (click)="closeBookingModal()">
+    <div class="booking-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Request to book</h2>
+        <button class="modal-close" (click)="closeBookingModal()">
+          <i class="close-icon"></i>
+        </button>
+      </div>
+      
+      <div class="modal-content">
+        <div class="booking-summary">
+          <div class="property-preview">
+            <img [src]="property.propertyImages?.[0]?.imageUrl" alt="Property" class="preview-image">
+            <div class="preview-info">
+              <h3 class="preview-title">{{property.numberOfRooms}}-Bedroom in {{property.city}}</h3>
+              <div class="preview-rating">
+                <i class="star-icon"></i>
+                <span>4.8 (124 reviews)</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="trip-details">
+            <h4 class="details-title">Your trip</h4>
+            <div class="detail-row">
+              <span class="detail-label">Dates</span>
+              <span class="detail-value">Dec 25 - 30, 2024</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">Guests</span>
+              <span class="detail-value">2 guests</span>
+            </div>
+          </div>
+
+          <div class="payment-summary">
+            <h4 class="details-title">Price details</h4>
+            <div class="price-row">
+              <span class="price-label">${{property.pricePerNight}} × 5 nights</span>
+              <span class="price-value">${{property.pricePerNight * 5}}</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Cleaning fee</span>
+              <span class="price-value">$50</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Service fee</span>
+              <span class="price-value">$75</span>
+            </div>
+            <div class="price-divider"></div>
+            <div class="price-total">
+              <span class="total-label">Total (USD)</span>
+              <span class="total-amount">${{(property.pricePerNight * 5) + 50 + 75}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="cancel-booking-btn" (click)="closeBookingModal()">Cancel</button>
+        <button class="confirm-booking-btn" (click)="onBookProperty()">
+          <span>Confirm and pay</span>
+          <i class="lock-icon"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

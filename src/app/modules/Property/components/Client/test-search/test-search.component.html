@@ -48,7 +48,7 @@
                 <input 
                   type="date" 
                   class="field-input date-input" 
-                  [(ngModel)]="searchData.checkOut"
+                  [ngModel]="searchData.checkOut" (ngModelChange)="searchData.checkOut = $event"
                 >
               </div>
             </div>
@@ -289,7 +289,7 @@
     <!-- Results Grid -->
     <div class="results-grid">
       @for (item of list; track $index) {
-        <app-property-card [property]="item" (ProductDetails)="goToDetails($event)" class="property-card"></app-property-card>
+        <app-property-card [property]="item" class="property-card"></app-property-card>
       }
       
       @if (!list || list.length === 0) {

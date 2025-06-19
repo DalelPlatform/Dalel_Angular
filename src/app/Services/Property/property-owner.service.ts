@@ -18,9 +18,11 @@ export class PropertyOwnerService {
     return this.http.post(`${environment.baseApi}Property/Property`, data, { headers });
   }
 
-  getProperties(data: any): Observable<any> {
-    
-    return this.http.get(`${environment.baseApi}Property/search`, data);
+  getProperties(searchText: string, city:string): Observable<any> {
+
+    return this.http.get(`${environment.baseApi}Property/search?searchText=${searchText}&city=${city}`);
   }
+
+  
 
 }

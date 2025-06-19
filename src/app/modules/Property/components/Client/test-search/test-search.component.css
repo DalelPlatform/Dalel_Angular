@@ -475,5 +475,11 @@
     font-size: 2rem;
   }
   
-  .search-form-wrapper {
-    padding: 1.5rem}}
+ .search-form-wrapper {
+    padding: 1.5rem;
+  }
+
+ .search-field {
+    padding: 1rem;
+  }
+}
