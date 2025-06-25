@@ -1,9 +1,9 @@
-<div class="property-card" (click)="goToDetails(property.id)" >
+<div class="property-card" (click)="goToDetails(property.Id)" >
   <div class="card-image-container">
     <img 
       class="card-image" 
-      [src]="property.propertyImages && property.propertyImages.length > 0 ? property.propertyImages[0] : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" 
-      [alt]="property.description || 'Property image'"
+      [src]="property.Images && property.Images.length > 0 ? property.Images[0] : 'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" 
+      [alt]="property.Description || 'Property image'"
       loading="lazy"
     >
     <div class="image-overlay">
@@ -25,9 +25,9 @@
   
   <div class="card-content">
     <div class="property-header">
-      <h3 class="property-title">{{property.description || 'Beautiful Property'}}</h3>
+      <h3 class="property-title">{{property.Description || 'Beautiful Property'}}</h3>
       <div class="property-price">
-        <span class="price-amount">${{property.pricePerNight}}</span>
+        <span class="price-amount">${{property.PricePerNight}}</span>
         <!-- <span class="price-amount">${{property.Price || '999,000'}}</span> -->
         <span class="price-period">/month</span>
       </div>
@@ -39,7 +39,7 @@
           <path d="M3 9.5L12 4l9 5.5v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z"></path>
           <polyline points="9,22 9,12 15,12 15,22"></polyline>
         </svg>
-        <span>{{property.numberOfRooms || 3}} beds</span>
+        <span>{{property.NumberOfRooms || 3}} beds</span>
         <!-- <span>{{property.Bedrooms || 3}} beds</span> -->
       </div>
       
@@ -50,7 +50,7 @@
           <path d="M6 8.5L12 12l6-3.5"></path>
           <path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6"></path>
         </svg>
-        <span>{{property.numberOfRooms}} baths</span>
+        <span>{{property.NumberOfRooms}} baths</span>
         <!-- <span>{{property.Bathrooms || 2}} baths</span> -->
       </div>
       
@@ -59,7 +59,7 @@
           <path d="M7 21h10V7L12 2 7 7v14z"></path>
           <path d="M9 9h6v6H9z"></path>
         </svg>
-        <span>{{property.region || '1,200'}} sq ft</span>
+        <span>{{property.Region || '1,200'}} sq ft</span>
         <!-- <span>{{property.Area || '1,200'}} sq ft</span> -->
       </div>
     </div>
@@ -69,12 +69,12 @@
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
         <circle cx="12" cy="10" r="3"></circle>
       </svg>
-      <span>{{property.address || 'Prime Location, City Center'}}</span>
+      <span>{{property.Address || 'Prime Location, City Center'}}</span>
       <!-- <span>{{property.Location || 'Prime Location, City Center'}}</span> -->
     </div>
     
     <div class="property-description">
-      <p>{{property.description || 'Stunning property with modern amenities and beautiful views. Perfect for families looking for comfort and style.'}}</p>
+      <p>{{property.Description || 'Stunning property with modern amenities and beautiful views. Perfect for families looking for comfort and style.'}}</p>
     </div>
     
     <div class="card-actions">
@@ -86,7 +86,7 @@
         View Photos
       </button>
       
-      <button class="primary-btn" (click)="goToDetails(property.id)" type="button">
+      <button class="primary-btn" (click)="goToDetails(property.Id)" type="button">
         <span>View Details</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"></path>

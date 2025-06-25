@@ -13,6 +13,7 @@ import { PropertyCardComponent } from './components/Client/property-card/propert
 import { PropertyDetailsComponent } from './components/Client/property-details/property-details.component';
 import { TestSearchComponent } from './components/Client/test-search/test-search.component';
 import { TestDetailsComponent } from './components/Client/test-details/test-details.component';
+import { BookPropertyComponent } from './components/Client/book-property/book-property.component';
 
 let routes:Routes = [
   {path:'owner',component:PropertyOwnerLayoutComponent,
@@ -28,6 +29,7 @@ let routes:Routes = [
     {path:'property-details/:id',component:PropertyDetailsComponent},
     {path:'test-search',component:TestSearchComponent},
     {path:'test-details/:id',component:TestDetailsComponent},
+    {path:'book-confirm', component:BookPropertyComponent},
 
   ]},
 ];

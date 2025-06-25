@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
-import { Property } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../../../core/models/Property/IProperty';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./search-property.component.css'],
 })
 export class SearchPropertyComponent implements OnInit {
-  list: Property[] = [];
+  list: IProperty[] = [];
   
   // Search form data
   searchData = {
@@ -109,7 +109,7 @@ export class SearchPropertyComponent implements OnInit {
     };
   }
   goToDetails(id: number) {
-    this.router.navigate(['/property-details/', id]);
+    this.router.navigate(['/property/client/property-details', id]);
   }
 
 

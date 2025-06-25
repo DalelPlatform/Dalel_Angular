@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Property } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../../../core/models/Property/IProperty';
 
 @Component({
   selector: 'app-property-card',
@@ -9,7 +9,7 @@ import { Property } from '../../../../../core/models/Property/IProperty';
 })
 export class PropertyCardComponent implements OnInit {
 
-  @Input() property!: Property;
+  @Input() property!: IProperty;
   @Output() ProductDetails = new EventEmitter<number>();
 
   constructor() {
@@ -20,7 +20,7 @@ export class PropertyCardComponent implements OnInit {
   }
 
   goToDetails(id : number) {
-    this.ProductDetails.emit(this.property.id);
+    this.ProductDetails.emit(this.property.Id);
   }
 
 }
