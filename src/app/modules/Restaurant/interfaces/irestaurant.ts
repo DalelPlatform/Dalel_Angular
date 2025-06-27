@@ -1,8 +1,10 @@
+import { VerificationStatus } from "./Enums/VerificationStatus.enum";
+
 export interface IRestaurant {
   Id: number;
   Name: string;
   Description: string;
-  OfRooms: number;
+  NumberOfRooms: number;
   BuildingNo: string;
   Address: string;
   City: string;
@@ -11,7 +13,6 @@ export interface IRestaurant {
   Latitude: number;
   Longitude: number;
   PhoneNumber: string;
-  VerificationStatus: number; // int
-  OwnerId: string; // foreign key
+  VerificationStatus: VerificationStatus; // int
   Images: string[];
 }
