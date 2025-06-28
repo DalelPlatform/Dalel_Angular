@@ -18,6 +18,11 @@ import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all
 import { RequestDetailsComponent } from '../request-details/request-details-component.component';
 import { StatusTextPipe } from "../Pipes/request-status.pipe";
 import { ServiceProviderAllRequestsComponent } from '../service-provider-all-requests/service-provider-all-requests.component';
+import { ServiceProviderSharedModule } from './service-provider-shared.module';
+import { ServiceProviderProfileComponent } from "../service-provider-profile/service-provider-profile.component";
+import { ServiceProviderProjectsComponent } from '../service-provider-projects/service-provider-projects.component';
+import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
+import { ServiceProviderReviewsComponent } from '../service-provider-reviews/service-provider-reviews.component';
 
 let routes: Routes = [
   {
@@ -46,9 +51,10 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
 
       },
-      { path: 'request/:id', component: RequestDetailsComponent }
     ]
   },
+  { path: 'request/:id', component: RequestDetailsComponent },
+  
   {
     path: "AddProposal", component: AddProposalComponent,
     canActivate: [serviceProviderGuard]
@@ -75,17 +81,21 @@ let routes: Routes = [
     RequestDetailsComponent,
     ServiceProviderAllRequestsComponent,
     TruncatePipe,
-    CompleteProfileServiceProviderComponent
+    CompleteProfileServiceProviderComponent,
+    ServiceProviderProfileComponent,
+    ServiceProviderProjectsComponent,
+    ServiceProviderProposalsComponent,
+    ServiceProviderReviewsComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
-
     RouterModule.forChild(routes),
-    HttpClientModule
-  ],
+    HttpClientModule,
+],
   providers: [DatePipe]
 })
 export class ServiceproviderModule { }
