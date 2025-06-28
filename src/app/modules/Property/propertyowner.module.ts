@@ -14,9 +14,12 @@ import { PropertyDetailsComponent } from './components/Client/property-details/p
 import { TestSearchComponent } from './components/Client/test-search/test-search.component';
 import { TestDetailsComponent } from './components/Client/test-details/test-details.component';
 import { BookPropertyComponent } from './components/Client/book-property/book-property.component';
+import { SharedModule } from "../../shared/shared.module";
+import { propertyOwnerGuard } from '../../Services/Guards/PropertyOwner/property-owner.guard';
 
 let routes:Routes = [
   {path:'owner',component:PropertyOwnerLayoutComponent,
+    // canActivate: [propertyOwnerGuard],
   children:[
     {path:'complete-profile',component:PropertyOwnerCompleteProfileComponent},
     {path:'add-property',component:AddPropertyComponent},
@@ -48,7 +51,8 @@ let routes:Routes = [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+    SharedModule
+]
 })
 export class PropertyownerModule { }

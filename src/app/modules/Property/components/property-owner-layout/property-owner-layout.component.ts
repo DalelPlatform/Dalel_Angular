@@ -1,6 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
-import {filter} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+
+interface Booking {
+  id: number;
+  name: string;
+  type: string;
+  date: string;
+  status: string;
+  payment: string;
+}
+
+interface Listing {
+  id: number;
+  name: string;
+  address: string;
+  price: number;
+  image: string;
+}
 
 @Component({
   selector: 'app-property-owner-layout',
@@ -9,73 +24,207 @@ import {filter} from 'rxjs/operators';
   standalone:false,
 })
 export class PropertyOwnerLayoutComponent implements OnInit {
-  // Navigation items for the sidebar
-  navItems = [
-    { path: '/dashboard', title: 'Dashboard', icon: 'icon-dashboard', active: true },
-    { path: '/properties', title: 'My Properties', icon: 'icon-properties', active: false },
-    { path: '/property/owner/add-property', title: 'Add Property', icon: 'icon-add', active: true },
-    { path: '/tenants', title: 'Tenants', icon: 'icon-tenants', active: false },
-    { path: '/maintenance', title: 'Maintenance', icon: 'icon-maintenance', active: false },
-    { path: '/payments', title: 'Payments', icon: 'icon-payments', active: false },
-    { path: '/documents', title: 'Documents', icon: 'icon-documents', active: false },
-    { path: '/settings', title: 'Settings', icon: 'icon-settings', active: false }
+  activeTab: string = 'dashboard';
+  searchTerm: string = '';
+  sortBy: string = '';
+  
+  bookings: Booking[] = [
+    {
+      id: 1,
+      name: 'Deluxe Pool View',
+      type: 'With Breakfast',
+      date: 'Nov 22 - 25',
+      status: 'Booked',
+      payment: 'Full payment'
+    },
+    {
+      id: 2,
+      name: 'Deluxe Pool View with Breakfast',
+      type: 'Free Cancellation | Breakfast only',
+      date: 'Nov 24 - 28',
+      status: 'Booked',
+      payment: 'On Property'
+    },
+    {
+      id: 3,
+      name: 'Luxury Room with Balcony',
+      type: 'Free Cancellation | Breakfast + Lunch/Dinner',
+      date: 'Nov 24 - 28',
+      status: 'Reserved',
+      payment: 'Half Payment'
+    }
   ];
 
-  // Flag to track sidebar collapsed state for mobile responsiveness
-  isSidebarCollapsed = false;
+  listings: Listing[] = [
+    {
+      id: 1,
+      name: 'Pride moon Village Resort & Spa',
+      address: '31J W Spark Street, California - 24578',
+      price: 1586,
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'
+    },
+    {
+      id: 2,
+      name: 'Royal Beach Resort',
+      address: 'Manhattan street, London - 24578',
+      price: 856,
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'
+    },
+    {
+      id: 3,
+      name: 'Carina Beach Resort',
+      address: '5855 W Century Blvd, Los Angeles - 90045',
+      price: 1025,
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'
+    },
+    {
+      id: 4,
+      name: 'Courtyard by Marriott New York',
+      address: 'Manhattan street, London - 24578',
+      price: 899,
+      image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800'
+    },
+    {
+      id: 5,
+      name: 'Sunset Paradise Hotel',
+      address: '1245 Ocean Drive, Miami - 33139',
+      price: 750,
+      image: 'assets/images/resort5.jpg'
+    }
+  ];
 
-  constructor(private router: Router) {}
+  filteredBookings: Booking[] = [];
+  showDropdown: { [key: number]: boolean } = {};
+
+  constructor() { }
 
   ngOnInit(): void {
-    // Listen to route changes to update active state
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.updateActiveState(event.url);
-    });
-
-    // Initialize active state based on current route
-    this.updateActiveState(this.router.url);
-
-    // Check screen size on init
-    this.checkScreenSize();
-
-    // Add resize listener for responsive behavior
-    window.addEventListener('resize', this.checkScreenSize.bind(this));
-  }
-
-  // Method to navigate to the selected route
-  navigateTo(path: string): void {
-    this.router.navigate([path]);
-    this.updateActiveState(path);
-
-    // Auto-collapse sidebar on mobile after navigation
-    if (window.innerWidth <= 768) {
-      this.isSidebarCollapsed = true;
+    this.filteredBookings = [...this.bookings];
+    
+    // Set active tab based on current route if needed
+    // This would typically be handled by Angular Router
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('bookings')) {
+      this.activeTab = 'bookings';
+    } else if (currentPath.includes('listings')) {
+      this.activeTab = 'listings';
+    } else if (currentPath.includes('activities')) {
+      this.activeTab = 'activities';
+    } else if (currentPath.includes('earnings')) {
+      this.activeTab = 'earnings';
+    } else if (currentPath.includes('reviews')) {
+      this.activeTab = 'reviews';
+    } else if (currentPath.includes('settings')) {
+      this.activeTab = 'settings';
     }
   }
 
-  // Update the active state of navigation items
-  private updateActiveState(currentPath: string): void {
-    this.navItems.forEach(item => {
-      item.active = currentPath.includes(item.path);
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+
+  getTabIcon(tab: string): string {
+    const icons: { [key: string]: string } = {
+      'dashboard': 'fas fa-chart-line',
+      'listings': 'fas fa-list',
+      'bookings': 'fas fa-bookmark',
+      'activities': 'fas fa-bell',
+      'earnings': 'fas fa-chart-bar',
+      'reviews': 'fas fa-star',
+      'settings': 'fas fa-cog'
+    };
+    return icons[tab] || 'fas fa-circle';
+  }
+
+  filterBookings(): void {
+    if (!this.searchTerm.trim()) {
+      this.filteredBookings = [...this.bookings];
+    } else {
+      const term = this.searchTerm.toLowerCase();
+      this.filteredBookings = this.bookings.filter(booking => 
+        booking.name.toLowerCase().includes(term) ||
+        booking.type.toLowerCase().includes(term) ||
+        booking.date.toLowerCase().includes(term) ||
+        booking.status.toLowerCase().includes(term) ||
+        booking.payment.toLowerCase().includes(term)
+      );
+    }
+    
+    // Apply sorting after filtering
+    if (this.sortBy) {
+      this.applySorting();
+    }
+  }
+
+  sortBookings(): void {
+    this.applySorting();
+  }
+
+  private applySorting(): void {
+    if (!this.sortBy) return;
+
+    this.filteredBookings.sort((a, b) => {
+      switch (this.sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'date':
+          // Simple date comparison - in real app you'd parse dates properly
+          return a.date.localeCompare(b.date);
+        case 'status':
+          return a.status.localeCompare(b.status);
+        default:
+          return 0;
+      }
     });
   }
 
-  // Method to handle logout
-  logout(): void {
-    // Add your logout logic here
-    // For example: this.authService.logout();
-    this.router.navigate(['/login']);
+  viewBooking(booking: Booking): void {
+    console.log('Viewing booking:', booking);
+    // In a real application, this would navigate to a booking detail page
+    // or open a modal with booking details
+    alert(`Viewing booking: ${booking.name}`);
   }
 
-  // Toggle sidebar collapse state for mobile view
-  toggleSidebar(): void {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  addNewListing(): void {
+    console.log('Adding new listing');
+    // In a real application, this would navigate to add listing page
+    // or open a modal for adding new listing
+    alert('Add New Listing functionality would be implemented here');
   }
 
-  // Check screen size and set sidebar state accordingly
-  private checkScreenSize(): void {
-    this.isSidebarCollapsed = window.innerWidth <= 768;
+  editListing(listing: Listing): void {
+    console.log('Editing listing:', listing);
+    alert(`Edit listing: ${listing.name}`);
+  }
+
+  deleteListing(listing: Listing): void {
+    console.log('Deleting listing:', listing);
+    if (confirm(`Are you sure you want to delete ${listing.name}?`)) {
+      this.listings = this.listings.filter(l => l.id !== listing.id);
+      alert('Listing deleted successfully');
+    }
+  }
+
+  toggleDropdown(listingId: number): void {
+    // Close all other dropdowns
+    Object.keys(this.showDropdown).forEach(key => {
+      if (parseInt(key) !== listingId) {
+        this.showDropdown[parseInt(key)] = false;
+      }
+    });
+    // Toggle current dropdown
+    this.showDropdown[listingId] = !this.showDropdown[listingId];
+  }
+
+  reportListing(listing: Listing): void {
+    console.log('Reporting listing:', listing);
+    alert(`Report listing: ${listing.name}`);
+    this.showDropdown[listing.id] = false;
+  }
+
+  disableListing(listing: Listing): void {
+    console.log('Disabling listing:', listing);
+    alert(`Disable listing: ${listing.name}`);
+    this.showDropdown[listing.id] = false;
   }
 }

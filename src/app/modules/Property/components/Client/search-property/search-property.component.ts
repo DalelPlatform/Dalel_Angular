@@ -54,6 +54,19 @@ export class SearchPropertyComponent implements OnInit {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
     
+    const searchTerm = this.searchData.location || '';
+    this.service.getProperties(searchTerm, "").subscribe({
+      next: (res) => {
+        this.list = res.Data.Data;
+        console.log(res.Data);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
+
+
     this.searchData.checkIn = this.formatDate(today);
     this.searchData.checkOut = this.formatDate(tomorrow);
   }
