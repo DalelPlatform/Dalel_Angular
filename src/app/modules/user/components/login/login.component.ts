@@ -3,7 +3,7 @@ import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { CompleteProfileServiceProviderService } from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
+import { CompleteProfileServiceProviderService } from '../../../serviceprovider/Services/CompleteProfileServiceProvider.Service'
 
 @Component({
   selector: 'app-login',
