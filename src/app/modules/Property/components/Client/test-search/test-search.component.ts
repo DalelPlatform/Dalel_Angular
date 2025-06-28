@@ -65,7 +65,7 @@ export class TestSearchComponent implements OnInit {
 
   searchProperties() {
     const searchTerm = this.searchData.location || '';
-    this.service.getProperties(searchTerm).subscribe({
+    this.service.getProperties(searchTerm,'').subscribe({
       next: (res) => {
         this.list = res.Data.Data;
         console.log(res.Data);

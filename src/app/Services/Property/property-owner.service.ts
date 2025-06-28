@@ -19,9 +19,6 @@ export class PropertyOwnerService {
   }
 
 
-  getProperties(data: any ): Observable<any> {
-
-    return this.http.get(`${environment.baseApi}Property/search`, data);
 
   getProperties(searchText: string, city:string): Observable<any> {
 
