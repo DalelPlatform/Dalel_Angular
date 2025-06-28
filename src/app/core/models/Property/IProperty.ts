@@ -12,7 +12,18 @@ export interface IProperty {
     Street: string,
     PhoneNumber: string
     IsForRent: boolean,
+    Latitude: number,
+    Longitude: number,
+    CancelationOptions: boolean,
+    CancelationCharges: number,
     PropertyOwner: string,
+    Rating: number,
     VerificationStatus: number,
     Images?: string[]
 }
+
+export enum VerificationStatus {
+    Pending = 0,
+    Verified = 1,
+    Rejected = 2
+  }

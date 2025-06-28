@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit} from '@angular/core';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
 import { IProperty } from '../../../../../core/models/Property/IProperty';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-search-property',
+  selector: 'app-test-search',
   standalone: false,
-  templateUrl: './search-property.component.html',
-  styleUrls: ['./search-property.component.css'],
+  templateUrl: './test-search.component.html',
+  styleUrls: ['./test-search.component.css']
 })
-export class SearchPropertyComponent implements OnInit {
+export class TestSearchComponent implements OnInit {
   list: IProperty[] = [];
   
   // Search form data
@@ -46,7 +47,7 @@ export class SearchPropertyComponent implements OnInit {
 
   showFilters = false;
 
-  constructor(private service: PropertyOwnerService , private router:Router) {}
+  constructor(private service: PropertyOwnerService) {}
 
   ngOnInit() {
     // Set default dates
@@ -108,16 +109,10 @@ export class SearchPropertyComponent implements OnInit {
       }
     };
   }
-  goToDetails(id: number) {
-    this.router.navigate(['/property/client/property-details', id]);
-  }
-
 
   setCustomerRating(rating: number) {
-   // this.filters.customerRating = this.filters.customerRating === rating ? null : rating;
   }
 
   setStarRating(rating: number) {
-    //this.filters.starRating = this.filters.starRating === rating ? null : rating;
   }
 }

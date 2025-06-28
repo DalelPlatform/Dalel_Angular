@@ -1,0 +1,109 @@
+<div class="booking-confirmation-container">
+  <!-- Hero Image Section -->
+  <div class="hero-section">
+    <img [src]="bookingData.imageUrl" [alt]="bookingData.tripTitle" class="hero-image">
+  </div>
+
+  <!-- Confirmation Content -->
+  <div class="confirmation-content">
+    <!-- Congratulations Header -->
+    <div class="congratulations-header">
+      <h1 class="congratulations-title">
+        🎉 Congratulations! 🎉
+      </h1>
+      <p class="confirmation-message">Your trip has been booked</p>
+    </div>
+
+    <!-- Trip Title -->
+    <div class="trip-title">
+      <h2>{{ bookingData.tripTitle }}</h2>
+    </div>
+
+    <!-- Booking Details Grid -->
+    <div class="booking-details">
+      <div class="detail-row">
+        <div class="detail-item">
+          <div class="detail-icon">📋</div>
+          <div class="detail-content">
+            <span class="detail-label">Booking ID:</span>
+            <span class="detail-value">{{ bookingData.bookingId }}</span>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">📅</div>
+          <div class="detail-content">
+            <span class="detail-label">Date:</span>
+            <span class="detail-value">{{ bookingData.date }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item">
+          <div class="detail-icon">👤</div>
+          <div class="detail-content">
+            <span class="detail-label">Booked by:</span>
+            <span class="detail-value">{{ bookingData.bookedBy }}</span>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">🛫</div>
+          <div class="detail-content">
+            <span class="detail-label">Departure Date:</span>
+            <span class="detail-value">{{ bookingData.departureDate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item">
+          <div class="detail-icon">💳</div>
+          <div class="detail-content">
+            <span class="detail-label">Payment Method:</span>
+            <span class="detail-value">{{ bookingData.paymentMethod }}</span>
+          </div>
+        </div>
+        
+        <div class="detail-item">
+          <div class="detail-icon">👥</div>
+          <div class="detail-content">
+            <span class="detail-label">Guests:</span>
+            <span class="detail-value">{{ bookingData.guests }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-item total-price">
+          <div class="detail-icon">💰</div>
+          <div class="detail-content">
+            <span class="detail-label">Total Price:</span>
+            <span class="detail-value price">{{ formatPrice(bookingData.totalPrice) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button 
+        type="button" 
+        class="btn btn-secondary"
+        (click)="onShare()">
+        <span class="btn-icon">📤</span>
+        Share
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-primary"
+        (click)="onDownloadPDF()">
+        <span class="btn-icon">📄</span>
+        Download PDF
+      </button>
+    </div>
+  </div>
+</div>
+
