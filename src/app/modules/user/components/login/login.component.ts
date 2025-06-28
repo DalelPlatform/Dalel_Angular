@@ -49,14 +49,7 @@ export class LoginComponent {
               else{
                   this.router.navigate(['/login']);
               }
-              if(res.Role ==="PropertyOwner"){
-                 this.router.navigate(['/property/owner/']);
-              }
-              else{
-                  this.router.navigate(['/login']);
-              }
       },
-      
       error: (err) => {
         console.log(err);
       }
