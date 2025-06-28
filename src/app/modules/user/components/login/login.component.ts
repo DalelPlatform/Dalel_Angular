@@ -3,7 +3,7 @@ import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import {CompleteProfileServiceProviderService} from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
+import { CompleteProfileServiceProviderService } from '../../../ServiceProvider/Services/CompleteProfileServiceProvider.Service'
 
 @Component({
   selector: 'app-login',
@@ -43,12 +43,12 @@ export class LoginComponent {
         } else {
           this.router.navigate(['/account']);
         }
-         if(res.Role ==="TravelAgencyOwner"){
-                 this.router.navigate(['/agancy/owner/create-agency']);
-              }
-              else{
-                  this.router.navigate(['/login']);
-              }
+        if (res.Role === "TravelAgencyOwner") {
+          this.router.navigate(['/agancy/owner/create-agency']);
+        }
+        else {
+          this.router.navigate(['/login']);
+        }
       },
       error: (err) => {
         console.log(err);
