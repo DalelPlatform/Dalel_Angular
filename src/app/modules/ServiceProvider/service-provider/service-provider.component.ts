@@ -1,5 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ProposalService } from '../Services/proposal.service';
+export interface ServiceProvider {
+  id: string;
+  name: string;
+  email: string;
+  category: string;
+  profileImage: string;
+  phone?: string;
+  address?: string;
+  bio?: string;
+  rating?: number;
+  joinDate?: string;
+}
 
 @Component({
   selector: 'app-service-provider',
@@ -39,7 +51,9 @@ export class ServiceProviderComponent implements OnInit {
   loadStats(): void {
     this.proposalService.getProviderStats().subscribe({
       next: (res) => {
-        this.stats = res.data; // تعديل حسب هيكل الاستجابة
+        this.stats = res.data; 
+        console.log('Provider Stats:', this.stats);
+        
         this.isLoading = false;
       },
       error: (err) => {

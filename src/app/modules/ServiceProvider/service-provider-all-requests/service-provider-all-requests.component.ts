@@ -12,20 +12,38 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ServiceProviderAllRequestsComponent implements OnInit {
   searchForm!: FormGroup;
   requests: ServiceRequestDetails[] = [];
-
   isLoading = true;
   pageSize = 5;
   currentPage = 1;
   totalCount = 0;
   totalPages = 0;
   pages: number[] = [];
+  categories: any[] = [];
+
 
   constructor(private requestService: RequestService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.loadRequests();
+    this.loadCategories();
     this.searchForm = this.fb.group({
-      searchTerm: ['']
+      title: [''],
+      description: [''],
+      address: [''],
+      categories : [],
+      categoryId: ['']
+    });
+  }
+
+   loadCategories(): void {
+    this.requestService.getCategories().subscribe({
+      next: (response) => {
+        this.categories = response.Data;
+        console.log('Categories loaded:', response.Data);
+      },
+      error: (err) => {
+        alert('Failed to load categories');
+      }
     });
   }
   sortRequestsByDate(): void {
@@ -56,27 +74,32 @@ export class ServiceProviderAllRequestsComponent implements OnInit {
       });
 
   }
-
   onSearch() {
-    const searchTerm = this.searchForm.value.searchTerm?.trim();
+  const title = this.searchForm.value.title?.trim() || '';
+  const description = this.searchForm.value.description?.trim() || '';
+  const address = this.searchForm.value.address?.trim() || '';
+  const categoryId = this.searchForm.value.categoryId || '';
 
-    if (searchTerm) {
-      this.requestService.getRequests('', searchTerm,'')
-        .subscribe({
-          next: (response) => {
-            this.requests = response.Data.Data;
-            this.totalCount = response.Data.TotalCount;
-            this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-            this.generatePageNumbers();
-          },
-          error: (err) => {
-            console.error('Error searching requests:', err);
-          }
-        });
-    } else {
-      this.loadRequests();
-    }
+  const isAllEmpty = !title && !description && !address && !categoryId;
+
+  if (!isAllEmpty) {
+    this.requestService
+      .getRequests(title, description, address, categoryId)
+      .subscribe({
+        next: (response) => {
+          this.requests = response.Data.Data;
+          this.totalCount = response.Data.TotalCount;
+          this.totalPages = Math.ceil(this.totalCount / this.pageSize);
+          this.generatePageNumbers();
+        },
+        error: (err) => {
+          console.error('Error searching requests:', err);
+        }
+      });
+  } else {
+    this.loadRequests();
   }
+}
 
   generatePageNumbers(): void {
     this.pages = [];
@@ -101,23 +124,7 @@ export class ServiceProviderAllRequestsComponent implements OnInit {
     }
   }
 
-  getStatusText(status: number): string {
-    switch (status) {
-      case 2: return 'Accepted';
-      case 1: return 'Pending';
-      case 0: return 'Rejected';
-      default: return 'Unknown';
-    }
-  }
 
-  getStatusClass(status: number): string {
-    switch (status) {
-      case 2: return 'bg-success';
-      case 1: return 'bg-warning text-dark';
-      case 0: return 'bg-danger';
-      default: return 'bg-secondary';
-    }
-  }
   viewRequestDetails(requestId: number): void {
     window.location.href = `/request/${requestId}`;
   }

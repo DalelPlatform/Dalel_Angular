@@ -59,7 +59,17 @@ export class RequestService {
   //   return this.http.get(url, { headers });
   // }
 
-    getRequests(Title: string, Description:string, Address: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/ServiceRequestSearch?Title=${Title}&Description=${Description}&Address=${Address}`);
+    getRequests(Title: string, Description:string, Address: string, categoryId:number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/ServiceRequestSearch?Title=${Title}&Description=${Description}&Address=${Address}&CategoryId=${categoryId}`);
   }
+  getCategories(): Observable<any> {
+    return this.http.get(`http://localhost:5070/api/CategoryServices/categories`);
+  }
+  getRequestsByCategory(categoryId: number, pageSize: number = 5, pageNumber: number = 1): Observable<PaginatedResponse<ServiceRequestDetails>> {
+    const params = new HttpParams()
+      .set('pageSize', pageSize.toString())
+      .set('pageNumber', pageNumber.toString());
+
+    return this.http.get<PaginatedResponse<ServiceRequestDetails>>(`${this.apiUrl}/Category/${categoryId}`, { params });
+  }
 }
