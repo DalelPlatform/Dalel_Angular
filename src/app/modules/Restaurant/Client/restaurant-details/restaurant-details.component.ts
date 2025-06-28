@@ -42,7 +42,10 @@ export class RestaurantDetailsComponent implements OnInit, OnDestroy {
   private sanitizer = inject(DomSanitizer);
   private service = inject(RestaurantService);
 
-  @Input() restaurantId!: number;
+
+
+  private activateRoute = inject(ActivatedRoute);
+  restaurantId!: number;
   // private restaurantService = inject(RestaurantService); // Uncomment when using real API
 
   restaurant: IRestaurant | null = null;
@@ -53,15 +56,17 @@ export class RestaurantDetailsComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
+
     this.loadRestaurantDetails();
-    // this.getMenuItemss();
+    this.restaurantId = Number(this.route.snapshot.paramMap.get('id'));
+    this.getMenuItemss();
   }
 
   getMenuItemss(){
     this.service.getMenuItems(this.restaurantId).subscribe({
       next: (res) => {
         console.log("there is getMenuItems")
-        console.log(res);
+        console.log(res.Data);
       },
       error: (err) => {
         console.log(err);
