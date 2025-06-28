@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { ServiceproviderModule } from '../app/modules/ServiceProvider/Modules/serviceprovider.module';
 import { routes } from './app.routes';
 import {CookieService} from 'ngx-cookie-service';
 import { SharedModule } from './shared/shared.module';
@@ -18,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
 import { AccountModule } from './modules/user/user-module';
+import { ServiceproviderModule } from './modules/serviceprovider/Modules/serviceprovider.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +27,6 @@ import { AccountModule } from './modules/user/user-module';
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    RouterModule.forRoot(routes), 
     AccountModule,
     SharedModule,
     FormsModule,
@@ -38,9 +37,9 @@ import { AccountModule } from './modules/user/user-module';
          BrowserAnimationsModule, // required animations module
         ToastrModule.forRoot(), // ToastrModule added
 ],
-  
-  providers: [CookieService, 
-     
+
+  providers: [CookieService,
+
     provideHttpClient(
       withFetch(),
       withInterceptors([authInterceptor,loaderInterceptor])

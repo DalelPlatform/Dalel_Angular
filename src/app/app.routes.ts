@@ -12,7 +12,7 @@ import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLa
 
 // import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
-import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
+// import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 export const routes: Routes = [
   {
     path: 'account',
@@ -33,7 +33,7 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
-    path: 'agancy', 
+    path: 'agancy',
      canActivate: [authGuard],
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)
   },

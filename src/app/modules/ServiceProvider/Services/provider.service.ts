@@ -33,7 +33,7 @@ export class ServiceProviderService {
     return this.http.get(`${this.baseUrl}/search`, { params });
   }
   getOwnProfile(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/ProfileById`, {
+    return this.http.get(`${this.baseUrl}/profile`, {
       headers: this.getAuthHeaders()
     });
   }
