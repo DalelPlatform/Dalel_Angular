@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
-import { Property } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../../../core/models/Property/IProperty';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./test-search.component.css']
 })
 export class TestSearchComponent implements OnInit {
-  list: Property[] = [];
+  list: IProperty[] = [];
   
   // Search form data
   searchData = {
