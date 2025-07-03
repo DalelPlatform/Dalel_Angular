@@ -5,10 +5,10 @@
         <div class="row">
           <div class="col-md-8">
             <h5 class="card-title text-purple">Service Request ID{{ proposal.serviceRequestId }}</h5>
-            <p class="card-text">{{ proposal.description }}</p>
+            <p class="card-text">{{ proposal.Description }}</p>
             <p class="text-muted">
               <strong>Price</strong> 
-              <span class="text-orange">{{ proposal.suggestedPrice | currency:'EGP' }}</span>
+              <span class="text-orange">{{ proposal.SuggestedPrice | currency:'EGP' }}</span>
             </p>
           </div>
           <div class="col-md-4" *ngIf="proposal.rating">

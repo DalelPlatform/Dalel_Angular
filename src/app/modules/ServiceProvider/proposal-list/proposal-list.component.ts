@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Proposal } from '../Models/proposal.model';
 import { CommonModule } from '@angular/common';
-import { TruncatePipe } from '../Pipes/truncate.pipe';
 import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-proposal-list',

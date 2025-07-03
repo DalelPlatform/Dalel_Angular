@@ -1,12 +1,20 @@
 export interface Proposal {
-  id: number;
-  serviceProviderId: string;
-  suggestedPrice: number;
-  description: string;
-  status: 'Pending' | 'Accepted' | 'Rejected';
+  Id: number;
+  ServiceProviderId: string;
+  SuggestedPrice: number;
+  Date: Date;
+  Description: string;
   serviceRequestId: number;
   createdAt: Date;
   updatedAt?: Date;
+  Status: ProposalStatus;
+}
+export enum ProposalStatus {
+  Pending = 1,
+  Accepted = 2,
+  Rejected = 3,
+  Completed = 4,
+  Cancelled = 5
 }
 
 export interface ProposalStats {
