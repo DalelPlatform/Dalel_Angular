@@ -17,8 +17,12 @@ export interface ServiceRequestDetails {
   ClientId: string;
   CategoryServicesId: number;
   Address: string;
-  CategoryName?: string;//عاوزة امررها من الفرونت للباك
+  DueDate: string;
+  CategoryName: string;
   Description: string;
   Date: string;
+  Image: string;
+  ClientName: string;
+  StartPrice: number;
   Status: number; 
 }

@@ -1,94 +1,281 @@
-<div *ngIf="request" class="card shadow p-4 mb-4 border-0" style="border-left: 5px solid #6f42c1;">
-  <h2 class="text-purple mb-3">Request Details</h2>
-  <p><strong>📍 Address:</strong> {{ request.Address }}</p>
-  <p><strong>📝 Description:</strong> {{ request.Description }}</p>
-  <p><strong>📅 Date:</strong> {{ request.Date | date:'medium' }}</p>
-  <!-- <p class="mb-2"><strong><i class="bi bi-pencil-square text-secondary me-2"></i>Status:</strong> {{ request.Status | statusText }}</p> -->
+<div class="container">
+  <div *ngIf="request" class="main-request-card">
+    <div class="card-gradient-border"></div>
 
-</div>
+    <div class="row g-0">
+      <!-- Left Column: Request Image -->
+      <div class="col-md-4">
+        <div class="image-container">
+          <img *ngIf="request.Image" [src]="request.Image" alt="Request Image" class="request-image" />
+          <div class="image-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+      </div>
 
-<!-- زرار إظهار الفورم -->
-<button class="btn btn-outline-primary mb-3" *ngIf="isServiceProvider && !showAddProposalForm"
-        (click)="showAddProposalForm = true">
-  ➕ Add Proposal
-</button>
+      <!-- Right Column: Request Details -->
+      <div class="col-md-8">
+        <div class="card-content">
 
-<!-- الفورم -->
-<div *ngIf="showAddProposalForm" class="card p-3 mb-4 bg-light">
-  <h5 class="text-purple">Submit Your Proposal</h5>
-  <form (ngSubmit)="submitProposal()" #proposalForm="ngForm">
-    <div class="mb-2">
-      <label>Description</label>
-      <textarea class="form-control" name="description" required [(ngModel)]="newProposal.description"></textarea>
+          <!-- Header Section -->
+          <div class="request-header">
+            <div class="title-section">
+              <h2 class="request-title">
+                <i class="fas fa-file-alt me-2"></i>
+                {{ request.Title || 'Untitled Request' }}
+              </h2>
+            </div>
+
+            <div class="client-info">
+              <div class="client-avatar">
+                <i class="fas fa-user-circle"></i>
+              </div>
+              <div class="client-details">
+                <h4 class="client-name">{{ clientName }}</h4>
+                <span class="client-label">Client</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Details Grid -->
+          <div class="details-grid">
+            <div class="row">
+              <div class="detail-item m-2">
+                <div class="detail-icon category-icon">
+                  <i class="fas fa-tag"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Category</span>
+                  <span class="detail-value">{{ categoryName }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item m-2">
+                <div class="detail-icon location-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Address</span>
+                  <span class="detail-value">{{ request.Address }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="detail-item m-2">
+                <div class="detail-icon date-icon">
+                  <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Due Date</span>
+                  <span class="detail-value">{{ request.DueDate | date:'mediumDate' }}</span>
+                </div>
+              </div>
+
+              <div class="detail-item m-2">
+                <div class="detail-icon budget-icon">
+                  <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="detail-content">
+                  <span class="detail-label">Budget</span>
+                  <span class="detail-value budget-value">{{ request.StartPrice }} EGP</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Request Date -->
+          <div class="request-date">
+            <i class="far fa-clock me-2"></i>
+            Posted in {{ request.Date | date:'mediumDate' }}
+          </div>
+
+        </div>
+      </div>
     </div>
-    <div class="mb-2">
-      <label>Suggested Price (EGP)</label>
-      <input type="number" class="form-control" name="suggestedPrice" required [(ngModel)]="newProposal.suggestedPrice">
+  </div>
+
+  <!-- Add Proposal Button -->
+  <div class="proposal-actions" *ngIf="isServiceProvider && !showAddProposalForm">
+    <button class="btn-add-proposal" (click)="showAddProposalForm = true">
+      <i class="fas fa-plus-circle me-2"></i>
+      Add Proposal
+    </button>
+  </div>
+
+  <!-- Proposal Form -->
+  <div *ngIf="showAddProposalForm" class="proposal-form-container">
+    <div class="form-header">
+      <h3>
+        <i class="fas fa-paper-plane me-2"></i>
+        Add Your Proposal
+      </h3>
     </div>
-    <button class="btn btn-success" type="submit" [disabled]="proposalForm.invalid">✅ Submit Proposal</button>
-    <button class="btn btn-secondary ms-2" type="button" (click)="cancelProposal()">❌ Cancel</button>
-  </form>
-</div>
 
-<h3 class="text-purple">Proposals</h3>
+    <form (ngSubmit)="submitProposal()" #proposalForm="ngForm" class="proposal-form">
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-edit me-2"></i>
+          Proposal Details
+        </label>
+        <textarea class="form-control modern-input" name="description" required [(ngModel)]="newProposal.description"
+          rows="4" placeholder="Write a descriptive Proposal..."></textarea>
+      </div>
 
-<!-- Provider -->
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-money-bill-wave me-2"></i>
+          Suggested Price
+        </label>
+        <input type="number" class="form-control modern-input" name="suggestedPrice" required
+          [(ngModel)]="newProposal.suggestedPrice" placeholder="Enter your suggested price" />
+      </div>
 
+      <div class="form-actions">
+        <button class="btn-submit" type="submit" [disabled]="proposalForm.invalid">
+          <i class="fas fa-check-circle me-2"></i>
+          Submit Proposal
+        </button>
+        <button class="btn-cancel" type="button" (click)="cancelProposal()">
+          <i class="fas fa-times-circle me-2"></i>
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 
+  <!-- Proposals Section -->
+  <div class="proposals-section">
+    <div class="section-header">
+      <h3>
+        <i class="fas fa-clipboard-list me-2"></i>
+        Proposals for this Request
+      </h3>
+    </div>
 
-<!-- ليستة البروبوزالز -->
-<div *ngIf="proposals.length > 0; else noProposals">
-  <div *ngFor="let proposal of proposals" class="card border-0 shadow-sm mb-4">
+    <!-- Proposals List -->
+    <div *ngIf="proposals.length > 0; else noProposals" class="proposals-grid">
+      <div *ngFor="let proposal of proposals" class="proposal-card">
+        <p *ngIf="!providerProfiles[proposal.ServiceProviderId]">No provider info for ID {{ proposal.ServiceProviderId }}</p>
 
-    <div class="card-header bg-light d-flex align-items-center"
-         *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
-      <img [src]="provider.Image"
-           alt="Provider Image"
-           class="rounded-circle me-3"
-           style="width: 60px; height: 60px; object-fit: cover;" />
-      <div>
-        <h5 class="mb-0">{{ provider.UserName }}</h5>
-        <small class="text-muted">
-          💼 {{ provider.ServiceArea }} | 🏙️ {{ provider.City }}
-        </small><br />
-        <small class="text-muted">
-          💰 {{ provider.Price }} {{ provider.PriceUnit }}
-        </small>
+        <!-- Provider Header -->
+        <div class="proposal-header" *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
+          <div class="provider-avatar">
+            <img [src]="provider.Image" alt="Provider Image" class="provider-image" />
+            <div class="provider-status"></div>
+          </div>
+          <div class="provider-info">
+            <h4 class="provider-name">{{ provider.UserName }}</h4>
+            <div class="provider-details">
+              <span class="provider-service">
+                <i class="fas fa-briefcase me-1"></i>
+                {{ provider.ServiceArea }}
+              </span>
+              <span class="provider-location">
+                <i class="fas fa-map-marker-alt me-1"></i>
+                {{ provider.City }}
+              </span>
+            </div>
+            <div class="provider-price">
+              <i class="fas fa-tag me-1"></i>
+              {{ provider.Price }} {{ provider.PriceUnit }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Proposal Content -->
+        <div class="proposal-content">
+          <div class="proposal-price">
+            <i class="fas fa-dollar-sign"></i>
+            <span class="price-amount">{{ proposal.SuggestedPrice }}</span>
+            <span class="price-currency">EGP</span>
+          </div>
+
+          <div class="proposal-description">
+            <h5>
+              <i class="fas fa-file-alt me-2"></i>
+              Proposal Description
+            </h5>
+            <p>{{ proposal.Description }}</p>
+          </div>
+
+          <div class="proposal-date">
+            <i class="far fa-calendar me-2"></i>
+            {{ proposal.Date | date:'medium' }}
+          </div>
+
+          <div class="proposal-actions" *ngIf="isClient">
+            <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)" (click)="openConfirmModal(proposal.Id)">
+              <i class="fas fa-check me-2"></i>
+              Accept Proposal
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="card-body">
-      <p class="card-text"><strong>💰 Price:</strong> {{ proposal.SuggestedPrice }} EGP</p>
-      <p class="card-text"><strong>📝 Description:</strong> {{ proposal.Description }}</p>
-      <p class="card-text"><strong>📅 Date:</strong> {{ proposal.Date | date:'medium' }}</p>
+    <!-- No Proposals Message -->
+    <ng-template #noProposals>
+      <div class="no-proposals">
+        <div class="no-proposals-icon">
+          <i class="fas fa-clipboard-list"></i>
+        </div>
+        <h4>There are No Proposals yet</h4>
+        <p>this request has no proposals yet</p>
+      </div>
+    </ng-template>
+  </div>
 
-        <button *ngIf="isClient"
-                class="btn btn-outline-success btn-sm mt-2"
-                (click)="openConfirmModal(proposal.Id)">
-          ✅ Accept
-        </button>
+  <!-- Confirmation Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modern-modal">
+        <div class="modal-header">
+          <h5 class="modal-title" id="confirmModalLabel">
+            <i class="fas fa-check-circle me-2"></i>
+            Confirm Acceptance
+
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        </div>
+        <div class="modal-body">
+          <div class="confirmation-message">
+            <i class="fas fa-question-circle"></i>
+            <h4>Are You Sure That You Want To Accept This Proposal?</h4>
+            <p>The Service Provider Will Be Noticed</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="fas fa-times me-2"></i>
+            Cancel
+          </button>
+          <button type="button" class="btn btn-success" (click)="confirmAccept()">
+            <i class="fas fa-check me-2"></i>
+            Confirm Acceptance
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<ng-template #noProposals>
-  <div class="alert alert-warning mt-3">No proposals found for this request.</div>
-</ng-template>
-<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<!-- Information Modal -->
+ <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-0 shadow">
+    <div class="modal-content modern-modal">
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">تأكيد القبول</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+        <h5 class="modal-title" id="infoModalLabel">
+          <i class="fas fa-info-circle me-2"></i>
+          Notice
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        are you sure you want to accept this proposal?
-        <p>
-          This action will notify the service provider and finalize the proposal.
-        </p>
+        <!-- dynamic message will be inserted here -->
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-        <button type="button" class="btn btn-success" (click)="confirmAccept()">نعم، اقبله</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+          <i class="fas fa-check me-2"></i> OK
+        </button>
       </div>
     </div>
   </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../Services/request.service';
 import { ServiceRequestDetails } from '../../Models/service-request.model';
-import { StatusTextPipe } from '../../Pipes/request-status.pipe';
 @Component({
   selector: 'app-all-requests',
   standalone: false,
@@ -103,4 +102,10 @@ export class AllRequestsComponent implements OnInit {
     if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} ساعة`;
     return `${Math.floor(diffInSeconds / 86400)} يوم`;
   }
+
+  getCategoryName(categoryId: number): string {
+  const category = this.requests.find(req => req.CategoryServicesId === categoryId);
+  return category ? category.CategoryName : 'Unknown Category';
+}
+
 }

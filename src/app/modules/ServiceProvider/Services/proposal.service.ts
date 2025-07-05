@@ -1,24 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProposalService {
   private apiUrl = `${environment.baseApi}ServiceProviderProposal`;
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   createProposal(proposalData: any): Observable<any> {
-    const formData = new FormData();
-    formData.append('description', proposalData.description);
-    formData.append('suggestedPrice', proposalData.suggestedPrice);
-    formData.append('serviceRequestId', proposalData.serviceRequestId);
+  const formData = new FormData();
+  formData.append('description', proposalData.description);
+  formData.append('suggestedPrice', proposalData.suggestedPrice);
+  formData.append('serviceRequestId', proposalData.serviceRequestId);
+  const token = this.cookieService.get('Token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
 
-    return this.http.post(`${this.apiUrl}/create`, formData);
-  }
+  return this.http.post(`${this.apiUrl}/create`, formData, { headers });
+}
+
   getProposalsByRequest(requestId: number, pageSize = 5, pageNumber = 1): Observable<any> {
     return this.http.get(`${this.apiUrl}/request/${requestId}`, {
       params: { pageSize, pageNumber }
