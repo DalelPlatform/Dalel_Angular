@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AccountModule } from './modules/user/user-module';
 import { ServiceproviderModule } from './modules/serviceprovider/Modules/serviceprovider.module';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,8 +36,10 @@ import { ServiceproviderModule } from './modules/serviceprovider/Modules/service
     CoreModule,
     ServiceproviderModule,
     LoaderComponent,
-         BrowserAnimationsModule, // required animations module
-        ToastrModule.forRoot(), // ToastrModule added
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+
+
 ],
 
   providers: [CookieService,

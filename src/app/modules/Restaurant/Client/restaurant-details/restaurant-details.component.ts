@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { IRestaurant } from '../../interfaces/irestaurant';
 import { RestaurantService } from '../../../../Services/Restaurant/restaurant.service';
+import { IMeal } from '../../interfaces/IMeal';
 
 // Mock enums and interfaces (move to a shared model file if needed)
 enum VerificationStatus {
@@ -47,7 +48,7 @@ export class RestaurantDetailsComponent implements OnInit, OnDestroy {
   private activateRoute = inject(ActivatedRoute);
   restaurantId!: number;
   // private restaurantService = inject(RestaurantService); // Uncomment when using real API
-
+  ListOfMenuItems: IMeal[] = [];
   restaurant: IRestaurant | null = null;
   isLoading = true;
   hasError = false;
@@ -63,10 +64,12 @@ export class RestaurantDetailsComponent implements OnInit, OnDestroy {
   }
 
   getMenuItemss(){
-    this.service.getMenuItems(this.restaurantId).subscribe({
+    this.service.getMenuItemsById(this.restaurantId).subscribe({
       next: (res) => {
         console.log("there is getMenuItems")
         console.log(res.Data);
+        this.ListOfMenuItems = res.Data;
+        console.log(this.ListOfMenuItems);
       },
       error: (err) => {
         console.log(err);
