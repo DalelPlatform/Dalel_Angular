@@ -59,9 +59,9 @@ export class RequestService {
   //   return this.http.get(url, { headers });
   // }
 
-    getRequests(Title: string, Description:string, Address: string, categoryId:number): Observable<any> {
+  getRequests(Title: string, Description: string, Address: string, categoryId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/ServiceRequestSearch?Title=${Title}&Description=${Description}&Address=${Address}&CategoryId=${categoryId}`);
-  }
+  }
   getCategories(): Observable<any> {
     return this.http.get(`http://localhost:5070/api/CategoryServices/categories`);
   }
@@ -71,5 +71,18 @@ export class RequestService {
       .set('pageNumber', pageNumber.toString());
 
     return this.http.get<PaginatedResponse<ServiceRequestDetails>>(`${this.apiUrl}/Category/${categoryId}`, { params });
+  }
+
+  getClient(id: string): Observable<any> {
+    return this.http.get<any>(`http://localhost:5070/api/Account/GetUserById?id=${id}`);
+  }
+  getCatedoryById(id: number): Observable<any> {
+    return this.http.get<any>(`http://localhost:5070/api/CategoryServices/${id}`);
+  }
+
+  getOwnAccount(): Observable<any> {
+    const token = this.cookieService.get('Token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${environment.baseApi}Account/MyAccount`, { headers });
   }
 }

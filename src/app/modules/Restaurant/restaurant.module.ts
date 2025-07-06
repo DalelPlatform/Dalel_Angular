@@ -12,6 +12,10 @@ import { RestaurantCardComponent } from './Client/restaurant-card/restaurant-car
 import { NavbarComponent } from './components/restaurant-navbar/navbar.component';
 import { RestaurantMealSearchComponent } from './Client/restaurant-meal-search/restaurant-meal-search.component';
 import { RestaurantDetailsComponent } from './Client/restaurant-details/restaurant-details.component';
+import { MealCardComponent } from './Client/meal-card/meal-card.component';
+import { MenuItemsComponent } from './Client/menuItems/menuItems.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MealDetailsComponent } from './Client/meal-details/meal-details.component';
 
 let routes: Routes = [
 
@@ -23,7 +27,7 @@ let routes: Routes = [
       {path: "add-restaurant", component: AddRestaurantFormComponent },
       {path : "get-all-restaurants" , component:GetAllRestaurantComponent},
       {path : "add-meal", component:AddMealComponent},
-      
+
 
 
       ]
@@ -34,7 +38,9 @@ let routes: Routes = [
     children: [
       {path : "search", component:RestaurantSearchComponent},
       {path : "restaurant-meal-search", component:RestaurantMealSearchComponent}  ,
-      {path : "restaurant-details/:id", component:RestaurantDetailsComponent}
+      {path : "restaurant-details/:id", component:RestaurantDetailsComponent},
+      {path : "menuitems" , component: MenuItemsComponent },
+      {path : "meal-details/:mealId", component: MealDetailsComponent},
     ]
   }
 
@@ -48,13 +54,17 @@ let routes: Routes = [
     RestaurantDetailsComponent,
     RestaurantSearchComponent,
     RestaurantCardComponent,
-    NavbarComponent
+    NavbarComponent,
+    MealCardComponent,
+    MenuItemsComponent,
+    MealDetailsComponent
 
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
+    NgxPaginationModule
   ]
 })
 export class RestaurantModuleModule { }

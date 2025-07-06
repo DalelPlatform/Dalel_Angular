@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, input, Output, output } from '@angular/core';
+import { Component, EventEmitter, inject, Input,Output } from '@angular/core';
 import { IRestaurant } from '../../interfaces/irestaurant';
 import { Router } from '@angular/router';
 
