@@ -1,0 +1,222 @@
+<!-- Dashboard Container -->
+<div class="dashboard-container">
+    <!-- Header Section -->
+    <div class="dashboard-header">
+      <div class="user-profile">
+        <div class="profile-avatar">
+          <img [src]="ProfileImage" alt="Jacqueline Miller" />
+        </div>
+        <div class="profile-info">
+          <h1>Hi <span class="user-name">Jacqueline Miller</span></h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn-primary">
+          <i class="fas fa-plus"></i>
+          Add New Listing
+        </button>
+      </div>
+    </div>
+  
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+      <a [routerLink]="['/dashboard']" 
+         [class.active]="activeTab === 'dashboard'" 
+         (click)="setActiveTab('dashboard')" 
+         class="nav-tab">
+        <i class="fas fa-chart-line"></i>
+        Dashboard
+      </a>
+      <a [routerLink]="['/listings']" 
+         [class.active]="activeTab === 'listings'" 
+         (click)="setActiveTab('listings')" 
+         class="nav-tab">
+        <i class="fas fa-list"></i>
+        Listings
+      </a>
+      <a [routerLink]="['/bookings']" 
+         [class.active]="activeTab === 'bookings'" 
+         (click)="setActiveTab('bookings')" 
+         class="nav-tab">
+        <i class="fas fa-bookmark"></i>
+        Bookings
+      </a>
+      <a [routerLink]="['/activities']" 
+         [class.active]="activeTab === 'activities'" 
+         (click)="setActiveTab('activities')" 
+         class="nav-tab">
+        <i class="fas fa-bell"></i>
+        Activities
+      </a>
+      <a [routerLink]="['/earnings']" 
+         [class.active]="activeTab === 'earnings'" 
+         (click)="setActiveTab('earnings')" 
+         class="nav-tab">
+        <i class="fas fa-chart-bar"></i>
+        Earnings
+      </a>
+      <a [routerLink]="['/reviews']" 
+         [class.active]="activeTab === 'reviews'" 
+         (click)="setActiveTab('reviews')" 
+         class="nav-tab">
+        <i class="fas fa-star"></i>
+        Reviews
+      </a>
+      <a [routerLink]="['/settings']" 
+         [class.active]="activeTab === 'settings'" 
+         (click)="setActiveTab('settings')" 
+         class="nav-tab">
+        <i class="fas fa-cog"></i>
+        Settings
+      </a>
+      <div class="nav-tab dropdown">
+        <i class="fas fa-chevron-down"></i>
+        Dropdown
+      </div>
+    </div>
+  
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- Dashboard View -->
+      <div *ngIf="activeTab === 'dashboard'" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-chart-line"></i> Dashboard</h2>
+        </div>
+        <!-- Dashboard content would go here -->
+      </div>
+  
+      <!-- Bookings View -->
+      <div *ngIf="activeTab === 'bookings'" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-bookmark"></i> Bookings</h2>
+        </div>
+        
+        <div class="bookings-summary">
+          <div class="summary-item">
+            <span class="summary-label">Bookings</span>
+            <span class="summary-count">{{ bookings.length }} Rooms</span>
+          </div>
+        </div>
+  
+        <div class="bookings-controls">
+          <div class="search-box">
+            <input 
+              type="text" 
+              placeholder="Search" 
+              [(ngModel)]="searchTerm"
+              (input)="filterBookings()"
+              class="search-input"
+            />
+            <i class="fas fa-search search-icon"></i>
+          </div>
+          <div class="sort-dropdown">
+            <select [(ngModel)]="sortBy" (change)="sortBookings()" class="sort-select">
+              <option value="">Sort by</option>
+              <option value="date">Date</option>
+              <option value="name">Name</option>
+              <option value="status">Status</option>
+            </select>
+            <i class="fas fa-chevron-down dropdown-icon"></i>
+          </div>
+        </div>
+  
+        <div class="bookings-table">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Payment</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let booking of filteredBookings; let i = index">
+                <td class="booking-number">{{ (i + 1).toString().padStart(2, '0') }}</td>
+                <td class="booking-name">{{ booking.name }}</td>
+                <td class="booking-type">{{ booking.type }}</td>
+                <td class="booking-date">{{ booking.date }}</td>
+                <td class="booking-status">
+                  <span [class]="'status-badge status-' + booking.status.toLowerCase()">
+                    {{ booking.status }}
+                  </span>
+                </td>
+                <td class="booking-payment">
+                  <span [class]="'payment-badge payment-' + booking.payment.toLowerCase().replace(' ', '-')">
+                    {{ booking.payment }}
+                  </span>
+                </td>
+                <td class="booking-action">
+                  <button class="btn-view" (click)="viewBooking(booking)">View</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+  
+      <!-- Listings View -->
+      <div *ngIf="activeTab === 'listings'" class="content-section">
+        <div class="section-header">
+          <h2><i class="fas fa-list"></i> My Listings</h2>
+          <span class="items-count">{{ listings.length }} Items</span>
+        </div>
+        
+        <div class="listings-grid">
+          <div *ngFor="let listing of listings" class="listing-card">
+            <div class="listing-image">
+              <img [src]="listing.image" [alt]="listing.name" />
+            </div>
+            <div class="listing-content">
+              <div class="listing-info">
+                <h3 class="listing-name">{{ listing.name }}</h3>
+                <div class="listing-address">
+                  <i class="fas fa-map-marker-alt"></i>
+                  {{ listing.address }}
+                </div>
+                <div class="listing-price">
+                  <span class="price">${{ listing.price }}</span>
+                  <span class="period">/day</span>
+                </div>
+              </div>
+              <div class="listing-actions">
+                <button class="btn-edit" (click)="editListing(listing)">
+                  <i class="fas fa-edit"></i>
+                  Edit
+                </button>
+                <button class="btn-delete" (click)="deleteListing(listing)">
+                  <i class="fas fa-trash"></i>
+                  Delete
+                </button>
+                <div class="dropdown-menu">
+                  <button class="btn-dropdown" (click)="toggleDropdown(listing.id)">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                  <div *ngIf="showDropdown[listing.id]" class="dropdown-content">
+                    <button class="dropdown-item" (click)="reportListing(listing)">
+                      <i class="fas fa-flag"></i>
+                      Report
+                    </button>
+                    <button class="dropdown-item" (click)="disableListing(listing)">
+                      <i class="fas fa-ban"></i>
+                      Disable
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Other tabs content -->
+      <div *ngIf="activeTab !== 'dashboard' && activeTab !== 'bookings' && activeTab !== 'listings'" class="content-section">
+        <div class="section-header">
+          <h2><i [class]="getTabIcon(activeTab)"></i> {{ activeTab | titlecase }}</h2>
+        </div>
+        <p class="coming-soon">Content for {{ activeTab }} coming soon...</p>
+      </div>
+    </div>
+  </div>

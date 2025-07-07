@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { PropertyOwnerService } from '../../../../Services/Property/property-owner.service';
+import { PropertyOwnerService } from '../../../../../../Services/Property/property-owner.service';
 
 @Component({
   selector: 'app-add-property',
