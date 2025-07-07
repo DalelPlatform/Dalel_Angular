@@ -135,7 +135,7 @@
           <i class="fas fa-check-circle me-2"></i>
           Submit Proposal
         </button>
-        <button class="btn-cancel" type="button" (click)="cancelProposal()">
+        <button class="btn-cancel" type="button" (click)="Cancle()">
           <i class="fas fa-times-circle me-2"></i>
           Cancel
         </button>
@@ -155,7 +155,8 @@
     <!-- Proposals List -->
     <div *ngIf="proposals.length > 0; else noProposals" class="proposals-grid">
       <div *ngFor="let proposal of proposals" class="proposal-card">
-        <p *ngIf="!providerProfiles[proposal.ServiceProviderId]">No provider info for ID {{ proposal.ServiceProviderId }}</p>
+        <p *ngIf="!providerProfiles[proposal.ServiceProviderId]">No provider info for ID {{ proposal.ServiceProviderId
+          }}</p>
 
         <!-- Provider Header -->
         <div class="proposal-header" *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
@@ -203,10 +204,34 @@
             {{ proposal.Date | date:'medium' }}
           </div>
 
-          <div class="proposal-actions" *ngIf="isClient">
-            <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)" (click)="openConfirmModal(proposal.Id)">
+          <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Pending">
+            <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)"
+              (click)="openDynamicModal(proposal.Id, 'pending')">
               <i class="fas fa-check me-2"></i>
               Accept Proposal
+            </button>
+            <button class="btn-reject" (click)="rejectProposal(proposal.Id)">
+              <i class="fas fa-times me-2"></i>
+              Reject Proposal
+            </button>
+          </div>
+          <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Accepted">
+            <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)"
+              (click)="openDynamicModal(proposal.Id, 'complete')">
+              <i class="fas fa-check me-2"></i>
+              Complete Proposal
+            </button>
+            <button class="btn-reject" (click)="cancelProposal(proposal.Id)">
+              <i class="fas fa-times me-2"></i>
+              Cancle Proposal
+            </button>
+          </div>
+
+          <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Completed">
+            <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)"
+              (click)="openReviewModal(proposal.Id)">
+              <i class="fas fa-check me-2"></i>
+              Leave A Review
             </button>
           </div>
         </div>
@@ -232,15 +257,15 @@
         <div class="modal-header">
           <h5 class="modal-title" id="confirmModalLabel">
             <i class="fas fa-check-circle me-2"></i>
-            Confirm Acceptance
+            {{ modalTitle }}
 
           </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
         </div>
         <div class="modal-body">
           <div class="confirmation-message">
             <i class="fas fa-question-circle"></i>
-            <h4>Are You Sure That You Want To Accept This Proposal?</h4>
+            <h4>{{ modalMessage }}</h4>
             <p>The Service Provider Will Be Noticed</p>
           </div>
         </div>
@@ -249,9 +274,9 @@
             <i class="fas fa-times me-2"></i>
             Cancel
           </button>
-          <button type="button" class="btn btn-success" (click)="confirmAccept()">
+          <button type="button" class="btn btn-success" (click)="confirmModalAction()">
             <i class="fas fa-check me-2"></i>
-            Confirm Acceptance
+            Confirm
           </button>
         </div>
       </div>
@@ -259,7 +284,7 @@
   </div>
 </div>
 <!-- Information Modal -->
- <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+<div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content modern-modal">
       <div class="modal-header">
@@ -277,6 +302,40 @@
           <i class="fas fa-check me-2"></i> OK
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content modern-modal">
+      <div class="modal-header">
+        <h5 class="modal-title" id="reviewModalLabel">
+          <i class="fas fa-star me-2"></i> Leave a Review
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form (ngSubmit)="submitReview()" #reviewForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Rating</label>
+            <select class="form-control" required [(ngModel)]="reviewModel.Rating" name="rating">
+              <option [ngValue]="null" disabled selected>Choose Rating</option>
+              <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{r}} Stars</option>
+            </select>
+          </div>
+          <div class="form-group mt-3">
+            <label>Review</label>
+            <textarea class="form-control" required [(ngModel)]="reviewModel.Review" name="review" maxlength="500"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Submit Review</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

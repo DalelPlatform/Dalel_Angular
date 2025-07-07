@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Proposal } from '../Models/proposal.model';
+import { Proposal, ProposalStatus } from '../Models/proposal.model';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 @Component({
@@ -11,16 +11,7 @@ import { RouterLink } from '@angular/router';
 export class ProposalListComponent {
   @Input() proposals: Proposal[] = [];
   @Output() proposalAction = new EventEmitter<{action: string, id: number}>();
-
-  getStatusClass(status: string): string {
-    switch(status) {
-      case 'Pending': return 'bg-warning text-dark';
-      case 'Accepted': return 'bg-success text-white';
-      case 'Rejected': return 'bg-danger text-white';
-      default: return 'bg-secondary text-white';
-    }
-  }
-
+  proposalStatus = ProposalStatus;
   onAction(action: string, id: number) {
     this.proposalAction.emit({action, id});
   }

@@ -85,4 +85,10 @@ export class RequestService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<any>(`${environment.baseApi}Account/MyAccount`, { headers });
   }
+
+  createReview(model: any): Observable<any> {
+    const token = this.cookieService.get('Token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any>(`${environment.baseApi}ServiceProviderReview/create`, model, { headers });
+  }
 }

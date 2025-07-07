@@ -7,8 +7,10 @@ import { ServiceProviderService } from '../Services/provider.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Proposal } from '../Models/proposal.model';
 import { ProposalStatus } from '../Models/proposal.model';
+import { Review } from '../Models/review.model';
 declare var bootstrap: any;
 
+type ModalAction = 'pending' | 'accept' | 'complete' | 'cancel' | 'review';
 
 @Component({
   selector: 'app-request-details-component',
@@ -16,10 +18,12 @@ declare var bootstrap: any;
   templateUrl: './request-details-component.component.html',
   styleUrl: './request-details-component.component.css'
 })
+
 export class RequestDetailsComponent implements OnInit {
   request!: ServiceRequestDetails;
   requestId: number;
   proposals: Proposal[] = [];
+  proposalStatus = ProposalStatus;
   isLoading = true;
   userRole: string = '';
   isClient: boolean = false;
@@ -28,14 +32,22 @@ export class RequestDetailsComponent implements OnInit {
   currentUserId: string = '';
   providerProfile: any;
   providerProfiles: { [key: string]: any } = {};
-  selectedProposalId: number | null = null;
+  selectedProposalId!: number | null;
   usersDetails: { [key: string]: any } = {};
   categoryName: string = '';
   clientName: string = '';
-
-
-
-
+  modalAction: ModalAction | null = null;
+  modalTitle: string = '';
+  modalMessage: string = '';
+  reviewModel: Review = {
+    Id: 0,
+    RequestId: 0,
+    ServiceProviderId: '',
+    ClientId: "",
+    Rating: 0,
+    ReviewDate: new Date(),
+    Review: ''
+  };
   newProposal = {
     description: '',
     suggestedPrice: null,
@@ -56,7 +68,7 @@ export class RequestDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.loadRequestDetails();
     this.loadProposals();
-    
+
 
     this.userRole = this.cookieService.get('Role');
     this.currentUserId = this.cookieService.get('Token');
@@ -119,18 +131,18 @@ export class RequestDetailsComponent implements OnInit {
       next: (response) => {
         this.request = response.Data;
 
-         if (this.userRole === 'Client') {
-        this.requestService.getOwnAccount().subscribe({
-          next: (res) => {
-            const currentClientId = res.Data.Id;
-            this.isClient = this.request.ClientId === currentClientId;
-          },
-          error: (err) => {
-            console.error("Error fetching client account:", err);
-            this.isClient = false;
-          }
-        });
-      }
+        if (this.userRole === 'Client') {
+          this.requestService.getOwnAccount().subscribe({
+            next: (res) => {
+              const currentClientId = res.Data.Id;
+              this.isClient = this.request.ClientId === currentClientId;
+            },
+            error: (err) => {
+              console.error("Error fetching client account:", err);
+              this.isClient = false;
+            }
+          });
+        }
         this.requestService.getClient(this.request.ClientId).subscribe({
           next: (res) => {
             this.clientName = res.Data.userName || res.Data.UserName || 'Unknown';
@@ -194,13 +206,30 @@ export class RequestDetailsComponent implements OnInit {
   onAddProposal(): void {
     this.showAddProposalForm = true;
   }
-  cancelProposal(): void {
+  cancelProposal(Id: number): void {
+    this.proposalService.cancelProposals(this.requestId).subscribe({
+      next: (res) => {
+        if (res.Success) {
+          this.loadProposals();
+          this.showAddProposalForm = false;
+          this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
+        } else {
+          this.showModal("Failed to cancel the proposal.");
+        }
+      },
+      error: (err) => {
+        console.error('Error canceling proposal:', err);
+        this.showModal("Something went wrong while canceling the proposal. Please try again later.");
+      }
+    });
+  }
+  Cancle(): void {
     this.showAddProposalForm = false;
     this.newProposal = {
       description: '',
       suggestedPrice: null,
       date: new Date()
-    };
+    }
   }
 
   submitProposal(): void {
@@ -252,30 +281,169 @@ export class RequestDetailsComponent implements OnInit {
     }
   }
 
-  confirmAccept(): void {
-    if (this.selectedProposalId !== null) {
-      this.proposalService.acceptProposal(this.selectedProposalId).subscribe({
-        next: (res) => {
-          if (res.Success) {
-            this.loadProposals();
-            this.selectedProposalId = null;
+  openDynamicModal(proposalId: number, action: ModalAction): void {
+    this.selectedProposalId = proposalId;
+    this.modalAction = action;
 
-            const modalEl = document.getElementById('confirmModal');
-            if (modalEl) {
-              const modal = bootstrap.Modal.getInstance(modalEl);
-              modal?.hide();
-            }
-          } else {
-            alert('Faild To Accept the proposal ' + res.Message);
-          }
-        },
-        error: (err) => {
-          console.error('Error accepting proposal:', err);
-          alert('Something went wrong while accepting the proposal. Please try again later.');
-        }
-      });
+    switch (action) {
+      case 'accept':
+        this.modalTitle = 'Confirm Acceptance';
+        this.modalMessage = 'Are you sure you want to accept this proposal? The service provider will be notified.';
+        break;
+      case 'complete':
+        this.modalTitle = 'Mark as Completed';
+        this.modalMessage = 'Are you sure this proposal is completed?';
+        break;
+      case 'cancel':
+        this.modalTitle = 'Cancel Proposal';
+        this.modalMessage = 'Are you sure you want to cancel this proposal?';
+        break;
+      case 'review':
+        this.modalTitle = 'Leave a Review';
+        this.modalMessage = 'Would you like to leave a review for this provider?';
+        break;
+    }
+
+    const modalEl = document.getElementById('confirmModal');
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
     }
   }
 
+  confirmModalAction(): void {
+    console.log("Modal Action:", this.modalAction);
+    console.log("Selected Proposal ID:", this.selectedProposalId);
+    if (!this.selectedProposalId || !this.modalAction) return;
+
+    switch (this.modalAction) {
+      case 'accept':
+        this.proposalService.acceptProposal(this.selectedProposalId).subscribe(
+          {
+            next: (res) => {
+              if (res.Success) {
+                this.loadProposals();
+                this.showAddProposalForm = false;
+                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
+              } else {
+                this.showModal("Failed to accept the proposal.");
+              }
+            },
+            error: (err) => {
+              console.error('Error accepting proposal:', err);
+              this.showModal("Something went wrong while accepting the proposal. Please try again later.");
+            }
+          }
+        );
+        break;
+
+      case 'complete':
+        this.proposalService.completeProposal(this.selectedProposalId).subscribe(
+          {
+            next: (res) => {
+              if (res.Success) {
+                this.loadProposals();
+                this.showAddProposalForm = false;
+                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
+              } else {
+                this.showModal("Failed to mark the proposal as completed.");
+              }
+            },
+            error: (err) => {
+              console.error('Error completing proposal:', err);
+              this.showModal("Something went wrong while marking the proposal as completed. Please try again later.");
+            }
+          }
+        );
+        break;
+
+      case 'cancel':
+        this.proposalService.cancelProposals(this.selectedProposalId).subscribe(
+          {
+            next: (res) => {
+              if (res.Success) {
+                this.loadProposals();
+                this.showAddProposalForm = false;
+                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
+              } else {
+                this.showModal("Failed to cancel the proposal.");
+              }
+            },
+            error: (err) => {
+              console.error('Error canceling proposal:', err);
+              this.showModal("Something went wrong while canceling the proposal. Please try again later.");
+            }
+          }
+        );
+        break;
+    }
+
+    const modalEl = document.getElementById('confirmModal');
+    if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+  }
+
+
+  rejectProposal(proposalId: number): void {
+    this.proposalService.rejectProposal(proposalId).subscribe({
+      next: (res) => {
+        if (res.Success) {
+          this.loadProposals();
+        } else {
+          alert('Failed to reject the proposal: ' + res.Message);
+        }
+      },
+      error: (err) => {
+        console.error('Error rejecting proposal:', err);
+        alert('Something went wrong while rejecting the proposal. Please try again later.');
+      }
+    });
+  }
+  submitReview(): void {
+    console.log("Submitting review for proposal ID:");
+
+    if (!this.selectedProposalId) return;
+
+    const reviewPayload = {
+      RequestId: this.requestId,
+      ServiceProviderId: this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '',
+      ClientId: this.currentUserId,
+      Rating: this.reviewModel.Rating,
+      Review: this.reviewModel.Review,
+      ReviewDate: new Date()
+    };
+
+    this.requestService.createReview(reviewPayload).subscribe({
+      next: (res) => {
+        if (res.Success) {
+          this.showModal('Review submitted successfully!');
+          this.loadProposals();
+        } else {
+          this.showModal('Failed to submit review.');
+        }
+      },
+      error: (err) => {
+        console.error('Review Error:', err);
+        this.showModal('An error occurred while submitting review.');
+      }
+    });
+
+    const modalEl = document.getElementById('reviewModal');
+    if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+  }
+  openReviewModal(proposalId: number): void {
+    this.selectedProposalId = proposalId;
+    const proposal = this.proposals.find(p => p.Id === proposalId);
+    if (proposal) {
+      this.reviewModel.RequestId = this.requestId;
+      this.reviewModel.ServiceProviderId = proposal.ServiceProviderId;
+      this.reviewModel.ClientId = this.currentUserId;
+    }
+
+    const modalEl = document.getElementById('reviewModal');
+    if (modalEl) {
+      const modal = new bootstrap.Modal(modalEl);
+      modal.show();
+    }
+  }
 
 }
