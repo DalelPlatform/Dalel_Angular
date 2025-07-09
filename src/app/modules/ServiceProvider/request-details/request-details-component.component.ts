@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Proposal } from '../Models/proposal.model';
 import { ProposalStatus } from '../Models/proposal.model';
 import { Review } from '../Models/review.model';
+import { Observable } from 'rxjs';
 declare var bootstrap: any;
 
 type ModalAction = 'pending' | 'accept' | 'complete' | 'cancel' | 'review';
@@ -29,7 +30,7 @@ export class RequestDetailsComponent implements OnInit {
   isClient: boolean = false;
   isServiceProvider: boolean = false;
   showAddProposalForm = false;
-  currentUserId: string = '';
+  currentUserId: any = '';
   providerProfile: any;
   providerProfiles: { [key: string]: any } = {};
   selectedProposalId!: number | null;
@@ -65,23 +66,26 @@ export class RequestDetailsComponent implements OnInit {
     this.requestId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-  ngOnInit(): void {
-    this.loadRequestDetails();
-    this.loadProposals();
+ngOnInit(): void {
+  this.userRole = this.cookieService.get('Role');
+  this.currentUserId = this.requestService.getOwnAccount().subscribe({
+    
+    next: (res) => {
+      this.currentUserId = res.Data.Id;
+      console.log("Current User ID:", this.currentUserId);
+    },
+    error: (err) => {
+      console.error("Error fetching current user ID:", err);
+      this.currentUserId = '';
+    }
+  });
+  this.isServiceProvider = this.userRole === 'ServiceProvider';
 
+  this.loadRequestDetails();   
+  this.loadProposals();
+  this.loadProviderProfiles();
+}
 
-    this.userRole = this.cookieService.get('Role');
-    this.currentUserId = this.cookieService.get('Token');
-    this.isClient = this.userRole === 'Client' && this.request.ClientId == this.currentUserId;
-    this.isServiceProvider = this.userRole === 'ServiceProvider';
-    this.loadProviderProfiles();
-
-
-    this.userRole = this.cookieService.get('Role');
-    this.isServiceProvider = this.userRole === 'ServiceProvider';
-
-    this.loadProviderProfiles();
-  }
 
 
   loadProviderProfiles(): void {
@@ -399,9 +403,14 @@ export class RequestDetailsComponent implements OnInit {
     });
   }
   submitReview(): void {
-    console.log("Submitting review for proposal ID:");
+    console.log("Submitting review for proposal ID:", this.selectedProposalId);
 
     if (!this.selectedProposalId) return;
+    console.log('RequestId:', this.requestId);
+    console.log('ServiceProviderId:', this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '');
+    console.log('ClientId:', this.proposals.find(p => p.Id === this.selectedProposalId)?.ClientId || '');
+    console.log('Rating:', this.reviewModel.Rating);
+    console.log('Review:', this.reviewModel.Review);
 
     const reviewPayload = {
       RequestId: this.requestId,
@@ -411,8 +420,15 @@ export class RequestDetailsComponent implements OnInit {
       Review: this.reviewModel.Review,
       ReviewDate: new Date()
     };
+    const formData = new FormData();
+formData.append('RequestId', this.requestId.toString());
+formData.append('ServiceProviderId', this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '');
+formData.append('ClientId', this.currentUserId);
+formData.append('Rating', this.reviewModel.Rating.toString());
+formData.append('Review', this.reviewModel.Review);
+formData.append('ReviewDate', new Date().toISOString()); // date format متوافق مع backend
 
-    this.requestService.createReview(reviewPayload).subscribe({
+    this.requestService.createReview(formData).subscribe({
       next: (res) => {
         if (res.Success) {
           this.showModal('Review submitted successfully!');
@@ -422,7 +438,7 @@ export class RequestDetailsComponent implements OnInit {
         }
       },
       error: (err) => {
-        console.error('Review Error:', err);
+        console.error('Review Error:', err.error.errors);
         this.showModal('An error occurred while submitting review.');
       }
     });

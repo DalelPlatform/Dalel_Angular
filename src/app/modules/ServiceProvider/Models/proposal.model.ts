@@ -7,6 +7,7 @@ export interface Proposal {
   serviceRequestId: number;
   createdAt: Date;
   updatedAt?: Date;
+  ClientId: string;
   Status: ProposalStatus;
 }
 export enum ProposalStatus {

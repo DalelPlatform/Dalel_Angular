@@ -17,7 +17,7 @@ export interface ServiceProvider {
   selector: 'app-service-provider',
   standalone: false,
   templateUrl: './service-provider.component.html',
-  styleUrls: ['./service-provider.component.css']
+  styleUrl: './service-provider.component.css'
 })
 export class ServiceProviderComponent implements OnInit {
   activeTab: 'all' | 'accepted' = 'all';
