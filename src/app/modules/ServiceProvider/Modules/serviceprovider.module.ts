@@ -1,28 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { CompleteProfileServiceProviderComponent } from '../complete-profile-service-provider/complete-profile-service-provider.component';
-import { ServiceProviderLayoutComponent } from '../service-provider-layout/service-provider-layout.component';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { AddProjectComponent } from '../add-project/add-project.component';
 import { serviceProviderGuard } from '../../../Services/Guards/ServiceProvider/service-provider.guard';
-import { AddProposalComponent } from '../add-proposal/add-proposal.component';
+
+import { AddServiceRequestComponent } from '../../user/components/add-service-request/add-service-request.component';
+import { ServiceProviderLayoutComponent } from '../service-provider-layout/service-provider-layout.component';
+import { AddProjectComponent } from '../add-project/add-project.component';
 import { ServiceProviderComponent } from '../service-provider/service-provider.component';
 import { AcceptedProposalsComponent } from '../accepted-proposals/accepted-proposals.component';
 import { ProposalListComponent } from '../proposal-list/proposal-list.component';
-import { TruncatePipe } from '../Pipes/truncate.pipe';
-import { AddServiceRequestComponent } from '../../user/components/add-service-request/add-service-request.component';
-import { DatePipe } from '@angular/common';
-import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
-import { RequestDetailsComponent } from '../request-details/request-details-component.component';
-import { StatusTextPipe } from "../Pipes/request-status.pipe";
 import { ServiceProviderAllRequestsComponent } from '../service-provider-all-requests/service-provider-all-requests.component';
-import { ServiceProviderSharedModule } from './service-provider-shared.module';
-import { ServiceProviderProfileComponent } from "../service-provider-profile/service-provider-profile.component";
+import { RequestDetailsComponent } from '../request-details/request-details-component.component';
+import { AddProposalComponent } from '../add-proposal/add-proposal.component';
+import { CompleteProfileServiceProviderComponent } from '../complete-profile-service-provider/complete-profile-service-provider.component';
+import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
+import { TruncatePipe } from '../Pipes/truncate.pipe';
+import { ServiceProviderProfileComponent } from '../service-provider-profile/service-provider-profile.component';
 import { ServiceProviderProjectsComponent } from '../service-provider-projects/service-provider-projects.component';
-import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
 import { ServiceProviderReviewsComponent } from '../service-provider-reviews/service-provider-reviews.component';
+import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
+import { ServiceProviderSharedModule } from './service-provider-shared.module';
 
 let routes: Routes = [
   {
@@ -80,7 +78,6 @@ let routes: Routes = [
     AllRequestsComponent,
     RequestDetailsComponent,
     ServiceProviderAllRequestsComponent,
-    TruncatePipe,
     CompleteProfileServiceProviderComponent,
     ServiceProviderProfileComponent,
     ServiceProviderProjectsComponent,
@@ -93,9 +90,9 @@ let routes: Routes = [
     FormsModule,
     ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
+    TruncatePipe,
     RouterModule.forChild(routes),
-    HttpClientModule,
 ],
-  providers: [DatePipe]
+  providers: []
 })
 export class ServiceproviderModule { }

@@ -1,74 +1,42 @@
-/* Colors */
-:root {
-  --purple: #6f42c1;
-  --orange: #fd7e14;
-  --light-purple: #e2d9f3;
+.cursor-pointer {
+  cursor: pointer;
 }
 
-.text-purple {
-  color: var(--purple);
+.transition-all {
+  transition: all 0.3s ease;
 }
 
-.text-orange {
-  color: var(--orange);
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
 }
 
-.bg-purple {
-  background-color: var(--purple);
+.list-group-item:hover {
+  background-color: #f8f9fa;
 }
 
-.bg-orange {
-  background-color: var(--orange);
+.bg-opacity-10 {
+  background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
 }
 
-/* Cards */
-.stat-card {
-  border-left: 4px solid var(--purple);
-  transition: transform 0.3s;
+.bg-success.bg-opacity-10 {
+  background-color: rgba(var(--bs-success-rgb), 0.1) !important;
 }
 
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(111, 66, 193, 0.1);
+.bg-danger.bg-opacity-10 {
+  background-color: rgba(var(--bs-danger-rgb), 0.1) !important;
 }
 
-/* Table */
-.table-purple {
-  background-color: var(--purple);
-  color: white;
+.bg-warning.bg-opacity-10 {
+  background-color: rgba(var(--bs-warning-rgb), 0.1) !important;
 }
 
-/* Buttons */
-.btn-purple {
-  background-color: var(--purple);
-  color: white;
-  border-color: var(--purple);
-}
-
-.btn-purple:hover {
-  background-color: #5a32a8;
-  border-color: #5a32a8;
-  color: white;
-}
-
-.btn-orange {
-  background-color: var(--orange);
-  color: white;
-  border-color: var(--orange);
-}
-
-.btn-orange:hover {
-  background-color: #e67312;
-  border-color: #e67312;
-  color: white;
-}
-
-/* Pagination */
-.page-link {
-  color: var(--purple);
-}
-
-.page-item.active .page-link {
-  background-color: var(--purple);
-  border-color: var(--purple);
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .display-6 {
+    font-size: 1.5rem;
+  }
 }

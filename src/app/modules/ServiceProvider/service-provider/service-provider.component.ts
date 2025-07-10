@@ -1,119 +1,136 @@
 import { Component, OnInit } from '@angular/core';
+import Chart from 'chart.js/auto';
+import { ChangeDetectorRef } from '@angular/core';
+import { Proposal, ProposalStatus } from '../Models/proposal.model';
 import { ProposalService } from '../Services/proposal.service';
-export interface ServiceProvider {
-  id: string;
-  name: string;
-  email: string;
-  category: string;
-  profileImage: string;
-  phone?: string;
-  address?: string;
-  bio?: string;
-  rating?: number;
-  joinDate?: string;
-}
+import { ServiceProviderService } from '../Services/provider.service';
 
+export interface ServiceProvider {
+  UserId: string;
+  UserName: string;
+  ServiceArea: string;
+  CategoryServicesId: number;
+  Image: string;
+  City?: string;
+  Address?: string;
+  About?: string;
+}
 @Component({
   selector: 'app-service-provider',
   standalone: false,
   templateUrl: './service-provider.component.html',
-  styleUrl: './service-provider.component.css'
+  styleUrls: ['./service-provider.component.css']
 })
 export class ServiceProviderComponent implements OnInit {
-  activeTab: 'all' | 'accepted' = 'all';
-  stats: any = {
-    totalProposals: 0,
-    acceptedProposals: 0,
-    pendingProposals: 0,
-    rejectedProposals: 0,
-    averageRating: 0
-  };
-  proposals: any[] = [];
-  acceptedProposals: any[] = [];
-  isLoading = true;
-  currentPage = 1;
-  pageSize = 5;
-  totalItems = 0;
+
+  providerProfile!: ServiceProvider;
+  selectedStatus: 'completed' | 'accepted' | 'rejected' | 'pending' = 'completed';
+  proposals: Proposal[] = [];
+
+  proposalCards: any[] = [];
+  chart: any;
 
   constructor(
     private proposalService: ProposalService,
-  ) {}
+    private providerService: ServiceProviderService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    this.loadData();
-  }
-
-  loadData(): void {
-    this.loadStats();
+    this.loadProviderProfile();
     this.loadProposals();
+
+    this.cdr.detectChanges();
   }
 
-  loadStats(): void {
-    this.proposalService.getProviderStats().subscribe({
-      next: (res) => {
-        this.stats = res.data; 
-        console.log('Provider Stats:', this.stats);
-        
-        this.isLoading = false;
+  loadProviderProfile(): void {
+    this.providerService.getOwnProfile().subscribe({
+      next: res => {
+        this.providerProfile = res.Data;
+        console.log('Provider profile loaded:', this.providerProfile);
       },
-      error: (err) => {
-        console.error('Failed to load stats:', err);
-        this.isLoading = false;
-      }
+      error: err => console.error('Profile load failed', err)
     });
   }
 
   loadProposals(): void {
-    this.isLoading = true;
-    this.proposalService.getProposalsByProvider(this.pageSize, this.currentPage)
-      .subscribe({
-        next: (res) => {
-          this.proposals = res.data;
-          this.totalItems = res.totalCount;
-          this.filterProposals();
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Failed to load proposals:', err);
-          this.isLoading = false;
+    console.log('Fetching proposals...');
+    this.proposalService.getProposalsByProvider(100, 1).subscribe({
+      next: (res) => {
+        console.log('Response from API:', res.Data.Data);
+        this.proposals = res.Data.Data;
+        this.updateCards();
+        this.renderChart();
+      },
+      error: (err) => {
+        console.error('Failed to load proposals:', err);
+      }
+    });
+  }
+
+
+  updateCards(): void {
+    if (!this.proposals) return;
+
+    const completed = this.proposals.filter(p => p.Status === ProposalStatus.Completed).length;
+    const accepted = this.proposals.filter(p => p.Status === ProposalStatus.Accepted).length;
+    const rejected = this.proposals.filter(p => p.Status === ProposalStatus.Rejected).length;
+    const pending = this.proposals.filter(p => p.Status === ProposalStatus.Pending).length;
+
+    this.proposalCards = [
+      { key: 'completed', label: 'Completed', count: completed },
+      { key: 'accepted', label: 'Accepted', count: accepted },
+      { key: 'rejected', label: 'Rejected', count: rejected },
+      { key: 'pending', label: 'Pending', count: pending },
+    ];
+  }
+
+
+  get filteredProposals(): any[] {
+    if (this.selectedStatus === 'accepted') {
+      return this.proposals.filter(p => p.Status === ProposalStatus.Accepted);
+    } else if (this.selectedStatus === 'rejected') {
+      return this.proposals.filter(p => p.Status === ProposalStatus.Rejected);
+    } else if (this.selectedStatus === 'pending') {
+      return this.proposals.filter(p => p.Status === ProposalStatus.Pending);
+    }
+    if (this.selectedStatus === 'completed') {
+      return this.proposals.filter(p => p.Status === ProposalStatus.Completed);
+    }
+    return this.proposals;
+  }
+
+  onCardSelect(key: 'completed' | 'accepted' | 'rejected' | 'pending') {
+    this.selectedStatus = key;
+  }
+
+  renderChart(): void {
+    const data = this.proposalCards;
+    const ctx = document.getElementById('proposalPieChart') as HTMLCanvasElement;
+
+    if (this.chart) {
+      this.chart.destroy();
+    }
+
+    this.chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: data.map(d => d.label),
+        datasets: [
+          {
+            data: data.map(d => d.count),
+            backgroundColor: ['#0d6efd', '#28a745', '#dc3545', '#ffc107'],
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
         }
-      });
-  }
-
-  filterProposals(): void {
-    this.acceptedProposals = this.proposals.filter(
-      (p) => p.status === 'Accepted'
-    );
-  }
-
-  onTabChange(tab: 'all' | 'accepted'): void {
-    this.activeTab = tab;
-  }
-
-  onPageChange(page: number): void {
-    this.currentPage = page;
-    this.loadProposals();
-  }
-
-  handleProposalAction(event: { action: string; id: number }): void {
-    switch (event.action) {
-      case 'delete':
-        this.deleteProposal(event.id);
-        break;
-      case 'view':
-        // عرض التفاصيل
-        break;
-    }
-  }
-
-  deleteProposal(id: number): void {
-    if (confirm('Are you sure you want to delete this proposal?')) {
-      this.proposalService.deleteProposal(id).subscribe({
-        next: () => {
-          this.loadData();
-        },
-        error: (err) => console.error('Failed to delete proposal:', err)
-      });
-    }
+      }
+    });
   }
 }
