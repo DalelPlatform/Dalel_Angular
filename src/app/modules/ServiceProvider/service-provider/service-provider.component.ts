@@ -4,17 +4,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { Proposal, ProposalStatus } from '../Models/proposal.model';
 import { ProposalService } from '../Services/proposal.service';
 import { ServiceProviderService } from '../Services/provider.service';
-
-export interface ServiceProvider {
-  UserId: string;
-  UserName: string;
-  ServiceArea: string;
-  CategoryServicesId: number;
-  Image: string;
-  City?: string;
-  Address?: string;
-  About?: string;
-}
+import { ServiceProvider } from '../Models/serviceprovider.model';
 @Component({
   selector: 'app-service-provider',
   standalone: false,

@@ -1,0 +1,297 @@
+<!-- edit-profile.component.html -->
+<div class="profile-edit-container">
+  <div class="main-container">
+    <!-- Header Section -->
+    <div class="header-section">
+      <div class="header-content d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="header-title">
+            <i class="fas fa-user-edit"></i>
+            Edit Your Profile
+          </h1>
+          <p class="header-subtitle">Update your professional information and preferences</p>
+        </div>
+        <a routerLink="/ServiceProviderlayout/ServiceProvider" class="back-btn">
+          <i class="fas fa-arrow-left me-2"></i>Back
+        </a>
+      </div>
+    </div>
+
+    <!-- Progress Indicator -->
+    <div class="progress-indicator">
+      <div class="progress-bar"></div>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-section">
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+        
+        <!-- Personal Information Section -->
+        <div class="card-section fade-in">
+          <h3 class="section-title">
+            <i class="fas fa-user"></i>
+            Personal Information
+          </h3>
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-user input-label-icon"></i>
+                Username
+              </label>
+              <input 
+                formControlName="UserName" 
+                type="text" 
+                class="form-control" 
+                placeholder="Enter your username"
+                [class.is-invalid]="profileForm.get('UserName')?.invalid && profileForm.get('UserName')?.touched"
+              />
+              <div class="invalid-feedback" *ngIf="profileForm.get('UserName')?.invalid && profileForm.get('UserName')?.touched">
+                Username is required
+              </div>
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-info-circle input-label-icon"></i>
+                About Me
+              </label>
+              <textarea 
+                formControlName="About" 
+                class="form-control" 
+                rows="3"
+                placeholder="Tell us about yourself..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Information Section -->
+        <div class="card-section fade-in">
+          <h3 class="section-title">
+            <i class="fas fa-map-marker-alt"></i>
+            Location Information
+          </h3>
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-city input-label-icon"></i>
+                City
+              </label>
+              <input 
+                formControlName="City" 
+                type="text" 
+                class="form-control" 
+                placeholder="Enter your city"
+              />
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-map input-label-icon"></i>
+                District
+              </label>
+              <select class="form-select" formControlName="District">
+                <option value="">Select district</option>
+                <option value="Aswan">Aswan</option>
+                <option value="Edfu">Edfu</option>
+                <option value="Selwa">Selwa</option>
+                <option value="Abo-Sempl">Abo Sempl</option>
+                <option value="Draw">Draw</option>
+                <option value="Kom-Ombo">Kom-Ombo</option>
+                <option value="Nasr-ElNoba">Nasr ElNoba</option>
+              </select>
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-flag input-label-icon"></i>
+                Country
+              </label>
+              <input 
+                formControlName="Country" 
+                type="text" 
+                class="form-control" 
+                placeholder="Enter your country"
+              />
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-mail-bulk input-label-icon"></i>
+                Zip Code
+              </label>
+              <input 
+                formControlName="ZipCode" 
+                type="text" 
+                class="form-control" 
+                placeholder="Enter zip code"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Service Information Section -->
+        <div class="card-section fade-in">
+          <h3 class="section-title">
+            <i class="fas fa-briefcase"></i>
+            Service Information
+          </h3>
+          <div class="form-row">
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-location-arrow input-label-icon"></i>
+                Service Area
+              </label>
+              <input 
+                formControlName="ServiceArea" 
+                type="text" 
+                class="form-control" 
+                placeholder="Enter service area"
+              />
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-tags input-label-icon"></i>
+                Category
+              </label>
+              <select 
+                class="form-select" 
+                formControlName="CategoryServicesId"
+                [class.is-invalid]="profileForm.get('CategoryServicesId')?.invalid && profileForm.get('CategoryServicesId')?.touched"
+              >
+                <option value="">Select service type</option>
+                <option *ngFor="let category of categories" [value]="category.Id">
+                  {{ category.Name }}
+                </option>
+              </select>
+              <div class="invalid-feedback" *ngIf="profileForm.get('CategoryServicesId')?.invalid && profileForm.get('CategoryServicesId')?.touched">
+                Please select a category
+              </div>
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-dollar-sign input-label-icon"></i>
+                Price
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-dollar-sign"></i>
+                </span>
+                <input 
+                  formControlName="Price" 
+                  type="number" 
+                  class="form-control" 
+                  placeholder="Enter price"
+                  [class.is-invalid]="profileForm.get('Price')?.invalid && profileForm.get('Price')?.touched"
+                />
+              </div>
+              <div class="invalid-feedback" *ngIf="profileForm.get('Price')?.invalid && profileForm.get('Price')?.touched">
+                Price is required
+              </div>
+            </div>
+            
+            <div class="col-md-6 form-group">
+              <label class="form-label">
+                <i class="fas fa-clock input-label-icon"></i>
+                Price Unit
+              </label>
+              <select formControlName="PriceUnit" class="form-select">
+                <option value="per_hour">Per Hour</option>
+                <option value="per_day">Per Day</option>
+                <option value="per_project">Per Project</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Information Section -->
+        <div class="card-section fade-in">
+          <h3 class="section-title">
+            <i class="fas fa-info-circle"></i>
+            Additional Information
+          </h3>
+          <div class="form-row">
+            <div class="col-md-12 form-group">
+              <label class="form-label">
+                <i class="fas fa-globe input-label-icon"></i>
+                Website
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-globe"></i>
+                </span>
+                <input 
+                  formControlName="Website" 
+                  type="url" 
+                  class="form-control" 
+                  placeholder="https://your-website.com"
+                />
+              </div>
+            </div>
+            
+            <div class="col-md-12 form-group">
+              <label class="form-label">
+                <i class="fas fa-image input-label-icon"></i>
+                Profile Image
+              </label>
+              <div class="image-upload-section">
+                <div class="upload-content" *ngIf="!imagePreview">
+                  <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                  </div>
+                  <p class="upload-text">
+                    Upload a professional profile picture<br>
+                    <small class="text-muted">Recommended: 400x400px, JPG or PNG</small>
+                  </p>
+                </div>
+                
+                <div class="image-preview-container" *ngIf="imagePreview">
+                  <img [src]="imagePreview" alt="Profile Preview" class="image-preview" />
+                  <div class="image-overlay">
+                    <button type="button" class="btn btn-sm btn-outline-light" (click)="imagePreview = ''; selectedImageFile = null">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <input 
+                  type="file" 
+                  class="form-control file-input" 
+                  (change)="onImageSelected($event)"
+                  accept="image/*"
+                  #fileInput
+                />
+                
+                <button 
+                  type="button" 
+                  class="btn btn-outline-primary mt-2"
+                  (click)="fileInput.click()"
+                >
+                  <i class="fas fa-upload me-2"></i>
+                  {{ imagePreview ? 'Change Image' : 'Choose Image' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center submit-section">
+          <button 
+            type="submit" 
+            class="btn btn-primary btn-lg"
+            [disabled]="profileForm.invalid"
+          >
+            <i class="fas fa-save me-2"></i>
+            Update Profile
+            <span class="spinner-border spinner-border-sm ms-2" role="status" *ngIf="false">
+              <span class="visually-hidden">Loading...</span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
