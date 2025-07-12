@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" >Logo</a>
+    <a class="navbar-brand" >
+    </a>
+    
     <button class="navbar-toggler" type="button"
      data-bs-toggle="collapse" 
     data-bs-target="#navbarSupportedContent" 
@@ -16,7 +18,7 @@
             Listings
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" >hotel</a></li>
+            <li><a class="dropdown-item" routerLink="/agancy/client/Packages">Pachages</a></li>
             <li><a class="dropdown-item" >hotel</a></li>
             <li><a class="dropdown-item" >hotel</a></li>
             <li><a class="dropdown-item" >hotel</a></li>
@@ -54,10 +56,60 @@
         </li>
        
       </ul>
-      <div class="d-flex gap-2">
-        <button class="btn account" type="submit" routerLink="/login">Login</button>
+     
+         <div class="d-flex gap-2">
+           @if (!isLoggedIn;) {
+       <div class="d-flex gap-2">
+         <button class="btn account" type="submit" routerLink="/login">Login</button>
         <button class="btn account" type="submit" routerLink="/register">Register</button>
+       </div>
+         }
+      @else {
+         <img 
+      src="https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+      alt="User Profile" 
+      class="rounded-circle" 
+      width="35" 
+      height="35"
+      style="object-fit: cover; cursor: pointer;"
+    
+    />
+     }
+     @if(isInAgancyClient()){
+   <button class="toggleNotifications btn position-relative p-1 m-0" (click)="toggleNotifications()">🔔
+         <span *ngIf="notifications.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+          style="font-size: 10px;"
+          >
+        {{ notifications.length }}
+      </span>
+       </button>
+       <div class="notification-dropdown" *ngIf="isNotificationOpen">
+        @if (notifications.length > 0) {
+            <ul class="list-group">
+      <li *ngFor="let notification of notifications; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+       
+  <span (click)="markAsRead(notification.Id)">
+     {{ notification.Message }}
+  </span>
+<button class ="btn account" style="font-size:13px" 
+ [routerLink]="['/agancy/client/ReviewPackage', getBookingId(notification.Message)]"
+>
+  Review now 
+</button>
+      </li>
+    </ul>
+        }
+        @else {
+          <div class="text-center p-2">🚫 There Is no Notification   </div>
+        }
+  
+  </div>
+     }
+    
+ 
       </div>
+     
+  
     </div>
   </div>
 </nav>

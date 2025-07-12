@@ -33,10 +33,12 @@ errorMessages: { [key: string]: string[] } = {};
 this.packageForm = this.fb.group({
       Name : ['', [Validators.required]],
       Description: ['',  Validators.required],
-      Price : ['', Validators.required],
+      Price : [null, Validators.required],
       Duration: [null],
       TermsPolicies: [''],
       AgencyId: ['', Validators.required],
+       ImageFile: [null],
+      //  ImagePath:[''],
       Steps: this.fb.array([
            this.fb.group({
         Name: [''],
@@ -76,6 +78,19 @@ removeStep(index: number) {
   get schedules(): FormArray {
     return this.packageForm.get('Schadules') as FormArray;
   }
+
+addschedule() {
+  this.schedules.push(this.fb.group({
+     Date: [""],
+        SlotsAvailable: [null],
+  }));
+}
+
+removeschedule(index: number) {
+  this.schedules.removeAt(index);
+}
+
+  
   loadAgencies() {
     this.agencyService.getMyAgencies(this.cookieService.get('Token')).subscribe({
       next: (res) => {
@@ -85,12 +100,19 @@ removeStep(index: number) {
       error: (err) => console.error(err)
     });
   }
-    onFileChange(event: any, index: number) {
+    onFileChange(event: any, index?: number) {
+      console.log(event)
     const file = event.target.files[0];
-    if (file) {
-      this.steps.at(index).patchValue({ ImageFile: file });
-    }
+    if (!file) return;
+
+  if (index !== undefined) {
+ 
+    this.steps.at(index).patchValue({ ImageFile: file });
+  } else {
+    this.packageForm.patchValue({ ImageFile: file });
   }
+  }
+
    submit() {
      const formData = new FormData();
      
@@ -100,6 +122,11 @@ removeStep(index: number) {
   formData.append('Duration', this.packageForm.get('Duration')?.value);
   formData.append('TermsPolicies', this.packageForm.get('TermsPolicies')?.value);
   formData.append('AgencyId', this.packageForm.get('AgencyId')?.value);
+  const mainImage = this.packageForm.get('ImageFile')?.value;
+if (mainImage) {
+  console.log(mainImage)
+  formData.append('ImageFile', mainImage); 
+}
 const stepControls = (this.packageForm.get('Steps') as FormArray).controls;
 
 stepControls.forEach((group, index) => {

@@ -27,19 +27,8 @@ export class LoginComponent {
         console.log(res);
         this.cookieService.set('Token', res.Token);
         this.cookieService.set('Role', res.Role);
-       
-        if (res.Role === "TravelAgencyOwner") {
-           console.log("tessssssssss",res.Role)
-          this.router.navigate(['/agancy/owner/create-agency']);
-        }
-       
-        // if(res.Role === "ServiceProvider") {
-        //   this.router.navigate(['/complete-ServiceProvider-profile']);
-        // }
-        // else{
-        //   this.router.navigate(['/login']);
-        // }
-        else if (res.Role === 'ServiceProvider') {
+     
+         if (res.Role === 'ServiceProvider') {
           // this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
           //   next: (isComplete) => {
           //     if (!isComplete) {

@@ -20,6 +20,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     CommonModule,
     RouterModule,
     FormsModule,
+    RouterLink,
     ReactiveFormsModule,
 
 

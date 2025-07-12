@@ -1,0 +1,55 @@
+/* Purple Color Scheme */
+.text-purple {
+  color: #6a0dad;
+}
+
+.text-purple-dark {
+  color: #4b0082;
+}
+
+.btn-purple {
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+}
+
+.btn-purple:hover {
+  background-color: #4b0082;
+  color: white;
+}
+
+.purple-card {
+  border-left: 5px solid #6a0dad;
+  border-radius: 15px;
+}
+
+.table-purple thead {
+  background-color: #6a0dad;
+  color: white;
+}
+
+button {
+  min-width: 120px;
+}
+
+
+@media (max-width: 768px) {
+    table {
+        overflow-x: auto;
+    }
+    table th{
+     font-size: 12px;
+    }
+    table td{
+     font-size: 10px;
+    }
+  .card-body {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+
+  .btn-purple {
+    width: 100%;
+    margin-top: 10px;
+  }
+}

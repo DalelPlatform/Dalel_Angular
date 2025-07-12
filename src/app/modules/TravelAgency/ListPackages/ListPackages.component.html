@@ -1,0 +1,31 @@
+<div class="container">
+  <h2 class="title">Agency Packages</h2>
+
+  <div class="card-grid">
+    <div *ngFor="let pkg of packages" class="package-card">
+        <img *ngIf="pkg.ImagePath" [src]="pkg.ImagePath" alt="package Image" style="height: 100%;"/>
+      <div class="card-header">
+       
+        <h3>Name :<span>{{ pkg.Name }}</span></h3>
+        <h3>Price :<span>$ {{ pkg.Price }}</span></h3>
+     
+         <app-GetpackagesReviews [packageId]="pkg.Id"></app-GetpackagesReviews>
+      </div>
+
+ 
+      <div *ngFor="let step of pkg.Steps" class="step">
+        <img *ngIf="step.Image" [src]="step.Image" alt="Step Image" />
+        <div class="step-details">
+          <h4>{{ step.Name }}</h4>
+          <p>{{ step.Description }}</p>
+          <p><strong>Duration:</strong> {{ step.Duration }} day(s)</p>
+        </div>
+      </div>
+<div class="d-flex">
+      <button class="btn mb-3 mx-3 btn-sm delete bg-danger text-white" (click)="deletePackage(pkg.Id)">delete package</button>
+    <button class="btn mb-3 mx-3 btn-sm delete bg-success text-white" (click)="veiwSchadule(pkg.Id)">view Schadule</button>
+    
+</div>
+    </div>
+  </div>
+</div>

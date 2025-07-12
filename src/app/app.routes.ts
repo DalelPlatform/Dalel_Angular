@@ -13,6 +13,8 @@ import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLa
 
 // import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
+import { travelAgencyOwnersGuard } from './Services/Guards/TravelAgencyOwners/travel-agency-owners.guard';
+import {LandingPageComponent} from './shared/LandingPage/LandingPage.component'
 export const routes: Routes = [
   {
     path: 'account',
@@ -28,6 +30,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   // { path: 'complete-ServiceProvider-profile', component: CompleteProfileServiceProviderComponent , canActivate: [authGuard]},
+   { path: 'mainPage',component:LandingPageComponent },
   {
     path: 'logout',
     component: LogoutComponent,
@@ -35,7 +38,7 @@ export const routes: Routes = [
   },
   {
     path: 'agancy', 
-     canActivate: [authGuard],
+  
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)
   },
 
@@ -70,6 +73,7 @@ export const routes: Routes = [
 
 
 
+ 
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 

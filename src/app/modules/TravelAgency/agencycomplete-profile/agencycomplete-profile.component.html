@@ -98,8 +98,8 @@
         }
         <div [formGroupName]="0">
           <input class="d-none" #fileInput type="file" placeholder="Document File" (change)="onFileChange($event, 0)"
-            multiple />
-          <button (click)="fileInput.click()" class="browsebtn">Browse Files</button>
+            multiple accept="image/*"/>
+          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Files</button>
         </div>
         <span class="text-danger"
           *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
@@ -110,7 +110,7 @@
       <div class="d-flex">
         <button type="button" class="btn account me-2" (click)="prevStep()">Previous</button>
 
-        <button type="submit" class="btn submit">Submit Agency</button>
+        <button type="submit" class="btn submit" >Submit Agency</button>
       </div>
     </div>
     }

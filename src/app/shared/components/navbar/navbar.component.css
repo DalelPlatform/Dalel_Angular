@@ -11,3 +11,27 @@ color: #5143d9;
     font-weight: 600;
     
 }
+.toggleNotifications:focus{
+outline: none;
+    border: none;
+}
+.notification-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 450px;
+  background-color: #fff;
+ 
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+.notification-dropdown li{
+cursor: pointer;
+  padding: 10px;
+}
+.notification-dropdown li:hover{
+    background-color: #f0f0f0;
+}

@@ -1,0 +1,139 @@
+<app-navbar></app-navbar>
+
+<section id="hero" class="hero-carousel">
+  <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
+             style="background-image: url('https://booking.webestica.com/assets/images/gallery/14.jpg');">
+          <div>
+            <h1 class="display-4 fw-bold">Find Top Hotels Nearby</h1>
+            <p class="lead">Book your dream stay with us now.</p>
+            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" href="#">Explore Now</a>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
+             style="background-image: url('../../../assets/image 13 (1).png');">
+          <div>
+            <h1 class="display-4 fw-bold">Enjoy Luxury and Comfort</h1>
+            <p class="lead">Choose from 1000+ premium hotels and resorts.</p>
+            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn animate-up" href="#">Start Booking</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
+<section class="py-5 bg-white text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-5">WHY CHOOSE US?</h2>
+    <div class="row justify-content-center">
+      @for (feature of features; track $index) {
+         <div class="col-md-4 mb-4" >
+        <div class="p-4">
+          <div class="d-inline-flex justify-content-center align-items-center mb-3"
+              >
+            <img [src]="feature.icon" width="52" height="52" alt="icon">
+          </div>
+          <h6 class="fw-bold">{{ feature.title }}</h6>
+          <p class="text-muted small">{{ feature.description }}</p>
+        </div>
+      </div>
+      }
+     
+    </div>
+  </div>
+</section>
+<section class="py-5 bg-light text-center">
+  <div class="container">
+    <h2 class="fw-bold mb-4">OUR PARTNERS</h2>
+    <div class="marquee-container">
+      <div class="marquee-content">
+        @for (logo of partnerLogos.concat(partnerLogos); track $index) {
+          <div class="logo-item">
+            <img [src]="logo.src" [alt]="logo.name" height="40" />
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+<section class="explore-section d-flex align-items-center text-white">
+  <div class="container py-5">
+    <div class="row justify-content-between align-items-center">
+      <div class="col-lg-5 mb-4 mb-lg-0">
+        <h1 class="display-4 fw-bold text-uppercase">Explore Maldives</h1>
+        <hr class="bg-white opacity-75 my-4">
+        <p class="mb-4">
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+        </p>
+    <button class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn">
+  See all <span class="ms-2">→</span>
+</button>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="row g-3">
+          @for (card of exploreCards; track $index) {
+            <div class="col-4">
+              <div class="card bg-transparent border-0 text-white text-center">
+                <img [src]="card.image" alt="card image" class="rounded w-100 shadow-sm" />
+                <p class="fw-bold mt-2">{{ card.title }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="subscribe-section py-5">
+  <div class="container">
+    <div class="row bg-light rounded-4 overflow-hidden shadow-sm" style="min-height: 320px;">
+      
+      <div class="col-md-6 p-0">
+        <img 
+          src="../../../assets/Rectangle 45.png" 
+          alt="villa" 
+          class="img-fluid w-100 object-fit-cover" 
+          style="object-position: center;max-height:320px" />
+      </div>
+
+      <div class="col-md-6 d-flex flex-column justify-content-center p-5 text-start">
+        <h4 class="fw-bold mb-4">
+          Get special offers,<br />
+          and more from travelworld
+        </h4>
+
+        <form class="w-100" style="max-width: 500px;">
+          <div class="input-group">
+            <input 
+              type="email" 
+              class="form-control form-control-lg border-0 rounded-start-pill" 
+              placeholder="Enter your email" />
+            <button 
+              class="btn Subscribe btn-lg rounded-end-pill px-4 fw-semibold" 
+              type="submit">
+              Subscribe
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<app-footer></app-footer>

@@ -1,0 +1,133 @@
+<div class="row details py-3 pt-5">
+  @for (pack of packages; track $index) {
+       <h1 class="py-0 my-0">{{ pack.Data.Name }}</h1>
+       <p class="py-0 my-0">{{pack.Data.Duration}} /Days</p>
+         @if(!pack.Data.ImagePath){
+           <img 
+             src="https://www.shutterstock.com/image-vector/no-image-available-picture-coming-600nw-2057829641.jpg" 
+             class="card-img-top" style="height: 200px; object-fit: fill;">
+         
+         }
+        @else {
+    <img  [src]="pack.Data.ImagePath" class="card-img-top mb-3 rounded" style="height: 500px; object-fit: cover;">
+        }
+
+        <div class="tabs-container">
+  <div class="tabs py-2 rounded">
+    <button 
+      [class.active]="selectedTab === 'overview'" 
+      (click)="selectTab('overview')">Overview</button>
+
+    <button 
+      [class.active]="selectedTab === 'Steps'" 
+      (click)="selectTab('Steps')">Steps</button>
+
+    <button 
+      [class.active]="selectedTab === 'Schadules'" 
+      (click)="selectTab('Schadules')">Schadule</button>
+
+    <button 
+      [class.active]="selectedTab === 'policy'" 
+      (click)="selectTab('policy')">Tour Policy</button>
+  </div>
+
+  <div class="tab-content">
+    <div *ngIf="selectedTab === 'overview'">
+     
+      <h3>Overview</h3>
+      <p>{{ pack.Data.Description }}</p>
+      <h4><strong>Price : </strong> {{pack.Data.Price}}</h4>
+      <h4><strong>Duration : </strong> {{pack.Data.Duration}}</h4>
+   
+   <app-GetpackagesReviews [packageId]="pack.Data.Id"></app-GetpackagesReviews>
+
+   
+    </div>
+    
+    <div *ngIf="selectedTab === 'Steps'">
+
+      <h3>Steps</h3>
+      
+
+    <div class="row">
+  <div *ngFor="let step of pack.Data.Steps" class="col-md-4 mb-4">
+    <div class="card px-2">
+      <img *ngIf="step.Image" [src]="step.Image" class="card-img-top stepimge rounded" alt="Step Image">
+      <div class="card-body px-0">
+        <h4 class="card-title">{{ step.Name }}</h4>
+        <p class="card-text">{{ step.Description }}</p>
+        <p class="card-text">
+          <strong class="text-dark">Duration:</strong> {{ step.Duration }} day(s)
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <div *ngIf="selectedTab === 'Schadules'">
+
+      <h3>Schadule</h3>
+       <div class="row">
+  <div *ngFor="let item of pack.Data.Schadules" class="col-md-4 mb-4">
+    <div class="card h-100">
+      
+      <div class="card-body">
+        <h5 class="card-title"><strong>Date:</strong>  {{ item.Date | date:'medium' }}</h5>
+        <p class="card-text"><strong>Slots Available:</strong>  {{ item.SlotsAvailable }}</p>
+     
+ <button class="btn book" (click)="booking(item.Id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Book</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+    <div *ngIf="selectedTab === 'policy'">
+   
+      <h3>Tour Policy</h3>
+      <p>{{ pack.Data.TermsPolicies }}</p>
+    </div>
+  </div>
+</div>
+
+  }
+   
+  </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Package</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+     <form [formGroup]="packageForm" (ngSubmit)="onSumbit()">
+  <div class="mb-3">
+    <label for="reservedPeople">Number of People</label>
+    <input type="number" id="reservedPeople" class="form-control" formControlName="ReservedPeople" required />
+  </div>
+
+  <div class="mb-3">
+    <label for="date">Date</label>
+    <input type="date" id="date" class="form-control" formControlName="Date" required />
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+  </div>
+</form>
+
+      </div>
+      
+    </div>
+  </div>
+</div>

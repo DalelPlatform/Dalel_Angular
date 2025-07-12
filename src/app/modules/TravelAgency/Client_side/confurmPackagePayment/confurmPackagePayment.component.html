@@ -1,0 +1,33 @@
+<div class="payment-wrapper">
+  <h2>Confirm Package Payment</h2>
+
+  <form [formGroup]="packageForm" (ngSubmit)="onSumbit()">
+ 
+    <div class="form-group">
+      <label>Amount Paid</label>
+      <input formControlName="AmountPaid" type="number" class="form-control" />
+    </div>
+
+   
+
+    <div class="form-group">
+      <label>Code Applied</label>
+      <input formControlName="CodeApplied" type="text" class="form-control" />
+    </div>
+
+    <div class="form-group">
+      <label>Payment Method</label>
+      <select formControlName="PaymentMethod" class="form-control">
+        <option value="">Select Method</option>
+        <option value="1">Cash</option>
+        <option value="5">Stripe</option>
+        <option value="6">Paypal</option>
+      </select>
+    </div>
+
+
+  
+
+    <button type="submit" class="submit-btn">Confirm Payment</button>
+  </form>
+</div>
