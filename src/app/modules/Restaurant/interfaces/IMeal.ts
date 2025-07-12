@@ -12,6 +12,7 @@ export interface IMeal {
   FoodCategory : FoodCategory;
   PieceSize : SizeOfPiece;
   Duration : number;
+  Discount : number;
   DietaryTags : string;
   RestaurantName : string;
   Images : string[];

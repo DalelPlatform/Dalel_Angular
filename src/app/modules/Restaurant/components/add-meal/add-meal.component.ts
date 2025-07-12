@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { RestaurantService } from '../../../../Services/Restaurant/restaurant.service';
 import { Router } from '@angular/router';
+import { IMeal } from '../../interfaces/IMeal';
 
 @Component({
   selector: 'app-add-meal',
@@ -30,7 +31,7 @@ export class AddMealComponent {
       Description: ['', [
         Validators.required,
         Validators.minLength(20),
-        Validators.maxLength(200)
+        Validators.maxLength(20000)
       ]],
       Price: ['', [
         Validators.required,
@@ -107,6 +108,54 @@ export class AddMealComponent {
     })
 
   }
+
+
+  importMealsFromJson(event: any) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    try {
+      const meals: IMeal[] = JSON.parse(e.target.result);
+
+      meals.forEach(meal => {
+        const formData = new FormData();
+
+        // Append meal fields to formData
+        formData.append("Name", meal.Name);
+        formData.append("Description", meal.Description);
+        formData.append("Price", meal.Price.toString());
+        formData.append("AvailabilityStatus", meal.AvailabilityStatus.toString());
+        formData.append("FoodCategory", meal.FoodCategory.toString());
+        formData.append("PieceSize", meal.PieceSize.toString());
+        formData.append("Duration", meal.Duration.toString());
+        formData.append("Discount", meal.Discount.toString());
+        formData.append("DietaryTags", meal.DietaryTags);
+        formData.append("RestaurantName", meal.RestaurantName);
+
+        // Upload images (assumes you have the image file in assets or handle it by name)
+        meal.Images.forEach((image, index) => {
+          const imageFile = new File([""], image); // placeholder: replace with real File if you have
+          formData.append(`Images`, imageFile, image);
+        });
+
+        // Send each meal to backend
+        this._RestaurantService.addMeal(formData).subscribe({
+          next: () => console.log(`Meal "${meal.Name}" uploaded.`),
+          error: err => console.error(`Error uploading "${meal.Name}"`, err)
+        });
+      });
+
+      alert("All meals uploaded!");
+    } catch (error) {
+      console.error("Invalid JSON file", error);
+      alert("Failed to parse the file. Please upload a valid JSON.");
+    }
+  };
+
+  reader.readAsText(file);
+}
 
 
 

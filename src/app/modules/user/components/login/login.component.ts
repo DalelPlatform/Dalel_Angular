@@ -21,6 +21,8 @@ export class LoginComponent {
     private router: Router,
     private ServiceProviderProfileService: CompleteProfileServiceProviderService,
   ) { }
+
+  
   Send() {
     this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
       next: (res) => {

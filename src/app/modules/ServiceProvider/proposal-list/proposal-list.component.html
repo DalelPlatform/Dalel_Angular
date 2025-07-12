@@ -18,23 +18,23 @@
         <td>{{ proposal.Description | truncate:50 }}</td>
         <td>{{ proposal.SuggestedPrice | currency:'EGP' }}</td>
         <td>
-          <span class="badge rounded-pill" [ngClass]="getStatusClass(proposal.status)">
-            {{ proposal.status }}
+          <span class="badge rounded-pill" [ngClass]="getStatusClass(proposal.Status)">
+            {{ proposal.Status }}
           </span>
         </td>
         <td>{{ proposal.createdAt | date:'shortDate' }}</td>
         <td>
           <div class="d-flex gap-2">
-            <button class="btn btn-sm btn-purple" 
+            <button class="btn btn-sm btn-purple"
                     (click)="onAction('view', proposal.Id)">
               <i class="fas fa-eye"></i>
             </button>
-            <button class="btn btn-sm btn-orange" 
-                    *ngIf="proposal.status === 'Pending'"
+            <button class="btn btn-sm btn-orange"
+                    *ngIf="proposal.Status"
                     (click)="onAction('edit', proposal.Id)">
               <i class="fas fa-edit"></i>
             </button>
-            <button class="btn btn-sm btn-danger" 
+            <button class="btn btn-sm btn-danger"
                     (click)="onAction('delete', proposal.Id)">
               <i class="fas fa-trash"></i>
             </button>

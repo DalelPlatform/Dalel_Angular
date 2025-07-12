@@ -36,6 +36,7 @@ export class MenuItemsComponent implements OnInit {
   ngOnInit() {
     this.getMenu();
     this.getEnumAvailabilityStatus("sdf");
+    // this.getTokenFromCookie();
   }
 
 
@@ -57,12 +58,14 @@ export class MenuItemsComponent implements OnInit {
   getMenu() {
     this.service.getMenuItems().subscribe({
       next: (res) => {
-        console.log("there is getMenuItems")
-        console.log(res.Data);
+        // console.log("there is getMenuItems")
+        // console.log(res.Data);
         this.menu = res.Data;
-        console.log(this.menu)
+        console.log(`this is res : ${res}`)
+        // console.log(this.menu)
       },
       error: (err) => {
+        console.log("Error fetching menu items:");
         console.log(err);
       }
     })
@@ -77,8 +80,8 @@ export class MenuItemsComponent implements OnInit {
     this.service.SearchMeal(mealName).subscribe({
       next: (res) => {
         this.menu = res.Data.Data;
-        console.log("there is SearchMeal");
-        console.log(res);
+        // console.log("there is SearchMeal");
+        // console.log(res);
       },
       error: (err) => {
         console.log(err);
@@ -166,7 +169,7 @@ export class MenuItemsComponent implements OnInit {
 
   onDurationChange(value: number) {
     this.duration = value;
-    console.log(`duration = ${this.duration}`)
+    // console.log(`duration = ${this.duration}`)
 
   }
 
@@ -177,7 +180,7 @@ export class MenuItemsComponent implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const value = parseInt(selectElement.value, 10);
     this.pageSize = value;
-    console.log(`pageSize = ${this.pageSize}`);
+    // console.log(`pageSize = ${this.pageSize}`);
   }
 
 
@@ -185,7 +188,7 @@ export class MenuItemsComponent implements OnInit {
   restaurantType: RestaurantType[] = [];
   onRestaurantTypeChange(value: string, checked: boolean) {
     const enumValue = this.getEnumRestaurantType(value);
-     if (checked) {
+    if (checked) {
       // Add to selected list
       if (!this.restaurantType.includes(enumValue)) {
         this.restaurantType.push(enumValue);
@@ -267,7 +270,7 @@ export class MenuItemsComponent implements OnInit {
     }
 
     // Page Size (sent as string but parsed as int in backend)
-    if (this.pageSize!== null) {
+    if (this.pageSize !== null) {
       params = params.append('pageSize', this.pageSize.toString());
     }
     // Restaurant Type
@@ -294,9 +297,29 @@ export class MenuItemsComponent implements OnInit {
 
   onMealClick(meal: IMeal) {
     console.log("Meal clicked:", meal);
+    console.log("Meal clicked:", meal.Id);
+
     // Navigate to meal details or perform any other action
 
-  this.router.navigate(['restaurant/client/meal-details/', meal.Id]);
+    this.router.navigate(['restaurant/client/meal-details/', meal.Id]);
+
+  }
+
+
+  getTokenFromCookie(): string | null {
+    const name = 'Token=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookies = decodedCookie.split(';');
+    for (let c of cookies) {
+      while (c.charAt(0) === ' ') c = c.substring(1);
+      if (c.indexOf(name) === 0) {
+        const token = c.substring(name.length, c.length);
+        console.log('Token from cookie:', token); // ✅ Print token
+        return token;
+      }
+    }
+    console.log('No token found in cookie');
+    return null;
   }
 
 

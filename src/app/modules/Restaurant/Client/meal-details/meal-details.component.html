@@ -1,3 +1,135 @@
-<p>
-  meal-details works!
-</p>
+<div class="container">
+  <div class="product-container">
+    <!-- Left Side - Product Images -->
+    <div class="product-images">
+      <div class="main-product-image">
+        <!-- <div class="product-package">
+                    <div class="package-content">
+                        <div class="brand-logo">L</div>
+                        <div class="product-title-on-package">ČOKOLADNI<br>KOLUTIĆI</div>
+                        <div class="product-description-on-package">
+                            S KOMADIĆIMA ČOKOLADE<br>
+                            KOJE SU PRETHODNO KUVANE
+                        </div>
+                    </div>
+                    <div class="chocolate-chips"></div>
+                    <div class="snack-pieces"></div>
+                    <div class="weight-label">200g</div>
+                </div> -->
+        <img
+          src=""
+          alt="">
+      </div>
+
+      <div class="thumbnail-images">
+        @for (item of meal.Images; track $index) {
+          <div class="thumbnail">
+            <img [src]="item" [alt]="">
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Right Side - Product Details -->
+    <div class="product-details">
+
+      <div class="category-tag">{{ getCategory() }}</div>
+
+      <h1 class="product-name">{{meal.Name}}</h1>
+
+      <div class="rating-section">
+        <span class="stars">★★★★☆</span>
+        <span class="rating-text">(4 reviews)</span>
+      </div>
+
+      <div class="price-section">
+        <span class="current-price">${{meal.Price}}</span>
+        <span class="original-price">$24</span>
+        <span class="discount-percent">10% Off</span>
+      </div>
+
+      <div class="size-options">
+        <div class="size-buttons">
+          <button class="size-btn">250g</button>
+          <button class="size-btn">500g</button>
+          <button class="size-btn">1kg</button>
+        </div>
+      </div>
+
+      <div class="quantity-section">
+        <div class="quantity-controls">
+          <button class="quantity-btn" onclick="changeQuantity(-1)">−</button>
+          <input type="number" class="quantity-input" value="1" min="1" id="quantity">
+          <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="add-to-cart-btn" (click)="addToCart(meal)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <path d="M16 10a4 4 0 0 1-8 0" />
+          </svg>
+          <!-- <i class="fas fa-cart-plus"></i>  -->
+          Add to Cart
+
+        </button>
+        <button class="wishlist-btn" onclick="toggleWishlist()">
+
+          <!-- <i class="fas fa-heart text-danger"></i> -->
+          <i class="fa-regular fa-heart"></i>
+
+
+
+        </button>
+        <button class="compare-btn">
+          <!-- ⚖ -->
+          <i class="fas fa-balance-scale"></i>
+        </button>
+      </div>
+
+      <div class="buy-now-section">
+        <button class="buy-now-btn" onclick="buyNow()">
+          <!-- <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 12a9 9 0 1 1-6.219-8.56" />
+                        <path d="M13 2L3 14h9l-1 8" />
+                    </svg> -->
+          <i class="fas fa-shopping-cart me-1"></i>
+          Buy Now
+        </button>
+      </div>
+
+      <table class="product-info-table">
+        <tr>
+          <td>Product Code:</td>
+          <td>FBB00255</td>
+        </tr>
+        <tr>
+          <td>Availability:</td>
+          <td class="availability-in-stock">In Stock</td>
+        </tr>
+        <tr>
+          <td>Type:</td>
+          <td>Fruits</td>
+        </tr>
+      </table>
+
+      <div class="shipping-info">
+        Shipping: 01 day shipping.( Free pickup today)
+      </div>
+
+      <div class="share-section">
+        <button class="share-btn" onclick="shareProduct()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+            <polyline points="16,6 12,2 8,6" />
+            <line x1="12" y1="2" x2="12" y2="15" />
+          </svg>
+          Share
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

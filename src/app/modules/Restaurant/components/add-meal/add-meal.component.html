@@ -14,17 +14,17 @@
           </div>
 
           @if(formControls['Name'].invalid && formControls['Name'].touched ){
-            <div id="NameHelp" class="form-text text-danger">
-              @if(formControls['Name'].hasError('required')) {
-                <span>Required</span>
-              }
-              @else if(formControls['Name'].hasError('minlength')) {
-                <span>Item name must contain at least 3 letters</span>
-              }
-              @else if(formControls['Name'].hasError('maxlength')) {
-                <span>Item name must contain max 100 letters</span>
-              }
-            </div>
+          <div id="NameHelp" class="form-text text-danger">
+            @if(formControls['Name'].hasError('required')) {
+            <span>Required</span>
+            }
+            @else if(formControls['Name'].hasError('minlength')) {
+            <span>Item name must contain at least 3 letters</span>
+            }
+            @else if(formControls['Name'].hasError('maxlength')) {
+            <span>Item name must contain max 100 letters</span>
+            }
+          </div>
           }
         </div>
 
@@ -35,17 +35,17 @@
             placeholder="Tell us about your restaurant"></textarea>
 
           @if(formControls['Description'].invalid && formControls['Description'].touched ){
-            <div id="DescriptionHelp" class="form-text text-danger">
-              @if(formControls['Description'].hasError('required')) {
-                <span>Required</span>
-              }
-              @else if(formControls['Description'].hasError('minlength')) {
-                <span>Item name must contain at least 20 letters</span>
-              }
-              @else if(formControls['Description'].hasError('maxlength')) {
-                <span>Item name must contain max 200 letters</span>
-              }
-            </div>
+          <div id="DescriptionHelp" class="form-text text-danger">
+            @if(formControls['Description'].hasError('required')) {
+            <span>Required</span>
+            }
+            @else if(formControls['Description'].hasError('minlength')) {
+            <span>Item name must contain at least 20 letters</span>
+            }
+            @else if(formControls['Description'].hasError('maxlength')) {
+            <span>Item name must contain max 20000 letters</span>
+            }
+          </div>
           }
         </div>
 
@@ -60,11 +60,11 @@
             </div>
 
             @if(formControls['Price'].invalid && formControls['Price'].touched ){
-              <div id="Price" class="form-text text-danger">
-                @if(formControls['Price'].hasError('required')) {
-                  <span>Required</span>
-                }
-              </div>
+            <div id="Price" class="form-text text-danger">
+              @if(formControls['Price'].hasError('required')) {
+              <span>Required</span>
+              }
+            </div>
             }
           </div>
 
@@ -78,17 +78,17 @@
             </div>
 
             @if(formControls['DietaryTags'].invalid && formControls['DietaryTags'].touched ){
-              <div id="DietaryTagsHelp" class="form-text text-danger">
-                @if(formControls['DietaryTags'].hasError('required')) {
-                  <span>Required</span>
-                }
-                @else if(formControls['DietaryTags'].hasError('minlength')) {
-                  <span>Item name must contain at least 3 letters</span>
-                }
-                @else if(formControls['DietaryTags'].hasError('maxlength')) {
-                  <span>Item name must contain max 100 letters</span>
-                }
-              </div>
+            <div id="DietaryTagsHelp" class="form-text text-danger">
+              @if(formControls['DietaryTags'].hasError('required')) {
+              <span>Required</span>
+              }
+              @else if(formControls['DietaryTags'].hasError('minlength')) {
+              <span>Item name must contain at least 3 letters</span>
+              }
+              @else if(formControls['DietaryTags'].hasError('maxlength')) {
+              <span>Item name must contain max 100 letters</span>
+              }
+            </div>
             }
           </div>
         </div>
@@ -110,11 +110,11 @@
             </div>
 
             @if(formControls['FoodCategory'].invalid && formControls['FoodCategory'].touched ){
-              <div id="FoodCategoryHelp" class="form-text text-danger">
-                @if(formControls['FoodCategory'].hasError('required')) {
-                  <span>Required</span>
-                }
-              </div>
+            <div id="FoodCategoryHelp" class="form-text text-danger">
+              @if(formControls['FoodCategory'].hasError('required')) {
+              <span>Required</span>
+              }
+            </div>
             }
           </div>
 
@@ -133,11 +133,11 @@
             </div>
 
             @if(formControls['PieceSize'].invalid && formControls['PieceSize'].touched ){
-              <div id="PieceSizeHelp" class="form-text text-danger">
-                @if(formControls['PieceSize'].hasError('required')) {
-                  <span>Required</span>
-                }
-              </div>
+            <div id="PieceSizeHelp" class="form-text text-danger">
+              @if(formControls['PieceSize'].hasError('required')) {
+              <span>Required</span>
+              }
+            </div>
             }
           </div>
 
@@ -154,11 +154,11 @@
             </div>
 
             @if(formControls['Duration'].invalid && formControls['Duration'].touched ){
-              <div id="DurationHelp" class="form-text text-danger">
-                @if(formControls['Duration'].hasError('required')) {
-                  <span>Required</span>
-                }
-              </div>
+            <div id="DurationHelp" class="form-text text-danger">
+              @if(formControls['Duration'].hasError('required')) {
+              <span>Required</span>
+              }
+            </div>
             }
           </div>
         </div>
@@ -177,6 +177,13 @@
             </label>
           </div>
         </div>
+
+        <!-- Upload JSON File -->
+        <div class="mb-4">
+          <label class="form-label">Import Meals from JSON</label>
+          <input type="file" (change)="importMealsFromJson($event)" accept=".json" class="form-control">
+        </div>
+
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-gradient">

@@ -301,8 +301,8 @@
   top: -1px;
   background: none;
   pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  /* -webkit-appearance: none;
+  -moz-appearance: none; */
 }
 
 .range-input::-webkit-slider-thumb {
@@ -530,6 +530,9 @@
 } */
 
 /* pagination */
+
+
+
 
 
 
