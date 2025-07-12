@@ -65,8 +65,6 @@ export class SearchPropertyComponent implements OnInit {
       }
     });
 
-
-
     this.searchData.checkIn = this.formatDate(today);
     this.searchData.checkOut = this.formatDate(tomorrow);
   }

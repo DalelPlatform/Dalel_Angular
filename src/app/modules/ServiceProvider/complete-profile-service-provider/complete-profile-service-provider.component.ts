@@ -223,7 +223,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
         if (res.Success) {
           this.service.AddSchedules( { "Schedules":scheduleData , "ServiceProviderId":""}).subscribe({
             next: (r) => {
-              if (r.Success) this.router.navigate(['/account']);
+              if (r.Success) this.router.navigate(['/ServiceProviderlayout/ServiceProvider']);
               else this.saveError = r.Message || 'Failed to save schedule.';
             },
             error: (e) => this.saveError = e.error?.Message || 'Error while saving schedule.'

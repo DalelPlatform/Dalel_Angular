@@ -213,6 +213,26 @@
   transform: translateY(-3px);
   box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
+.btn-reject{
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-reject:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
 
 /* Proposal Form */
 .proposal-form-container {
@@ -442,7 +462,6 @@
 
 .btn-accept:hover {
   transform: translateY(-2px);
-  
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 

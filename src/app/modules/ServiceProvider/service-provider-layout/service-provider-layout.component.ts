@@ -16,7 +16,7 @@ export class ServiceProviderLayoutComponent implements OnInit {
   ServiceProviderLinks = [
     { label: 'Add Project', icon: 'fa-solid fa-diagram-project', route: 'AddProject' },
     { label: 'Your Account', icon: 'fas fa-user', route: 'ServiceProvider' },
-    { label: 'Accepted Proposals', icon: 'fa-solid fa-check-double', route: 'AcceptedProposals' },
+    { label: 'Projects List', icon: 'fa-solid fa-check-double', route: 'ProjectsList' },
     { label: 'Proposals List', icon: 'fa-solid fa-list-ul', route: 'ProposalList' },
     { label: 'All Requests', icon: 'fa-solid fa-bullhorn', route: 'AllRequests' },
     { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },

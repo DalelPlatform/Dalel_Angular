@@ -58,8 +58,8 @@ export class ServiceProviderService {
     return this.http.get(`${this.baseUrl}/exists/${id}`);
   }
 
-  updateServiceProvider(id: number, formData: FormData): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, formData, {
+  updateServiceProvider(id: string, formData: FormData): Observable<any> {
+    return this.http.put(`${this.baseUrl}/UpdateServiceProfile`, formData, {
       headers: this.getAuthHeaders()
     });
   }

@@ -129,9 +129,6 @@
           <button class="btn btn-primary custom-btn" (click)="goToNextStep('services')">Go to services <i
               class="bi bi-arrow-right-circle"></i></button>
         </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/400x400" alt="Location illustration" class="img-fluid" />
-        </div>
       </div>
     </section>
     <!-- Services Section -->
@@ -156,9 +153,6 @@
 
           <button class="btn btn-primary custom-btn mt-4" (click)="goToNextStep('profile')">Go to profile details <i
               class="bi bi-arrow-right-circle"></i></button>
-        </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/400x400" alt="Services illustration" class="img-fluid" />
         </div>
       </div>
     </section>
@@ -242,27 +236,20 @@
     <section class="form-section" *ngIf="currentStep === 'price'">
       <div class="row">
         <div class="col-md-8">
-          <h2 class="mb-4">Add price and payment method</h2>
+          <h2 class="mb-4">Add price</h2>
           <div class="price-container mb-4">
             <label class="form-label">Price *</label>
             <div class="input-group">
-              <span class="input-group-text">$</span>
+              <span class="input-group-text">EGP</span>
               <input type="number" class="form-control" formControlName="price" placeholder="Set a fair price" />
               <select class="form-select w-auto" formControlName="priceUnit">
                 <option value="per_hour">per hour</option>
+                <option value="per_project">per project</option>
               </select>
             </div>
             <div *ngIf="ServiceProviderForm.get('price')?.invalid && ServiceProviderForm.get('price')?.touched"
               class="text-danger small">
               Price is required and must be greater than 0.
-            </div>
-          </div>
-          <div class="payment-section mb-5">
-            <h3>Get paid quickly and securely online</h3>
-            <p>Enable clients to pay instantly via credit card, so you'll never have to wait for another check to clear.
-            </p>
-            <div class="card-placeholder">
-              <button class="btn btn-outline-primary"><i class="bi bi-plus"></i> Add card</button>
             </div>
           </div>
           <div class="working-hours">
@@ -289,9 +276,6 @@
           </div>
           <button class="btn btn-primary custom-btn mt-4" (click)="goToNextStep('project')">Go to first project <i
               class="bi bi-arrow-right-circle"></i></button>
-        </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/400x400" alt="Payment illustration" class="img-fluid" />
         </div>
       </div>
     </section>
@@ -324,10 +308,12 @@
           <div class="mb-4">
             <label class="form-label">Approximate price *</label>
             <div class="input-group">
-              <span class="input-group-text">$</span>
+              <span class="input-group-text">EGP</span>
               <input type="number" class="form-control" formControlName="projectPrice" placeholder="Set a fair price" />
               <select class="form-select w-auto" formControlName="projectPriceUnit">
                 <option value="per_hour">per hour</option>
+                <option value="per_project">per project</option>
+
               </select>
             </div>
             <div
@@ -374,9 +360,6 @@
             <button type="button" class="btn btn-primary custom-btn" (click)="onSubmit()">Save project and become a pro <i
                 class="bi bi-arrow-right-circle"></i></button>
           </div>
-        </div>
-        <div class="col-md-4">
-          <img src="https://placehold.co/400x400" alt="Project illustration" class="img-fluid" />
         </div>
       </div>
     </section>

@@ -4,9 +4,10 @@ export interface Proposal {
   SuggestedPrice: number;
   Date: Date;
   Description: string;
-  serviceRequestId: number;
+  ServiceRequestId: number;
   createdAt: Date;
   updatedAt?: Date;
+  ClientId: string;
   Status: ProposalStatus;
 }
 export enum ProposalStatus {
