@@ -6,20 +6,19 @@ import { LogoutComponent } from './modules/user/components/logout/logout.compone
 import { authGuard } from './Services/Guards/auth.guard';
 import { ProfileFormComponent } from './modules/user/components/profile-form/profile-form.component';
 import { CompleteProfilePageComponent } from './shared/components/complete-profile-page/complete-profile-page.component';
-// import { AgencycompleteProfileComponent } from './modules/user/components/agencycomplete-profile/agencycomplete-profile.component';
 import { ProfileComponent } from './shared/components/profile/profile.component';
 // import { ServiceProviderProfileComponent } from './modules/user/components/service-provider-profile/service-provider-profile.component';
 import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLayOut/AgencyOwnerLayOut.component';
 
 // import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
+// import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { travelAgencyOwnersGuard } from './Services/Guards/TravelAgencyOwners/travel-agency-owners.guard';
 import {LandingPageComponent} from './shared/LandingPage/LandingPage.component'
 export const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./modules/user/user-module').then(m => m.AccountModule),
-
     canActivate: [authGuard]
   },
   {
@@ -37,6 +36,8 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'agancy',
+     canActivate: [authGuard],
     path: 'agancy', 
   
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)

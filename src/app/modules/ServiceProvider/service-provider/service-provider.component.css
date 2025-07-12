@@ -1,0 +1,47 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+.btn-EditProfile{
+  background-color: #480190;
+  color: white;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+.bg-opacity-10 {
+  background-color: rgba(var(--bs-primary-rgb), 0.1) !important;
+}
+
+.bg-success.bg-opacity-10 {
+  background-color: rgba(var(--bs-success-rgb), 0.1) !important;
+}
+
+.bg-danger.bg-opacity-10 {
+  background-color: rgba(var(--bs-danger-rgb), 0.1) !important;
+}
+
+.bg-warning.bg-opacity-10 {
+  background-color: rgba(var(--bs-warning-rgb), 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .display-6 {
+    font-size: 1.5rem;
+  }
+}

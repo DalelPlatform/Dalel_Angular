@@ -1,115 +1,214 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <a class="navbar-brand" >
+    <a class="navbar-brand" href="#">
+      <object type="image/svg+xml" data="assets/animated-logo.svg" width="100" height="auto">sdfdsfsdfsd</object>
+         <!-- <img src="../../../assets/animated-logo.svg" width="100" height="auto" alt="Logo"> -->
+
+
     </a>
-    
-    <button class="navbar-toggler" type="button"
-     data-bs-toggle="collapse" 
-    data-bs-target="#navbarSupportedContent" 
-    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-       
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" 
-          id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Listings
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/agancy/client/Packages">Pachages</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            
-          </ul>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" 
-          id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Pages
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Restaurants
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/restaurant', 'client', 'menuitems']">Menu</a></li>
+            <li><a class="dropdown-item" href="#">Main Courses</a></li>
+            <li><a class="dropdown-item" href="#">Desserts</a></li>
+            <li><a class="dropdown-item" href="#">Beverages</a></li>
           </ul>
         </li>
+
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" 
-          id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Accounts
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Properties
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/accoutProfile">User Profile</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            <li><a class="dropdown-item" >hotel</a></li>
-            
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Appetizers</a></li>
+            <li><a class="dropdown-item" href="#">Main Courses</a></li>
+            <li><a class="dropdown-item" href="#">Desserts</a></li>
+            <li><a class="dropdown-item" href="#">Beverages</a></li>
           </ul>
         </li>
-       
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Travel Agency
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Appetizers</a></li>
+            <li><a class="dropdown-item" href="#">Main Courses</a></li>
+            <li><a class="dropdown-item" href="#">Desserts</a></li>
+            <li><a class="dropdown-item" href="#">Beverages</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Service Providers
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Appetizers</a></li>
+            <li><a class="dropdown-item" href="#">Main Courses</a></li>
+            <li><a class="dropdown-item" href="#">Desserts</a></li>
+            <li><a class="dropdown-item" href="#">Beverages</a></li>
+          </ul>
+        </li>
+
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Services
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="">Delivery</a></li>
+            <li><a class="dropdown-item" [routerLink]="">Catering</a></li>
+            <li><a class="dropdown-item" [routerLink]="">Reservations</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Offers</a>
+        </li>
       </ul>
-     
-         <div class="d-flex gap-2">
-           @if (!isLoggedIn;) {
-       <div class="d-flex gap-2">
-         <button class="btn account" type="submit" routerLink="/login">Login</button>
-        <button class="btn account" type="submit" routerLink="/register">Register</button>
-       </div>
-         }
-      @else {
-         <img 
-      src="https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
-      alt="User Profile" 
-      class="rounded-circle" 
-      width="35" 
-      height="35"
-      style="object-fit: cover; cursor: pointer;"
-    
-    />
-     }
-     @if(isInAgancyClient()){
-   <button class="toggleNotifications btn position-relative p-1 m-0" (click)="toggleNotifications()">🔔
-         <span *ngIf="notifications.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          style="font-size: 10px;"
-          >
-        {{ notifications.length }}
-      </span>
-       </button>
-       <div class="notification-dropdown" *ngIf="isNotificationOpen">
-        @if (notifications.length > 0) {
-            <ul class="list-group">
-      <li *ngFor="let notification of notifications; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-       
-  <span (click)="markAsRead(notification.Id)">
-     {{ notification.Message }}
-  </span>
-<button class ="btn account" style="font-size:13px" 
- [routerLink]="['/agancy/client/ReviewPackage', getBookingId(notification.Message)]"
->
-  Review now 
-</button>
-      </li>
-    </ul>
-        }
-        @else {
-          <div class="text-center p-2">🚫 There Is no Notification   </div>
-        }
-  
-  </div>
-     }
-    
- 
+
+      <div class="nav-actions">
+        <!-- <div class="search-container">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text" class="search-input" placeholder="Search dishes, restaurants...">
+          <button class="search-btn" type="button">
+            <i class="bi bi-arrow-right"></i>
+          </button>
+        </div> -->
+        <!-- notification -->
+        <div class="cart-container">
+          <i class="fas fa-bell action-icon"></i>
+
+          <span class="cart-badge">3</span>
+        </div>
+
+        <div class="cart-container" (click)="getCartItems()">
+          <i class="bi bi-cart action-icon " data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"></i>
+          <span class="cart-badge">{{totalQuantity}}</span>
+        </div>
+
+        <div class="dropdown user-dropdown">
+          <div class="profile-circle" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- Replace with actual user image -->
+            <!-- <img src="path/to/user-image.jpg" alt="User"> -->
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="user-dropdown-item" href="#">
+                <i class="bi bi-person"></i>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a class="user-dropdown-item" href="#">
+                <i class="bi bi-gear"></i>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a class="user-dropdown-item" href="#">
+                <i class="bi bi-bag"></i>
+                Orders
+              </a>
+            </li>
+            <li>
+              <a class="user-dropdown-item" href="#">
+                <i class="bi bi-heart"></i>
+                Favorites
+              </a>
+            </li>
+            <li>
+              <a class="user-dropdown-item" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                Log Out
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
-     
-  
     </div>
   </div>
 </nav>
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="cartOffcanvasLabel">
+      <i class="bi bi-cart3"></i> Shopping Cart
+    </h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Free Delivery Banner -->
+    <div class="free-delivery-banner">
+      <i class="bi bi-truck"></i> You've got FREE delivery. Start checkout now!
+    </div>
+    @for (item of cartItems; track $index) {
+
+    <!-- Cart Items -->
+    <div class="cart-items">
+      <!-- Item 1 -->
+      <div class="cart-item">
+        <div class="d-flex align-items-center">
+          <div class="me-3">
+            <div class="product-icon">
+              <i class="bi bi-cup-hot text-warning"></i>
+            </div>
+          </div>
+          <div class="flex-grow-1">
+            <h6 class="mb-1">{{item.MenuItemName}}</h6>
+            <button class="remove-btn" (click)="removeItem(item)">Remove</button>
+          </div>
+          <div class="quantity-controls">
+            <button class="quantity-btn" (click)="updateQuantity(item, -1)">-</button>
+            <span class="quantity">{{ item.Quantity }}</span>
+            <button class="quantity-btn" (click)="updateQuantity(item, 1)">+</button>
+          </div>
+          <div class="ms-3 fw-bold">${{item.SupPrice}}</div>
+        </div>
+      </div>
+    </div>
+    }
+
+    <!-- Checkout Section -->
+    <div class="checkout-section">
+      <div class="d-flex justify-content-between mb-2">
+        <span>Item Subtotal</span>
+        <span class="fw-bold">${{supTotal}}</span>
+      </div>
+      <div class="d-flex justify-content-between mb-2">
+        <span>Shipping Fee</span>
+        <span class="fw-bold">$0.00</span>
+      </div>
+      <div class="d-flex justify-content-between mb-3">
+        <span>Tax Vat 18%</span>
+        <span class="fw-bold">$16.84</span>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between mb-4">
+        <span class="fw-bold">Grand Total</span>
+        <span class="fw-bold text-primary">${{supTotal+16.84}}</span>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-success btn-lg">Continue Shopping</button>
+        <button class="btn btn-dark btn-lg" (click)="checkout(cartItems)">Proceed To Checkout</button>
+      </div>
+    </div>

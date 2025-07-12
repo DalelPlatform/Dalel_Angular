@@ -1,0 +1,458 @@
+
+<div class="restaurant-details-container">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <button class="back-btn mb-3" (click)="goBack()">
+              <i class="fas fa-arrow-left"></i>
+              Back to Restaurants
+            </button>
+            <h1 class="display-4 fw-bold mb-3">{{ restaurant?.Name }}</h1>
+            <p class="lead">{{ restaurant?.Description }}</p>
+          </div>
+          <div class="col-md-4 text-end">
+            <div class="verification-badge" [ngClass]="getVerificationClass()">
+              <i [class]="getVerificationIcon()"></i>
+              {{ getVerificationText() }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" *ngIf="restaurant">
+    <div class="details-card">
+      <!-- Image Carousel -->
+      <div id="restaurantCarousel" class="carousel slide image-carousel"
+           [attr.data-bs-ride]="'carousel'">
+        <div class="carousel-indicators" *ngIf="restaurant.Images.length > 1">
+          <button
+            *ngFor="let image of restaurant.Images; let i = index"
+            type="button"
+            [attr.data-bs-target]="'#restaurantCarousel'"
+            [attr.data-bs-slide-to]="i"
+            [class.active]="i === 0"
+            [attr.aria-label]="'Slide ' + (i + 1)">
+          </button>
+        </div>
+        <div class="carousel-inner">
+          <div
+            *ngFor="let image of restaurant.Images; let i = index"
+            class="carousel-item"
+            [class.active]="i === 0">
+            <img [src]="image" [alt]="'Restaurant Image ' + (i + 1)" class="d-block w-100">
+          </div>
+        </div>
+        <button
+          *ngIf="restaurant.Images.length > 1"
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#restaurantCarousel"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          *ngIf="restaurant.Images.length > 1"
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#restaurantCarousel"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Restaurant Information -->
+      <div class="info-section">
+        <div class="row">
+          <!-- Left Column -->
+          <div class="col-lg-8">
+            <h2 class="section-title">Restaurant Details</h2>
+
+            <div class="row">
+              <!-- <div class="col-md-6">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-utensils me-2"></i>Number of Rooms
+                  </div>
+                  <p class="info-value">{{ restaurant.numberOfRooms }} Dining Areas</p>
+                </div>
+              </div> -->
+              <div class="col-md-6">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-building me-2"></i>Building Number
+                  </div>
+                  <p class="info-value">Building #{{ restaurant.BuildingNo }}</p>
+                </div>
+              </div>
+            </div>
+
+            <h2 class="section-title mt-4">Location Information</h2>
+
+            <div class="info-item">
+              <div class="info-label">
+                <i class="fas fa-map-marker-alt me-2"></i>Full Address
+              </div>
+              <p class="info-value">{{ restaurant.Address }}</p>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-road me-2"></i>Street
+                  </div>
+                  <p class="info-value">{{ restaurant.Street }}</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-city me-2"></i>City
+                  </div>
+                  <p class="info-value">{{ restaurant.City }}</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-map me-2"></i>Region
+                  </div>
+                  <p class="info-value">{{ restaurant.Region }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-globe me-2"></i>Latitude
+                  </div>
+                  <p class="info-value">{{ restaurant.Latitude | number:'1.6-6' }}°</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-item">
+                  <div class="info-label">
+                    <i class="fas fa-globe me-2"></i>Longitude
+                  </div>
+                  <p class="info-value">{{ restaurant.Longitude | number:'1.6-6' }}°</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Map Section -->
+            <h2 class="section-title mt-4">Location on Map</h2>
+            <div class="map-container">
+              <iframe
+                [src]="getMapUrl()"
+                width="100%"
+                height="100%"
+                style="border:0;"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="col-lg-4">
+            <div class="contact-info mb-4">
+              <i class="fas fa-phone"></i>
+              <h3 class="h5 mb-3">Contact Information</h3>
+              <p class="phone-number" (click)="callRestaurant()">{{ restaurant.PhoneNumber }}</p>
+              <small class="opacity-75">Call for reservations</small>
+            </div>
+
+            <div class="info-item">
+              <div class="info-label">
+                <i class="fas fa-shield-alt me-2"></i>Verification Status
+              </div>
+              <div class="verification-badge" [ngClass]="getVerificationClass()">
+                <i [class]="getVerificationIcon()"></i>
+                {{ restaurant.VerificationStatus }}
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-grid gap-3 mt-4">
+              <button class="btn btn-lg action-btn-primary" (click)="makeReservation()">
+                <i class="fas fa-calendar-alt me-2"></i>
+                Make Reservation
+              </button>
+              <button class="btn btn-outline-primary btn-lg action-btn" (click)="getDirections()">
+                <i class="fas fa-directions me-2"></i>
+                Get Directions
+              </button>
+              <button class="btn btn-outline-secondary btn-lg action-btn" (click)="shareRestaurant()">
+                <i class="fas fa-share-alt me-2"></i>
+                Share Restaurant
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Loading restaurant details...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="hasError" class="error-container">
+    <div class="alert alert-danger" role="alert">
+      <i class="fas fa-exclamation-triangle me-2"></i>
+      {{ errorMessage }}
+    </div>
+    <button class="btn btn-primary" (click)="retryLoad()">
+      <i class="fas fa-redo me-2"></i>
+      Try Again
+    </button>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container-custom">
+  <!-- Left Section - Available for your content -->
+
+
+  <!-- Right Section - Menu Options -->
+  <div class="right-section">
+      <!-- Page Header -->
+      <div class="page-header">
+          <h1 class="page-title">Menu Options</h1>
+          <div class="dropdown">
+              <select class="form-select filter-dropdown">
+                  <option selected>Select Category</option>
+                  <option value="appetizers">Appetizers</option>
+                  <option value="main-course">Main Course</option>
+                  <option value="desserts">Desserts</option>
+                  <option value="beverages">Beverages</option>
+              </select>
+          </div>
+      </div>
+
+      <!-- MenuItems -->
+
+      <div class="row">
+        <!-- Menu Item 1 -->
+        <div class="col-12">
+            <div class="menu-card">
+                @for(meal of ListOfMenuItems; track $index){
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <div class="menu-image-container">
+                                <div class="discount-badge">30% Off</div>
+                                <button class="nav-arrow prev">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <button class="nav-arrow next">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                                <div class="menu-image">
+                                    <!-- <i class="fas fa-utensils fa-3x"></i> -->
+                                    @for(img of meal.Images; track $index){
+                                        <img [src]="img" alt="">
+                                    }
+                                </div>
+                                <a href="#" class="view-details">
+                                    <i class="fas fa-eye"></i>
+                                    View more details
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="menu-details">
+                                <div class="restaurant-info">
+                                    <span class="restaurant-name">{{meal.RestaurantName}}</span>
+                                    <span class="food-category">{{meal.FoodCategory}}</span>
+                                </div>
+                                <h3 class="menu-title">{{meal.Name}}</h3>
+                                <div class="dietary-tags">
+                                    @for(tag of meal.DietaryTags; track $index){
+                                        <span class="dietary-tag">{{tag}}</span>
+                                    }
+                                </div>
+                                <div class="menu-features">
+                                    <span class="feature">Beef Patty</span>
+                                    <span class="feature">Artisan Bun</span>
+                                    <span class="feature">Fresh Vegetables</span>
+                                    <span class="more-link">More+</span>
+                                </div>
+                                <div class="portion-info">
+                                    <span class="portion-size">Portion Size: {{meal.PieceSize}}</span>
+                                </div>
+                                <div class="availability-info">{{meal.AvailabilityStatus}}</div>
+                                <div class="pricing-section">
+                                    <div class="price-info">
+                                        <span class="current-price">${{meal.Price}}</span>
+                                        <span class="price-details">/portion <span class="original-price">$26</span></span>
+                                    </div>
+                                    <div class="button-section">
+                                        <button class="btn add-to-cart-btn">Add to Cart</button>
+                                        <a href="#" class="view-details">
+                                            <i class="fas fa-eye"></i>
+                                            View more details
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Reviews -->
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+              <div class="review-container fade-in">
+                  <!-- Header -->
+                  <div class="review-header">
+                      <h2><i class="fas fa-star me-2"></i>Customer Reviews</h2>
+                  </div>
+
+                  <!-- Rating Section -->
+                  <div class="rating-section">
+                      <div class="main-rating">4.5</div>
+                      <div class="rating-subtitle">Based on 120 Reviews</div>
+                      <div class="stars">
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star"></i>
+                          <i class="fas fa-star-half-alt"></i>
+                      </div>
+
+                      <!-- Rating Bars -->
+                      <div class="rating-bars">
+                          <div class="rating-bar">
+                              <div class="star-count">5★</div>
+                              <div class="progress-wrapper">
+                                  <div class="progress">
+                                      <div class="progress-bar" style="width: 85%"></div>
+                                  </div>
+                              </div>
+                              <div class="percentage">85%</div>
+                          </div>
+                          <div class="rating-bar">
+                              <div class="star-count">4★</div>
+                              <div class="progress-wrapper">
+                                  <div class="progress">
+                                      <div class="progress-bar" style="width: 75%"></div>
+                                  </div>
+                              </div>
+                              <div class="percentage">75%</div>
+                          </div>
+                          <div class="rating-bar">
+                              <div class="star-count">3★</div>
+                              <div class="progress-wrapper">
+                                  <div class="progress">
+                                      <div class="progress-bar" style="width: 60%"></div>
+                                  </div>
+                              </div>
+                              <div class="percentage">60%</div>
+                          </div>
+                          <div class="rating-bar">
+                              <div class="star-count">2★</div>
+                              <div class="progress-wrapper">
+                                  <div class="progress">
+                                      <div class="progress-bar" style="width: 35%"></div>
+                                  </div>
+                              </div>
+                              <div class="percentage">35%</div>
+                          </div>
+                          <div class="rating-bar">
+                              <div class="star-count">1★</div>
+                              <div class="progress-wrapper">
+                                  <div class="progress">
+                                      <div class="progress-bar" style="width: 15%"></div>
+                                  </div>
+                              </div>
+                              <div class="percentage">15%</div>
+                          </div>
+                      </div>
+                  </div>
+
+                  <!-- Review Form -->
+                  <div class="review-form">
+                      <div class="star-rating" id="starRating">
+                          <i class="far fa-star" data-rating="1"></i>
+                          <i class="far fa-star" data-rating="2"></i>
+                          <i class="far fa-star" data-rating="3"></i>
+                          <i class="far fa-star" data-rating="4"></i>
+                          <i class="far fa-star" data-rating="5"></i>
+                          <span class="ms-2 text-muted" id="ratingText">(5/5)</span>
+                      </div>
+
+                      <div class="mb-3">
+                          <textarea class="form-control" rows="4" placeholder="Share your experience with us..."></textarea>
+                      </div>
+
+                      <div class="text-center">
+                          <button class="btn btn-primary btn-post-review">
+                              <i class="fas fa-paper-plane me-2"></i>Post Review
+                          </button>
+                      </div>
+                  </div>
+
+                  <!-- Sample Customer Review -->
+                  <div class="customer-review">
+                      <div class="reviewer-info">
+                          <img src="https://images.unsplash.com/photo-1494790108755-2616b9997d2c?w=150&h=150&fit=crop&crop=face" alt="Reviewer" class="reviewer-avatar">
+                          <div class="reviewer-details flex-grow-1">
+                              <h5>Jacqueline Miller</h5>
+                              <div class="reviewer-meta">
+                                  <i class="fas fa-calendar-alt me-1"></i>Stayed 13 Nov 2022
+                                  <span class="mx-2">•</span>
+                                  <i class="fas fa-edit me-1"></i>4 Reviews written
+                              </div>
+                          </div>
+                          <div class="review-rating">4.5</div>
+                      </div>
+
+                      <div class="review-text">
+                          Handsome met debating sir dwelling age material. As style lived he worse dried. Offered related so visitors we private removed. Moderate do subjects to distance.
+                      </div>
+
+                      <div class="review-images">
+                          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=200&h=150&fit=crop" alt="Review Image 1" class="review-image">
+                          <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?w=200&h=150&fit=crop" alt="Review Image 2" class="review-image">
+                          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=200&h=150&fit=crop" alt="Review Image 3" class="review-image">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Right side available for your content -->
+          <div class="col-lg-6 col-md-6 col-sm-12" style="background: rgba(255,255,255,0.1); min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+              <div class="text-center text-white">
+                  <i class="fas fa-plus-circle" style="font-size: 3rem; opacity: 0.5;"></i>
+                  <h4 class="mt-3" style="opacity: 0.7;">Right Side Available</h4>
+                  <p style="opacity: 0.6;">Add your content here</p>
+              </div>
+          </div>
+      </div>
+  </div>
+

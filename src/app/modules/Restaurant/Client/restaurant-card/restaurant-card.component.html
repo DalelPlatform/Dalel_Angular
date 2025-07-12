@@ -1,0 +1,72 @@
+<!-- <div class="card">
+
+  <img class="card__img"
+    src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80"
+    alt="Snowy Mountains">
+  <div class="card__content">
+    <h1 class="card__header">{{restaurant.Name}}</h1>
+    <div class="card__text-wrapper">
+      <p class="card__text">{{restaurant.Description}} </p>
+    </div>
+    <button class="card__btn" (click)="goToDetails(restaurant.Id)">Details <span>&rarr;</span></button>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+<div class="container-fluid py-4 my-4">
+  <div class="row g-4">
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+      <div class="restaurant-card">
+        <div class="card-img-container">
+          <img
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            class="card-img-top" alt="Delicious Pizza">
+        </div>
+        <div class="card-body">
+          <h5 class="restaurant-title">{{restaurant.Name}}</h5>
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-utensils"></i>
+              <!-- @if(meals.RestaurantType == 'Italian') { -->
+              <span>Egyption</span>
+            </div>
+
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="rating-display">
+            <div class="d-flex align-items-center">
+              <span class="rating-label">Rating:</span>
+              <div class="rating-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="rating-text">4.5 (127)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <!-- location -->
+            <div class="location">
+              <div class="location-text"><i class="fas fa-map-marker-alt"></i>
+                {{restaurant.City}}</div>
+            </div>
+
+            <button class="btn btn-details" (click)="goToDetails(restaurant.Id)">
+              <i class="fas fa-search-plus"></i> Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

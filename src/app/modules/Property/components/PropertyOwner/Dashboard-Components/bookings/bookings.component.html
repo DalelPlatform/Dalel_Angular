@@ -1,0 +1,57 @@
+<div class="bookings-wrapper">
+  <h2 class="bookings-title">My Bookings</h2>
+  <div class="bookings-tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'upcoming'" (click)="setTab('upcoming')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6l3 1 3-1 3 1 3-1 3 1"/><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 10h.01"/></svg>
+      Upcoming Booking
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'canceled'" (click)="setTab('canceled')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      Canceled Booking
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'completed'" (click)="setTab('completed')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+      Completed Booking
+    </button>
+  </div>
+
+  <div *ngIf="filteredBookings.length > 0">
+    <div class="bookings-section-title">
+      {{ activeTab === 'upcoming' ? 'Pending booking' : activeTab === 'canceled' ? 'Cancelled booking' : 'Completed booking' }} ({{ filteredBookings.length }})
+    </div>
+    <div class="booking-card" *ngFor="let booking of filteredBookings">
+      <div class="booking-card-header">
+        <div class="booking-logo">
+          <svg width="38" height="38" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="12" fill="#EDECFB"/><path d="M7 20V10a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10" stroke="#5143D9" stroke-width="2"/><rect x="9" y="14" width="2" height="2" rx="1" fill="#5143D9"/><rect x="13" y="14" width="2" height="2" rx="1" fill="#5143D9"/></svg>
+        </div>
+        <div class="booking-info">
+          <div class="booking-title">{{ booking.PropertyName }}</div>
+          <div class="booking-id">Booking ID: {{ booking.Id }} &bull; Room</div>
+        </div>
+        <button class="manage-btn" *ngIf="activeTab === 'upcoming'">Accept Booking</button>
+        <button class="manage-btn" *ngIf="activeTab === 'canceled'">Manage Booking</button>
+        <button class="manage-btn" *ngIf="activeTab === 'completed'">Manage Booking</button>
+      </div>
+      <div class="booking-card-details">
+        <div class="detail-group">
+          <div class="detail-label">Check in time</div>
+          <div class="detail-value">{{ booking.CheckIn | customDate }}</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Check out time</div>
+          <div class="detail-value">{{ booking.CheckOut | customDate:'EEE dd MMM hh:mm a' }}</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Booked by</div>
+          <div class="detail-value bold">{{ booking.ClientName }}</div>
+        </div>
+      </div>
+      <div *ngIf="activeTab === 'canceled'" class="booking-cancelled">Booking cancelled</div>
+    </div>
+  </div>
+  <div *ngIf="filteredBookings.length === 0" class="empty-state">
+    <div class="empty-title">Looks like you have never booked with BOOKING</div>
+    <div class="empty-desc">When you book your trip will be shown here.</div>
+    <button class="start-booking-btn">Start booking now</button>
+  </div>
+</div>

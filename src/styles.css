@@ -1,4 +1,85 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #8b5cf6;
+  --secondary-color: #6366f1;
+  --accent-color: #ffc107;
+  --darkPlus-color: #343a40;
+  --dark-color: #4b5563;
+  --light-bg: #f8f9fa;
+}
+
+/* pagination */
+.pagination-style {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.pagination-style .ngx-pagination {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0.5rem;
+  margin: 0;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pagination-style .ngx-pagination li {
+  margin: 0;
+}
+
+.pagination-style .ngx-pagination a,
+.pagination-style .ngx-pagination .current {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  color: #6c757d;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.pagination-style .ngx-pagination a:hover {
+  color: #007bff;
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  transform: translateY(-1px);
+}
+
+.pagination-style .ngx-pagination .current {
+  color: #ffffff !important;
+  background: var(--secondary-color);
+  border-color: var(--secondary-color);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  font-weight: 600;
+}
+
+.pagination-style .ngx-pagination .disabled a {
+  color: #adb5bd !important;
+  background-color: #f8f9fa;
+  border-color: #dee2e6;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.pagination-style .ngx-pagination .disabled a:hover {
+  color: #adb5bd;
+  background-color: #f8f9fa;
+  transform: none;
+}
+
 body{
     font-family: "Poppins", sans-serif !important; 
 }

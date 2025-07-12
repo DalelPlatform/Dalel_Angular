@@ -1,0 +1,170 @@
+<app-navbar></app-navbar>
+<div class="search-container">
+    <!-- Hero Section with Search -->
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Find Your Perfect Restaurants</h1>
+        <p class="hero-subtitle">Discover amazing properties tailored to your needs</p>
+
+        <div class="search-wrapper">
+          <form class="search-form" (ngSubmit)="searchRestaurants(restaurantNameInput.value, cityInput.value, regionInput.value, addressInput.value, streetInput.value)" >
+            <div class="search-grid">
+                <div class="search-field">
+                    <label for="restaurantName">Restaurant Name</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9.5L12 4l9 5.5v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z"></path>
+                            <polyline points="9,22 9,12 15,12 15,22"></polyline>
+                        </svg>
+                        <input
+                            #restaurantNameInput
+                            type="text"
+                            id="restaurantName"
+                            class="search-input"
+                            placeholder="Restaurant name..."
+                        >
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <label for="city">City</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        <input
+                            #cityInput
+                            type="text"
+                            id="city"
+                            class="search-input"
+                            placeholder="City name..."
+                        >
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <label for="region">Region</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="3,11 22,2 13,21 11,13 3,11"></polygon>
+                        </svg>
+                        <input
+                            #regionInput
+                            type="text"
+                            id="region"
+                            class="search-input"
+                            placeholder="Region..."
+                        >
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <label for="address">Address</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                            <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z"></path>
+                        </svg>
+                        <input
+                            #addressInput
+                            type="text"
+                            id="address"
+                            class="search-input"
+                            placeholder="Full address..."
+                        >
+                    </div>
+                </div>
+
+                <div class="search-field">
+                    <label for="street">Street</label>
+                    <div class="input-wrapper">
+                        <svg class="field-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"></path>
+                        </svg>
+                        <input
+                            #streetInput
+                            type="text"
+                            id="street"
+                            class="search-input"
+                            placeholder="Street name..."
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-actions">
+                <button type="button" class="search-button"
+                (click)="searchRestaurants(restaurantNameInput.value, cityInput.value, regionInput.value, addressInput.value, streetInput.value)"
+                >
+                    <span>Search Restaurants</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+
+                <button type="button" class="clear-button" (click)="clearSearch(restaurantNameInput.value, cityInput.value, regionInput.value, addressInput.value, streetInput.value)">
+                    <span>Clear All</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                    </svg>
+                </button>
+            </div>
+        </form>
+
+        </div>
+      </div>
+
+      <!-- Floating Elements -->
+      <!-- <div class="floating-elements">
+        <div class="floating-card floating-card-1">
+          <div class="mini-property">
+            <div class="mini-image"></div>
+            <div class="mini-info">
+              <div class="mini-title"></div>
+              <div class="mini-price"></div>
+            </div>
+          </div>
+        </div>
+        <div class="floating-card floating-card-2">
+          <div class="mini-property">
+            <div class="mini-image"></div>
+            <div class="mini-info">
+              <div class="mini-title"></div>
+              <div class="mini-price"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Results Section -->
+    <div class="results-section">
+      <div class="results-header">
+        <h2 class="results-title">Restaurants</h2>
+        <div class="results-count">{{list?.length || 0}} Restaurants found</div>
+      </div>
+
+      <div class="properties-grid">
+        @for (item of list; track $index) {
+          <app-restaurant-card [restaurant]="item" (restaurantDetails)="goToDetails($event)" class="property-item"></app-restaurant-card>
+        }
+
+        @if (!list || list.length === 0) {
+          <div class="empty-state">
+            <div class="empty-icon">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                <path d="M3 9.5L12 4l9 5.5v11a2 2 0 01-2 2H5a2 2 0 01-2-2v-11z"></path>
+                <polyline points="9,22 9,12 15,12 15,22"></polyline>
+              </svg>
+            </div>
+            <h3 class="empty-title">No Restaurant found</h3>
+            <p class="empty-description">Try adjusting your search criteria or browse all available Restaurants.</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>

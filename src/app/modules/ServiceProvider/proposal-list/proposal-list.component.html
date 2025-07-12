@@ -1,0 +1,230 @@
+
+<div class="container-fluid">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="page-header">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="page-title mb-2">
+                <i class="fas fa-file-contract me-3"></i>
+                Proposal Management
+              </h1>
+              <p class="page-subtitle mb-0">
+                Manage and track your service proposals efficiently
+              </p>
+            </div>
+            <div class="col-md-4 text-end">
+              <div class="stats-card">
+                <div class="stat-item">
+                  <span class="stat-number">{{ Proposals.length }}</span>
+                  <span class="stat-label">Total Proposals</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filters and Search Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="form-control search-input" [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="Search proposals...">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <select class="form-select filter-select" [(ngModel)]="filterStatus" (change)="applyFilters()">
+                <option value="">All Status</option>
+                <option value="pending">Pending</option>
+                <option value="accepted">Accepted</option>
+                <option value="rejected">Rejected</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <select class="form-select filter-select" [(ngModel)]="sortOrder" (change)="applyFilters()">
+                <option value="">Sort by Date</option>
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Proposals Table Section -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card border-0 shadow-sm proposals-container">
+        <div class="card-header table-header border-0">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <h5 class="mb-0">
+                <i class="fas fa-list me-2"></i>
+                Proposals List
+              </h5>
+            </div>
+            <div class="col-md-6 text-end">
+              <button class="btn btn-light btn-sm me-2">
+                <i class="fas fa-download me-1"></i>Export
+              </button>
+              <button class="btn btn-light btn-sm">
+                <i class="fas fa-sync-alt me-1"></i>Refresh
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+              <thead class="table-header-row">
+                <tr>
+                  <th class="table-header-cell">#</th>
+                  <th class="table-header-cell">
+                    <i class="fas fa-hashtag me-2"></i>Service Request
+                  </th>
+                  <th class="table-header-cell">
+                    <i class="fas fa-file-alt me-2"></i>Description
+                  </th>
+                  <th class="table-header-cell">
+                    <i class="fas fa-dollar-sign me-2"></i>Offering Price
+                  </th>
+                  <th class="table-header-cell">
+                    <i class="fas fa-flag me-2"></i>Status
+                  </th>
+                  <th class="table-header-cell">
+                    <i class="fas fa-calendar me-2"></i>Date
+                  </th>
+                  <th class="table-header-cell text-center">
+                    <i class="fas fa-cog me-2"></i>Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let proposal of Proposals; let i = index" class="proposal-row">
+                  <td class="table-cell">
+                    <span class="row-number">{{ i + 1 }}</span>
+                  </td>
+                  <td class="table-cell">
+                    <div class="service-request-info">
+                      <strong class="service-id">#{{ proposal.ServiceRequestId }}</strong>
+                    </div>
+                  </td>
+                  <td class="table-cell">
+                    <div class="description-cell">
+                      <span class="description-text" [title]="proposal.Description">
+                        {{ proposal.Description | truncate:60 }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="table-cell">
+                    <div class="price-container">
+                      <span class="price-amount">{{ proposal.SuggestedPrice | currency:'EGP':'symbol':'1.2-2' }}</span>
+                    </div>
+                  </td>
+                  <td class="table-cell">
+                    <span class="badge status-badge"
+                          [ngClass]="{
+                            'status-pending': proposal.Status === proposalStatus.Pending,
+                            'status-accepted': proposal.Status === proposalStatus.Accepted,
+                            'status-rejected': proposal.Status === proposalStatus.Rejected,
+                            'status-completed': proposal.Status === proposalStatus.Completed,
+                            'status-cancelled': proposal.Status === proposalStatus.Cancelled
+                          }">
+                      <i class="fas fa-circle status-icon me-2"></i>
+                      {{ getStatusLabel(proposal.Status) }}
+                    </span>
+                  </td>
+                  <td class="table-cell">
+                    <div class="date-container">
+                      <span class="date-text">{{ proposal.createdAt | date:'MMM dd, yyyy' }}</span>
+                      <small class="date-time text-muted d-block">{{ proposal.createdAt | date:'hh:mm a' }}</small>
+                    </div>
+                  </td>
+                  <td class="table-cell">
+                    <div class="action-buttons">
+                      <div class="btn-group" role="group">
+                        <button class="btn btn-action btn-view"
+                                (click)="onAction('view', proposal.Id)"
+                                [attr.aria-label]="'View proposal ' + proposal.Id">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="btn btn-action btn-edit"
+                                *ngIf="proposal.Status === proposalStatus.Pending"
+                                (click)="onAction('edit', proposal.Id)"
+                                [attr.aria-label]="'Edit proposal ' + proposal.Id">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-action btn-delete"
+                                (click)="onAction('delete', proposal.Id)"
+                                [attr.aria-label]="'Delete proposal ' + proposal.Id">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Empty State -->
+                <tr *ngIf="Proposals.length === 0" class="empty-state">
+                  <td colspan="7" class="text-center py-5">
+                    <div class="empty-state-content">
+                      <i class="fas fa-inbox empty-icon mb-3"></i>
+                      <h5 class="empty-title">No Proposals Available</h5>
+                      <p class="empty-subtitle text-muted">
+                        You haven't created any proposals yet. Start by creating your first proposal.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="card-footer bg-white border-0" *ngIf="Proposals.length > 0">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <span class="pagination-info">
+                Showing {{ Proposals.length }} of {{ Proposals.length }} proposals
+              </span>
+            </div>
+            <div class="col-md-6">
+              <nav aria-label="Proposals pagination">
+                <ul class="pagination justify-content-end mb-0">
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <i class="fas fa-chevron-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item active">
+                    <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <i class="fas fa-chevron-right"></i>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

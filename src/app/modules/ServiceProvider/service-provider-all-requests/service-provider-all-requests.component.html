@@ -1,0 +1,242 @@
+<div class="requests-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container-fluid px-4 py-5">
+      <div class="header-content">
+        <h1 class="page-title">
+          <i class="fas fa-clipboard-list me-3"></i>
+          Service Requests
+        </h1>
+        <p class="page-subtitle">Discover The Newest Requests</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Form -->
+  <div class="search-section">
+    <div class="container-fluid px-4">
+      <div class="search-wrapper" *ngIf="searchForm">
+        <div class="search-header">
+          <h3>
+            <i class="fas fa-search me-2"></i>
+            Advanced Search
+          </h3>
+        </div>
+
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="search-form">
+          <div class="search-grid">
+
+            <div class="search-field">
+              <label class="field-label">
+                <i class="fas fa-heading me-2"></i>
+                Request Title
+              </label>
+              <input type="text" class="search-input" formControlName="title" placeholder="Search By Title..." />
+            </div>
+
+            <div class="search-field">
+              <label class="field-label">
+                <i class="fas fa-file-alt me-2"></i>
+                Description
+              </label>
+              <input type="text" class="search-input" formControlName="description"
+                placeholder="Search By Description..." />
+            </div>
+
+            <div class="search-field">
+              <label class="field-label">
+                <i class="fas fa-map-marker-alt me-2"></i>
+                Address
+              </label>
+              <input type="text" class="search-input" formControlName="address" placeholder="Search By Address..." />
+            </div>
+
+            <div class="search-field">
+              <label class="field-label">
+                <i class="fas fa-tags me-2"></i>
+                Category
+              </label>
+              <select class="search-select" formControlName="categoryId">
+                <option value="All-Category">All Category</option>
+                <option *ngFor="let category of categories" [value]="category.Id">
+                  {{ category.Name }}
+                </option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="search-actions">
+            <button type="submit" class="btn-search">
+              <i class="fas fa-search me-2"></i>
+              Search
+            </button>
+            <button type="button" class="btn-reset" (click)="searchForm.reset()">
+              <i class="fas fa-undo me-2"></i>
+              Reset
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Requests Grid -->
+  <div class="requests-section">
+    <div class="container-fluid px-4 py-4">
+
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="section-title">
+          <h2>
+            <i class="fas fa-list me-2"></i>
+            Available Requests
+          </h2>
+          <span class="requests-count">{{ totalCount }} Request</span>
+        </div>
+      </div>
+
+      <!-- Requests Grid -->
+      <div class="requests-grid">
+        <div *ngFor="let request of requests" class="request-card-wrapper">
+          <div class="request-card">
+
+            <!-- Card Header -->
+            <div class="card-header row">
+              <div class="request-info col-md-8 ">
+                <h3 class="request-title">
+                  <i class="fas fa-file-contract me-2"></i>
+                  {{ request.Title || 'Untitled' }}
+                </h3>
+                <div class="request-meta">
+                  <span class="post-date">
+                    <i class="far fa-calendar me-1"></i>
+                    {{ request.Date | date:'mediumDate' }}
+                  </span>
+                  <span class="time-ago">
+                    <i class="far fa-clock me-1"></i>
+                    Since {{ getTimeSince(request.Date) }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="client-info col-md-4">
+                <div class="client-avatar">
+                  <i class="fas fa-user"></i>
+                </div>
+                <div class="client-details">
+                  <h4 class="client-name">
+                    {{ usersDetails[request.ClientId] || 'Loading ...' }}
+                  </h4>
+                  <span class="client-label">Client</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Body -->
+            <div class="card-body">
+              <div class="details-grid">
+
+                <div class="detail-item">
+                  <div class="detail-icon category-icon">
+                    <i class="fas fa-tag"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Category</span>
+                    <span class="detail-value">
+                      {{ request.CategoryName || getCategoryName(request.CategoryServicesId) }}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="detail-item">
+                  <div class="detail-icon location-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Address</span>
+                    <span class="detail-value">{{ request.Address }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="details-grid">
+
+                <div class="detail-item">
+                  <div class="detail-icon date-icon">
+                    <i class="fas fa-calendar-check"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Due Date</span>
+                    <span class="detail-value">{{ request.DueDate | date:'mediumDate' }}</span>
+                  </div>
+                </div>
+
+                <div class="detail-item">
+                  <div class="detail-icon budget-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Budget</span>
+                    <span class="detail-value budget-amount">{{ request.StartPrice }} EGP</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <button class="btn-view-details" (click)="viewRequestDetails(request.Id)">
+              <i class="fas fa-eye me-2"></i>
+              view details
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination-section" *ngIf="totalCount > pageSize">
+  <div class="container-fluid px-4">
+    <nav aria-label="Page navigation" class="pagination-nav">
+      <ul class="pagination-list">
+
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="goToPage(1)" aria-label="First">
+            <i class="fas fa-angle-double-left"></i>
+          </a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
+            <i class="fas fa-angle-left"></i>
+          </a>
+        </li>
+
+        <li *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage">
+          <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
+            <i class="fas fa-angle-right"></i>
+          </a>
+        </li>
+
+        <li class="page-item" [class.disabled]="currentPage === totalPages">
+          <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
+            <i class="fas fa-angle-double-right"></i>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</div>
+

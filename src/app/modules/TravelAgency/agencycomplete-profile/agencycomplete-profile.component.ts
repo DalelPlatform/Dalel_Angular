@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormGroupName, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,12 +8,12 @@ import { AgencyService } from '../../../Services/TravelAgency/agency.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-agencycomplete-profile',
+    standalone:false,
   templateUrl: './agencycomplete-profile.component.html',
   styleUrl: './agencycomplete-profile.component.css',
-  standalone: false
 })
 export class AgencycompleteProfileComponent {
-  agencyForm!: FormGroup;
+  agencyForm! : FormGroup;
   currentStep: number = 1;
   steps: number[] = [1, 2, 3];
   constructor(
@@ -23,6 +23,7 @@ export class AgencycompleteProfileComponent {
     private cookieService: CookieService,
     private agencyService: AgencyService,
     private toastr: ToastrService,
+
   ) {
     this.initForm();
   }
@@ -147,6 +148,3 @@ submit() {
 
 
 }
-
-
-

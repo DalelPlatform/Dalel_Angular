@@ -35,7 +35,7 @@ export class AddRestaurantFormComponent {
       Description: ['', [
         Validators.required,
         Validators.minLength(20),
-        Validators.maxLength(200)
+        Validators.maxLength(20000)
       ]],
       NumberOfRooms: ['', [
         Validators.required,

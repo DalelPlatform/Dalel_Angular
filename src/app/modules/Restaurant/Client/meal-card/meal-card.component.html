@@ -1,0 +1,140 @@
+<!-- <div class="card">
+
+  <img class="card__img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" alt="Snowy Mountains">
+  <div class="card__content">
+    <h1 class="card__header">{{meals.Name}}</h1>
+    <div class="card__text-wrapper">
+      <p class="card__text">{{meals.Description}} </p>
+    </div>
+    <button class="card__btn" >Details <span>&rarr;</span></button>
+  </div>
+</div> -->
+
+
+<div class="container-fluid px-2 my-4 ">
+  <div class="row justify-content-start g-3">
+    <div class="col-auto">
+      <div class="card meal-card h-100">
+        <div class="card-img-container">
+          <img
+            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+            class="card-img-top" alt="Delicious Pizza" id="mainImage1">
+
+          <button class="image-nav-btn prev" onclick="changeImage('mainImage1', -1)">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="image-nav-btn next" onclick="changeImage('mainImage1', 1)">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+
+          <div class="image-indicators" id="indicators1">
+            <div class="image-indicator active" onclick="setImage('mainImage1', 0)"></div>
+            <div class="image-indicator" onclick="setImage('mainImage1', 1)"></div>
+            <div class="image-indicator" onclick="setImage('mainImage1', 2)"></div>
+          </div>
+
+          <!-- Available status -->
+          @if(meal.AvailabilityStatus == 0 ){
+          <div class="availability-badge available">
+            <i class="bi bi-check-circle-fill me-1"></i> Available
+          </div>
+          }
+          @else if (meal.AvailabilityStatus == 1) {
+          <div class="availability-badge OutofStock">
+            <i class="bi bi-x-circle-fill me-1"></i> Out of Stock
+          </div>
+          }
+          @else if (meal.AvailabilityStatus == 2) {
+          <div class="availability-badge SoldOut">
+            <i class="bi bi-slash-circle-fill me-1"></i> Sold Out
+          </div>
+          }
+          @else if (meal.AvailabilityStatus == 3) {
+          <div class="availability-badge ComingSoon">
+            <i class="bi bi-clock-fill me-1"></i> Coming Soon
+          </div>
+          }
+          @else if (meal.AvailabilityStatus == 4) {
+          <div class="availability-badge Seasonal">
+            <i class="bi bi-calendar3-event-fill me-1"></i> Seasonal
+          </div>
+          }
+          @else {
+          <div class="availability-badge">
+            <i class="bi bi-question-circle-fill me-1"></i> Unknown Status
+          </div>
+          }
+
+        </div>
+
+        <div class="card-body">
+          <h5 class="meal-title">{{meal.Name}}</h5>
+          <p class="restaurant-name">
+            <i class="fas fa-store"></i> {{meal.RestaurantName}} Restaurant
+          </p>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <i class="fas fa-utensils"></i>
+
+              <!-- @if(meals.RestaurantType == 'Italian') { -->
+              <span>Egyption</span>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <span>{{meal.Duration}} min</span>
+            </div>
+
+            <div class="info-item">
+              <i class="fas fa-pizza-slice"></i>
+              @if(meal.PieceSize == 0) {
+              <span>Small</span>
+              }
+              @else if (meal.PieceSize == 1) {
+              <span>Medium</span>
+              }
+              @else if (meal.PieceSize == 2) {
+              <span>Large</span>
+              }
+              @else if (meal.PieceSize == 3) {
+              <span>Extra Large</span>
+              }
+              @else {
+              <span>Unknown Size</span>
+              }
+
+            </div>
+          </div>
+
+          <div class="card-divider"></div>
+
+          <div class="rating-display">
+            <div class="d-flex align-items-center">
+              <span class="rating-label">Rating:</span>
+              <div class="rating-stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span class="rating-text">4.5 (127)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <!-- price -->
+            <div class="price">
+              <div class="price-text">${{meal.Price}}</div>
+              <div class="price-text-old">${{meal.Price}}</div>
+            </div>
+
+            <button class="btn btn-add-cart" (click)="addToCart(meal)">
+              <i class="fas fa-plus"></i> Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
