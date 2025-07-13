@@ -1,4 +1,4 @@
-import { BookingStatus } from "./Enums/BookingStatus.enum";
+import { BookingStatus } from "./enums/BookingStatus.enum";
 
 export interface IBookingProperty {
     Id:number;
