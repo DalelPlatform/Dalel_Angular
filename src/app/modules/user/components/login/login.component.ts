@@ -24,18 +24,18 @@ export class LoginComponent {
 
   
   Send() {
-    this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
-      next: (res) => {
-        console.log(res);
+  this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
+    next: (res) => {
+      console.log(res);
 
         if(res.Image == "empty"){
           res.Image = "pexels-galerieb-1148565.jpg"
-        }
+      }
 
-        this.cookieService.set('Token', res.Token);
-        this.cookieService.set('Role', res.Role);
-        this.cookieService.set('Image', res.Image);
-        this.cookieService.set('FullName', res.FullName);
+      this.cookieService.set('Token', res.Token);
+      this.cookieService.set('Role', res.Role);
+      this.cookieService.set('Image', res.Image);
+      this.cookieService.set('FullName', res.FullName);
 
         if (res.Role === 'ServiceProvider') {
           this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
@@ -76,4 +76,5 @@ export class LoginComponent {
       }}
     });
   }
+
 }

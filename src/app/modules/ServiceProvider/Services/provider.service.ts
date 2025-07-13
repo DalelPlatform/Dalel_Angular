@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
+import { Schedule } from '../Models/schedule.model';
 
 
 @Injectable({
@@ -10,14 +11,15 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class ServiceProviderService {
   private baseUrl = `${environment.baseApi}ServiceProvider`;
+  private ScheduleURL = `${environment.baseApi}ServiceProviderSchedule/update`
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) { }
   getAuthHeaders(): { [header: string]: string } {
-    const token = this.cookieService.get('Token');    
+    const token = this.cookieService.get('Token');
     return {
       'Authorization': `Bearer ${token}`
     };
-}
+  }
 
   searchProviders(paramsObj: {
     searchText?: string;
@@ -38,8 +40,8 @@ export class ServiceProviderService {
     });
   }
   getProviderById(id: string): Observable<any> {
-  return this.http.get<any>(`${this.baseUrl}/ProfileById?id=${id}`);
-}
+    return this.http.get<any>(`${this.baseUrl}/ProfileById?id=${id}`);
+  }
 
   getByCategory(categoryId: number, pageSize = 5, pageNumber = 1): Observable<any> {
     return this.http.get(`${this.baseUrl}/category/${categoryId}`, {
@@ -63,5 +65,14 @@ export class ServiceProviderService {
       headers: this.getAuthHeaders()
     });
   }
-
+  loadSchedules(providerId: string) {
+    return this.http.get<any>(`/api/ServiceProvider/schedules`, {
+      params: { providerId }
+    });
+  }
+  updateSchedule(scheduleData: Schedule) {
+  const token = this.cookieService.get("Token");
+  const headers = new HttpHeaders(token);
+  return this.http.put<any>(`${this.ScheduleURL}`, scheduleData, {headers});
+  }
 }
