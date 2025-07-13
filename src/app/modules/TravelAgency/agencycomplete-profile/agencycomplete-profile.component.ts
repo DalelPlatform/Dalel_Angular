@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup,FormGroupName, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -6,13 +6,15 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment';
 import { AgencyService } from '../../../Services/TravelAgency/agency.service';
 import { ToastrService } from 'ngx-toastr';
+import * as L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 @Component({
   selector: 'app-agencycomplete-profile',
     standalone:false,
   templateUrl: './agencycomplete-profile.component.html',
   styleUrl: './agencycomplete-profile.component.css',
 })
-export class AgencycompleteProfileComponent {
+export class AgencycompleteProfileComponent implements AfterViewInit{
   agencyForm! : FormGroup;
   currentStep: number = 1;
   steps: number[] = [1, 2, 3];
@@ -28,7 +30,47 @@ export class AgencycompleteProfileComponent {
     this.initForm();
   }
 
+    ngAfterViewInit(): void {
 
+
+
+  
+  }
+initMap() {
+      const map = L.map('map').setView([24.0889, 32.8998], 12); // Default center (Aswan)
+  
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+  
+    let marker: L.Marker;
+  
+    map.on('click', (e: L.LeafletMouseEvent) => {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+  
+      // Update form controls
+      this.agencyForm.patchValue({
+        Latitude: lat,
+        Longitude: lng
+      });
+  
+      if (marker) {
+        marker.setLatLng(e.latlng);
+      } else {
+        marker = L.marker(e.latlng, { draggable: true }).addTo(map);
+  
+        // Update on drag
+        marker.on('dragend', (event: L.DragEndEvent) => {
+          const position = (event.target as L.Marker).getLatLng();
+          this.agencyForm.patchValue({
+            Latitude: position.lat,
+            Longitude: position.lng
+          });
+        });
+      }
+    });
+  }
   get progressPercentage(): number {
     return ((this.currentStep - 1) / (this.steps.length - 1)) * 100;
   }
@@ -37,11 +79,21 @@ export class AgencycompleteProfileComponent {
     if (step >= 1 && step <= this.steps.length) {
       this.currentStep = step;
     }
+      if (this.currentStep === 2) {
+      setTimeout(() => {
+        this.initMap();
+      }, 0);
+    }
   }
 
   nextStep(): void {
     if (this.currentStep < this.steps.length) {
       this.currentStep++;
+    }
+      if (this.currentStep === 2) {
+      setTimeout(() => {
+        this.initMap();
+      }, 0);
     }
   }
 
@@ -61,8 +113,8 @@ export class AgencycompleteProfileComponent {
       City: ['', Validators.required],
       BuildingNo: [null, Validators.required],
       Street: ['', Validators.required],
-      Latitude: [null, Validators.required],
-      Longitude: [null, Validators.required],
+      Latitude: [0, Validators.required],
+      Longitude: [0, Validators.required],
       VerificationStatus: [0],
       ownerId: [this.cookieService.get('Token')],
 
@@ -76,6 +128,7 @@ export class AgencycompleteProfileComponent {
       ])
     });
   }
+
   get VerificationDocument() {
     return this.agencyForm.get('VerificationDocument') as FormArray;
   }
