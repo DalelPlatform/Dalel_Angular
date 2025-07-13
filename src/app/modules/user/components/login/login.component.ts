@@ -73,11 +73,7 @@ export class LoginComponent {
               else{
                   this.router.navigate(['/login']);
               }
-      },
-
-      error: (err) => {
-        console.log(err);
-      }
+      }}
     });
   }
 }

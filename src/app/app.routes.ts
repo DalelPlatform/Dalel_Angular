@@ -38,7 +38,7 @@ export const routes: Routes = [
   {
     path: 'agancy',
      canActivate: [authGuard],
-    path: 'agancy', 
+ 
   
     loadChildren: () => import('./modules/TravelAgency/travelAgency.module').then(m => m.TravelAgencyModule)
   },

@@ -4,27 +4,31 @@ import { CookieService } from 'ngx-cookie-service';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
-import { Component } from '@angular/core';
 import { RestaurantService } from '../../../Services/Restaurant/restaurant.service';
 import { IcartItem } from '../../../modules/Restaurant/interfaces/IcartItem';
 
 @Component({
   selector: 'app-navbar',
-  standalone: false,
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrl: './navbar.component.css',
+    standalone: false,
 })
 export class NavbarComponent implements OnInit{
 isNotificationOpen = false;
 notifications: any[] = [];
 isLoggedIn: boolean = false;
  currentUrl: string = '';
+   supTotal: number = 0;
+  totalQuantity: number = 0;
+  cartItems: IcartItem[] = []
 constructor(private notificationService: NotificationService, private cookieService: CookieService, private router: Router,
-      private toastr: ToastrService,){}
+      private toastr: ToastrService,private _restaurantService: RestaurantService){}
+      ;
   ngOnInit() {
     this.loadNotifications();
     const Token= this.cookieService.get('Token')
-     if (Token) {
+    const role= this.cookieService.get('Role')
+     if (Token && role == "Client") {
     this.isLoggedIn = true;
     
   }
@@ -75,18 +79,7 @@ loadNotifications() {
   console.log("Extracted BookingId:", match ? +match[1] : 0);
   return match ? +match[1] : 0;
 }
-export class NavbarComponent {
-
-  constructor(private _restaurantService: RestaurantService) { }
-  supTotal: number = 0;
-  totalQuantity: number = 0;
-  cartItems: IcartItem[] = [];
-
-  ngOnInit() {
-
-  }
-
-  getCartItems() {
+ getCartItems() {
     this._restaurantService.getCartItems().subscribe({
       next: (res) => {
         this.cartItems = res.Data;
