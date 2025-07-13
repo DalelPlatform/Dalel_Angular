@@ -1,0 +1,171 @@
+<div class="page">
+  <div class="container my-box">
+    <div class="form-container">
+      <h2 class="form-title">Profile Settings</h2>
+
+      @if(isLoading) {
+        <div class="loading-container">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading your profile...</p>
+        </div>
+      } @else {
+        <form [formGroup]="profileForm" (ngSubmit)="updateProfile()">
+          <!-- Profile Image Section -->
+          <div class="profile-image-section mb-4">
+            <div class="image-upload-container">
+              <div class="current-image">
+                <img [src]="imagePreview || 'assets/default-avatar.png'" alt="Profile Image" class="profile-image">
+                <div class="image-overlay">
+                  <label for="profileImage" class="upload-btn">
+                    <i class="fas fa-camera"></i>
+                    <span>Change Photo</span>
+                  </label>
+                </div>
+              </div>
+              <input type="file" id="profileImage" (change)="onImageSelected($event)" accept="image/*" class="file-input">
+            </div>
+          </div>
+
+          <!-- Personal Information -->
+          <div class="section-title">
+            <i class="fas fa-user"></i>
+            Personal Information
+          </div>
+
+          <div class="row mb-4">
+            <!-- First Name -->
+            <div class="col-md-6">
+              <label for="FirstName" class="form-label">First Name</label>
+              <div class="input-with-icon">
+                <i class="input-icon fas fa-user"></i>
+                <input type="text" class="form-control" id="FirstName" formControlName="FirstName" placeholder="Enter first name">
+              </div>
+              @if(formControls['FirstName'].invalid && formControls['FirstName'].touched) {
+                <div class="form-text text-danger">
+                  @if(formControls['FirstName'].hasError('required')) {
+                    <span>First name is required</span>
+                  }
+                  @else if(formControls['FirstName'].hasError('minlength')) {
+                    <span>First name must be at least 2 characters</span>
+                  }
+                  @else if(formControls['FirstName'].hasError('maxlength')) {
+                    <span>First name cannot exceed 50 characters</span>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-md-6">
+              <label for="LastName" class="form-label">Last Name</label>
+              <div class="input-with-icon">
+                <i class="input-icon fas fa-user"></i>
+                <input type="text" class="form-control" id="LastName" formControlName="LastName" placeholder="Enter last name">
+              </div>
+              @if(formControls['LastName'].invalid && formControls['LastName'].touched) {
+                <div class="form-text text-danger">
+                  @if(formControls['LastName'].hasError('required')) {
+                    <span>Last name is required</span>
+                  }
+                  @else if(formControls['LastName'].hasError('minlength')) {
+                    <span>Last name must be at least 2 characters</span>
+                  }
+                  @else if(formControls['LastName'].hasError('maxlength')) {
+                    <span>Last name cannot exceed 50 characters</span>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="section-title">
+            <i class="fas fa-envelope"></i>
+            Contact Information
+          </div>
+
+          <!-- Email -->
+          <div class="mb-4">
+            <label for="Email" class="form-label">Email Address</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-envelope"></i>
+              <input type="email" class="form-control" id="Email" formControlName="Email" placeholder="Enter email address">
+            </div>
+            @if(formControls['Email'].invalid && formControls['Email'].touched) {
+              <div class="form-text text-danger">
+                @if(formControls['Email'].hasError('required')) {
+                  <span>Email is required</span>
+                }
+                @else if(formControls['Email'].hasError('email')) {
+                  <span>Please enter a valid email address</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Phone Number -->
+          <div class="mb-4">
+            <label for="PhoneNumber" class="form-label">Phone Number</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-phone"></i>
+              <input type="tel" class="form-control" id="PhoneNumber" formControlName="PhoneNumber" placeholder="Enter phone number">
+            </div>
+            @if(formControls['PhoneNumber'].invalid && formControls['PhoneNumber'].touched) {
+              <div class="form-text text-danger">
+                @if(formControls['PhoneNumber'].hasError('required')) {
+                  <span>Phone number is required</span>
+                }
+                @else if(formControls['PhoneNumber'].hasError('pattern')) {
+                  <span>Please enter a valid phone number</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Account Information -->
+          <div class="section-title">
+            <i class="fas fa-user-circle"></i>
+            Account Information
+          </div>
+
+          <!-- Username -->
+          <div class="mb-4">
+            <label for="UserName" class="form-label">Username</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-at"></i>
+              <input type="text" class="form-control" id="UserName" formControlName="UserName" placeholder="Enter username">
+            </div>
+            @if(formControls['UserName'].invalid && formControls['UserName'].touched) {
+              <div class="form-text text-danger">
+                @if(formControls['UserName'].hasError('required')) {
+                  <span>Username is required</span>
+                }
+                @else if(formControls['UserName'].hasError('minlength')) {
+                  <span>Username must be at least 3 characters</span>
+                }
+                @else if(formControls['UserName'].hasError('maxlength')) {
+                  <span>Username cannot exceed 30 characters</span>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-actions">
+            <button type="submit" class="btn btn-gradient" [disabled]="profileForm.invalid || isUpdating">
+              @if(isUpdating) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Updating...
+              } @else {
+                <i class="fas fa-save me-2"></i>
+                Update Profile
+              }
+            </button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyOwnerLayoutComponent implements OnInit {
   agencyLinks = [
-    { label: 'My Profile', icon: 'fas fa-user', route: 'add-property' },
+    { label: 'My Profile', icon: 'fas fa-user', route: 'property-profile' },
     { label: 'My Listings', icon: 'fa-solid fa-list', route: 'listings' },
     { label: 'Tenets', icon: 'fas fa-users', route: 'tenets' },
     { label: 'Bookings', icon: 'fa-solid fa-calendar-days', route: 'bookings' },

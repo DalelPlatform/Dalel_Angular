@@ -19,7 +19,7 @@ export interface IProperty {
     PropertyOwner: string,
     Rating: number,
     VerificationStatus: number,
-    Images?: string[]
+    Images: string[]
 }
 
 export enum VerificationStatus {

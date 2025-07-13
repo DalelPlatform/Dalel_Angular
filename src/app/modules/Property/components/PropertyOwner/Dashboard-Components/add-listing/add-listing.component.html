@@ -258,6 +258,7 @@
               @else if(formControls['Latitude'].hasError('min') || formControls['Latitude'].hasError('max')) {
               <span>Latitude must be between -90 and 90</span>
               }
+              
             </div>
             }
           </div>
@@ -306,6 +307,7 @@
         </div>
 
         <!-- Cancellation Charges -->
+        @if(isCancellationOptionsEnabled) {
         <div class="mb-4">
           <label for="CancelationCharges" class="form-label">Cancellation Charges</label>
           <div class="input-with-icon">
@@ -325,6 +327,7 @@
           </div>
           }
         </div>
+        }
 
         <!-- Boolean Options -->
         <div class="row mb-4">
@@ -332,7 +335,7 @@
           <div class="col-md-6">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" id="CancelationOptions"
-                formControlName="CancelationOptions">
+                formControlName="CancelationOptions" (change)="onCancellationOptionsChange()">
               <label class="form-check-label" for="CancelationOptions">
                 Cancellation Options Available
               </label>
