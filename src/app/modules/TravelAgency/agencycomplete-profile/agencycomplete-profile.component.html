@@ -108,11 +108,11 @@
         <div [formGroupName]="0">
           <input class="d-none" #fileInput type="file" placeholder="Document File" (change)="onFileChange($event, 0)"
             multiple accept="image/*"/>
-          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Files</button>
+          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Image</button>
         </div>
         <span class="text-danger"
           *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
-          please upluad file
+          please upluad image
         </span>
 
     </div>

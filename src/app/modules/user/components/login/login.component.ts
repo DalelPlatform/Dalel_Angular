@@ -29,7 +29,7 @@ export class LoginComponent {
       console.log(res);
 
         if(res.Image == "empty"){
-          res.Image = "pexels-galerieb-1148565.jpg"
+          res.Image = "https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
       }
 
       this.cookieService.set('Token', res.Token);
@@ -67,13 +67,19 @@ export class LoginComponent {
         } else {
           this.router.navigate(['/account']);
         }
-         if(res.Role ==="TravelAgencyOwner"){
+      
+      }
+    else if(res.Role ==="TravelAgencyOwner"){
                  this.router.navigate(['/agancy/owner/create-agency']);
+              }
+              else if(res.Role ==="Client"){
+                      this.router.navigate(['/mainPage']);
               }
               else{
                   this.router.navigate(['/login']);
               }
-      }}
+    }
+   
     });
   }
 

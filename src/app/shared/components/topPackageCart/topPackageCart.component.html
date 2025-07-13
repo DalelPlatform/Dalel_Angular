@@ -1,0 +1,41 @@
+<h2 class="text-center pb-3 fw-bold">Top packages</h2>
+<div class="row">
+  @for (pack of package; track $index) {
+     <div class="col-md-6 col-lg-4 mb-4" style="cursor: pointer;" (click)="viewPackages(pack.Id)">
+      <div class="card shadow-sm h-100">
+        
+    
+            <div class="position-relative">
+                @if(!pack.ImagePath){
+           <img 
+             src="https://www.shutterstock.com/image-vector/no-image-available-picture-coming-600nw-2057829641.jpg" 
+             class="card-img-top" style="height: 200px; object-fit: fill;">
+         
+         }
+        @else {
+    <img  [src]="pack.ImagePath" class="card-img-top mb-3" style="height: 200px; object-fit: cover;">
+        }
+      
+          <span class="position-absolute top-2 start-0 bg-dark text-white px-4 py-0 rounded m-3">{{ pack.Name }}</span>
+          <span class="position-absolute start-0 bg-light text-dark px-4 py-0 rounded m-3" style="bottom: .5rem;">{{ pack.Duration }} days</span>
+      
+        </div>
+         
+      
+
+        <div class="card-body pt-0">
+          <h5 class="card-title  p-0 m-0 fw-bold ">{{ pack.Name }}</h5>
+         
+          <p class="card-text  p-0 m-0 fw-semibold" style="color: grey;" >
+         {{pack.Description}}
+          </p>
+          <p class="card-text p-0 m-0 text-success fw-semibold">
+            ${{ pack.Price }}
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+  </div>
+  
+   <button class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" (click)="viewAllPackages()">See All Packages</button>
