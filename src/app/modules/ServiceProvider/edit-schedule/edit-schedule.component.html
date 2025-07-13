@@ -1,0 +1,241 @@
+<!-- <div class="schedule-container">
+    <div class="schedule-card">
+        <div class="card-header">
+            <h2 class="card-title">
+                <i class="icon-calendar"></i>
+                Update Schedule
+            </h2>
+            <p class="card-subtitle">Manage your weekly availability</p>
+        </div>
+
+        <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()" class="schedule-form">
+            <div class="schedules-section">
+                <h3 class="section-title">Weekly Schedule</h3>
+                <a routerLink="/ServiceProviderlayout/ServiceProvider" class="back-btn">
+                    <i class="fas fa-arrow-left me-2"></i>Back
+                </a>
+                <div formArrayName="schedules" class="schedule-items">
+                    <div *ngFor="let schedule of scheduleItems.controls; let i = index" [formGroupName]="i"
+                        class="schedule-item">
+                        <div class="day-header">
+                            <div class="day-info">
+                                <span class="day-name">{{ getDayName(schedule.get('workDay')?.value) }}</span>
+                                <div class="toggle-wrapper">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" formControlName="isEnabled"
+                                            (change)="toggleDay(i, $event)" />
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                    <span class="toggle-label">Available</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="time-inputs" *ngIf="isDayEnabled(i)">
+                            <div class="time-group">
+                                <label class="time-label">From</label>
+                                <input type="time" formControlName="availableFrom" class="time-input"
+                                    [class.error]="isScheduleFieldInvalid(i, 'availableFrom')" />
+                            </div>
+                            <div class="time-separator">
+                                <i class="icon-arrow-right"></i>
+                            </div>
+                            <div class="time-group">
+                                <label class="time-label">To</label>
+                                <input type="time" formControlName="availableTo" class="time-input"
+                                    [class.error]="isScheduleFieldInvalid(i, 'availableTo')" />
+                            </div>
+                        </div>
+
+                        <div class="error-message" *ngIf="hasScheduleError(i)">
+                            <span
+                                *ngIf="isScheduleFieldInvalid(i, 'availableFrom') || isScheduleFieldInvalid(i, 'availableTo')">
+                                Please provide valid time range
+                            </span>
+                            <span *ngIf="schedule.hasError('timeRange')">
+                                End time must be after start time
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" (click)="resetForm()" [disabled]="isLoading">
+                    Reset
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <span *ngIf="isLoading" class="loading-spinner"></span>
+                    {{ isLoading ? 'Updating...' : 'Update Schedule' }}
+                </button>
+                <p class="text-danger">Form Valid: {{ scheduleForm.valid }}</p>
+
+            </div>
+        </form>
+
+        <div class="alert alert-success" *ngIf="successMessage">
+            <i class="icon-check"></i>
+            {{ successMessage }}
+        </div>
+
+        <div class="alert alert-error" *ngIf="errorMessage">
+            <i class="icon-x"></i>
+            {{ errorMessage }}
+        </div>
+    </div>
+</div> -->
+<div class="schedule-container">
+  <div class="schedule-card">
+    <!-- Header Section -->
+    <div class="card-header">
+      <div class="header-content">
+        <div class="title-section">
+          <h2 class="card-title">
+            <i class="fas fa-calendar-alt"></i>
+            Update Schedule
+          </h2>
+          <p class="card-subtitle">Manage your weekly availability</p>
+        </div>
+        <a routerLink="/ServiceProviderlayout/ServiceProvider" class="back-btn">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()" class="schedule-form">
+      <div class="schedules-section">
+        <div class="section-header">
+          <h3 class="section-title">
+            <i class="fas fa-clock"></i>
+            Weekly Schedule
+          </h3>
+        </div>
+
+        <div formArrayName="schedules" class="schedule-items">
+          <div *ngFor="let schedule of scheduleItems.controls; let i = index" 
+               [formGroupName]="i" 
+               class="schedule-item"
+               [class.enabled]="isDayEnabled(i)">
+            
+            <!-- Day Header -->
+            <div class="day-header">
+              <div class="day-info">
+                <div class="day-badge">
+                  <span class="day-name">{{ getDayName(schedule.get('workDay')?.value) }}</span>
+                </div>
+                <div class="toggle-wrapper">
+                  <label class="toggle-switch">
+                    <input type="checkbox" 
+                           formControlName="isEnabled"
+                           (change)="toggleDay(i, $event)" />
+                    <span class="toggle-slider">
+                      <span class="toggle-button"></span>
+                    </span>
+                  </label>
+                  <span class="toggle-label">
+                    {{ isDayEnabled(i) ? 'Available' : 'Unavailable' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Time Inputs -->
+            <div class="time-inputs" *ngIf="isDayEnabled(i)">
+              <div class="time-group">
+                <label class="time-label">
+                  <i class="fas fa-play"></i>
+                  Start Time
+                </label>
+                <div class="input-wrapper">
+                  <input type="time" 
+                         formControlName="availableFrom" 
+                         class="time-input"
+                         [class.error]="isScheduleFieldInvalid(i, 'availableFrom')" />
+                  <i class="fas fa-clock input-icon"></i>
+                </div>
+              </div>
+              
+              <div class="time-separator">
+                <div class="separator-line"></div>
+                <i class="fas fa-arrow-right separator-icon"></i>
+                <div class="separator-line"></div>
+              </div>
+              
+              <div class="time-group">
+                <label class="time-label">
+                  <i class="fas fa-stop"></i>
+                  End Time
+                </label>
+                <div class="input-wrapper">
+                  <input type="time" 
+                         formControlName="availableTo" 
+                         class="time-input"
+                         [class.error]="isScheduleFieldInvalid(i, 'availableTo')" />
+                  <i class="fas fa-clock input-icon"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Error Messages -->
+            <div class="error-section" *ngIf="hasScheduleError(i)">
+              <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span *ngIf="isScheduleFieldInvalid(i, 'availableFrom') || isScheduleFieldInvalid(i, 'availableTo')">
+                  Please provide valid time range
+                </span>
+                <span *ngIf="schedule.hasError('timeRange')">
+                  End time must be after start time
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <div class="action-buttons">
+          <button type="button" 
+                  class="btn btn-secondary" 
+                  (click)="resetForm()" 
+                  [disabled]="isLoading">
+            <i class="fas fa-undo"></i>
+            Reset
+          </button>
+          <button type="submit" 
+                  class="btn btn-primary"
+                  [disabled]="isLoading">
+            <span *ngIf="isLoading" class="loading-spinner"></span>
+            <i *ngIf="!isLoading" class="fas fa-save"></i>
+            {{ isLoading ? 'Updating...' : 'Update Schedule' }}
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Alert Messages -->
+    <div class="alert-container">
+      <div class="alert alert-success" *ngIf="successMessage">
+        <div class="alert-content">
+          <i class="fas fa-check-circle"></i>
+          <span>{{ successMessage }}</span>
+        </div>
+        <button type="button" class="alert-close" (click)="successMessage = ''">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div class="alert alert-error" *ngIf="errorMessage">
+        <div class="alert-content">
+          <i class="fas fa-exclamation-circle"></i>
+          <span>{{ errorMessage }}</span>
+        </div>
+        <button type="button" class="alert-close" (click)="errorMessage = ''">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
