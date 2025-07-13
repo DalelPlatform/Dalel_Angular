@@ -6,4 +6,4 @@ export interface Review {
     Rating: number;
     ReviewDate: Date;
     Review: string;
-    }
+}

@@ -1,212 +1,3 @@
-<!-- <div class="container-fluid py-4">
-  <div class="row mb-4">
-    <div class="col-12">
-      <div class="card shadow-sm border-0">
-        <div class="card-body">
-          <div class="row align-items-center">
-            <div class="col-md-8 text-center text-md-start">
-              <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                <div class="position-relative">
-                  <img [src]="providerProfile?.Image" class="rounded-circle shadow-sm" width="80" height="80"
-                    style="object-fit: cover; border: 3px solid #e9ecef;" />
-                  <span class="position-absolute bottom-0 end-0 badge rounded-pill bg-success">
-                    <i class="fas fa-check"></i>
-                  </span>
-                </div>
-                <div class="ms-3 d-none d-md-block">
-                  <h4 class="mb-0 fw-bold text-dark">{{ providerProfile?.UserName }}</h4>
-                  <small class="text-muted">Service Provider</small>
-                </div>
-              </div>
-              <div class="d-md-none mt-2">
-                <h4 class="mb-0 fw-bold text-dark">{{ providerProfile?.UserName }}</h4>
-                <small class="text-muted">Service Provider</small>
-              </div>
-            </div>
-            <div class="col-md-4 text-center text-md-end mt-3 mt-md-0">
-              <a routerLink="/EditProfile" class="btn btn-EditProfile btn-sm px-3">
-                <i class="fas fa-edit me-2"></i>Edit Profile
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4">
-    <div class="col-12">
-      <h5 class="mb-3 fw-bold text-dark">
-        <i class="fas fa-chart-bar me-2 text-primary"></i>Proposal Statistics
-      </h5>
-    </div>
-    <div class="col-lg-3 col-md-6 mb-3" *ngFor="let card of proposalCards">
-      <div class="card h-100 shadow-sm border-0 cursor-pointer transition-all"
-        [ngClass]="{ 'border-primary border-2 bg-light': selectedStatus === card.key }" (click)="onCardSelect(card.key)"
-        style="transition: all 0.3s ease;">
-        <div class="card-body text-center p-4">
-          <div class="mb-3">
-            <div class="rounded-circle d-inline-flex align-items-center justify-content-center" [ngClass]="{
-                   'bg-primary bg-opacity-10': card.key === 'completed',
-                   'bg-success bg-opacity-10': card.key === 'accepted',
-                   'bg-danger bg-opacity-10': card.key === 'rejected',
-                   'bg-warning bg-opacity-10': card.key === 'pending'
-                 }" style="width: 50px; height: 50px;">
-              <i class="fas" [ngClass]="{
-                   'fa-list text-primary': card.key === 'completed',
-                   'fa-check-circle text-success': card.key === 'accepted',
-                   'fa-times-circle text-danger': card.key === 'rejected',
-                   'fa-clock text-warning': card.key === 'pending'
-                 }" style="font-size: 1.5rem;"></i>
-            </div>
-          </div>
-          <h3 class="fw-bold mb-1" [ngClass]="{
-                'text-primary': card.key === 'completed',
-                'text-success': card.key === 'accepted',
-                'text-danger': card.key === 'rejected',
-                'text-warning': card.key === 'pending'
-              }">{{ card.count }}</h3>
-          <p class="card-text text-muted mb-0 fw-medium">{{ card.label }}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-4 mb-4">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-header bg-white border-0 pb-0">
-          <h6 class="mb-0 fw-bold text-dark">
-            <i class="fas fa-chart-pie me-2 text-primary"></i>Proposal Distribution
-          </h6>
-        </div>
-        <div class="card-body text-center">
-          <canvas id="proposalPieChart" style="max-height: 300px;"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-lg-8 mb-4">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-          <h6 class="mb-0 fw-bold text-dark">
-            <i class="fas fa-file-alt me-2 text-primary"></i>
-            {{ selectedStatus === 'completed' ? 'Completed Proposals' :
-            selectedStatus === 'accepted' ? 'Accepted Proposals' :
-            selectedStatus === 'rejected' ? 'Rejected Proposals' : 'Pending Proposals' }}
-          </h6>
-          <span class="badge bg-primary">{{ filteredProposals.length }} items</span>
-        </div>
-        <div class="card-body p-0">
-          <div *ngIf="proposals && filteredProposals.length > 0; else noProposals" class="table-responsive"
-            style="max-height: 400px; overflow-y: auto;">
-            <div class="list-group list-group-flush">
-              <div class="list-group-item list-group-item-action border-0 py-3"
-                *ngFor="let proposal of filteredProposals; let i = index"
-                style="border-left: 4px solid transparent !important;" [style.border-left-color]="proposal.Status === 'Accepted' ? '#28a745' :
-                           proposal.Status === 'Rejected' ? '#dc3545' :
-                           proposal.Status === 'Completed' ? '#0d6efd' : '#ffc107'">
-                <div class="d-flex w-100 justify-content-between align-items-start">
-                  <div class="flex-grow-1">
-                    <div class="row d-flex align-items-center mb-2">
-                      <div class="col-8">
-                        <h6 class="mb-0 fw-bold text-dark me-3">{{ proposal.Title }}</h6>
-                      </div>
-                      <div class="col-4 text">
-                        <span class="badge" [ngClass]="{
-                              'bg-success': proposal.Status === 'Accepted',
-                              'bg-danger': proposal.Status === 'Rejected',
-                              'bg-primary': proposal.Status === 'Completed',
-                              'bg-warning': proposal.Status === 'Pending'
-                            }">
-                          {{ proposal.Status }}
-                        </span>
-                      </div>
-                    </div>
-                    <p class="mb-2 text-muted">{{ proposal.Description }}</p>
-                    <div class="d-flex align-items-center">
-                      <small class="text-muted me-3">
-                        <i class="fas fa-calendar-alt me-1"></i>
-                        {{ proposal.createdAt | date:'MMM dd, yyyy' }}
-                      </small>
-                      <small class="text-muted">
-                        <i class="fas fa-user me-1"></i>
-                        ID: {{ proposal.Id }}
-                      </small>
-                    </div>
-                  </div>
-                  <div class="text-end ms-3">
-                    <div class="fw-bold text-primary fs-5">{{ proposal.SuggestedPrice }} EGP</div>
-                    <small class="text-muted">Suggested Price</small>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <ng-template #noProposals>
-            <div class="text-center py-5">
-              <div class="mb-3">
-                <i class="fas fa-inbox text-muted" style="font-size: 3rem;"></i>
-              </div>
-              <h6 class="text-muted mb-2">No Proposals Found</h6>
-              <p class="text-muted mb-0">
-                There are no proposals matching your selected status.
-              </p>
-            </div>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-    <div class="col-lg-12 mb-4">
-      <div class="card shadow-sm border-0 h-100">
-        <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
-          <h5 class="mb-0 fw-bold text-dark">
-            <i class="fas fa-calendar-check me-2 text-primary"></i>Schedule Management
-          </h5>
-          <a routerLink="/EditSchedule">
-          <button class="btn btn-primary btn-sm">
-            <i class="fas fa-edit me-2"></i>Edit Schedule
-          </button>
-          </a>
-        </div>
-
-        <div class="card-body">
-          <div *ngIf="providerProfile && providerProfile.Schedules.length > 0; else noSchedule" class="schedule-grid">
-            <div class="row">
-              <div class="col-12 col-md-4 mb-3" *ngFor="let schedule of providerProfile.Schedules">
-                <div class="schedule-day p-3 rounded text-center bg-light shadow-sm border">
-                  <div class="day-name fw-bold mb-1">
-                    {{ getDayName(schedule.WorKDay) }}
-                  </div>
-
-                  <div class="schedule-time small">
-                    {{ schedule.AvailableFrom }} - {{ schedule.AvailableTo }}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <ng-template #noSchedule>
-            <p class="text-muted text-center">No schedule available.</p>
-          </ng-template>
-
-        </div>
-
-        <ng-template #noSchedule>
-          <div class="text-center py-4">
-            <div class="mb-3">
-              <i class="fas fa-calendar-times text-muted" style="font-size: 3rem;"></i>
-            </div>
-            <h6 class="text-muted mb-2">No Schedule Set</h6>
-            <p class="text-muted mb-3">Set your working hours to receive bookings</p>
-          </div>
-        </ng-template>
-      </div>
-    </div>
-  </div>
-</div> -->
 <div class="dashboard-container">
   <!-- Header Section -->
   <div class="header-section">
@@ -229,6 +20,10 @@
             <i class="fas fa-edit"></i>
             <span>Edit Profile</span>
           </button>
+          <button (click)="viewReviews(providerProfile.UserId)" class="btn-edit-profile">
+            <i class="fas fa-search"></i>
+            <span>View Reviews</span>
+          </button>
         </div>
       </div>
     </div>
@@ -243,10 +38,8 @@
       </h3>
     </div>
     <div class="stats-grid">
-      <div class="stat-card" 
-           *ngFor="let card of proposalCards"
-           [class.active]="selectedStatus === card.key"
-           (click)="onCardSelect(card.key)">
+      <div class="stat-card" *ngFor="let card of proposalCards" [class.active]="selectedStatus === card.key"
+        (click)="onCardSelect(card.key)">
         <div class="stat-icon" [ngClass]="card.key">
           <i class="fas" [ngClass]="{
                'fa-list': card.key === 'completed',
@@ -292,33 +85,33 @@
           </h4>
           <span class="item-count">{{ filteredProposals.length }} Items</span>
         </div>
-        
+
         <div class="proposals-content">
           <div *ngIf="proposals && filteredProposals.length > 0; else noProposals" class="proposals-list">
-            <div class="proposal-item" 
-                 *ngFor="let proposal of filteredProposals; let i = index"
-                 [class]="proposal.Status.toLowerCase()">
+            <div class="proposal-item" *ngFor="let proposal of filteredProposals; let i = index"
+              [class]="proposal.Status.toString().toLowerCase()">
+
               <div class="proposal-header">
-                <div class="proposal-title-section">
-                  <h5 class="proposal-title">{{ proposal.Title }}</h5>
-                  <span class="proposal-status" [ngClass]="proposal.Status.toLowerCase()">
+                <!-- <div class="proposal-title-section">
+                  <h5 class="proposal-title">Proposal #{{ proposal.Id }}</h5>
+                  <span class="proposal-status" [ngClass]="proposal.Status.toString().toLowerCase()">
                     {{ proposal.Status }}
                   </span>
-                </div>
+                </div> -->
                 <div class="proposal-price">
                   <span class="price-amount">{{ proposal.SuggestedPrice }} EGP</span>
                   <span class="price-label">Suggested Price</span>
                 </div>
               </div>
-              
+
               <div class="proposal-description">
                 <p>{{ proposal.Description }}</p>
               </div>
-              
+
               <div class="proposal-meta">
                 <div class="meta-item">
                   <i class="fas fa-calendar-alt"></i>
-                  <span>{{ proposal.createdAt | date:'MMM dd, yyyy' }}</span>
+                  <span>{{ proposal.Date | date:'MMM dd, yyyy' }}</span>
                 </div>
                 <div class="meta-item">
                   <i class="fas fa-hashtag"></i>
@@ -340,6 +133,7 @@
             </div>
           </ng-template>
         </div>
+
       </div>
     </div>
   </div>

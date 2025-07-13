@@ -56,9 +56,9 @@ export class ProposalListComponent implements OnInit {
   }
 
   if (this.sortOrder === 'newest') {
-    filtered.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    filtered.sort((a, b) => new Date(b.Date).getTime() - new Date(a.Date).getTime());
   } else if (this.sortOrder === 'oldest') {
-    filtered.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    filtered.sort((a, b) => new Date(a.Date).getTime() - new Date(b.Date).getTime());
   }
 
   this.Proposals = filtered;

@@ -11,7 +11,7 @@ import { Review } from '../Models/review.model';
 import { Observable } from 'rxjs';
 declare var bootstrap: any;
 
-type ModalAction = 'pending' | 'accept' | 'complete' | 'cancel' | 'review';
+type ModalAction = 'accept' | 'complete' | 'cancel' | 'review';
 
 @Component({
   selector: 'app-request-details-component',
@@ -54,42 +54,37 @@ export class RequestDetailsComponent implements OnInit {
     suggestedPrice: null,
     date: new Date()
   };
+  
   constructor(
     private route: ActivatedRoute,
     private requestService: RequestService,
     private proposalService: ProposalService,
     private cookieService: CookieService,
     private ServiceProviderService: ServiceProviderService
-
-
   ) {
     this.requestId = Number(this.route.snapshot.paramMap.get('id'));
   }
 
-ngOnInit(): void {
-  this.userRole = this.cookieService.get('Role');
-  this.currentUserId = this.requestService.getOwnAccount().subscribe({
-    
-    next: (res) => {
-      this.currentUserId = res.Data.Id;
-      console.log("Current User ID:", this.currentUserId);
-    },
-    error: (err) => {
-      console.error("Error fetching current user ID:", err);
-      this.currentUserId = '';
-    }
-  });
-  this.isServiceProvider = this.userRole === 'ServiceProvider';
+  ngOnInit(): void {
+    this.userRole = this.cookieService.get('Role');
+    this.currentUserId = this.requestService.getOwnAccount().subscribe({
+      next: (res) => {
+        this.currentUserId = res.Data.Id;
+        console.log("Current User ID:", this.currentUserId);
+      },
+      error: (err) => {
+        console.error("Error fetching current user ID:", err);
+        this.currentUserId = '';
+      }
+    });
+    this.isServiceProvider = this.userRole === 'ServiceProvider';
 
-  this.loadRequestDetails();   
-  this.loadProposals();
-  this.loadProviderProfiles();
-}
-
-
+    this.loadRequestDetails();   
+    this.loadProposals();
+    this.loadProviderProfiles();
+  }
 
   loadProviderProfiles(): void {
-
     const uniqueProviderIds = [...new Set(this.proposals.map(p => p.ServiceProviderId))];
 
     uniqueProviderIds.forEach(providerId => {
@@ -113,8 +108,6 @@ ngOnInit(): void {
     });
   }
 
-
-
   sortProposalsByDate(): void {
     this.proposals.sort((a, b) => {
       if (a.Status === ProposalStatus.Accepted && b.Status !== ProposalStatus.Accepted) return -1;
@@ -127,8 +120,6 @@ ngOnInit(): void {
     const hasAccepted = this.proposals.some(p => p.Status === ProposalStatus.Accepted);
     return hasAccepted && proposal.Status !== ProposalStatus.Accepted;
   }
-
-
 
   loadRequestDetails(): void {
     this.requestService.getRequestById(this.requestId).subscribe({
@@ -147,6 +138,7 @@ ngOnInit(): void {
             }
           });
         }
+        
         this.requestService.getClient(this.request.ClientId).subscribe({
           next: (res) => {
             this.clientName = res.Data.userName || res.Data.UserName || 'Unknown';
@@ -168,7 +160,6 @@ ngOnInit(): void {
         });
 
         this.isClient = this.userRole === 'Client' && this.request.ClientId == this.currentUserId;
-
         this.isLoading = false;
       },
       error: (err) => {
@@ -177,7 +168,6 @@ ngOnInit(): void {
       }
     });
   }
-
 
   loadProposals(): void {
     this.proposalService.getProposalsByRequest(this.requestId).subscribe({
@@ -206,12 +196,12 @@ ngOnInit(): void {
     });
   }
 
-
   onAddProposal(): void {
     this.showAddProposalForm = true;
   }
+
   cancelProposal(Id: number): void {
-    this.proposalService.cancelProposals(this.requestId).subscribe({
+    this.proposalService.cancelProposals(Id).subscribe({
       next: (res) => {
         if (res.Success) {
           this.loadProposals();
@@ -227,6 +217,7 @@ ngOnInit(): void {
       }
     });
   }
+
   Cancle(): void {
     this.showAddProposalForm = false;
     this.newProposal = {
@@ -264,22 +255,12 @@ ngOnInit(): void {
         }
       }
     });
-
   }
 
   showModal(message: string): void {
     const modalEl = document.getElementById('infoModal');
     if (modalEl) {
       modalEl.querySelector('.modal-body')!.textContent = message;
-      const modal = new bootstrap.Modal(modalEl);
-      modal.show();
-    }
-  }
-
-  openConfirmModal(proposalId: number): void {
-    this.selectedProposalId = proposalId;
-    const modalEl = document.getElementById('confirmModal');
-    if (modalEl) {
       const modal = new bootstrap.Modal(modalEl);
       modal.show();
     }
@@ -318,134 +299,96 @@ ngOnInit(): void {
   confirmModalAction(): void {
     console.log("Modal Action:", this.modalAction);
     console.log("Selected Proposal ID:", this.selectedProposalId);
-    if (!this.selectedProposalId || !this.modalAction) return;
+    
+    if (!this.selectedProposalId || !this.modalAction) {
+      console.error("Missing proposal ID or modal action");
+      return;
+    }
 
     switch (this.modalAction) {
       case 'accept':
-        this.proposalService.acceptProposal(this.selectedProposalId).subscribe(
-          {
-            next: (res) => {
-              if (res.Success) {
-                this.loadProposals();
-                this.showAddProposalForm = false;
-                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
-              } else {
-                this.showModal("Failed to accept the proposal.");
-              }
-            },
-            error: (err) => {
-              console.error('Error accepting proposal:', err);
-              this.showModal("Something went wrong while accepting the proposal. Please try again later.");
+        this.proposalService.acceptProposal(this.selectedProposalId).subscribe({
+          next: (res) => {
+            if (res.Success) {
+              this.loadProposals();
+              this.showModal("Proposal accepted successfully!");
+            } else {
+              this.showModal("Failed to accept the proposal.");
             }
+          },
+          error: (err) => {
+            console.error('Error accepting proposal:', err);
+            this.showModal("Something went wrong while accepting the proposal. Please try again later.");
           }
-        );
+        });
         break;
 
       case 'complete':
-        this.proposalService.completeProposal(this.selectedProposalId).subscribe(
-          {
-            next: (res) => {
-              if (res.Success) {
-                this.loadProposals();
-                this.showAddProposalForm = false;
-                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
-              } else {
-                this.showModal("Failed to mark the proposal as completed.");
-              }
-            },
-            error: (err) => {
-              console.error('Error completing proposal:', err);
-              this.showModal("Something went wrong while marking the proposal as completed. Please try again later.");
+        this.proposalService.completeProposal(this.selectedProposalId).subscribe({
+          next: (res) => {
+            if (res.Success) {
+              this.loadProposals();
+              this.showModal("Proposal marked as completed successfully!");
+            } else {
+              this.showModal("Failed to mark the proposal as completed.");
             }
+          },
+          error: (err) => {
+            console.error('Error completing proposal:', err);
+            this.showModal("Something went wrong while marking the proposal as completed. Please try again later.");
           }
-        );
+        });
         break;
 
       case 'cancel':
-        this.proposalService.cancelProposals(this.selectedProposalId).subscribe(
-          {
-            next: (res) => {
-              if (res.Success) {
-                this.loadProposals();
-                this.showAddProposalForm = false;
-                this.newProposal = { description: '', suggestedPrice: null, date: new Date() };
-              } else {
-                this.showModal("Failed to cancel the proposal.");
-              }
-            },
-            error: (err) => {
-              console.error('Error canceling proposal:', err);
-              this.showModal("Something went wrong while canceling the proposal. Please try again later.");
+        this.proposalService.cancelProposals(this.selectedProposalId).subscribe({
+          next: (res) => {
+            if (res.Success) {
+              this.loadProposals();
+              this.showModal("Proposal canceled successfully!");
+            } else {
+              this.showModal("Failed to cancel the proposal.");
             }
+          },
+          error: (err) => {
+            console.error('Error canceling proposal:', err);
+            this.showModal("Something went wrong while canceling the proposal. Please try again later.");
           }
-        );
+        });
         break;
     }
 
+    // Close the confirmation modal
     const modalEl = document.getElementById('confirmModal');
-    if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
+    if (modalEl) {
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+    
+    // Reset modal state
+    this.selectedProposalId = null;
+    this.modalAction = null;
   }
-
 
   rejectProposal(proposalId: number): void {
     this.proposalService.rejectProposal(proposalId).subscribe({
       next: (res) => {
         if (res.Success) {
           this.loadProposals();
+          this.showModal("Proposal rejected successfully!");
         } else {
-          alert('Failed to reject the proposal: ' + res.Message);
+          this.showModal('Failed to reject the proposal: ' + res.Message);
         }
       },
       error: (err) => {
         console.error('Error rejecting proposal:', err);
-        alert('Something went wrong while rejecting the proposal. Please try again later.');
+        this.showModal('Something went wrong while rejecting the proposal. Please try again later.');
       }
     });
   }
-  submitReview(): void {
-    console.log("Submitting review for proposal ID:", this.selectedProposalId);
 
-    if (!this.selectedProposalId) return;
-    console.log('RequestId:', this.requestId);
-    console.log('ServiceProviderId:', this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '');
-    console.log('ClientId:', this.proposals.find(p => p.Id === this.selectedProposalId)?.ClientId || '');
-    console.log('Rating:', this.reviewModel.Rating);
-    console.log('Review:', this.reviewModel.Review);
-
-    const reviewPayload = {
-      RequestId: this.requestId,
-      ServiceProviderId: this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '',
-      ClientId: this.currentUserId,
-      Rating: this.reviewModel.Rating,
-      Review: this.reviewModel.Review,
-      ReviewDate: new Date()
-    };
-    const formData = new FormData();
-formData.append('RequestId', this.requestId.toString());
-formData.append('ServiceProviderId', this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '');
-formData.append('ClientId', this.currentUserId);
-formData.append('Rating', this.reviewModel.Rating.toString());
-formData.append('Review', this.reviewModel.Review);
-formData.append('ReviewDate', new Date().toISOString()); // date format متوافق مع backend
-
-    this.requestService.createReview(formData).subscribe({
-      next: (res) => {
-        if (res.Success) {
-          this.showModal('Review submitted successfully!');
-          this.loadProposals();
-        } else {
-          this.showModal('Failed to submit review.');
-        }
-      },
-      error: (err) => {
-        console.error('Review Error:', err.error.errors);
-        this.showModal('An error occurred while submitting review.');
-      }
-    });
-
-    const modalEl = document.getElementById('reviewModal');
-    if (modalEl) bootstrap.Modal.getInstance(modalEl)?.hide();
-  }
   openReviewModal(proposalId: number): void {
     this.selectedProposalId = proposalId;
     const proposal = this.proposals.find(p => p.Id === proposalId);
@@ -462,4 +405,40 @@ formData.append('ReviewDate', new Date().toISOString()); // date format متوا
     }
   }
 
+  submitReview(): void {
+    console.log("Submitting review for proposal ID:", this.selectedProposalId);
+
+    if (!this.selectedProposalId) return;
+    
+    const formData = new FormData();
+    formData.append('RequestId', this.requestId.toString());
+    formData.append('ServiceProviderId', this.proposals.find(p => p.Id === this.selectedProposalId)?.ServiceProviderId || '');
+    formData.append('ClientId', this.currentUserId);
+    formData.append('Rating', this.reviewModel.Rating.toString());
+    formData.append('Review', this.reviewModel.Review);
+    formData.append('ReviewDate', new Date().toISOString());
+
+    this.requestService.createReview(formData).subscribe({
+      next: (res) => {
+        if (res.Success) {
+          this.showModal('Review submitted successfully!');
+          this.loadProposals();
+        } else {
+          this.showModal('Failed to submit review.');
+        }
+      },
+      error: (err) => {
+        console.error('Review Error:', err.error?.errors || err);
+        this.showModal('An error occurred while submitting review.');
+      }
+    });
+
+    const modalEl = document.getElementById('reviewModal');
+    if (modalEl) {
+      const modalInstance = bootstrap.Modal.getInstance(modalEl);
+      if (modalInstance) {
+        modalInstance.hide();
+      }
+    }
+  }
 }
