@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h3 class="text-purple mb-4">
+    <i class="bi bi-bell-fill"></i> Notifications
+  </h3>
+
+  <ul class="list-unstyled">
+    <li *ngFor="let notif of notifications" 
+    class="notification-card mb-3 p-3 shadow-sm rounded d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <i class="bi bi-exclamation-circle-fill text-warning me-3 fs-4"></i>
+        <span class="fw-semibold text-dark">{{ notif?.message}}</span>
+      </div>
+      <button class="btn btn-sm btn-outline-success" (click)="markAsRead(notif.id)">
+        Mark as Read
+      </button>
+    </li>
+  </ul>
+</div>

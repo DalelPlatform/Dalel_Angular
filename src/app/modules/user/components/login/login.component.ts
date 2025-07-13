@@ -21,6 +21,8 @@ export class LoginComponent {
     private router: Router,
     private ServiceProviderProfileService: CompleteProfileServiceProviderService,
   ) { }
+
+  
   Send() {
     this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
       next: (res) => {
@@ -48,6 +50,20 @@ export class LoginComponent {
               this.router.navigate(['/unauthorized']);
             }
           });
+     
+         if (res.Role === 'ServiceProvider') {
+          // this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
+          //   next: (isComplete) => {
+          //     if (!isComplete) {
+          //       this.router.navigate(['/complete-ServiceProvider-profile']);
+          //     } else {
+          //       this.router.navigate(['/account']);
+          //     }
+          //   },
+          //   error: () => {
+          //     this.router.navigate(['/unauthorized']);
+          //   }
+          // });
         } else {
           this.router.navigate(['/account']);
         }

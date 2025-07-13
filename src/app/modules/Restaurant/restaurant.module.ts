@@ -16,6 +16,8 @@ import { MealCardComponent } from './Client/meal-card/meal-card.component';
 import { MenuItemsComponent } from './Client/menuItems/menuItems.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MealDetailsComponent } from './Client/meal-details/meal-details.component';
+import { CartComponent } from './Client/cart/cart.component';
+import { CartCheckoutComponent } from './Client/cart-checkout/cart-checkout.component';
 
 let routes: Routes = [
 
@@ -40,7 +42,8 @@ let routes: Routes = [
       {path : "restaurant-meal-search", component:RestaurantMealSearchComponent}  ,
       {path : "restaurant-details/:id", component:RestaurantDetailsComponent},
       {path : "menuitems" , component: MenuItemsComponent },
-      {path : "meal-details/:mealId", component: MealDetailsComponent},
+      {path : "meal-details/:id", component: MealDetailsComponent},
+      {path : "cart-checkout", component: CartComponent}
     ]
   }
 
@@ -57,7 +60,9 @@ let routes: Routes = [
     NavbarComponent,
     MealCardComponent,
     MenuItemsComponent,
-    MealDetailsComponent
+    MealDetailsComponent,
+    CartCheckoutComponent
+
 
   ],
   imports: [

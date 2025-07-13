@@ -1,0 +1,64 @@
+.payment-wrapper {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 30px;
+
+  /* color: white; */
+  border-radius: 10px;
+  box-shadow: 0 0 10px #aaa;
+}
+
+.payment-wrapper h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  /* color: #fff; */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-control {
+ 
+   appearance: none;
+  user-select: none;
+  transition: all 120ms;
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.5;
+  color: inherit;
+  border: 1px solid #CAD5E2;
+  background-color: #F8FAFC;
+  border-radius: 0.5em;
+  padding: 0.75em 1em;
+  vertical-align: middle;
+  
+  /* box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.1); */
+  margin: 0 auto 0.25em;
+  outline: solid 1px #5143d9;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #4f46e5;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.submit-btn:hover {
+  background-color: #4f46e5;
+}

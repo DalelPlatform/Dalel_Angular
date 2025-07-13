@@ -91,49 +91,60 @@ export class AgencycompleteProfileComponent {
     }
   }
 
-  submit() {
-    const token = this.cookieService.get('Token');
-    const rawForm = this.agencyForm.value;
+submit() {
+  const token = this.cookieService.get('Token');
   const formData = new FormData();
-  formData.append('BusinessName', rawForm.BusinessName);
-  formData.append('Description', rawForm.Description);
-  formData.append('ContactInfo', rawForm.ContactInfo);
-  formData.append('BusinessCategory', rawForm.BusinessCategory);
-  formData.append('Address', rawForm.Address);
-  formData.append('City', rawForm.City);
-  formData.append('BuildingNo', rawForm.BuildingNo);
-  formData.append('Street', rawForm.Street);
-  formData.append('Latitude', rawForm.Latitude);
-  formData.append('Longitude', rawForm.Longitude);
-  formData.append('VerificationStatus', rawForm.VerificationStatus);
-  formData.append('ownerId', rawForm.ownerId);
-  const doc = rawForm.VerificationDocument[0];
-  formData.append('VerificationDocument[0].DocumentType', doc.DocumentType);
-  formData.append('VerificationDocument[0].DocumentFile', doc.DocumentFile);
-  formData.append('VerificationDocument[0].status', doc.status);
-  formData.append('VerificationDocument[0].DocumentFileName', doc.name);
-  console.log(doc)
-  formData.append('VerificationDocument[0].AgencyId', doc.AgencyId);
-  this.agencyService.registerAgency(formData,token).subscribe({
-        next: (res) => {
-          this.toastr.success(res.Message)
 
-        },
-        error: (err) => {
-          console.log(err)
-          if (err.status === 400 && err.error?.errors) {
-    this.toastr.error("Please fill all data")
-      }
-       else if (err.status === 401) {
-            this.toastr.error('Unauthorized access')
+  // Append basic fields from the form
+  formData.append('BusinessName', this.agencyForm.get('BusinessName')?.value);
+  formData.append('Description', this.agencyForm.get('Description')?.value);
+  formData.append('ContactInfo', this.agencyForm.get('ContactInfo')?.value);
+  formData.append('BusinessCategory', this.agencyForm.get('BusinessCategory')?.value);
+  formData.append('Address', this.agencyForm.get('Address')?.value);
+  formData.append('City', this.agencyForm.get('City')?.value);
+  formData.append('BuildingNo', this.agencyForm.get('BuildingNo')?.value);
+  formData.append('Street', this.agencyForm.get('Street')?.value);
+  formData.append('Latitude', this.agencyForm.get('Latitude')?.value);
+  formData.append('Longitude', this.agencyForm.get('Longitude')?.value);
+  formData.append('VerificationStatus', this.agencyForm.get('VerificationStatus')?.value);
+  formData.append('ownerId', this.agencyForm.get('ownerId')?.value);
 
+  // Loop through all documents in FormArray
+  this.VerificationDocument.controls.forEach((docGroup, index) => {
+    const docValue = docGroup.value;
+    const file: File = docGroup.get('DocumentFile')?.value;
+
+    if (file) {
+      formData.append(`VerificationDocument[${index}].DocumentFile`, file, file.name);
+      formData.append(`VerificationDocument[${index}].DocumentFileName`, file.name);
+    }
+
+    formData.append(`VerificationDocument[${index}].DocumentType`, docValue.DocumentType);
+    formData.append(`VerificationDocument[${index}].status`, docValue.status);
+    formData.append(`VerificationDocument[${index}].keepPrevious`, docValue.keepPrevious ?? false);
+    formData.append(`VerificationDocument[${index}].AgencyId`, docValue.AgencyId);
+  });
+
+  // Submit to backend
+  this.agencyService.registerAgency(formData, token).subscribe({
+    next: (res) => {
+      this.toastr.success(res.Message);
+      // this.router.navigate(['/success']); // Uncomment if needed
+    },
+    error: (err) => {
+      console.log(err);
+      if (err.status === 400 && err.error?.errors) {
+        this.toastr.error("Please fill all required fields.");
+      } else if (err.status === 401) {
+        this.toastr.error('Unauthorized access');
         this.router.navigate(['/login']);
       } else {
         this.toastr.error('Failed to register agency. Please try again.');
       }
+    }
+  });
+}
 
-      }
-    });
-  }
+
 
 }

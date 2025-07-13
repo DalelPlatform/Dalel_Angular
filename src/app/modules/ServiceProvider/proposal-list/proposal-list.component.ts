@@ -21,12 +21,13 @@ export class ProposalListComponent implements OnInit {
   ngOnInit(): void {
     this.loadProposals();
   }
+
   loadProposals() {
     this.proposalService.getProposalsByProvider().subscribe({
       next: (data: any) => {
         this.AllProposals = data.Data.Data;
         this.applyFilters();
-        
+
         console.log('Proposals loaded successfully:', this.AllProposals);
       },
       error: (error) => {
@@ -35,6 +36,8 @@ export class ProposalListComponent implements OnInit {
     });
 
   }
+
+
   applyFilters() {
   let filtered = [...this.AllProposals];
 
@@ -64,7 +67,9 @@ export class ProposalListComponent implements OnInit {
   onAction(action: string, id: number) {
     this.proposalAction.emit({ action, id });
   }
-  getStatusLabel(status: ProposalStatus): string {
+
+
+   getStatusLabel(status: ProposalStatus): string {
     switch (status) {
       case ProposalStatus.Pending:
         return 'Pending';
@@ -81,3 +86,6 @@ export class ProposalListComponent implements OnInit {
     }
   }
 }
+
+
+

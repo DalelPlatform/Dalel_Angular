@@ -1,0 +1,16 @@
+.star {
+  font-size: 18px;
+  color: lightgray;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.comment {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #555;
+}

@@ -1,0 +1,25 @@
+.heading{
+    color: #5143d9;
+}
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform;
+  border-radius: 1rem;
+}
+
+.card:hover {
+  transform: scale(1.03) translateY(-5px);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.veiw{
+color: white;
+    background-color: #5143d9;
+    font-weight: 600; 
+    width: fit-content;
+}
+.delete{
+  color: white;
+    font-weight: 600; 
+    width: fit-content;
+}

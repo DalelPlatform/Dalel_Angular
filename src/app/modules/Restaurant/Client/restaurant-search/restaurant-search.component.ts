@@ -20,7 +20,8 @@ searchRestaurants(restaurantName: string ,city:string , region : string ,address
       next: (res) => {
         this.list = res.Data.Data;
         console.log(res.Data);
-        console.log(res.Data.Data[0].Description);
+        // console.log(res.Data.Data[0].Description);
+        console.log(res);
       },
       error: (err) => {
         console.log(err);

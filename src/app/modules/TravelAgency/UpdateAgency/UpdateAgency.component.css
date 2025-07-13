@@ -1,0 +1,14 @@
+.text-purple {
+  color: #6f42c1; /* Bootstrap purple */
+}
+.border-purple {
+  border: 1px solid #6f42c1 !important;
+}
+.btn-purple {
+  background-color: #6f42c1;
+  color: white;
+  font-size: 1rem;
+}
+.btn-purple:hover {
+  background-color: #5a32a3;
+}

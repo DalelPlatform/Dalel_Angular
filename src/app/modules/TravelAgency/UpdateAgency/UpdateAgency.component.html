@@ -1,0 +1,117 @@
+
+
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4 p-4">
+    <h2 class="text-start text-purple mb-4">Update Agency</h2>
+
+    <form [formGroup]="agencyForm" (ngSubmit)="submit()">
+      <!-- Business Name -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold text-purple">Business Name</label>
+        <input formControlName="BusinessName" class="form-control rounded border-purple" placeholder="Enter business name" />
+        <span class="text-danger small" *ngIf="agencyForm.get('BusinessName')?.touched && agencyForm.get('BusinessName')?.invalid">
+          Business Name is required
+        </span>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold text-purple">Contact Info</label>
+        <input formControlName="ContactInfo" class="form-control rounded border-purple" placeholder="Enter contact info" />
+        <span class="text-danger small" *ngIf="agencyForm.get('ContactInfo')?.touched && agencyForm.get('ContactInfo')?.invalid">
+          Contact Info is required
+        </span>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold text-purple">Description</label>
+        <textarea formControlName="Description" class="form-control border-purple rounded-3" rows="4" placeholder="Enter agency description"></textarea>
+        <span class="text-danger small" *ngIf="agencyForm.get('Description')?.touched && agencyForm.get('Description')?.invalid">
+          Description is required
+        </span>
+      </div>
+
+      <!-- Location Fields -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-purple">Business Category</label>
+          <input formControlName="BusinessCategory" class="form-control rounded border-purple" placeholder="Category" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-purple">Address</label>
+          <input formControlName="Address" class="form-control rounded border-purple" placeholder="Address" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-purple">City</label>
+          <input formControlName="City" class="form-control rounded border-purple" placeholder="City" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-purple">Street</label>
+          <input formControlName="Street" class="form-control rounded border-purple" placeholder="Street" />
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label text-purple">Building No</label>
+          <input formControlName="BuildingNo" type="number" class="form-control rounded border-purple" placeholder="Building No" />
+        </div>
+        <div class="col-md-3 mb-3">
+          <label class="form-label text-purple">Latitude</label>
+          <input formControlName="Latitude" type="number" class="form-control rounded border-purple" placeholder="Latitude" />
+        </div>
+        <div class="col-md-3 mb-3">
+          <label class="form-label text-purple">Longitude</label>
+          <input formControlName="Longitude" type="number" class="form-control rounded border-purple" placeholder="Longitude" />
+        </div>
+      </div>
+
+      <div formArrayName="VerificationDocument" class="mb-3">
+      
+        <label class="form-label fw-semibold text-purple">Verification Documents</label>
+     
+        <div *ngFor="let doc of VerificationDocument.controls; let i = index" [formGroupName]="i" class="mb-3 border p-3 rounded">
+         
+     <div class="form-check my-2">
+  <input class="form-check-input" type="checkbox" id="keepPrevious" formControlName="keepPrevious">
+  <label class="form-check-label" for="keepPrevious">
+    Keep previous documents
+  </label>
+</div>
+       <div class="mb-2">
+  <label class="form-label text-purple">Upload New Document (optional)</label>
+ 
+    <div class="input-group">
+      <label class="input-group-text btn btn-outline-secondary" [attr.for]="'fileInput'+i">Browse</label>
+      <input
+        type="file"
+        class="form-control d-none"
+        [id]="'fileInput'+i"
+        (change)="onFileChange($event, i)"
+      />
+      <input
+        type="text"
+        class="form-control"
+        [value]="VerificationDocument.at(i).get('DocumentFile')?.value?.name 
+        || VerificationDocument.at(i).get('DocumentFileName')?.value"
+        readonly
+      />
+    </div>
+  </div>
+
+
+          <div class="mb-2">
+            <label class="form-label text-purple">Document Type</label>
+            <input type="text" class="form-control" formControlName="DocumentType" readonly />
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Submit Button -->
+      <div class="text-start mt-4">
+        <button type="submit" class="btn btn-lg btn-purple rounded px-3">
+          Update Agency
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+
+<h5>Reviews:</h5>
+  @if(reviews.length > 0){
+  <div *ngFor="let review of reviews" class="mb-2">
+
+ 
+
+    <p class="comment"><i class="fas fa-quote-left pe-1"></i>{{review.Comment}}</p>
+   <span *ngFor="let star of [1, 2, 3, 4, 5]" 
+          [class.filled]="star <= review.Rating" 
+          class="star">&#9733;</span>
+  </div>
+}
+
+  @else {
+   <p class="text-muted">There are no reviews yet.</p>
+  }
