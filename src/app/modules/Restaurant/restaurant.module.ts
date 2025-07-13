@@ -18,6 +18,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MealDetailsComponent } from './Client/meal-details/meal-details.component';
 import { CartComponent } from './Client/cart/cart.component';
 import { CartCheckoutComponent } from './Client/cart-checkout/cart-checkout.component';
+import { clientGuard } from '../../Services/Guards/Client/client.guard';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
+import { SharedModule } from '../../shared/shared.module';
 
 let routes: Routes = [
 
@@ -27,7 +30,7 @@ let routes: Routes = [
     canActivate:[restaurantOwnerGuard],
     children: [
       {path: "add-restaurant", component: AddRestaurantFormComponent },
-      {path : "get-all-restaurants" , component:GetAllRestaurantComponent},
+
       {path : "add-meal", component:AddMealComponent},
 
 
@@ -37,13 +40,15 @@ let routes: Routes = [
   {
     path: "client",
     component: RestaurantLayoutComponent,
+    canActivate:[clientGuard],
     children: [
       {path : "search", component:RestaurantSearchComponent},
+      {path : "get-all-restaurants" , component:GetAllRestaurantComponent},
       {path : "restaurant-meal-search", component:RestaurantMealSearchComponent}  ,
       {path : "restaurant-details/:id", component:RestaurantDetailsComponent},
       {path : "menuitems" , component: MenuItemsComponent },
       {path : "meal-details/:id", component: MealDetailsComponent},
-      {path : "cart-checkout", component: CartComponent}
+      {path : "cart-checkout", component: CartCheckoutComponent}
     ]
   }
 
@@ -61,7 +66,8 @@ let routes: Routes = [
     MealCardComponent,
     MenuItemsComponent,
     MealDetailsComponent,
-    CartCheckoutComponent
+    CartCheckoutComponent,
+    RestaurantLayoutComponent
 
 
   ],
@@ -69,7 +75,8 @@ let routes: Routes = [
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(routes),
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule,
   ]
 })
 export class RestaurantModuleModule { }
