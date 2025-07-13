@@ -76,14 +76,6 @@
                 Proposals List
               </h5>
             </div>
-            <div class="col-md-6 text-end">
-              <button class="btn btn-light btn-sm me-2">
-                <i class="fas fa-download me-1"></i>Export
-              </button>
-              <button class="btn btn-light btn-sm">
-                <i class="fas fa-sync-alt me-1"></i>Refresh
-              </button>
-            </div>
           </div>
         </div>
 
@@ -107,9 +99,6 @@
                   </th>
                   <th class="table-header-cell">
                     <i class="fas fa-calendar me-2"></i>Date
-                  </th>
-                  <th class="table-header-cell text-center">
-                    <i class="fas fa-cog me-2"></i>Actions
                   </th>
                 </tr>
               </thead>
@@ -150,30 +139,8 @@
                   </td>
                   <td class="table-cell">
                     <div class="date-container">
-                      <span class="date-text">{{ proposal.createdAt | date:'MMM dd, yyyy' }}</span>
-                      <small class="date-time text-muted d-block">{{ proposal.createdAt | date:'hh:mm a' }}</small>
-                    </div>
-                  </td>
-                  <td class="table-cell">
-                    <div class="action-buttons">
-                      <div class="btn-group" role="group">
-                        <button class="btn btn-action btn-view"
-                                (click)="onAction('view', proposal.Id)"
-                                [attr.aria-label]="'View proposal ' + proposal.Id">
-                          <i class="fas fa-eye"></i>
-                        </button>
-                        <button class="btn btn-action btn-edit"
-                                *ngIf="proposal.Status === proposalStatus.Pending"
-                                (click)="onAction('edit', proposal.Id)"
-                                [attr.aria-label]="'Edit proposal ' + proposal.Id">
-                          <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="btn btn-action btn-delete"
-                                (click)="onAction('delete', proposal.Id)"
-                                [attr.aria-label]="'Delete proposal ' + proposal.Id">
-                          <i class="fas fa-trash"></i>
-                        </button>
-                      </div>
+                      <span class="date-text">{{ proposal.Date | date:'MMM dd, yyyy' }}</span>
+                      <small class="date-time text-muted d-block">{{ proposal.Date| date:'hh:mm a' }}</small>
                     </div>
                   </td>
                 </tr>

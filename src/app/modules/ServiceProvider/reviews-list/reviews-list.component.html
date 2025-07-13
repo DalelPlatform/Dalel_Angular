@@ -1,0 +1,113 @@
+<div class="reviews-container">
+  <!-- Header -->
+  <div class="reviews-header">
+    <div class="header-left">
+      <h2 class="reviews-title">
+        <i class="icon-star"></i>
+        Customer Reviews
+      </h2>
+      <div class="reviews-summary" *ngIf="totalCount > 0">
+        <div class="average-rating">
+          <span class="total-count">Based on {{totalCount}} reviews</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="refresh-btn" (click)="refresh()" [disabled]="loading">
+        <i class="icon-refresh"></i>
+        Refresh
+      </button>
+      <button class="refresh-btn" (click)="Back()" [disabled]="loading">
+        <i class="icon-refresh"></i>
+        Back
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Loading reviews...</p>
+  </div>
+
+  <!-- Error State -->
+  <div class="error-container" *ngIf="error && !loading">
+    <div class="error-message">
+      <i class="icon-alert"></i>
+      <p>{{error}}</p>
+      <button class="retry-btn" (click)="refresh()">Try Again</button>
+    </div>
+  </div>
+
+  <!-- Reviews List -->
+  <div class="reviews-content" *ngIf="!loading && !error && reviews.length > 0">
+    <!-- Page Size Selector -->
+    <div class="controls-bar">
+      <div class="pagination-info">
+        <span>
+          Showing {{startIndex}} to {{endIndex}} of {{totalCount}} reviews
+        </span>
+      </div>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="reviews-list">
+      <div class="review-card" *ngFor="let review of reviews; trackBy: trackByReviewId">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <!-- <div class="reviewer-avatar">
+              <i class="icon-user"></i>
+            </div> -->
+            <div class="reviewer-details">
+              <!-- <h4 class="reviewer-name">Client #{{review.ClientId}}</h4> -->
+              <div class="review-meta">
+                <span class="review-date">{{formatDate(review.ReviewDate)}}</span>
+                <span class="review-time-ago">• {{getTimeAgo(review.ReviewDate)}}</span>
+                <span class="request-id">• Request #{{review.RequestId}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-rating">
+            <div class="stars">
+              <span *ngFor="let star of getStarArray(review.Rating); let i = index"
+                [class]="getStarClass(i, review.Rating)">
+                ★
+              </span>
+            </div>
+            <span class="rating-text">{{review.Rating}}/5</span>
+          </div>
+        </div>
+
+        <div class="review-content">
+          <p class="review-comment">{{review.Review}}</p>
+        </div>
+
+        <div class="review-footer">
+          <div class="review-id">
+            <small>Review ID: {{review.Id}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container" *ngIf="totalPages > 1">
+      <div class="pagination-wrapper">
+        <div class="pagination-controls-container">
+          <pagination-controls [id]="'review-pagination'" (pageChange)="onPageChange($event)" [maxSize]="5"
+            [autoHide]="true" [directionLinks]="true" previousLabel="Previous" nextLabel="Next"
+            class="pagination-controls">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!loading && !error && reviews.length === 0">
+    <div class="empty-icon">📝</div>
+    <h3>No Reviews Yet</h3>
+    <p>This service provider hasn't received any reviews yet.</p>
+  </div>
+</div>

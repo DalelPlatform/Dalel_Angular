@@ -21,6 +21,8 @@ import { LoaderComponent } from "../../component/loader/loader.component";
 import { RatingsPipe } from "../../shared/pipes/Ratings.pipe";
 import { BookingsComponent } from './components/PropertyOwner/Dashboard-Components/bookings/bookings.component';
 import { PipesModule } from '../../shared/pipes/pipes.module';
+import {ReviewComponent} from './components/PropertyOwner/Dashboard-Components/review/review.component';
+import {AddListingComponent} from './components/PropertyOwner/Dashboard-Components/add-listing/add-listing.component';
 
 let routes:Routes = [
   {path:'owner',component:PropertyOwnerLayoutComponent,
@@ -30,8 +32,12 @@ let routes:Routes = [
     {path:'add-property',component:AddPropertyComponent},
     {path:'listings',component:ListingsComponent},
     {path:'bookings',component:BookingsComponent},
-  ]},
-  
+    {path:'review',component: ReviewComponent},
+    // {path:'add-listing',component:AddListingComponent},
+  ],
+} , {path:'add-listing',component:AddListingComponent}
+  ,
+
   {path:'client',
     canActivate:[clientGuard],
     children:[
@@ -54,7 +60,9 @@ let routes:Routes = [
     PropertyDetailsComponent,
     TestSearchComponent,
     ListingsComponent,
-    BookingsComponent
+    BookingsComponent,
+    ReviewComponent,
+    AddListingComponent,
   ],
   imports: [
     CommonModule,

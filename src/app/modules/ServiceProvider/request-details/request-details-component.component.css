@@ -196,6 +196,19 @@
   margin: 2rem 0;
 }
 
+.btn-Back {
+  background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #bf14fd;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
 .btn-add-proposal {
   background-color: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fd7e14;
@@ -207,6 +220,10 @@
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   transition: all 0.3s ease;
   cursor: pointer;
+}
+.btn-Back:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
 }
 
 .btn-add-proposal:hover {

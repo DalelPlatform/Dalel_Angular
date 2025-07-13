@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { IBookingProperty } from '../../../../../../core/models/Property/IBookingProperty';
+import { IBookingProperty } from '../../../../Models/IBookingProperty';
 import { PipesModule } from "../../../../../../shared/pipes/pipes.module";
-import { BookingStatus } from '../../../../../../core/models/Property/Enums/BookingStatus.enum';
+import { BookingStatus } from '../../../../Models/enums/BookingStatus.enum';
 import { PropertyOwnerService } from '../../../../../../Services/Property/property-owner.service';
 
 
@@ -34,10 +34,10 @@ export class BookingsComponent implements OnInit {
 
   setTab(tab: 'upcoming' | 'canceled' | 'completed') {
     this.activeTab = tab;
-    
-      
 
-    
+
+
+
   }
 
 
@@ -49,7 +49,7 @@ export class BookingsComponent implements OnInit {
       console.log(this.bookings);
     });
 
-    
+
   }
 
 }

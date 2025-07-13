@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { serviceProviderGuard } from '../../../Services/Guards/ServiceProvider/service-provider.guard';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component'
 import { AddServiceRequestComponent } from '../../user/components/add-service-request/add-service-request.component';
 import { ServiceProviderLayoutComponent } from '../service-provider-layout/service-provider-layout.component';
@@ -21,6 +22,7 @@ import { ServiceProviderProposalsComponent } from '../service-provider-proposals
 import { ServiceProviderSharedModule } from './service-provider-shared.module';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
 import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
+import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
 
 let routes: Routes = [
   {
@@ -49,6 +51,10 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
 
       },
+      {
+        path:"ProviderReview", component: ReviewsListComponent,
+        canActivate: [serviceProviderGuard]
+      }
     ]
   },
   { path: 'request/:id', component: RequestDetailsComponent },
@@ -57,7 +63,9 @@ let routes: Routes = [
     path: "EditProfile", component: EditProfileComponent,
     canActivate: [serviceProviderGuard]
   },
-
+  {
+    path: "ReviewList", component: ReviewsListComponent
+  },
   {
     path: "CompleteProfileServiceProvider", component: CompleteProfileServiceProviderComponent,
     canActivate: [serviceProviderGuard]
@@ -80,6 +88,7 @@ let routes: Routes = [
     EditScheduleComponent,
     AllRequestsComponent,
     RequestDetailsComponent,
+    ReviewsListComponent,
     ServiceProviderAllRequestsComponent,
     CompleteProfileServiceProviderComponent,
     ServiceProviderProfileComponent,
@@ -94,6 +103,7 @@ let routes: Routes = [
     ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
     TruncatePipe,
+    NgxPaginationModule,
     RouterModule.forChild(routes),
 ],
   providers: []
