@@ -215,7 +215,7 @@
 //     });
 //   }
 // }
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { ChangeDetectorRef } from '@angular/core';
 import { Proposal, ProposalStatus } from '../Models/proposal.model';
@@ -225,6 +225,7 @@ import { ServiceProvider } from '../Models/serviceprovider.model';
 import { scheduleItem } from '../Models/schedule.model';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 declare var bootstrap: any;
 
@@ -252,7 +253,8 @@ export class ServiceProviderComponent implements OnInit {
     private providerService: ServiceProviderService,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -277,6 +279,10 @@ export class ServiceProviderComponent implements OnInit {
       error: err => console.error('Profile load failed', err)
     });
   }
+  viewReviews(providerId: string): void {
+    this.router.navigate(['/ReviewList'], { queryParams: { providerId } });
+  }
+
 
   loadProposals(): void {
     console.log('Fetching proposals...');

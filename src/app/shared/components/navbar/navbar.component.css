@@ -13,6 +13,10 @@
   align-items: center;
   gap: 0.5rem;
 } */
+.navbar-brand {
+  display: inline-block;
+  
+}
 
 .logo-icon {
   width: 32px;
@@ -425,7 +429,7 @@
 color: #5143d9;
     background-color:rgb(81 67 217 / 10%) ;
     font-weight: 600;
-    
+
 }
 .toggleNotifications:focus{
 outline: none;
@@ -437,7 +441,7 @@ outline: none;
   right: 20px;
   width: 450px;
   background-color: #fff;
- 
+
   border-radius: 10px;
   max-height: 400px;
   overflow-y: auto;
