@@ -41,7 +41,7 @@ export class LoginComponent {
               if (!isComplete) {
                 this.router.navigate(['/CompleteProfileServiceProvider']);
               } else {
-                this.router.navigate(['/service-provider']);
+                this.router.navigate(['/ServiceProviderlayout/AllRequests']);
               }
             },
             error: () => {
