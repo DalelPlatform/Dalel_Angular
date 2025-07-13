@@ -1,0 +1,381 @@
+<div class="page">
+  <div class="container my-box">
+    <div class="form-container">
+      <h2 class="form-title">Add Property</h2>
+
+      <form [formGroup]="addPropertyForm" (ngSubmit)="addPropertyFun()">
+        <!-- Description -->
+        <div class="mb-4">
+          <label for="Description" class="form-label">Property Description</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-home"></i>
+            <textarea class="form-control" id="Description" formControlName="Description" rows="4"
+              placeholder="Describe your property"></textarea>
+          </div>
+
+          @if(formControls['Description'].invalid && formControls['Description'].touched ){
+          <div id="DescriptionHelp" class="form-text text-danger">
+            @if(formControls['Description'].hasError('required')) {
+            <span>Description is required</span>
+            }
+            @else if(formControls['Description'].hasError('minlength')) {
+            <span>Description must be between 10 and 500 characters</span>
+            }
+            @else if(formControls['Description'].hasError('maxlength')) {
+            <span>Description must be between 10 and 500 characters</span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Amenities -->
+        <div class="mb-4">
+          <label for="Amenities" class="form-label">Amenities</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-swimming-pool"></i>
+            <input type="text" class="form-control" id="Amenities" formControlName="Amenities"
+              placeholder="Pool, Gym, WiFi, etc.">
+          </div>
+
+          @if(formControls['Amenities'].invalid && formControls['Amenities'].touched ){
+          <div id="AmenitiesHelp" class="form-text text-danger">
+            @if(formControls['Amenities'].hasError('required')) {
+            <span>Amenities are required</span>
+            }
+            @else if(formControls['Amenities'].hasError('minlength')) {
+            <span>Amenities must be between 5 and 300 characters</span>
+            }
+            @else if(formControls['Amenities'].hasError('maxlength')) {
+            <span>Amenities must be between 5 and 300 characters</span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Price and Number of Rooms -->
+        <div class="row mb-4">
+          <!-- Price Per Night -->
+          <div class="col-md-6">
+            <label for="PricePerNight" class="form-label">Price Per Night</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-dollar-sign"></i>
+              <input type="number" class="form-control" id="PricePerNight" formControlName="PricePerNight"
+                placeholder="0" min="1">
+            </div>
+
+            @if(formControls['PricePerNight'].invalid && formControls['PricePerNight'].touched ){
+            <div id="PricePerNightHelp" class="form-text text-danger">
+              @if(formControls['PricePerNight'].hasError('required')) {
+              <span>Price is required</span>
+              }
+              @else if(formControls['PricePerNight'].hasError('min')) {
+              <span>Price must be above 0</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Number of Rooms -->
+          <div class="col-md-6">
+            <label for="NumberOfRooms" class="form-label">Number of Rooms</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-bed"></i>
+              <input type="number" class="form-control" id="NumberOfRooms" formControlName="NumberOfRooms"
+                placeholder="0" min="1">
+            </div>
+
+            @if(formControls['NumberOfRooms'].invalid && formControls['NumberOfRooms'].touched ){
+            <div id="NumberOfRoomsHelp" class="form-text text-danger">
+              @if(formControls['NumberOfRooms'].hasError('required')) {
+              <span>Number of rooms is required</span>
+              }
+              @else if(formControls['NumberOfRooms'].hasError('min')) {
+              <span>Rooms must be at least 1</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Building Number and Floor Number -->
+        <div class="row mb-4">
+          <!-- Building Number -->
+          <div class="col-md-6">
+            <label for="BuildingNo" class="form-label">Building Number</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-building"></i>
+              <input type="number" class="form-control" id="BuildingNo" formControlName="BuildingNo"
+                placeholder="Building Number">
+            </div>
+
+            @if(formControls['BuildingNo'].invalid && formControls['BuildingNo'].touched ){
+            <div id="BuildingNoHelp" class="form-text text-danger">
+              @if(formControls['BuildingNo'].hasError('required')) {
+              <span>Building number is required</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Floor Number -->
+          <div class="col-md-6">
+            <label for="FloorNo" class="form-label">Floor Number</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-layer-group"></i>
+              <input type="number" class="form-control" id="FloorNo" formControlName="FloorNo"
+                placeholder="Floor Number">
+            </div>
+
+            @if(formControls['FloorNo'].invalid && formControls['FloorNo'].touched ){
+            <div id="FloorNoHelp" class="form-text text-danger">
+              @if(formControls['FloorNo'].hasError('required')) {
+              <span>Floor number is required</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="mb-4">
+          <label for="Address" class="form-label">Full Address</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-map-marker-alt"></i>
+            <input type="text" class="form-control" id="Address" formControlName="Address"
+              placeholder="Enter full address">
+          </div>
+
+
+          @if(formControls['Address'].invalid && formControls['Address'].touched ){
+          <div id="AddressHelp" class="form-text text-danger">
+            @if(formControls['Address'].hasError('required')) {
+            <span>Address is required</span>
+            }
+            @else if(formControls['Address'].hasError('minlength')) {
+            <span>Address must be between 5 and 250 characters</span>
+            }
+            @else if(formControls['Address'].hasError('maxlength')) {
+            <span>Address must be between 5 and 250 characters</span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Map -->
+        <div class="mb-4">
+          <label class="form-label">Select Location on Map</label>
+          <div id="map" style="height: 400px; width: 100%; border-radius: 15px; border: 2px solid #e0e5ec;"></div>
+        </div>
+
+        <!-- City, Region, and Street -->
+        <div class="row mb-4">
+          <!-- City -->
+          <div class="col-md-4">
+            <label for="City" class="form-label">City</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-city"></i>
+              <input type="text" class="form-control" id="City" formControlName="City" placeholder="City">
+            </div>
+
+            @if(formControls['City'].invalid && formControls['City'].touched ){
+            <div id="CityHelp" class="form-text text-danger">
+              @if(formControls['City'].hasError('required')) {
+              <span>City is required</span>
+              }
+              @else if(formControls['City'].hasError('minlength')) {
+              <span>City must be between 2 and 100 characters</span>
+              }
+              @else if(formControls['City'].hasError('maxlength')) {
+              <span>City must be between 2 and 100 characters</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Region -->
+          <div class="col-md-4">
+            <label for="Region" class="form-label">Region</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-globe"></i>
+              <input type="text" class="form-control" id="Region" formControlName="Region" placeholder="Region">
+            </div>
+
+            @if(formControls['Region'].invalid && formControls['Region'].touched ){
+            <div id="RegionHelp" class="form-text text-danger">
+              @if(formControls['Region'].hasError('required')) {
+              <span>Region is required</span>
+              }
+              @else if(formControls['Region'].hasError('minlength')) {
+              <span>Region must be between 2 and 100 characters</span>
+              }
+              @else if(formControls['Region'].hasError('maxlength')) {
+              <span>Region must be between 2 and 100 characters</span>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Street -->
+          <div class="col-md-4">
+            <label for="Street" class="form-label">Street</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-road"></i>
+              <input type="text" class="form-control" id="Street" formControlName="Street" placeholder="Street">
+            </div>
+
+            @if(formControls['Street'].invalid && formControls['Street'].touched ){
+            <div id="StreetHelp" class="form-text text-danger">
+              @if(formControls['Street'].hasError('required')) {
+              <span>Street is required</span>
+              }
+              @else if(formControls['Street'].hasError('minlength')) {
+              <span>Street must be between 2 and 150 characters</span>
+              }
+              @else if(formControls['Street'].hasError('maxlength')) {
+              <span>Street must be between 2 and 150 characters</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Latitude and Longitude -->
+        <div class="row mb-4">
+          <!-- Latitude -->
+          <div class="col-md-6">
+            <label for="Latitude" class="form-label">Latitude</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-compass"></i>
+              <input type="number" class="form-control" id="Latitude" formControlName="Latitude" placeholder="Latitude"
+                step="any" min="-90" max="90">
+            </div>
+
+            @if(formControls['Latitude'].invalid && formControls['Latitude'].touched ){
+            <div id="LatitudeHelp" class="form-text text-danger">
+              @if(formControls['Latitude'].hasError('required')) {
+              <span>Latitude is required</span>
+              }
+              @else if(formControls['Latitude'].hasError('min') || formControls['Latitude'].hasError('max')) {
+              <span>Latitude must be between -90 and 90</span>
+              }
+              
+            </div>
+            }
+          </div>
+
+          <!-- Longitude -->
+          <div class="col-md-6">
+            <label for="Longitude" class="form-label">Longitude</label>
+            <div class="input-with-icon">
+              <i class="input-icon fas fa-compass"></i>
+              <input type="number" class="form-control" id="Longitude" formControlName="Longitude"
+                placeholder="Longitude" step="any" min="-180" max="180">
+            </div>
+
+            @if(formControls['Longitude'].invalid && formControls['Longitude'].touched ){
+            <div id="LongitudeHelp" class="form-text text-danger">
+              @if(formControls['Longitude'].hasError('required')) {
+              <span>Longitude is required</span>
+              }
+              @else if(formControls['Longitude'].hasError('min') || formControls['Longitude'].hasError('max')) {
+              <span>Longitude must be between -180 and 180</span>
+              }
+            </div>
+            }
+          </div>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-4">
+          <label for="PhoneNumber" class="form-label">Phone Number</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-phone"></i>
+            <input type="tel" class="form-control" id="PhoneNumber" formControlName="PhoneNumber"
+              placeholder="Phone Number">
+          </div>
+
+          @if(formControls['PhoneNumber'].invalid && formControls['PhoneNumber'].touched ){
+          <div id="PhoneNumberHelp" class="form-text text-danger">
+            @if(formControls['PhoneNumber'].hasError('required')) {
+            <span>Phone number is required</span>
+            }
+            @else if(formControls['PhoneNumber'].hasError('pattern')) {
+            <span>Phone number is not valid</span>
+            }
+          </div>
+          }
+        </div>
+
+        <!-- Cancellation Charges -->
+        @if(isCancellationOptionsEnabled) {
+        <div class="mb-4">
+          <label for="CancelationCharges" class="form-label">Cancellation Charges</label>
+          <div class="input-with-icon">
+            <i class="input-icon fas fa-money-bill"></i>
+            <input type="number" class="form-control" id="CancelationCharges" formControlName="CancelationCharges"
+              placeholder="0" min="0">
+          </div>
+
+          @if(formControls['CancelationCharges'].invalid && formControls['CancelationCharges'].touched ){
+          <div id="CancelationChargesHelp" class="form-text text-danger">
+            @if(formControls['CancelationCharges'].hasError('required')) {
+            <span>Cancellation charges are required</span>
+            }
+            @else if(formControls['CancelationCharges'].hasError('min')) {
+            <span>Cancellation charges must be 0 or greater</span>
+            }
+          </div>
+          }
+        </div>
+        }
+
+        <!-- Boolean Options -->
+        <div class="row mb-4">
+          <!-- Cancellation Options -->
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="CancelationOptions"
+                formControlName="CancelationOptions" (change)="onCancellationOptionsChange()">
+              <label class="form-check-label" for="CancelationOptions">
+                Cancellation Options Available
+              </label>
+            </div>
+          </div>
+
+          <!-- Is For Rent -->
+          <div class="col-md-6">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="IsForRent" formControlName="IsForRent">
+              <label class="form-check-label" for="IsForRent">
+                Available for Rent
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Images -->
+        <div class="mb-4">
+          <label class="form-label">Upload Property Images</label>
+          <div class="file-upload-wrapper">
+            <label class="file-upload-label">
+              <div class="text-center">
+                <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                <div>Drag & drop images or <span class="text-primary">browse</span></div>
+                <div class="small text-muted mt-1">Supported formats: JPEG, PNG, GIF</div>
+              </div>
+              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="PropertyImages" multiple
+                accept="image/*">
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-gradient" [disabled]="addPropertyForm.invalid">
+          <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status"
+            aria-hidden="true"></span>
+          Add Property
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

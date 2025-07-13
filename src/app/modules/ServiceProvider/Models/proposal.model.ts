@@ -5,8 +5,6 @@ export interface Proposal {
   Date: Date;
   Description: string;
   ServiceRequestId: number;
-  createdAt: Date;
-  updatedAt?: Date;
   ClientId: string;
   Status: ProposalStatus;
 }

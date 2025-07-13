@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import { BookingStatus } from '../../core/models/Property/Enums/BookingStatus.enum';
+import { BookingStatus } from '../../modules/Property/Models/enums/BookingStatus.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,18 @@ export class PropertyOwnerService {
     return this.http.post(`${environment.baseApi}Property/Property`, data, { headers });
   }
 
+  updateProfile(data: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`${environment.baseApi}Property/update-profile`, data, { headers });
+  }
+  getProfile(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${environment.baseApi}Account/MyAccount`, { headers });
+  }
 
 
   getProperties(searchText: string, city:string): Observable<any> {
@@ -43,7 +55,10 @@ export class PropertyOwnerService {
   getAllBookings(): Observable<any> {
     return this.http.get(`${environment.baseApi}Property/get-all-bookings`);
   }
-  
+
+  getAllReviews(): Observable<any> {
+    return this.http.get(`${environment.baseApi}Property/get-all-reviews`);
+  }
 
   bookProperty(data: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
