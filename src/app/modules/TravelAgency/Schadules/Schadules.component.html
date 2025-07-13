@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-start text-purple">Schadules</h2>
+
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let item of Schadule">
+      <div class="card shadow-sm border-0 purple-card" style="cursor: pointer;" (click)="selectSchadule(item)">
+        <div class="card-body">
+          <h5 class="card-title mb-1 text-purple-dark">Schadule ID: {{ item.Id }}</h5>
+          <p class="card-text mb-0"><strong>Date:</strong> {{ item.Date | date }}</p>
+          <p class="card-text mb-0"><strong>Slots Available:</strong> {{ item.SlotsAvailable }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="mt-4" *ngIf="selectedSchadule">
+  <h4 class="text-purple-dark mb-3 text-start">Bookings for Schadule ID: {{ selectedSchadule.Id }}</h4>
+
+  <div class="custom-table-container shadow-sm p-4 bg-white rounded">
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered custom-table">
+        <thead class="table-purple">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Date</th>
+            <th scope="col">Reserved People</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let booking of selectedSchadule.PackagebookingDetails; let i = index">
+            <th scope="row">{{ booking.Id}}</th> 
+            <td>{{ booking.Date | date }}</td>
+            <td>{{ booking.ReservedPeople }}</td>
+            <td>{{ getBookingStatus(booking.BookingStatus) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+</div>

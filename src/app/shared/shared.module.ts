@@ -9,17 +9,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserLayoutComponent } from '../modules/user/components/user-layout/user-layout.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { CartComponent } from '../modules/Restaurant/Client/cart/cart.component';
 
 
 //import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
-  declarations: [NavbarComponent,FooterComponent,ProfileComponent,SidebarComponent, UserLayoutComponent],
+  declarations: [
+    NavbarComponent,
+    FooterComponent,
+    ProfileComponent,
+    SidebarComponent,
+    UserLayoutComponent,
+    CartComponent
+  ],
+
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
+    RouterLink,
     ReactiveFormsModule,
 
 

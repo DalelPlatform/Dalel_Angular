@@ -297,7 +297,7 @@
           <!-- Loop over paginated menu items -->
           <app-meal-card
             *ngFor="let meal of menu | paginate: { itemsPerPage: 12, currentPage: currentPage }; let i = index"
-            [meals]="meal" (click)="onMealClick(meal)">
+            [meal]="meal" (click)="onMealClick(meal)">
           </app-meal-card>
         </div>
 

@@ -7,7 +7,7 @@ export const travelAgencyOwnersGuard: CanActivateFn = (route, state) => {
   const role = inject(CookieService).get('Role');
 
 
-  if (cookieService && role == "TravelAgencyOwners") {
+  if (cookieService && role == "TravelAgencyOwner") {
     return true;
   } else {
     alert('This page is not valid');

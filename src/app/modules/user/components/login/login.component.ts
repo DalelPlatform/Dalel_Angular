@@ -21,19 +21,21 @@ export class LoginComponent {
     private router: Router,
     private ServiceProviderProfileService: CompleteProfileServiceProviderService,
   ) { }
+
+  
   Send() {
-    this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
-      next: (res) => {
-        console.log(res);
+  this.accountSrv.Login(this.user.identifier, this.user.password).subscribe({
+    next: (res) => {
+      console.log(res);
 
         if(res.Image == "empty"){
           res.Image = "pexels-galerieb-1148565.jpg"
-        }
+      }
 
-        this.cookieService.set('Token', res.Token);
-        this.cookieService.set('Role', res.Role);
-        this.cookieService.set('Image', res.Image);
-        this.cookieService.set('FullName', res.FullName);
+      this.cookieService.set('Token', res.Token);
+      this.cookieService.set('Role', res.Role);
+      this.cookieService.set('Image', res.Image);
+      this.cookieService.set('FullName', res.FullName);
 
         if (res.Role === 'ServiceProvider') {
           this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
@@ -48,6 +50,20 @@ export class LoginComponent {
               this.router.navigate(['/unauthorized']);
             }
           });
+     
+         if (res.Role === 'ServiceProvider') {
+          // this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
+          //   next: (isComplete) => {
+          //     if (!isComplete) {
+          //       this.router.navigate(['/complete-ServiceProvider-profile']);
+          //     } else {
+          //       this.router.navigate(['/account']);
+          //     }
+          //   },
+          //   error: () => {
+          //     this.router.navigate(['/unauthorized']);
+          //   }
+          // });
         } else {
           this.router.navigate(['/account']);
         }
@@ -57,11 +73,8 @@ export class LoginComponent {
               else{
                   this.router.navigate(['/login']);
               }
-      },
-
-      error: (err) => {
-        console.log(err);
-      }
+      }}
     });
   }
+
 }

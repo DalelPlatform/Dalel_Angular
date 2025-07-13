@@ -100,27 +100,27 @@
           <div class="labeled-input">
     <div formArrayName="VerificationDocument" class="files_upload">
         @if(VerificationDocument.at(0).get('DocumentFile')?.value){
-  <div class="">
-    <div class="file-icon"><span>📄</span>  </div>
-       <p>{{ VerificationDocument.at(0).get('DocumentFile')?.value.name }}</p>
-      </div>
-      }
-      <div [formGroupName]="0">
-        <input   class="d-none"
-        #fileInput type="file"  placeholder="Document File" (change)="onFileChange($event, 0)" multiple/>
-        <button (click)="fileInput.click()" class="browsebtn">Browse Files</button>
-      </div>
-      <span class="text-danger"
-         *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
-  please upluad file
-    </span>
+        <div class="">
+          <div class="file-icon"><span>📄</span> </div>
+          <p>{{ VerificationDocument.at(0).get('DocumentFile')?.value.name }}</p>
+        </div>
+        }
+        <div [formGroupName]="0">
+          <input class="d-none" #fileInput type="file" placeholder="Document File" (change)="onFileChange($event, 0)"
+            multiple accept="image/*"/>
+          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Files</button>
+        </div>
+        <span class="text-danger"
+          *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
+          please upluad file
+        </span>
 
     </div>
    <div class="d-flex">
         <button type="button" class="btn account me-2" (click)="prevStep()">Previous</button>
 
-    <button type="submit" class="btn submit" >Submit Agency</button>
-   </div>
+        <button type="submit" class="btn submit" >Submit Agency</button>
+      </div>
     </div>
   }
 

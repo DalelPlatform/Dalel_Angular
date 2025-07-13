@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NotificationService } from '../../../Services/TravelAgency/notification.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-AgencyOwnerLayOut',
@@ -9,17 +11,22 @@ import { Component, OnInit } from '@angular/core';
 export class AgencyOwnerLayOutComponent implements OnInit {
   agencyLinks = [
     { label: 'Create Agency', icon: 'fas fa-user', route: 'create-agency' },
+    { label: 'List Agencies', icon: 'fas fa-users', route: 'ListAgencies' },
     { label: 'create package', icon: 'fas fa-ticket-alt', route: 'createPackage' },
-    { label: 'Travelers', icon: 'fas fa-users', route: 'travelers' },
-    { label: 'Payment Details', icon: 'fas fa-credit-card', route: 'payments' },
-    { label: 'Wishlist', icon: 'fas fa-heart', route: 'wishlist' },
-    { label: 'Settings', icon: 'fas fa-cog', route: 'settings' },
+
+    // { label: 'List Packages', icon: 'fas fa-credit-card', route: 'ListPackage' },
+    { label: 'Notification', icon: 'fas fa-bell', route: 'notifications' },
+    { label: 'insights', icon: 'fa-solid fa-chart-line', route: 'insights' },
     { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },
     { label: 'Sign Out', icon: 'fas fa-sign-out-alt', route: 'logout' },
   ];
-  constructor() { }
+  constructor( private notificationService: NotificationService, private cookieService: CookieService) { }
 
   ngOnInit() {
+    const token = this.cookieService.get('Token');
+    if (token) {
+      this.notificationService.startConnection(token);
+    }
   }
 
 }

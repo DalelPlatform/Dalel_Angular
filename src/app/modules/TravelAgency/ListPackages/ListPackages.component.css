@@ -1,0 +1,92 @@
+.container {
+  padding: 20px;
+  box-shadow: #f2ecff;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 2rem;
+  color: #6a1b9a;
+  margin-bottom: 30px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.package-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(106, 27, 154, 0.15);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.3s ease;
+}
+
+.package-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.card-header h3{
+  color: #0b0a12;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.card-header h3 span{
+  color: #747579;
+  margin: 0;
+  font-size: 1rem;
+}
+
+
+
+.schedule {
+  background-color: #f3e5f5;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.step {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background-color: #faf5ff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.step img {
+  width: 80px;
+  height: 80px;
+  object-fit: fill;
+  border-radius: 8px;
+}
+
+.step-details h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #512da8;
+}
+
+.step-details p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.delete{
+  color: white;
+    font-weight: 600; 
+    width: fit-content;
+}

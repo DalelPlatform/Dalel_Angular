@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, FormGroup } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { serviceProviderGuard } from '../../../Services/Guards/ServiceProvider/service-provider.guard';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component'
@@ -20,6 +20,7 @@ import { ServiceProviderReviewsComponent } from '../service-provider-reviews/ser
 import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
 import { ServiceProviderSharedModule } from './service-provider-shared.module';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
+import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
 
 let routes: Routes = [
   {
@@ -61,7 +62,10 @@ let routes: Routes = [
     path: "CompleteProfileServiceProvider", component: CompleteProfileServiceProviderComponent,
     canActivate: [serviceProviderGuard]
   },
-
+  {
+    path:"EditSchedule", component: EditScheduleComponent,
+    canActivate:[serviceProviderGuard]
+  }
 
 
 ]
@@ -73,6 +77,7 @@ let routes: Routes = [
     ProjectsListComponent,
     AddServiceRequestComponent,
     EditProfileComponent,
+    EditScheduleComponent,
     AllRequestsComponent,
     RequestDetailsComponent,
     ServiceProviderAllRequestsComponent,

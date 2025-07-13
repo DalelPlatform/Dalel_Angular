@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h3 class="mb-4">Rate the Package</h3>
+
+  <form [formGroup]="reviewpackageForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label">Your Rating:</label>
+      <div class="d-flex gap-2">
+        <ng-container *ngFor="let star of stars">
+          <i class="fa-star fa"
+            [ngClass]="{
+              'text-warning': star <= (hoverRating || selectedRating),
+              'text-secondary': star > (hoverRating || selectedRating)
+            }"
+            (click)="setRating(star)"
+            (mouseenter)="hoverRating = star"
+            (mouseleave)="hoverRating = 0"
+            style="font-size: 30px; cursor: pointer;"></i>
+        </ng-container>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Your Comment:</label>
+      <textarea formControlName="Comment" rows="4" class="form-control" placeholder="Write your feedback"></textarea>
+    </div>
+
+    <button type="submit" class="btn reviw mb-2" [disabled]="reviewpackageForm.invalid">Submit Review</button>
+  </form>
+</div>
+
