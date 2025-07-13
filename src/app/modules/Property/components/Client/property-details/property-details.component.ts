@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IProperty, VerificationStatus } from '../../../../../core/models/Property/IProperty';
+import { IProperty, VerificationStatus } from '../../../Models/IProperty';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +14,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class PropertyDetailsComponent implements OnInit {
   @Input() property: IProperty | null = null;
-  
+
   currentImageIndex = 0;
   showContactInfo = false;
   isBookingModalOpen = false;
@@ -61,7 +61,7 @@ export class PropertyDetailsComponent implements OnInit {
   processPayment(bookingId: number, amount: number, token: string): void {
     // Here you can integrate PayPal/Stripe payment
     // For now, simulate success then call API
-  
+
     // 💳 Example: Simulate successful payment
     const paymentPayload = {
       amount: amount,
@@ -73,7 +73,7 @@ export class PropertyDetailsComponent implements OnInit {
       codeApplied: null,
       bookingPropertyId: bookingId
     };
-  
+
     this.service.addPayment(paymentPayload, token).subscribe({
       next: (res) => {
         console.log("Payment success", res);
@@ -143,8 +143,8 @@ export class PropertyDetailsComponent implements OnInit {
 
   prevImage(): void {
     if (this.property?.Images && this.property.Images.length > 0) {
-      this.currentImageIndex = this.currentImageIndex === 0 
-        ? this.property.Images.length - 1 
+      this.currentImageIndex = this.currentImageIndex === 0
+        ? this.property.Images.length - 1
         : this.currentImageIndex - 1;
     }
   }
@@ -180,14 +180,14 @@ export class PropertyDetailsComponent implements OnInit {
       Price: 20,
       Status: 0, // BookingStatus.Panding
       PropertyId: this.property?.Id,
-      
+
     };
-  
+
     if (!token) return alert("Login required!");
-  
+
     this.service.bookProperty(payload, token).subscribe({
       next: (res) => {
-        console.log("Booking result:", res); 
+        console.log("Booking result:", res);
         alert(res.Message);
 
         // const bookingId = res.data?.id || res.Data?.id || 0;
@@ -209,7 +209,7 @@ export class PropertyDetailsComponent implements OnInit {
         }
       }
     });
-  
+
     this.closeBookingModal();
   }
   openMap(): void {

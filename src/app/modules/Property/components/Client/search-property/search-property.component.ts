@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
-import { IProperty } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../Models/IProperty';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class SearchPropertyComponent implements OnInit {
   list: IProperty[] = [];
-  
+
   // Search form data
   searchData = {
     location: '',
@@ -53,7 +53,7 @@ export class SearchPropertyComponent implements OnInit {
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     const searchTerm = this.searchData.location || '';
     this.service.getProperties(searchTerm, "").subscribe({
       next: (res) => {

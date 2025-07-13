@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IProperty } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../Models/IProperty';
 
 @Component({
   selector: 'app-property-card',
@@ -143,9 +143,9 @@ export class PropertyCardComponent implements OnInit {
   // Truncate long descriptions
   getTruncatedDescription(maxLength: number = 100): string {
     if (!this.property.description) return '';
-    return this.property.description.length > maxLength 
+    return this.property.description.length > maxLength
       ? this.property.description.substring(0, maxLength) + '...'
       : this.property.description;
   }
-} 
+}
 */

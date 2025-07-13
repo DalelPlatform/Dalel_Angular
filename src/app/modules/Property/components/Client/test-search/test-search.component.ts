@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
-import { IProperty } from '../../../../../core/models/Property/IProperty';
+import { IProperty } from '../../../Models/IProperty';
 import { FormsModule } from '@angular/forms';
 
 @Component({
