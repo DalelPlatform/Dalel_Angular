@@ -43,7 +43,7 @@ constructor(private notificationService: NotificationService, private cookieServ
     console.log(Image)
      if (Token) {
     this.isLoggedIn = true;
-    
+
   }
   this.currentUrl = this.router.url;
   console.log('Current URL on init:', this.currentUrl);
@@ -68,15 +68,15 @@ loadNotifications() {
   this.notificationService.getNotifications().subscribe( {
       next: (res) => {
         this.notifications = res;
-    console.log("Notifications loaded:", this.notifications); 
-        
+    console.log("Notifications loaded:", this.notifications);
+
       }
       , error: (err) => {
         if (err.status === 401) {
           this.toastr.error('Unauthorized access');
           this.router.navigate(['/login']);
         }
-      } 
+      }
 
 
     })
@@ -181,7 +181,7 @@ removeItem(item: IcartItem) {
 logout() {
   console.log("g")
 this.cookieService.deleteAll();
-  this.router.navigate(['/mainPage']);   
-  this.isLoggedIn = false;           
+  this.router.navigate(['/mainPage']);
+  this.isLoggedIn = false;
 }
 }
