@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { filter } from 'rxjs';
 import { RestaurantService } from '../../../Services/Restaurant/restaurant.service';
 import { IcartItem } from '../../../modules/Restaurant/interfaces/IcartItem';
+import { AccountService } from '../../../modules/user/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -23,10 +24,18 @@ isLoggedIn: boolean = false;
   totalQuantity: number = 0;
   cartItems: IcartItem[] = []
 constructor(private notificationService: NotificationService, private cookieService: CookieService, private router: Router,
-      private toastr: ToastrService,private _restaurantService: RestaurantService){}
+      private toastr: ToastrService,private _restaurantService: RestaurantService,private accountService: AccountService){}
       ;
   ngOnInit() {
     this.loadNotifications();
+
+    this.accountService.isFirstLogin$.subscribe(isFirstLogin => {
+      if (isFirstLogin) {
+        this.isLoggedIn = isFirstLogin;
+        console.log("isFirstLogin",isFirstLogin);
+      }
+    });
+
     const Token= this.cookieService.get('Token')
     const role= this.cookieService.get('Role')
     const Image= this.cookieService.get('Image')
