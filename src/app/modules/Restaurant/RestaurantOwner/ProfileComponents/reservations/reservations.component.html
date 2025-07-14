@@ -1,0 +1,57 @@
+<div class="bookings-wrapper">
+  <h2 class="bookings-title">My Reservations</h2>
+  <div class="bookings-tabs">
+    <button class="tab-btn" [class.active]="activeTab === 'upcoming'" (click)="setTab('upcoming')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6l3 1 3-1 3 1 3-1 3 1"/><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 10h.01"/></svg>
+      Upcoming Orders
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'canceled'" (click)="setTab('canceled')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+      Canceled Orders
+    </button>
+    <button class="tab-btn" [class.active]="activeTab === 'completed'" (click)="setTab('completed')">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+      Completed Orders
+    </button>
+  </div>
+
+  <div *ngIf="filteredOrders.length > 0">
+    <div class="bookings-section-title">
+      {{ activeTab === 'upcoming' ? 'Upcoming Orders' : activeTab === 'canceled' ? 'Canceled Orders' : 'Completed Orders' }} ({{ filteredOrders.length }})
+    </div>
+    <div class="booking-card" *ngFor="let order of filteredOrders">
+      <div class="booking-card-header">
+        <div class="booking-logo">
+          <svg width="38" height="38" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="12" fill="#EDECFB"/><path d="M7 20V10a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v10" stroke="#5143D9" stroke-width="2"/><rect x="9" y="14" width="2" height="2" rx="1" fill="#5143D9"/><rect x="13" y="14" width="2" height="2" rx="1" fill="#5143D9"/></svg>
+        </div>
+        <div class="booking-info">
+          <div class="booking-title">{{ order.RestaurantName }}</div>
+          <div class="booking-id">Order ID: {{ order.Id }}</div>
+        </div>
+        <button class="manage-btn" *ngIf="activeTab === 'upcoming'">Manage Order</button>
+        <button class="manage-btn" *ngIf="activeTab === 'canceled'">View Details</button>
+        <button class="manage-btn" *ngIf="activeTab === 'completed'">View Details</button>
+      </div>
+      <div class="booking-card-details">
+        <div class="detail-group">
+          <div class="detail-label">Order Date</div>
+          <div class="detail-value">{{ order.Date | date:'medium' }}</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Total Price</div>
+          <div class="detail-value">{{ order.TotalPrice | currency }}</div>
+        </div>
+        <div class="detail-group">
+          <div class="detail-label">Client Name</div>
+          <div class="detail-value bold">{{ order.ClientName }}</div>
+        </div>
+      </div>
+      <div *ngIf="activeTab === 'canceled'" class="booking-cancelled">Order canceled</div>
+    </div>
+  </div>
+  <div *ngIf="filteredOrders.length === 0" class="empty-state">
+    <div class="empty-title">Looks like you have no orders yet</div>
+    <div class="empty-desc">When you place an order, it will be shown here.</div>
+    <button class="start-booking-btn">Order now</button>
+  </div>
+</div>
