@@ -18,8 +18,9 @@
 }
 
 .page {
-  background: linear-gradient(135deg, #43cea8 0%, #185a9d 100%);
-  background-image: url("../../../../../../public/pexels-naimbic-2290753.jpg");
+  background: white;
+  /* background: linear-gradient(135deg, #43cea8 0%, #185a9d 100%); */
+  /* background-image: url("../../../../../../public/pexels-naimbic-2290753.jpg"); */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

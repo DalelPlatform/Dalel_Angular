@@ -52,6 +52,11 @@
      }
      @if (currentStep === 2) {
         <h3 class="mb-4">Step 2: Location</h3>
+          <!-- Map -->
+        <div class="mb-4">
+          <label class="form-label">Select Location on Map</label>
+          <div id="map" style="height: 200px; width: 100%; border-radius: 15px; border: 2px solid #e0e5ec;"></div>
+        </div>
          <div class="labeled-input">
     <input formControlName="BusinessCategory" placeholder="Business Category" />
       <span class="text-danger"
@@ -73,7 +78,7 @@
          *ngIf="agencyForm.get('BuildingNo')?.touched && agencyForm.get('BuildingNo')?.invalid">
       Building No is required
     </span>
-    <input formControlName="Latitude" type="number" placeholder="Latitude" />
+    <!-- <input formControlName="Latitude" type="number" placeholder="Latitude" />
       <span class="text-danger"
          *ngIf="agencyForm.get('Latitude')?.touched && agencyForm.get('Latitude')?.invalid">
       Latitude is required
@@ -82,7 +87,9 @@
       <span class="text-danger"
          *ngIf="agencyForm.get('Longitude')?.touched && agencyForm.get('Longitude')?.invalid">
       Longitude is required
-    </span>
+    </span> -->
+   
+        
     <input formControlName="Street" placeholder="Street" />
       <span class="text-danger"
          *ngIf="agencyForm.get('Street')?.touched && agencyForm.get('Street')?.invalid">
@@ -108,11 +115,11 @@
         <div [formGroupName]="0">
           <input class="d-none" #fileInput type="file" placeholder="Document File" (change)="onFileChange($event, 0)"
             multiple accept="image/*"/>
-          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Files</button>
+          <button type="button" (click)="fileInput.click()" class="browsebtn">Browse Image</button>
         </div>
         <span class="text-danger"
           *ngIf="agencyForm.get('DocumentFile')?.touched && agencyForm.get('DocumentFile')?.invalid">
-          please upluad file
+          please upluad image
         </span>
 
     </div>

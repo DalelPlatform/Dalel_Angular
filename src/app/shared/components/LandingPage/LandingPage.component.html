@@ -53,6 +53,11 @@
     </div>
   </div>
 </section>
+<section >
+ <div class="container">
+  <app-topPackageCart [package]="topPackages"></app-topPackageCart>
+</div>
+</section>
 <section class="py-5 bg-light text-center">
   <div class="container">
     <h2 class="fw-bold mb-4">OUR PARTNERS</h2>
@@ -71,24 +76,24 @@
   <div class="container py-5">
     <div class="row justify-content-between align-items-center">
       <div class="col-lg-5 mb-4 mb-lg-0">
-        <h1 class="display-4 fw-bold text-uppercase">Explore Maldives</h1>
+        <h1 class="display-4 fw-bold text-uppercase">Explore Aswan</h1>
         <hr class="bg-white opacity-75 my-4">
         <p class="mb-4">
           Lorem Ipsum is simply dummy text of the printing and typesetting industry.
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
         </p>
-    <button class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn">
+    <button class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" (click)="viewAllPackages()">
   See all <span class="ms-2">→</span>
 </button>
       </div>
 
       <div class="col-lg-6">
         <div class="row g-3">
-          @for (card of exploreCards; track $index) {
+          @for (card of topPackages; track $index) {
             <div class="col-4">
               <div class="card bg-transparent border-0 text-white text-center">
-                <img [src]="card.image" alt="card image" class="rounded w-100 shadow-sm" />
-                <p class="fw-bold mt-2">{{ card.title }}</p>
+                <img [src]="card.ImagePath" alt="card image" class="rounded w-100 shadow-sm" />
+                <p class="fw-bold mt-2" (click)="viewPackages(card.Id)" style="cursor:pointer">see Package</p>
               </div>
             </div>
           }

@@ -14,7 +14,7 @@ import { AgencyOwnerLayOutComponent } from './modules/TravelAgency/AgencyOwnerLa
 import { AgencycompleteProfileComponent } from './modules/TravelAgency/agencycomplete-profile/agencycomplete-profile.component';
 // import { CompleteProfileServiceProviderComponent } from './modules/ServiceProvider/complete-profile-service-provider/complete-profile-service-provider.component';
 import { travelAgencyOwnersGuard } from './Services/Guards/TravelAgencyOwners/travel-agency-owners.guard';
-import {LandingPageComponent} from './shared/LandingPage/LandingPage.component'
+import {LandingPageComponent} from './shared/components/LandingPage/LandingPage.component'
 export const routes: Routes = [
   {
     path: 'account',

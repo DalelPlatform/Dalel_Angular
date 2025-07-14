@@ -29,3 +29,5 @@ body {
     box-shadow: 0 4px 15px rgba(81, 67, 217, 0.4);
     cursor: pointer;
   }
+
+/* First and Last Name fields are side by side using Bootstrap's col-md-6. Adjust spacing if needed. */

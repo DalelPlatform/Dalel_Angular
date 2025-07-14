@@ -139,6 +139,11 @@ addreviewPackage(data: any, token: string): Observable<any> {
   getPackageReveiw(packageId:number):Observable<any>{
  return this.http.get(`${this.apiUrl}packageReview/GetPackageReviews/${packageId}`);
   }
+  // landng
+  getTopPackages() :Observable<any>{
+
+ return this.http.get(`${this.apiUrl}AgencyPackage/TopPackages`);
+  }
 }
 
 

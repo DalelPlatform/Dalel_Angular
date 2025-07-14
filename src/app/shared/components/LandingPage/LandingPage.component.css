@@ -55,7 +55,7 @@ color: white;
 
 
 .explore-section {
-  background: url('../../../assets/image 13 (1).png') center center/cover no-repeat;
+  background: url('../../../../assets/image 13 (1).png') center center/cover no-repeat;
   min-height: 90vh;
   position: relative;
 }

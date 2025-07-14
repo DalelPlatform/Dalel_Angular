@@ -1,0 +1,108 @@
+.cart
+{
+        height: 120px !important;
+    position: absolute;
+    width: 90%;
+    bottom: -19%;
+    /* left: 50%; */
+    transform: translateX(50px);
+    box-shadow: 0px 0px 40px rgba(29, 58, 83, 0.1);
+    
+}
+.cart input{
+    border: none;
+    border-bottom: 1.2px solid #5143d9;
+    border-radius: 0 !important;
+ color: #c5c5c7;
+ font-size: 1rem;
+ /* font-weight: 700; */
+}
+.cart input:focus{
+    border-bottom: 1.2px solid #5143d9;
+    outline: none !important;
+    box-shadow: none !important;
+     color: gray !important;
+}
+.search{
+    color: white;
+    background-color: #5143d9;
+ 
+}
+.packages h2{
+    font-size: 3rem ;
+    font-weight: 700;
+    
+}
+.card-title{
+    font-size: 1.3rem;
+    font-weight: 700;
+    transition: .5 ease;
+    color: black;
+}
+.card-title:hover{
+   color: #5143d9;
+}
+.shadil{
+    color: #c5c5c7;
+    font-weight: 400;
+    font-size: .87rem;
+}
+.animated-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+  transition: color 0.3s ease;
+  border-radius: 50rem;
+  width:fit-content;
+  margin:0px auto 10px auto; 
+  display:flex;
+  border:1px solid #5143d9;
+}
+
+.animated-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #5143d9;
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.animated-btn:hover::before {
+  width: 100%;
+}
+
+.animated-btn:hover {
+  color: white !important;
+}
+
+.animated-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width:900px){
+    .cart{
+       width: 100%;
+       height: fit-content !important;
+       /* margin-top: 2rem; */
+       bottom: -30%;
+       transform: translate(0,0);
+    }
+    .cart input{
+         border: 1.2px solid #5143d9 !important;
+         border-radius: .2rem !important; 
+         margin-bottom: .5rem !important;
+         padding-left: .5rem !important;
+    }
+    .packages h2{
+        font-size: 1.4rem;
+    }
+    .cart .col-12{
+        padding: 0 !important;
+        margin: 0 o !important;
+    }
+}
