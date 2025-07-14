@@ -1,6 +1,6 @@
 <app-loader  *ngIf="serviceloader.isLoading$ | async"></app-loader>
 <div class="contailner" [ngClass]="{ 'd-none': serviceloader.isLoading$ | async}">
-
+<app-navbar></app-navbar>
   <router-outlet></router-outlet>
 </div>
 
