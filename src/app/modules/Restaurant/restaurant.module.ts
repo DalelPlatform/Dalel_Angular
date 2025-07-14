@@ -23,6 +23,9 @@ import { SidebarComponent } from '../../shared/components/sidebar/sidebar.compon
 import { SharedModule } from '../../shared/shared.module';
 import { RestaurantOwnerLayoutComponent } from './RestaurantOwner/restaurant-owner-layout/restaurant-owner-layout.component';
 import { AllMealsComponent } from './RestaurantOwner/ProfileComponents/all-meals/all-meals.component';
+import { ReservationsComponent } from './RestaurantOwner/ProfileComponents/reservations/reservations.component';
+import { SettingsComponent } from '../Property/components/PropertyOwner/Dashboard-Components/settings/settings.component';
+import { RestaurantSettingsComponent } from './RestaurantOwner/ProfileComponents/settings/settings.component';
 
 let routes: Routes = [
 
@@ -32,9 +35,10 @@ let routes: Routes = [
     canActivate:[restaurantOwnerGuard],
     children: [
       {path: "add-restaurant", component: AddRestaurantFormComponent },
-
       {path : "add-meal", component:AddMealComponent},
       {path : "restaurant-meals", component:AllMealsComponent},
+      {path : "reservations", component: ReservationsComponent},
+      {path : "settings", component: RestaurantSettingsComponent},
 
 
 
@@ -75,6 +79,8 @@ let routes: Routes = [
     RestaurantLayoutComponent,
     RestaurantOwnerLayoutComponent,
     AllMealsComponent,
+    ReservationsComponent,
+    RestaurantSettingsComponent,
 
 
   ],
