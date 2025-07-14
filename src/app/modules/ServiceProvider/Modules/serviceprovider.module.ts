@@ -15,7 +15,6 @@ import { RequestDetailsComponent } from '../request-details/request-details-comp
 import { CompleteProfileServiceProviderComponent } from '../complete-profile-service-provider/complete-profile-service-provider.component';
 import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
 import { TruncatePipe } from '../Pipes/truncate.pipe';
-import { ServiceProviderProfileComponent } from '../service-provider-profile/service-provider-profile.component';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
 import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
@@ -103,7 +102,6 @@ let routes: Routes = [
     // SearchProvidersComponent,
     ServiceProviderAllRequestsComponent,
     CompleteProfileServiceProviderComponent,
-    ServiceProviderProfileComponent,
   ],
   imports: [
     CommonModule,

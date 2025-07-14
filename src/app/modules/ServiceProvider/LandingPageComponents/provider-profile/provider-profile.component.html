@@ -5,7 +5,7 @@
         <img [src]="provider.Image" alt="Profile Picture" class="profile-img" />
         <div class="profile-info">
             <h2>{{ provider.UserName }}</h2>
-            <p><strong>Category:</strong> {{ provider.CategoryServicesId }}</p>
+            <p><strong>Category:</strong> {{ categoryName }}</p>
             <p><strong>Location:</strong> {{ provider.Address ?? 'N/A' }}, {{ provider.City ?? '' }} {{
                 provider.District ?? '' }}</p>
             <p><strong>Price:</strong> {{ provider.Price ?? 'N/A' }} {{ provider.PriceUnit ?? '' }}</p>
