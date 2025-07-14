@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedModule } from "../shared.module";
+import { SharedModule } from "../../shared.module";
+import { AgencyService } from '../../../Services/TravelAgency/agency.service';
+import { ToastrService } from 'ngx-toastr';
+import { TopPackageCartComponent } from "../topPackageCart/topPackageCart.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-LandingPage',
   templateUrl: './LandingPage.component.html',
   styleUrls: ['./LandingPage.component.css'],
-  imports: [SharedModule]
+  imports: [SharedModule, TopPackageCartComponent]
 })
 export class LandingPageComponent implements OnInit {
+  topPackages: any[] = [];
 features = [
   {
     icon: '../../../assets/Frame 1157.png',
@@ -40,10 +45,30 @@ exploreCards = [
   { title: 'Verdant Vista', image: '../../../assets/Rectangle 54 (2).png' }
 ];
 
-  constructor() { }
+  constructor(private agencyService: AgencyService,private toastr: ToastrService,private  router: Router,) { }
  title = 'your-agency-landing-page';
   currentYear: number = new Date().getFullYear();
   ngOnInit() {
+     this.agencyService.getTopPackages().subscribe(
+      {
+      next: (res: any) => {
+      this.topPackages =res
+      console.log(this.topPackages )
+      },
+      error: (err) => {
+       this.toastr.error(err)
+       
+      }
+    });
+     ;
+     console.log(this.topPackages)
   }
- 
+   viewPackages(id: number) {
+      console.log(id)
+  this.router.navigateByUrl(`/agancy/client/packageDetails/${id}`);
+}
+  viewAllPackages() {
+  
+  this.router.navigateByUrl(`/agancy/client/Packages`);
+}
 }

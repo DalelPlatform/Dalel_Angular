@@ -105,7 +105,6 @@ export class AddListingComponent implements OnInit, AfterViewInit{
       VerificationStatus: [VerificationStatus.Pending],
 
       CancelationCharges: [0, [
-        Validators.required,
         Validators.min(0)
       ]],
 
@@ -153,6 +152,21 @@ export class AddListingComponent implements OnInit, AfterViewInit{
   
   get formControls() {
     return this.addPropertyForm.controls;
+  }
+
+  get isCancellationOptionsEnabled(): boolean {
+    return this.addPropertyForm.get('CancelationOptions')?.value || false;
+  }
+
+  onCancellationOptionsChange(): void {
+    const cancelationChargesControl = this.addPropertyForm.get('CancelationCharges');
+    if (this.isCancellationOptionsEnabled) {
+      cancelationChargesControl?.setValidators([Validators.required, Validators.min(0)]);
+    } else {
+      cancelationChargesControl?.setValidators([Validators.min(0)]);
+      cancelationChargesControl?.setValue(0);
+    }
+    cancelationChargesControl?.updateValueAndValidity();
   }
 
   ChooseFile(event: any) {

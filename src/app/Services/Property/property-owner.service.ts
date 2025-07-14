@@ -19,6 +19,18 @@ export class PropertyOwnerService {
     return this.http.post(`${environment.baseApi}Property/Property`, data, { headers });
   }
 
+  updateProfile(data: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`${environment.baseApi}Property/update-profile`, data, { headers });
+  }
+  getProfile(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${environment.baseApi}Account/MyAccount`, { headers });
+  }
 
 
   getProperties(searchText: string, city:string): Observable<any> {

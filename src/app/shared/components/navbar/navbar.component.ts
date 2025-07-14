@@ -18,6 +18,7 @@ isNotificationOpen = false;
 notifications: any[] = [];
 isLoggedIn: boolean = false;
  currentUrl: string = '';
+ img: string = '';
    supTotal: number = 0;
   totalQuantity: number = 0;
   cartItems: IcartItem[] = []
@@ -28,7 +29,10 @@ constructor(private notificationService: NotificationService, private cookieServ
     this.loadNotifications();
     const Token= this.cookieService.get('Token')
     const role= this.cookieService.get('Role')
-     if (Token && role == "Client") {
+    const Image= this.cookieService.get('Image')
+    this.img= Image
+    console.log(Image)
+     if (Token) {
     this.isLoggedIn = true;
     
   }
@@ -165,5 +169,10 @@ removeItem(item: IcartItem) {
     console.log("Proceeding to checkout with items:", cartItems);
     // Implement your checkout logic here
   }
-
+logout() {
+  console.log("g")
+this.cookieService.deleteAll();
+  this.router.navigate(['/login']);   
+  this.isLoggedIn = false;           
+}
 }

@@ -1,10 +1,92 @@
 <nav class="navbar navbar-expand-lg sticky-top">
   <div class="container">
-    <div class="navbar-brand" >
-    logo
+ 
+   
+   <div class="navbar-brand">
+     <svg xmlns="http://www.w3.org/2000/svg" width="160" height="60" viewBox="0 18 100 80">
+    <!-- <rect width="30" height="30" fill="#ffffff" /> -->
+ 
+    <defs>
+      <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+ 
+    <!-- Wrapper: Floating always -->
+    <g transform="translate(30, 10)">
+      <g transform-origin="32 43">
+        <!-- Floating animation -->
+        <!-- <animateTransform attributeName="transform"
+                          type="translate"
+                          values="0,0;0,-5;0,0"
+                          keyTimes="0;0.5;1"
+                          dur="2s"
+                          repeatCount="indefinite" /> -->
+ 
+        <!-- Flip animation -->
+        <g transform-origin="32 43">
+          <animateTransform attributeName="transform"
+                            type="scale"
+                            values="1,1;1,1;-1,1;-1,1;1,1;1,1"
+                            keyTimes="0;0.476;0.5;0.976;1;1"
+                            dur="15s"
+                            repeatCount="indefinite" />
+ 
+          <!-- Logo -->
+          <g>
+            <path d="M32 15 C42 15 50 23 50 33 C50 43 32 68 32 68 C32 68 14 43 14 33 C14 23 22 15 32 15 Z"
+                  fill="url(#pinGradient)"
+                  stroke="#5b21b6"
+                  stroke-width="1"
+                  stroke-linejoin="round"
+                  stroke-linecap="round">
+              <animate attributeName="opacity"
+                       values="1;1;0;0;1;1"
+                       keyTimes="0;0.476;0.5;0.976;1;1"
+                       dur="15s"
+                       repeatCount="indefinite" />
+            </path>
+ 
+            <circle cx="32" cy="33" r="12" fill="white" stroke="#5b21b6" stroke-width="1">
+              <animate attributeName="opacity"
+                       values="1;1;0;0;1;1"
+                       keyTimes="0;0.476;0.5;0.976;1;1"
+                       dur="15s"
+                       repeatCount="indefinite" />
+            </circle>
+ 
+            <circle cx="32" cy="33" r="8" fill="#6366f1">
+              <animate attributeName="opacity"
+                       values="1;1;0;0;1;1"
+                       keyTimes="0;0.476;0.5;0.976;1;1"
+                       dur="15s"
+                       repeatCount="indefinite" />
+            </circle>
+          </g>
+        </g>
+ 
+        <!-- Dalel text -->
+        <text x="32" y="60"
+              font-family="Arial, sans-serif"
+              font-size="40"
+              font-weight="bold"
+              font-style="italic"
+              fill="#6366f1"
+              text-anchor="middle"
+              opacity="0">
+          Dalel
+          <animate attributeName="opacity"
+                   values="0;0;1;1;0;0"
+                   keyTimes="0;0.5;0.52;0.95;0.976;1"
+                   dur="15s"
+                   repeatCount="indefinite" />
+        </text>
+      </g>
+    </g>
+  </svg>
+ 
     </div>
-     
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -12,7 +94,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" routerLink="/mainPage">Home</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -31,10 +113,10 @@
             Properties
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Appetizers</a></li>
-            <li><a class="dropdown-item" href="#">Main Courses</a></li>
-            <li><a class="dropdown-item" href="#">Desserts</a></li>
-            <li><a class="dropdown-item" href="#">Beverages</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/property/client/search-property']">Listings</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/property/client/bookings']">Bookings</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/property/client/reviews']">Reviews</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/property/client/settings']">Settings</a></li>
           </ul>
         </li>
 
@@ -44,10 +126,8 @@
             Travel Agency
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Appetizers</a></li>
-            <li><a class="dropdown-item" href="#">Main Courses</a></li>
-            <li><a class="dropdown-item" href="#">Desserts</a></li>
-            <li><a class="dropdown-item" href="#">Beverages</a></li>
+            <li><a class="dropdown-item" routerLink="/agancy/client/Packages">Package</a></li>
+           
           </ul>
         </li>
 
@@ -64,29 +144,15 @@
           </ul>
         </li>
 
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Services
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" [routerLink]="">Delivery</a></li>
-            <li><a class="dropdown-item" [routerLink]="">Catering</a></li>
-            <li><a class="dropdown-item" [routerLink]="">Reservations</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Offers</a>
-        </li>
       </ul>
-  @if (!isLoggedIn;) {
-     <div class="d-flex gap-2">
-         <button class="btn account" type="submit" routerLink="/login">Login</button>
+      @if (!isLoggedIn;) {
+      <div class="d-flex gap-2">
+        <button class="btn account" type="submit" routerLink="/login">Login</button>
         <button class="btn account" type="submit" routerLink="/register">Register</button>
-       </div>
-  }
-    @else {
-       <div class="nav-actions">
+      </div>
+      }
+      @else {
+      <div class="nav-actions">
         <!-- <div class="search-container">
           <i class="bi bi-search search-icon"></i>
           <input type="text" class="search-input" placeholder="Search dishes, restaurants...">
@@ -95,46 +161,58 @@
           </button>
         </div> -->
         <!-- notification -->
-         
-       <button class="toggleNotifications btn position-relative p-1 m-0" (click)="toggleNotifications()"><i class="fas fa-bell action-icon"></i>
-         <span *ngIf="notifications.length > 0" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-          style="font-size: 10px;"
-          >
-        {{ notifications.length }}
-      </span>
-       </button>
-       <div class="notification-dropdown" *ngIf="isNotificationOpen">
-        @if (notifications.length > 0) {
-            <ul class="list-group">
-      <li *ngFor="let notification of notifications; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-       
-  <span (click)="markAsRead(notification.Id)">
-     {{ notification.Message }}
-  </span>
-<button class ="btn account" style="font-size:13px" 
- [routerLink]="['/agancy/client/ReviewPackage', getBookingId(notification.Message)]"
->
-  Review now 
-</button>
-      </li>
-    </ul>
-        }
-        @else {
-          <div class="text-center p-2">🚫 There Is no Notification   </div>
-        }
-  
-  </div>
+
+        <button class="toggleNotifications btn position-relative p-1 m-0" (click)="toggleNotifications()"><i
+            class="fas fa-bell action-icon"></i>
+          <span *ngIf="notifications.length > 0"
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            style="font-size: 10px;">
+            {{ notifications.length }}
+          </span>
+        </button>
+        <div class="notification-dropdown" *ngIf="isNotificationOpen">
+          @if (notifications.length > 0) {
+          <ul class="list-group">
+            <li *ngFor="let notification of notifications; let i = index"
+              class="list-group-item d-flex justify-content-between align-items-center">
+
+              <span (click)="markAsRead(notification.Id)">
+                {{ notification.Message }}
+              </span>
+              <button class="btn account" style="font-size:13px"
+                [routerLink]="['/agancy/client/ReviewPackage', getBookingId(notification.Message)]">
+                Review now
+              </button>
+            </li>
+          </ul>
+          }
+          @else {
+          <div class="text-center p-2">🚫 There Is no Notification </div>
+          }
+
+        </div>
 
         <div class="cart-container" (click)="getCartItems()">
           <i class="bi bi-cart action-icon " data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"></i>
+          @if(totalQuantity > 0 ){
           <span class="cart-badge">{{totalQuantity}}</span>
+          }
+
         </div>
 
         <div class="dropdown user-dropdown">
           <div class="profile-circle" data-bs-toggle="dropdown" aria-expanded="false">
             <!-- Replace with actual user image -->
             <!-- <img src="path/to/user-image.jpg" alt="User"> -->
-            <i class="bi bi-person-fill"></i>
+                <img 
+                [src]="img ||'https://t3.ftcdn.net/jpg/03/46/83/96/240_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'"
+                alt="User Profile" 
+                class="rounded-circle" 
+                width="35" 
+                height="35"
+                style="object-fit: cover; cursor: pointer;"
+              
+              />
           </div>
           <ul class="dropdown-menu">
             <li>
@@ -162,20 +240,22 @@
               </a>
             </li>
             <li>
-              <a class="user-dropdown-item" href="#">
+              <a class="user-dropdown-item" (click)="logout()">
                 <i class="bi bi-box-arrow-right"></i>
                 Log Out
               </a>
             </li>
           </ul>
         </div>
-      </div>
-     }
      
+  <!-- <a class="logout" (click)="logout()" class="menu-item sign-out text-danger" style="cursor:pointer"><i class="fas fa-sign-out-alt"></i> Sign Out</a>  -->
+      </div>
+      }
+
     </div>
   </div>
-</nav>
 
+</nav>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
   <div class="offcanvas-header">

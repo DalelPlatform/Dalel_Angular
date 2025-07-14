@@ -1,0 +1,60 @@
+<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" width="40" height="auto">
+  <defs>
+    <linearGradient id="pinGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <g transform-origin="32 43">
+    <g transform-origin="32 43">
+      <animateTransform attributeName="transform"
+                        type="scale"
+                        values="1,1;1,1;-1,1;-1,1;1,1;1,1"
+                        keyTimes="0;0.476;0.5;0.976;1;1"
+                        dur="15s"
+                        repeatCount="indefinite" />
+      <g>
+        <path d="M32 15 C42 15 50 23 50 33 C50 43 32 68 32 68 C32 68 14 43 14 33 C14 23 22 15 32 15 Z"
+              fill="url(#pinGradient)" stroke="#5b21b6" stroke-width="1"
+              stroke-linejoin="round" stroke-linecap="round">
+          <animate attributeName="opacity"
+                   values="1;1;0;0;1;1"
+                   keyTimes="0;0.476;0.5;0.976;1;1"
+                   dur="15s"
+                   repeatCount="indefinite" />
+        </path>
+        <circle cx="32" cy="33" r="12" fill="white" stroke="#5b21b6" stroke-width="1">
+          <animate attributeName="opacity"
+                   values="1;1;0;0;1;1"
+                   keyTimes="0;0.476;0.5;0.976;1;1"
+                   dur="15s"
+                   repeatCount="indefinite" />
+        </circle>
+        <circle cx="32" cy="33" r="8" fill="#6366f1">
+          <animate attributeName="opacity"
+                   values="1;1;0;0;1;1"
+                   keyTimes="0;0.476;0.5;0.976;1;1"
+                   dur="15s"
+                   repeatCount="indefinite" />
+        </circle>
+      </g>
+    </g>
+
+    <text x="32" y="43"
+          font-family="Arial, sans-serif"
+          font-size="30"
+          font-weight="bold"
+          font-style="italic"
+          fill="#6366f1"
+          text-anchor="middle"
+          opacity="0">
+      Dalel
+      <animate attributeName="opacity"
+               values="0;0;1;1;0;0"
+               keyTimes="0;0.5;0.52;0.95;0.976;1"
+               dur="15s"
+               repeatCount="indefinite" />
+    </text>
+  </g>
+</svg>
