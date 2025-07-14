@@ -1,18 +1,8 @@
-<!-- <div class="card">
 
-  <img class="card__img" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=2250&amp;q=80" alt="Snowy Mountains">
-  <div class="card__content">
-    <h1 class="card__header">{{meals.Name}}</h1>
-    <div class="card__text-wrapper">
-      <p class="card__text">{{meals.Description}} </p>
-    </div>
-    <button class="card__btn" >Details <span>&rarr;</span></button>
-  </div>
-</div> -->
 
 
 <div class="container-fluid px-2 my-4 ">
-  <div class="row justify-content-start g-3">
+  <div class="">
     <div class="col-auto">
       <div class="card meal-card h-100">
         <div class="card-img-container">
@@ -68,7 +58,7 @@
         </div>
 
         <div class="card-body">
-          <h5 class="meal-title">{{meal.Name}}</h5>
+          <h5 class="meal-title" (click)="onMealClick(meal)">{{meal.Name}}</h5>
           <p class="restaurant-name">
             <i class="fas fa-store"></i> {{meal.RestaurantName}} Restaurant
           </p>
