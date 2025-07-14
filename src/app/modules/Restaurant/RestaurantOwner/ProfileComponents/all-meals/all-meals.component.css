@@ -1,0 +1,339 @@
+.listings-wrapper {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 32px 24px 24px 24px;
+    margin: 32px auto;
+    max-width: 900px;
+  }
+  .listings-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ececec;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+  .listings-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  .listings-count {
+    background: #f1f0ff;
+    color: #6c47ff;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 4px 16px;
+    margin-left: 12px;
+  }
+  .listings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .listings-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .listing-card {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+  }
+  
+  .listing-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+  }
+  
+  .listing-image {
+    width: 120px;
+    height: 90px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  
+  .listing-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .listing-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 4px;
+  }
+  
+  .listing-location {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #6c757d;
+    font-size: 14px;
+  }
+  
+  .location-icon {
+    width: 14px;
+    height: 14px;
+    fill: #6c757d;
+  }
+  
+  .listing-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: #212529;
+    margin-top: 8px;
+  }
+  
+  .price-period {
+    font-size: 14px;
+    font-weight: 400;
+    color: #6c757d;
+  }
+  
+  .listing-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  
+  .action-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+  }
+  
+  .edit-btn {
+    background: #6c5ce7;
+    color: white;
+  }
+  
+  .edit-btn:hover {
+    background: #5a4fcf;
+  }
+  
+  .delete-btn {
+    background: #e74c3c;
+    color: white;
+  }
+  
+  .delete-btn:hover {
+    background: #c0392b;
+  }
+  
+  .more-options {
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    margin-left: auto;
+    margin-right: 20px;
+  }
+  
+  .more-options:hover {
+    background: #f8f9fa;
+  }
+  
+  .dots {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .dot {
+    width: 3px;
+    height: 3px;
+    background: #6c757d;
+    border-radius: 50%;
+  }
+  
+  @media (max-width: 768px) {
+    .listing-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+  
+    .listing-image {
+        width: 100%;
+        height: 200px;
+    }
+  
+    .listing-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+  
+    .more-options {
+        margin-left: 0;
+        margin-right: 0;
+    }
+  }
+  @media (max-width: 700px) {
+    .listing-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding: 14px 8px;
+    }
+    .listing-img img {
+      width: 100%;
+      height: 160px;
+    }
+    .listing-actions {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+  
+  .add-listing-btn {
+    margin-left: auto;
+    background: #EDECFB;
+    color: #5143D9;
+    font-weight: 700;
+    font-size: 0.98rem;
+    border: none;
+    border-radius: 999px;
+    padding: 7px 18px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    box-shadow: 0 2px 8px rgba(81, 67, 217, 0.04);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .add-listing-btn .add-icon {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-right: 4px;
+    display: flex;
+    align-items: center;
+    color: #5143D9;
+    transition: color 0.15s;
+  }
+  .add-listing-btn:hover, .add-listing-btn:focus {
+    background: #5143D9;
+    color: #fff;
+    outline: none;
+  }
+  .add-listing-btn:hover .add-icon,
+  .add-listing-btn:focus .add-icon {
+    color: #fff;
+  }
+  
+  /* Custom Modal Styles for Delete Confirmation */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+  }
+  .modal-content {
+    background: #fff;
+    border-radius: 14px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    animation: slideUp 0.2s ease;
+    overflow: hidden;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(40px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px 10px 24px;
+    border-bottom: 1px solid #ececec;
+  }
+  .modal-header h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #e74c3c;
+  }
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: #888;
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .close-btn:hover {
+    background: #f0f0f0;
+  }
+  .modal-body {
+    padding: 20px 24px 0 24px;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+  }
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 18px 24px 18px 24px;
+    border-top: 1px solid #ececec;
+  }
+  .cancel-btn {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cancel-btn:hover {
+    background: #bdbdbd;
+  }
+  .confirm-btn {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .confirm-btn:hover {
+    background: #c0392b;
+  }
+  

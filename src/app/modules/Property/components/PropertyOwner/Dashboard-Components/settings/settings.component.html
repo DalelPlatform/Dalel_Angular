@@ -80,31 +80,6 @@
             </div>
           </div>
 
-          <!-- Contact Information -->
-          <div class="section-title">
-            <i class="fas fa-envelope"></i>
-            Contact Information
-          </div>
-
-          <!-- Email -->
-          <div class="mb-4">
-            <label for="Email" class="form-label">Email Address</label>
-            <div class="input-with-icon">
-              <i class="input-icon fas fa-envelope"></i>
-              <input type="email" class="form-control" id="Email" formControlName="Email" placeholder="Enter email address">
-            </div>
-            @if(formControls['Email'].invalid && formControls['Email'].touched) {
-              <div class="form-text text-danger">
-                @if(formControls['Email'].hasError('required')) {
-                  <span>Email is required</span>
-                }
-                @else if(formControls['Email'].hasError('email')) {
-                  <span>Please enter a valid email address</span>
-                }
-              </div>
-            }
-          </div>
-
           <!-- Phone Number -->
           <div class="mb-4">
             <label for="PhoneNumber" class="form-label">Phone Number</label>
@@ -124,33 +99,8 @@
             }
           </div>
 
-          <!-- Account Information -->
-          <div class="section-title">
-            <i class="fas fa-user-circle"></i>
-            Account Information
-          </div>
-
-          <!-- Username -->
-          <div class="mb-4">
-            <label for="UserName" class="form-label">Username</label>
-            <div class="input-with-icon">
-              <i class="input-icon fas fa-at"></i>
-              <input type="text" class="form-control" id="UserName" formControlName="UserName" placeholder="Enter username">
-            </div>
-            @if(formControls['UserName'].invalid && formControls['UserName'].touched) {
-              <div class="form-text text-danger">
-                @if(formControls['UserName'].hasError('required')) {
-                  <span>Username is required</span>
-                }
-                @else if(formControls['UserName'].hasError('minlength')) {
-                  <span>Username must be at least 3 characters</span>
-                }
-                @else if(formControls['UserName'].hasError('maxlength')) {
-                  <span>Username cannot exceed 30 characters</span>
-                }
-              </div>
-            }
-          </div>
+          <!-- Remove Email and Username fields/sections -->
+          <!-- Contact Information and Account Information sections removed -->
 
           <!-- Submit Button -->
           <div class="form-actions">

@@ -13,6 +13,7 @@ import {
 import {
   ResetPasswordRequest, ResetPasswordResponse
 } from '../models/reset-password.model';
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -45,6 +46,20 @@ export class AccountService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post(this.apiUrl + 'Register', user, { headers });
   }
+
+  updateProfile(data: any, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put(`${environment.baseApi}Account/update-account`, data, { headers });
+  }
+  getProfile(token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get(`${environment.baseApi}Account/MyAccount`, { headers });
+  }
+
 
   Logout(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -1,32 +1,31 @@
-<app-loader *ngIf="serviceloader.isLoading$ | async"></app-loader>
 
-<div class="listings-wrapper" [ngClass]="{ 'd-none': serviceloader.isLoading$ | async}">
+<div class="listings-wrapper" >
   <div class="listings-header">
-    <h2>My Listings <span class="listings-count">{{ listings.length }} Items</span></h2>
-    <button class="add-listing-btn" (click)="GoToListing()">
+    <h2>My Listings <span class="listings-count">{{ meals.length }} Items</span></h2>
+    <button class="add-listing-btn" (click)="GoToAddMeal()">
       <svg class="add-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="8" cy="8" r="8" fill="none"/>
         <path d="M8 4V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         <path d="M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      Add New Listing
+      Add New Meal
     </button>
   </div>
   <div class="listings-list">
     <!-- Rest of your template remains the same -->
-    <div class="listing-card" *ngFor="let property of listings">
-        <img [src]="property.Images[0]" class="listing-image">
+    <div class="listing-card" *ngFor="let meal of meals">
+        <img [src]="meal.Images[0]" class="listing-image">
 
         <div class="listing-content">
-            <h3 class="listing-title">{{ property.Description }}</h3>
+            <h3 class="listing-title">{{ meal.Name }}</h3>
             <div class="listing-location">
                 <svg class="location-icon" viewBox="0 0 24 24">
                     <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                 </svg>
-                {{ property.Address}}
+                {{ meal.Description}}
             </div>
             <div class="listing-price">
-              {{ property.PricePerNight}} <span class="price-period">/Night</span>
+              {{ meal.Price}} <span class="price-period">/Night</span>
             </div>
         </div>
 
@@ -39,14 +38,14 @@
         </button>
 
         <div class="listing-actions" >
-            <button class="action-btn edit-btn" (click)="EditListing(property.Id)">
+            <button class="action-btn edit-btn" (click)="EditMeal(meal.Id)">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                 </svg>
                 Edit
             </button>
 
-            <button class="action-btn delete-btn" (click)="DeleteListing(property.Id)">
+            <button class="action-btn delete-btn" (click)="DeleteMeal(meal.Id)">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
                 </svg>
@@ -65,7 +64,7 @@
       <button class="close-btn" (click)="closeDeleteModal()">×</button>
     </div>
     <div class="modal-body">
-      <p>Are you sure you want to delete this listing?</p>
+      <p>Are you sure you want to delete this Meal?</p>
     </div>
     <div class="modal-footer">
       <button class="cancel-btn" (click)="closeDeleteModal()">Cancel</button>

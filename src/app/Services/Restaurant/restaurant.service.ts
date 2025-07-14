@@ -31,7 +31,11 @@ export class RestaurantService {
 
     return this.http.post(`${environment.baseApi}RestaurantMeal/AddMeal`, data);
   }
+  DeleteMeal(id: number): Observable<any> {
 
+    return this.http.delete(`${environment.baseApi}RestaurantMeal/${id}`);
+
+  }
   getRestaurant(restaurantName: string , city : string , region : string , address : string , street : string): Observable<any> {
     return this.http.get(`${environment.baseApi}Restaurant/search?searchText=${restaurantName}&city=${city}&region=${region}&address=${address}&street=${street}`);
   }
@@ -43,6 +47,10 @@ export class RestaurantService {
 
   getMenuItemsById(restaurantId: number): Observable<any> {
     return this.http.get(`${environment.baseApi}RestaurantMeal/GetMealsByRestaurantId/${restaurantId}`);
+  }
+
+  GetMealsByRestaurantOwner(): Observable<any> {
+    return this.http.get(`${environment.baseApi}RestaurantMeal/GetMealsByRestaurantOwner`);
   }
 
   getMenuItems(): Observable<any>{

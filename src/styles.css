@@ -2,10 +2,13 @@
 :root {
   --primary-color: #8b5cf6;
   --secondary-color: #6366f1;
-  --accent-color: #ffc107;
+  --accent-color: #F59E0B;
   --darkPlus-color: #343a40;
   --dark-color: #4b5563;
   --light-bg: #f8f9fa;
+  --danger-color: #dc3545;
+  --danger-hover: #c82333;
+  --li-color: #ffffff; /* make nav links white by default */
 }
 
 /* pagination */
@@ -81,5 +84,5 @@
 }
 
 body{
-    font-family: "Poppins", sans-serif !important; 
+    font-family: "Poppins", sans-serif !important;
 }

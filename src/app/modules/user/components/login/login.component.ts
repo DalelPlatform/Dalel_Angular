@@ -36,6 +36,7 @@ export class LoginComponent {
       this.cookieService.set('Role', res.Role);
       this.cookieService.set('Image', res.Image);
       this.cookieService.set('FullName', res.FullName);
+      this.cookieService.set('Email', res.Email);
 
         if (res.Role === 'ServiceProvider') {
           this.ServiceProviderProfileService.checkProfileCompletion().subscribe({
