@@ -1,0 +1,129 @@
+<div class="chat-container">
+      <!-- Chat List Side -->
+      <div class="chat-list-panel">
+        <div class="chat-header">
+          <h3>Chats</h3>
+          <button 
+            class="refresh-btn"
+            (click)="loadChats()"
+            [disabled]="isLoadingChats"
+          >
+            <span [class.spinning]="isLoadingChats">🔄</span>
+          </button>
+        </div>
+        
+        <!-- Loading State for Chats -->
+        <div *ngIf="isLoadingChats" class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading chats...</p>
+        </div>
+        
+        <!-- Error State for Chats -->
+        <div *ngIf="chatsError" class="error-state">
+          <p>Failed to load chats</p>
+          <button (click)="loadChats()" class="retry-btn">Retry</button>
+        </div>
+        
+        <!-- Empty State -->
+        <div *ngIf="!isLoadingChats && !chatsError && chats.length === 0" class="empty-state">
+          <p>No chats available</p>
+        </div>
+        
+        <!-- Chat List -->
+        <div class="chat-list" *ngIf="!isLoadingChats && !chatsError && chats.length > 0">
+          <div 
+            *ngFor="let chat of chats; trackBy: trackByChat"
+            class="chat-item"
+            [class.active]="selectedChat?.Id === chat.Id"
+            (click)="selectChat(chat)"
+          >
+            <div class="chat-info">
+              <div class="chat-title">
+                Chat #{{ chat.Id }}
+              </div>
+              <div class="chat-participants">
+                <span class="participant">{{ chat.ClientId }}</span>
+                <span class="separator">↔</span>
+                <span class="participant">{{ chat.ServiceProviderId }}</span>
+              </div>
+              <div class="chat-time">
+                {{ formatDate(chat.LastMessageAt) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Messages Panel -->
+      <div class="messages-panel">
+        <!-- No Chat Selected -->
+        <div *ngIf="!selectedChat" class="no-selection">
+          <div class="no-selection-content">
+            <div class="chat-icon">💬</div>
+            <h3>Select a chat to view messages</h3>
+            <p>Choose a chat from the list to see the conversation</p>
+          </div>
+        </div>
+        
+        <!-- Selected Chat -->
+        <div *ngIf="selectedChat" class="chat-content">
+          <!-- Chat Header -->
+          <div class="messages-header">
+            <div class="chat-details">
+              <h3>Chat #{{ selectedChat.Id }}</h3>
+              <div class="participants-info">
+                <span class="client">{{ selectedChat.ClientId }}</span>
+                <span class="separator">↔</span>
+                <span class="provider">{{ selectedChat.ServiceProviderId }}</span>
+              </div>
+            </div>
+            <div class="chat-actions">
+              <button 
+                class="refresh-messages-btn"
+                (click)="loadMessages(selectedChat.Id)"
+                [disabled]="isLoadingMessages"
+              >
+                <span [class.spinning]="isLoadingMessages">🔄</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Messages Loading -->
+          <div *ngIf="isLoadingMessages" class="messages-loading">
+            <div class="spinner"></div>
+            <p>Loading messages...</p>
+          </div>
+          
+          <!-- Messages Error -->
+          <div *ngIf="messagesError" class="messages-error">
+            <p>Failed to load messages</p>
+            <button (click)="loadMessages(selectedChat.Id)" class="retry-btn">Retry</button>
+          </div>
+          
+          <!-- Empty Messages -->
+          <div *ngIf="!isLoadingMessages && !messagesError && messages.length === 0" class="empty-messages">
+            <p>No messages in this chat</p>
+          </div>
+          
+          <!-- Messages List -->
+          <div class="messages-list" *ngIf="!isLoadingMessages && !messagesError && messages.length > 0">
+            <div 
+              *ngFor="let message of messages; trackBy: trackByMessage"
+              class="message"
+              [class.client-message]="message.IsSenderClient"
+              [class.provider-message]="!message.IsSenderClient"
+            >
+              <div class="message-content">
+                <div class="message-text">{{ message.Comment }}</div>
+                <div class="message-meta">
+                  <span class="sender">
+                    {{ message.IsSenderClient ? 'Client' : 'Provider' }}
+                  </span>
+                  <span class="time">{{ formatDate(message.CommentDate) }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

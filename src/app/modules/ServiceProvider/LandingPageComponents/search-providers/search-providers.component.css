@@ -13,7 +13,7 @@ body {
 
 .search-providers-container {
     min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
 }
 
 /* Hero Slider Styles */
@@ -68,7 +68,7 @@ body {
 }
 
 .hero-actions .btn-primary {
-    background: linear-gradient(45deg, #667eea, #764ba2);
+    background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
     border: none;
 }
 
@@ -620,37 +620,7 @@ background-color: azure;
     margin-right: auto;
 }
 
-/* Pagination */
-.pagination-nav {
-    margin-top: 3rem;
-    text-align: center;
-}
 
-.pagination .page-link {
-    border: none;
-    color: #667eea;
-    padding: 0.75rem 1rem;
-    margin: 0 0.2rem;
-    border-radius: 10px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.pagination .page-link:hover {
-    background: #667eea;
-    color: white;
-}
-
-.pagination .page-item.active .page-link {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-    color: white;
-    border: none;
-}
-
-.pagination .page-item.disabled .page-link {
-    color: #ccc;
-    cursor: not-allowed;
-}
 
 .pagination-info {
     margin-top: 1rem;

@@ -202,41 +202,35 @@
 </div>
 
 <!-- Pagination -->
-<div class="pagination-section" *ngIf="totalCount > pageSize">
-  <div class="container-fluid px-4">
-    <nav aria-label="Page navigation" class="pagination-nav">
-      <ul class="pagination-list">
+<div class="pagination-style" *ngIf="totalCount > pageSize">
+  <ul class="ngx-pagination">
+    <li [class.disabled]="currentPage === 1">
+      <a (click)="goToPage(1)" aria-label="First">
+        <i class="fas fa-angle-double-left"></i>
+      </a>
+    </li>
 
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="goToPage(1)" aria-label="First">
-            <i class="fas fa-angle-double-left"></i>
-          </a>
-        </li>
+    <li [class.disabled]="currentPage === 1">
+      <a (click)="goToPage(currentPage - 1)" aria-label="Previous">
+        <i class="fas fa-angle-left"></i>
+      </a>
+    </li>
 
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
-            <i class="fas fa-angle-left"></i>
-          </a>
-        </li>
+    <li *ngFor="let page of pages" [class.current]="page === currentPage">
+      <a (click)="goToPage(page)">{{ page }}</a>
+    </li>
 
-        <li *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage">
-          <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-        </li>
+    <li [class.disabled]="currentPage === totalPages">
+      <a (click)="goToPage(currentPage + 1)" aria-label="Next">
+        <i class="fas fa-angle-right"></i>
+      </a>
+    </li>
 
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
-            <i class="fas fa-angle-right"></i>
-          </a>
-        </li>
-
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
-            <i class="fas fa-angle-double-right"></i>
-          </a>
-        </li>
-
-      </ul>
-    </nav>
-  </div>
+    <li [class.disabled]="currentPage === totalPages">
+      <a (click)="goToPage(totalPages)" aria-label="Last">
+        <i class="fas fa-angle-double-right"></i>
+      </a>
+    </li>
+  </ul>
 </div>
 

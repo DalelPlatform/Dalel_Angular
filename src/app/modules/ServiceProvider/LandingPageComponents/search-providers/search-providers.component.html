@@ -275,53 +275,52 @@
             <!-- Pagination -->
             <div class="row" *ngIf="!loading && totalPages > 1">
                 <div class="col-12">
-                    <nav class="pagination-nav">
-                        <ul class="pagination justify-content-center">
-
+                    <div class="pagination-style">
+                        <ul class="ngx-pagination">
                             <!-- First Page -->
-                            <li class="page-item" [class.disabled]="currentPage === 1">
-                                <a class="page-link" href="#" (click)="goToFirstPage(); $event.preventDefault()">
+                            <li [class.disabled]="currentPage === 1">
+                                <a (click)="goToFirstPage(); $event.preventDefault()" aria-label="First">
                                     <i class="fas fa-angle-double-left"></i>
                                 </a>
                             </li>
 
                             <!-- Previous Page -->
-                            <li class="page-item" [class.disabled]="currentPage === 1">
-                                <a class="page-link" href="#" (click)="goToPreviousPage(); $event.preventDefault()">
+                            <li [class.disabled]="currentPage === 1">
+                                <a (click)="goToPreviousPage(); $event.preventDefault()" aria-label="Previous">
                                     <i class="fas fa-angle-left"></i>
                                 </a>
                             </li>
 
                             <!-- Page Numbers -->
-                            <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
-                                <a class="page-link" href="#" (click)="goToPage(page); $event.preventDefault()">
+                            <li *ngFor="let page of pages" [class.current]="page === currentPage">
+                                <a (click)="goToPage(page); $event.preventDefault()">
                                     {{ page }}
                                 </a>
                             </li>
 
                             <!-- Next Page -->
-                            <li class="page-item" [class.disabled]="currentPage === totalPages">
-                                <a class="page-link" href="#" (click)="goToNextPage(); $event.preventDefault()">
+                            <li [class.disabled]="currentPage === totalPages">
+                                <a (click)="goToNextPage(); $event.preventDefault()" aria-label="Next">
                                     <i class="fas fa-angle-right"></i>
                                 </a>
                             </li>
 
                             <!-- Last Page -->
-                            <li class="page-item" [class.disabled]="currentPage === totalPages">
-                                <a class="page-link" href="#" (click)="goToLastPage(); $event.preventDefault()">
+                            <li [class.disabled]="currentPage === totalPages">
+                                <a (click)="goToLastPage(); $event.preventDefault()" aria-label="Last">
                                     <i class="fas fa-angle-double-right"></i>
                                 </a>
                             </li>
                         </ul>
+                    </div>
 
-                        <!-- Page Info -->
-                        <div class="pagination-info">
-                            <span class="page-info">
-                                Page {{ currentPage }} of {{ totalPages }}
-                                ({{ totalCount }} total providers)
-                            </span>
-                        </div>
-                    </nav>
+                    <!-- Page Info -->
+                    <div class="pagination-info">
+                        <span class="page-info">
+                            Page {{ currentPage }} of {{ totalPages }}
+                            ({{ totalCount }} total providers)
+                        </span>
+                    </div>
                 </div>
             </div>
 

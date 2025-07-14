@@ -21,7 +21,8 @@ import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
 import { SearchProvidersComponent } from '../LandingPageComponents/search-providers/search-providers.component';
 import { ProviderProfileComponent } from '../LandingPageComponents/provider-profile/provider-profile.component';
-
+import { ChatComponent } from '../Chat/Components/chat/chat.component';
+import { clientGuard } from '../../../Services/Guards/Client/client.guard';
 let routes: Routes = [
   {
     path: "ServiceProviderlayout",
@@ -54,6 +55,10 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
       }
     ]
+  },
+  {
+    path:'ServiceChat', component:ChatComponent ,
+    // canActivate:[serviceProviderGuard, clientGuard]
   },
   { path: 'request/:id', component: RequestDetailsComponent },
   
@@ -102,6 +107,7 @@ let routes: Routes = [
   ],
   imports: [
     CommonModule,
+    ChatComponent,
     ReactiveFormsModule,
     FormsModule,
     ServiceProviderLayoutComponent,
