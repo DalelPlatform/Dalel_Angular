@@ -16,10 +16,6 @@ import { CompleteProfileServiceProviderComponent } from '../complete-profile-ser
 import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
 import { TruncatePipe } from '../Pipes/truncate.pipe';
 import { ServiceProviderProfileComponent } from '../service-provider-profile/service-provider-profile.component';
-import { ServiceProviderProjectsComponent } from '../service-provider-projects/service-provider-projects.component';
-import { ServiceProviderReviewsComponent } from '../service-provider-reviews/service-provider-reviews.component';
-import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
-import { ServiceProviderSharedModule } from './service-provider-shared.module';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
 import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
@@ -92,15 +88,11 @@ let routes: Routes = [
     ServiceProviderAllRequestsComponent,
     CompleteProfileServiceProviderComponent,
     ServiceProviderProfileComponent,
-    ServiceProviderProjectsComponent,
-    ServiceProviderProposalsComponent,
-    ServiceProviderReviewsComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
     TruncatePipe,
     NgxPaginationModule,
