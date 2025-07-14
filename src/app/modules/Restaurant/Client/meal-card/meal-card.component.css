@@ -1,15 +1,19 @@
 
 .meal-card {
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: transparredent;
+  border-radius: none;
+  /* box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
+  border: 1px solid var(--secondary-color);
   transition: all 0.3s ease;
-  border: none;
-  max-width: 320px;
-  margin: 0 auto;
+  /* border: none; */
+  max-width:300px; /* عدلها من 320px */
+  margin: 0 !important;        /* شيل auto */
   cursor: pointer;
+  height: 100%;     /* خلي الكارد ياخد ارتفاع العمود بالكامل */
 }
+
 
 .meal-card:hover {
   /* transform: translateY(-10px); */
@@ -18,7 +22,7 @@
 
 .card-img-container {
   position: relative;
-  height: 140px;
+  height: 150px;
   overflow: hidden;
 }
 
@@ -300,6 +304,7 @@
   background: var(--primary-color);
   color: white;
 }
+
 
 .card-divider {
   height: 1px;
