@@ -1,0 +1,47 @@
+<div class="profile-container" *ngIf="provider">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <img [src]="provider.Image" alt="Profile Picture" class="profile-img" />
+        <div class="profile-info">
+            <h2>{{ provider.UserName }}</h2>
+            <p><strong>Category:</strong> {{ provider.CategoryServicesId }}</p>
+            <p><strong>Location:</strong> {{ provider.Address ?? 'N/A' }}, {{ provider.City ?? '' }} {{
+                provider.District ?? '' }}</p>
+            <p><strong>Price:</strong> {{ provider.Price ?? 'N/A' }} {{ provider.PriceUnit ?? '' }}</p>
+            <p><strong>Website:</strong> <a *ngIf="provider.Website" [href]="provider.Website" target="_blank">{{
+                    provider.Website }}</a></p>
+            <button class="chat-btn" (click)="startChat()">
+                <i class="fas fa-comments me-1"></i> Message
+            </button>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="profile-about">
+        <h3>About</h3>
+        <p>{{ provider.About || 'No description provided.' }}</p>
+    </div>
+
+    <!-- Schedule Table -->
+    <div class="profile-schedule">
+        <h3>Available Schedule</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>From</th>
+                    <th>To</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of schedule">
+                    <td>{{ daysOfWeek[item.WorKDay] }}</td>
+                    <td>{{ item.AvailableFrom }}</td>
+                    <td>{{ item.AvailableTo }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

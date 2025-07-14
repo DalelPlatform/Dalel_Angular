@@ -19,6 +19,8 @@ import { ServiceProviderProfileComponent } from '../service-provider-profile/ser
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
 import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
+import { SearchProvidersComponent } from '../LandingPageComponents/search-providers/search-providers.component';
+import { ProviderProfileComponent } from '../LandingPageComponents/provider-profile/provider-profile.component';
 
 let routes: Routes = [
   {
@@ -69,7 +71,14 @@ let routes: Routes = [
   {
     path:"EditSchedule", component: EditScheduleComponent,
     canActivate:[serviceProviderGuard]
+  },
+  {
+    path:"SearchServiceProviders", component:SearchProvidersComponent
   }
+,
+{
+  path:"ProviderProfile", component:ProviderProfileComponent
+}
 
 
 ]
@@ -85,6 +94,8 @@ let routes: Routes = [
     AllRequestsComponent,
     RequestDetailsComponent,
     ReviewsListComponent,
+    ProviderProfileComponent,
+    // SearchProvidersComponent,
     ServiceProviderAllRequestsComponent,
     CompleteProfileServiceProviderComponent,
     ServiceProviderProfileComponent,
