@@ -4,6 +4,17 @@
 
     <form #form="ngForm">
       <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-control" [(ngModel)]="user.FirstName" name="FirstName" required #firstName="ngModel">
+          <div class="text-danger" *ngIf="firstName.touched && firstName.invalid">First name is required</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-control" [(ngModel)]="user.LastName" name="LastName" required #lastName="ngModel">
+          <div class="text-danger" *ngIf="lastName.touched && lastName.invalid">Last name is required</div>
+        </div>
+
         <div class="col-12">
           <label class="form-label">Email address</label>
           <input type="email" class="form-control" [(ngModel)]="user.Email" name="email" required #email="ngModel">

@@ -27,7 +27,7 @@ import { SettingsComponent } from './components/PropertyOwner/Dashboard-Componen
 
 let routes:Routes = [
   {path:'owner',component:PropertyOwnerLayoutComponent,
-    // canActivate: [propertyOwnerGuard],
+     canActivate: [propertyOwnerGuard],
   children:[
     {path:'complete-profile',component:PropertyOwnerCompleteProfileComponent},
     {path:'add-property',component:AddPropertyComponent},
@@ -37,8 +37,8 @@ let routes:Routes = [
     {path:'settings',component:SettingsComponent},
     // {path:'add-listing',component:AddListingComponent},
   ],
-} , {path:'add-listing',component:AddListingComponent}
-  ,
+} , {path:'add-listing',component:AddListingComponent},
+  {path:'add-listing/:id',component:AddListingComponent},
 
   {path:'client',
     canActivate:[clientGuard],

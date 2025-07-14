@@ -172,7 +172,7 @@ removeItem(item: IcartItem) {
 logout() {
   console.log("g")
 this.cookieService.deleteAll();
-  this.router.navigate(['/login']);   
+  this.router.navigate(['/mainPage']);   
   this.isLoggedIn = false;           
 }
 }

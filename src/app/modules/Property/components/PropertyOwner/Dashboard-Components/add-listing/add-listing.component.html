@@ -373,7 +373,7 @@
         <button type="submit" class="btn btn-gradient" [disabled]="addPropertyForm.invalid">
           <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status"
             aria-hidden="true"></span>
-          Add Property
+          {{ isEditMode ? 'Update Property' : 'Add Property' }}
         </button>
       </form>
     </div>

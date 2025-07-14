@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   user: IUserRegister = {
+    FirstName: '',
+    LastName: '',
     UserName: '',
     Email: '',
     NationalId: '',

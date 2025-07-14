@@ -299,6 +299,9 @@
   opacity: 0.4;
 }
 
+/* Toastr popups use their own styles. If needed, ensure they appear above modal/form elements: */
+/* .toast-container { z-index: 9999 !important; } */
+
 /* Responsive adjustments */
 @media (max-width: 767px) {
   .form-container {
