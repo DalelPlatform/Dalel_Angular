@@ -114,7 +114,7 @@
         </div>
 
         <div class="dropdown user-dropdown">
-          <div class="profile-circle" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="profile-circle" data-bs-toggle="dropdown" aria-expanded="false" >
             <!-- Replace with actual user image -->
             <!-- <img src="path/to/user-image.jpg" alt="User"> -->
                 <img
@@ -129,13 +129,13 @@
           </div>
           <ul class="dropdown-menu">
             <li>
-              <a class="user-dropdown-item" href="#">
+              <a class="user-dropdown-item" (click)="goToProfile()">
                 <i class="bi bi-person"></i>
                 Profile
               </a>
             </li>
             <li>
-              <a class="user-dropdown-item" href="#">
+              <a class="user-dropdown-item" (click)="goToProfile()">
                 <i class="bi bi-gear"></i>
                 Settings
               </a>

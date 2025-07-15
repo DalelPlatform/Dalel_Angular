@@ -3,7 +3,7 @@ import { IProperty, VerificationStatus } from '../../../Models/IProperty';
 import { ActivatedRoute } from '@angular/router';
 import { PropertyOwnerService } from '../../../../../Services/Property/property-owner.service';
 import { CookieService } from 'ngx-cookie-service';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -77,15 +77,15 @@ export class PropertyDetailsComponent implements OnInit {
     this.service.addPayment(paymentPayload, token).subscribe({
       next: (res) => {
         console.log("Payment success", res);
-        alert("Booking and payment successful!");
+        this.toastr.success('Booking and payment successful!');
       },
       error: (err) => {
         console.error(err);
-        alert("Payment failed.");
+        this.toastr.error('Payment failed.');
       }
     });
   }
-  constructor( private service: PropertyOwnerService ,private route: ActivatedRoute, private cookieService: CookieService) { }
+  constructor( private service: PropertyOwnerService ,private route: ActivatedRoute, private cookieService: CookieService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -183,29 +183,29 @@ export class PropertyDetailsComponent implements OnInit {
 
     };
 
-    if (!token) return alert("Login required!");
+    if (!token) {
+      this.toastr.info('Login required!');
+      return;
+    }
 
     this.service.bookProperty(payload, token).subscribe({
       next: (res) => {
         console.log("Booking result:", res);
-        alert(res.Message);
-
+        this.toastr.success(res.Message);
         // const bookingId = res.data?.id || res.Data?.id || 0;
         // if (bookingId) {
         //   this.processPayment(bookingId, payload.Price, token);
         // } else {
-        //   alert("Booking failed!");
+        //   this.toastr.error('Booking failed!');
         // }
-
-
       },
       error: (err) => {
         console.error("Booking failed:", err);
         if (err.error && err.error.errors) {
           const messages = Object.values(err.error.errors).flat().join('\n');
-          alert("Booking failed:\n" + messages);
+          this.toastr.error("Booking failed:\n" + messages);
         } else {
-          alert("Booking failed.");
+          this.toastr.error('Booking failed.');
         }
       }
     });
