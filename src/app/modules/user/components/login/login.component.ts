@@ -66,7 +66,7 @@
             this.router.navigate(['/restaurant/owner']);
           }
           else if (res.Role === "TravelAgencyOwner") {
-               this.router.navigate(['/agancy/owner/create-agency']);
+               this.router.navigate(['/agancy/owner/insights']);
           } 
           else {
             this.router.navigate(['/login']);
