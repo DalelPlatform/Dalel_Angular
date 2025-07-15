@@ -6,16 +6,17 @@
     <div class="col-auto">
       <div class="card meal-card h-100">
         <div class="card-img-container">
-          <img
-            src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-            class="card-img-top" alt="Delicious Pizza" id="mainImage1">
+         @for (img of meal.Images; track $index) {
+          <img [src] = "img" id="mainImage1">
+        }
 
-          <button class="image-nav-btn prev" onclick="changeImage('mainImage1', -1)">
+
+          <!-- <button class="image-nav-btn prev" onclick="changeImage('mainImage1', -1)">
             <i class="fas fa-chevron-left"></i>
           </button>
           <button class="image-nav-btn next" onclick="changeImage('mainImage1', 1)">
             <i class="fas fa-chevron-right"></i>
-          </button>
+          </button> -->
 
           <div class="image-indicators" id="indicators1">
             <div class="image-indicator active" onclick="setImage('mainImage1', 0)"></div>
