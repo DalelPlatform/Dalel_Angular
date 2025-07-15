@@ -317,7 +317,7 @@
       </div>
 
       <div class="d-grid gap-2">
-        <button class="btn btn-success btn-lg">Continue Shopping</button>
-        <button class="btn btn-dark btn-lg" (click)="checkout(cartItems)">Proceed To Checkout</button>
+        <button class="btn btn-success btn-lg" data-bs-dismiss="offcanvas" (click)="goToMenu()">Continue Shopping</button>
+        <button class="btn btn-dark btn-lg" data-bs-dismiss="offcanvas" (click)="checkout(cartItems)">Proceed To Checkout</button>
       </div>
     </div>

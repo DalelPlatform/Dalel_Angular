@@ -11,55 +11,55 @@ import { IcartItem } from '../../../modules/Restaurant/interfaces/IcartItem';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
-    standalone: false,
+  standalone: false,
 })
-export class NavbarComponent implements OnInit{
-isNotificationOpen = false;
-notifications: any[] = [];
-isLoggedIn: boolean = false;
- currentUrl: string = '';
- img: string = '';
-   supTotal: number = 0;
+export class NavbarComponent implements OnInit {
+  isNotificationOpen = false;
+  notifications: any[] = [];
+  isLoggedIn: boolean = false;
+  currentUrl: string = '';
+  img: string = '';
+  supTotal: number = 0;
   totalQuantity: number = 0;
   cartItems: IcartItem[] = []
-constructor(private notificationService: NotificationService, private cookieService: CookieService, private router: Router,
-      private toastr: ToastrService,private _restaurantService: RestaurantService){}
-      ;
+  constructor(private notificationService: NotificationService, private cookieService: CookieService, private router: Router,
+    private toastr: ToastrService, private _restaurantService: RestaurantService) { }
+  ;
   ngOnInit() {
     this.loadNotifications();
-    const Token= this.cookieService.get('Token')
-    const role= this.cookieService.get('Role')
-    const Image= this.cookieService.get('Image')
-    this.img= Image
+    const Token = this.cookieService.get('Token')
+    const role = this.cookieService.get('Role')
+    const Image = this.cookieService.get('Image')
+    this.img = Image
     console.log(Image)
-     if (Token) {
-    this.isLoggedIn = true;
+    if (Token) {
+      this.isLoggedIn = true;
 
-  }
-  this.currentUrl = this.router.url;
-  console.log('Current URL on init:', this.currentUrl);
+    }
+    this.currentUrl = this.router.url;
+    console.log('Current URL on init:', this.currentUrl);
 
-  this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe((event: any) => {
-      this.currentUrl = event.urlAfterRedirects;
-    });
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.currentUrl = event.urlAfterRedirects;
+      });
   }
   isInAgancyClient(): boolean {
     return this.currentUrl.startsWith('/agancy/client');
 
   }
-toggleNotifications() {
-  this.isNotificationOpen = !this.isNotificationOpen;
-  if (this.isNotificationOpen) {
-    this.loadNotifications();
+  toggleNotifications() {
+    this.isNotificationOpen = !this.isNotificationOpen;
+    if (this.isNotificationOpen) {
+      this.loadNotifications();
+    }
   }
-}
-loadNotifications() {
-  this.notificationService.getNotifications().subscribe( {
+  loadNotifications() {
+    this.notificationService.getNotifications().subscribe({
       next: (res) => {
         this.notifications = res;
-    console.log("Notifications loaded:", this.notifications);
+        console.log("Notifications loaded:", this.notifications);
 
       }
       , error: (err) => {
@@ -71,19 +71,19 @@ loadNotifications() {
 
 
     })
-}
+  }
   markAsRead(id: number) {
     this.notificationService.markAsRead(id).subscribe(() => {
       this.notifications = this.notifications.filter(n => n.Id !== id);
-     console.log('Notification marked as read:', this.notifications );
+      console.log('Notification marked as read:', this.notifications);
     });
   }
   getBookingId(message: string): number {
-  const match = message.match(/BookingId:(\d+)/);
-  console.log("Extracted BookingId:", match ? +match[1] : 0);
-  return match ? +match[1] : 0;
-}
- getCartItems() {
+    const match = message.match(/BookingId:(\d+)/);
+    console.log("Extracted BookingId:", match ? +match[1] : 0);
+    return match ? +match[1] : 0;
+  }
+  getCartItems() {
     this._restaurantService.getCartItems().subscribe({
       next: (res) => {
         this.cartItems = res.Data;
@@ -144,19 +144,19 @@ loadNotifications() {
 
   }
 
-removeItem(item: IcartItem) {
-  if (!confirm(`Are you sure you want to remove "${item.MenuItemName}" from the cart?`)) return;
+  removeItem(item: IcartItem) {
+    if (!confirm(`Are you sure you want to remove "${item.MenuItemName}" from the cart?`)) return;
 
-  this._restaurantService.removeFromCart(item.Id).subscribe({
-    next: (res) => {
-      console.log('Item removed successfully', res);
-      this.getCartItems();
-    },
-    error: (err) => {
-      console.error('Error removing item', err);
-    }
-  });
-}
+    this._restaurantService.removeFromCart(item.Id).subscribe({
+      next: (res) => {
+        console.log('Item removed successfully', res);
+        this.getCartItems();
+      },
+      error: (err) => {
+        console.error('Error removing item', err);
+      }
+    });
+  }
 
 
 
@@ -166,13 +166,20 @@ removeItem(item: IcartItem) {
       return;
     }
     // Navigate to the checkout page or perform checkout logic
+    this.router.navigate(['restaurant/client/cart-checkout'], { state: { cartItems } });
     console.log("Proceeding to checkout with items:", cartItems);
     // Implement your checkout logic here
   }
-logout() {
-  console.log("g")
-this.cookieService.deleteAll();
-  this.router.navigate(['/mainPage']);
-  this.isLoggedIn = false;
-}
+  logout() {
+    console.log("g")
+    this.cookieService.deleteAll();
+    this.router.navigate(['/mainPage']);
+    this.isLoggedIn = false;
+  }
+
+
+  goToMenu() {
+    this.router.navigate(['/restaurant/client/menuitems']);
+
+  }
 }
