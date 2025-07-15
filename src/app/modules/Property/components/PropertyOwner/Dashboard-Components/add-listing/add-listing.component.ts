@@ -2,10 +2,11 @@ import {AfterViewInit, Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CookieService} from 'ngx-cookie-service';
 import {PropertyOwnerService} from '../../../../../../Services/Property/property-owner.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {VerificationStatus} from '../../../../Models/IProperty';
 import * as L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -24,8 +25,10 @@ export class AddListingComponent implements OnInit, AfterViewInit{
   fb = inject(FormBuilder);
   propertyService = inject(PropertyOwnerService);
   sendForm: FormData = new FormData();
+  isEditMode: boolean = false;
+  propertyId: number | null = null;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private route: ActivatedRoute, private toastr: ToastrService) {
     this.addPropertyForm = this.fb.group({
       Description: ['', [
         Validators.required,
@@ -95,7 +98,7 @@ export class AddListingComponent implements OnInit, AfterViewInit{
 
       PhoneNumber: ['', [
         Validators.required,
-        Validators.pattern(/^[\+]?[1-9][\d]{0,15}$/)
+        Validators.pattern(/^\d{11}$/)
       ]],
 
       CancelationOptions: [false],
@@ -113,7 +116,17 @@ export class AddListingComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
+    this.propertyId = this.route.snapshot.params['id'];
+    if (this.propertyId) {
+      this.isEditMode = true;
+      this.propertyService.getProperty(this.propertyId).subscribe((res) => {
+        this.addPropertyForm.patchValue(res.data);
+        
+      });
+    }
   }
+
+
   ngAfterViewInit(): void {
     const map = L.map('map').setView([24.0889, 32.8998], 12); // Default center (Aswan)
   
@@ -178,34 +191,48 @@ export class AddListingComponent implements OnInit, AfterViewInit{
     console.log('Files added to FormData:', files.length);
   }
 
-  addPropertyFun(){
-    if (this.addPropertyForm.valid) {
-      console.log(this.addPropertyForm.value);
-      const token = this.cookies.get('Token');
+  addPropertyFun() {
+  if (this.addPropertyForm.valid) {
+    console.log(this.addPropertyForm.value);
+    const token = this.cookies.get('Token');
 
-      // Append form values to FormData
-      const formValue = this.addPropertyForm.value;
-      for (const key in formValue) {
-        if (formValue.hasOwnProperty(key)) {
-          this.sendForm.append(key, formValue[key]);
-        }
+    // Append form values to FormData
+    const formValue = this.addPropertyForm.value;
+    for (const key in formValue) {
+      if (formValue.hasOwnProperty(key)) {
+        this.sendForm.append(key, formValue[key]);
       }
-      this.propertyService.registerProperty(this.sendForm,token).subscribe({
+    }
 
+    if (this.isEditMode && this.propertyId) {
+      // Update existing property
+      this.propertyService.updateProperty(this.sendForm, this.propertyId).subscribe({
         next: () => {
-          alert("Property added successfully!");
-          this.router.navigate(['/owner/listings']);
+          this.toastr.success("Property updated successfully!");
+          this.router.navigate(['/property/owner/listings']);
         },
         error: (err) => {
           console.error(err);
-          alert("Failed to Add Property");
-        },
+          this.toastr.error("Failed to update property");
+        }
       });
     } else {
-      // Mark all fields as touched to show validation errors
-      Object.keys(this.addPropertyForm.controls).forEach(key => {
-        this.addPropertyForm.get(key)?.markAsTouched();
+      // Add new property
+      this.propertyService.registerProperty(this.sendForm, token).subscribe({
+        next: () => {
+          this.toastr.success("Property added successfully!");
+          this.router.navigate(['/property/owner/listings']);
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastr.error("Failed to add property");
+        }
       });
     }
+  } else {
+    Object.keys(this.addPropertyForm.controls).forEach(key => {
+      this.addPropertyForm.get(key)?.markAsTouched();
+    });
   }
+}
 }

@@ -40,6 +40,19 @@ export class BookingsComponent implements OnInit {
 
   }
 
+  acceptBooking(id: number) {
+    this.bookingService.acceptBooking(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  rejectBooking(id: number) {
+    this.bookingService.rejectBooking(id).subscribe((res) => {
+      console.log(res);
+    });
+  }
+  
+
 
   ngOnInit() {
     this.setTab('upcoming');

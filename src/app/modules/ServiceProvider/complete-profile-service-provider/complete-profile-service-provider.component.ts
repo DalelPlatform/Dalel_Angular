@@ -47,13 +47,7 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
       website: ['http://hdgsfhdgfsgd', [Validators.pattern('https?://.+')]],
       price: ['222', [Validators.required, Validators.min(1)]],
       priceUnit: ['per_hour', Validators.required],
-      schedules: this.fb.array(this.daysOfWeek.map(() => this.createScheduleGroup())),
-      projectName: ['test', Validators.required],
-      projectDescription: ['ttttttttttttttttttttttttttttt', Validators.required],
-      projectPrice: ['333', [Validators.required, Validators.min(1)]],
-      projectPriceUnit: ['per_hour', Validators.required],
-      projectMedia: [null, Validators.required],
-      projectVideoLink: ['https://ererere', Validators.pattern('https?://.+')]
+      schedules: this.fb.array(this.daysOfWeek.map(() => this.createScheduleGroup()))
     });
   }
 
@@ -133,14 +127,6 @@ export class CompleteProfileServiceProviderComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  onProjectMediaChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.formData.append('projectMedia', file);
-      this.ServiceProviderForm.patchValue({ projectMedia: file });
-    }
-  }
 
   removeArea(area: string): void {
     this.selectedAreas = this.selectedAreas.filter(a => a !== area);

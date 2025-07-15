@@ -1,3 +1,176 @@
-<p>
-  cart-checkout works!
-</p>
+<div class="checkout-container">
+  <div class="row">
+    <div class="col-12 mb-4">
+      <h1 class="checkout-header">Checkout</h1>
+      <!-- <p class="text-muted">Already have an account? <a href="#" class="signin-link">Click here to Sign in</a>.</p> -->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Delivery Address Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <i class="fas fa-map-marker-alt section-icon"></i>
+          <span>Delivery Address</span>
+          <!-- <button class="btn btn-add-address ms-auto">Add a new address</button> -->
+        </div>
+
+        <form id="addressForm">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="fullAddress" class="form-label">Full Address <span style="color: #e74c3c;">*</span></label>
+              <textarea #address class="form-control" id="fullAddress" rows="3"
+                placeholder="Enter your complete address" required></textarea>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="city" class="form-label">City <span style="color: #e74c3c;">*</span></label>
+              <input #city type="text" class="form-control" id="city" placeholder="Enter city" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number <span style="color: #e74c3c;">*</span></label>
+              <input #phone type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+
+
+      <!-- Delivery Instructions Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <i class="fas fa-clipboard-list section-icon"></i>
+          <span>Delivery instructions</span>
+        </div>
+        <textarea #notes class="form-control" id="deliveryInstructions" rows="3"
+          placeholder="Enter any special instructions for delivery (e.g., Leave at door, Ring doorbell, etc.)"
+          maxlength="500">
+  </textarea>
+        <small class="text-muted">Optional - Maximum 500 characters</small>
+      </div>
+
+      <!-- Payment Method Section -->
+      <!-- Modern Payment Section -->
+      <div class="payment-section">
+        <div class="section-header">
+          <i class="fas fa-credit-card section-icon"></i>
+          <span>Payment</span>
+        </div>
+
+        <!-- Amount Input -->
+
+
+        <!-- Payment Methods -->
+        <div class="payment-methods-section">
+          <div class="payment-methods-title">Payment Methods</div>
+
+          <div class="payment-method-option">
+            <input type="radio" name="paymentMethod" id="cashOnDelivery" value="cash" checked #paymentCash>
+            <label for="cashOnDelivery">Cash on Delivery</label>
+          </div>
+
+          <div class="payment-method-option">
+            <input type="radio" name="paymentMethod" id="paypalMethod" value="paypal" #paymentPaypal>
+            <label for="paypalMethod">PayPal</label>
+          </div>
+
+          <div class="payment-method-option">
+            <input type="radio" name="paymentMethod" id="stripeMethod" value="stripe" #paymentStripe>
+            <label for="stripeMethod">Stripe</label>
+          </div>
+        </div>
+
+        <!-- PayPal Buttons -->
+        <div class="paypal-buttons-container" id="paypalButtons" #paypalButtons>
+          <button class="paypal-button paypal-primary" (click)="handlePayPalPayment()">
+            <svg class="paypal-logo" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a.696.696 0 0 1-.677.81h-1.21c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H15.25c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H11.17c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H7.076c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106z" />
+            </svg>
+            PayPal
+          </button>
+
+          <button class="paypal-button paypal-secondary" (click)="handleDebitCreditCard()">
+            <i class="fas fa-credit-card"></i>
+            Debit or Credit Card
+          </button>
+
+          <div class="powered-by">
+            Powered by
+            <svg class="powered-by-logo" viewBox="0 0 24 24" fill="#0070ba">
+              <path
+                d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a.696.696 0 0 1-.677.81h-1.21c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H15.25c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H11.17c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H7.076c-.524 0-.968.382-1.05.9l-.69 4.378c-.082.518-.526.9-1.05.9H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106z" />
+            </svg>
+            PayPal
+          </div>
+        </div>
+
+        <!-- Alternative payment options (hidden by default) -->
+        <div id="alternativePayment" style="display: none;" #alternativePayment>
+          <div class="divider">
+            <span>OR</span>
+          </div>
+          <button class="btn btn-primary w-100" (click)="handleAlternativePayment()">
+            <i class="fas fa-external-link-alt me-2"></i>
+            Proceed to Payment
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-lg-4">
+      <div class="order-summary">
+        <h3 class="order-title">Order Details</h3>
+
+        @for (item of cartItems; track item.Id) {
+        <div class="order-item">
+          <div class="item-image" style="background-color: #ff6b35;">🥤</div>
+          <div class="item-details">
+            <div class="item-name">{{item.MenuItemName}}</div>
+          </div>
+          <div class="item-quantity">{{item.Quantity}}</div>
+          <div class="item-price">${{item.SupPrice}}</div>
+        </div>
+        }
+
+
+        <div class="order-totals">
+          <div class="total-row">
+            <span>Item Subtotal</span>
+            <span>${{supTotal}}</span>
+          </div>
+          <div class="total-row">
+            <span>Shipping Fee <i class="fas fa-info-circle text-muted"></i></span>
+            <span>$0.00</span>
+          </div>
+          <div class="total-row">
+            <span>Tax Vat 18%</span>
+            <span>$16.84</span>
+          </div>
+          <div class="total-row grand-total">
+            <span>Grand Total</span>
+            <span>${{supTotal+16.84}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- <button class="btn btn-checkout" (click)="submitCheckout(
+  address.value,
+  city.value,
+  phone.value,
+  notes.value,
+  getSelectedPaymentMethod()
+)"> -->
+        <i class="fas fa-shopping-cart me-2"></i>
+        Check Out Now
+      <!-- </button> -->
+    </div>
+
+  </div>
+</div>

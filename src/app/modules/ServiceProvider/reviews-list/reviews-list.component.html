@@ -92,15 +92,10 @@
     </div>
 
     <!-- Pagination -->
-    <div class="pagination-container" *ngIf="totalPages > 1">
-      <div class="pagination-wrapper">
-        <div class="pagination-controls-container">
-          <pagination-controls [id]="'review-pagination'" (pageChange)="onPageChange($event)" [maxSize]="5"
-            [autoHide]="true" [directionLinks]="true" previousLabel="Previous" nextLabel="Next"
-            class="pagination-controls">
-          </pagination-controls>
-        </div>
-      </div>
+    <div class="pagination-style" *ngIf="totalPages > 1">
+      <pagination-controls [id]="'review-pagination'" (pageChange)="onPageChange($event)" [maxSize]="5"
+        [autoHide]="true" [directionLinks]="true" previousLabel="Previous" nextLabel="Next">
+      </pagination-controls>
     </div>
   </div>
 

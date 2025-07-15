@@ -15,6 +15,5 @@ export interface ServiceProvider {
   Website?: string;
   City?: string;
   Address?: string;
-  
   About?: string;
 }

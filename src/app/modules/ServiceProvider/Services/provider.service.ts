@@ -11,7 +11,7 @@ import { Schedule } from '../Models/schedule.model';
 })
 export class ServiceProviderService {
   private baseUrl = `${environment.baseApi}ServiceProvider`;
-  private ScheduleURL = `${environment.baseApi}ServiceProviderSchedule/update`
+  private ScheduleURL = `${environment.baseApi}ServiceProviderSchedule`
 
   constructor(private http: HttpClient, private cookieService: CookieService) { }
   getAuthHeaders(): { [header: string]: string } {
@@ -39,8 +39,9 @@ export class ServiceProviderService {
       headers: this.getAuthHeaders()
     });
   }
-  getProviderById(id: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/ProfileById?id=${id}`);
+  getProviderById(id: string|null): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/ProfileById`, {
+    params: { id: id || '' } });
   }
 
   getByCategory(categoryId: number, pageSize = 5, pageNumber = 1): Observable<any> {
@@ -70,9 +71,22 @@ export class ServiceProviderService {
       params: { providerId }
     });
   }
+
+  getSchedulesByProvider(providerId: string, pageSize: number = 7, pageNumber: number = 1): Observable<any> {
+  const params = {
+    providerId,
+    pageSize: pageSize.toString(),
+    pageNumber: pageNumber.toString()
+  };
+
+  return this.http.get<any>(`${this.ScheduleURL}/provider`, { params });
+}
+
   updateSchedule(scheduleData: Schedule) {
   const token = this.cookieService.get("Token");
   const headers = new HttpHeaders(token);
-  return this.http.put<any>(`${this.ScheduleURL}`, scheduleData, {headers});
+  return this.http.put<any>(`${this.ScheduleURL}/update`, scheduleData, {headers});
   }
+
+
 }

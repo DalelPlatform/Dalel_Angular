@@ -1,78 +1,4 @@
-<!-- <div class="container mt-4">
-  <h3 class="mb-4">Add New Project</h3>
 
-  <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="name">Project Name</label>
-        <input
-          id="name"
-          type="text"
-          class="form-control"
-          formControlName="Name"
-          placeholder="Enter project name"
-        />
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label for="price">Approximate Price</label>
-        <input
-          id="price"
-          type="number"
-          class="form-control"
-          formControlName="ApproximatePrice"
-          placeholder="e.g. 1000"
-        />
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label for="priceUnit">Price Unit</label>
-        <select
-          id="priceUnit"
-          class="form-select"
-          formControlName="PriceUnit"
-        >
-          <option value="per_hour">Per Hour</option>
-          <option value="per_day">Per Project</option>
-        </select>
-      </div>
-
-      <div class="col-md-12 mb-3">
-        <label for="description">Description</label>
-        <textarea
-          id="description"
-          rows="3"
-          class="form-control"
-          formControlName="Description"
-          placeholder="Describe the project"
-        ></textarea>
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <label for="image">Project Image</label>
-        <input
-          id="image"
-          type="file"
-          class="form-control"
-          (change)="onImageSelected($event)"
-        />
-        <img
-          *ngIf="imagePreview"
-          [src]="imagePreview"
-          class="img-thumbnail mt-2"
-          style="max-width: 200px"
-        />
-      </div>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-primary"
-    >
-      <i class="fas fa-plus me-2"></i>Add Project
-    </button>
-  </form>
-</div> -->
 <div class="add-project-container">
     <!-- Header Section -->
     <div class="header-section">
@@ -85,14 +11,7 @@
                     </h1>
                     <p class="page-subtitle">Create and showcase your professional projects to attract more clients</p>
                 </div>
-                <!-- <div class="col-md-4 text-end">
-          <div class="breadcrumb-nav">
-            <i class="fas fa-home"></i>
-            <span>Dashboard</span>
-            <i class="fas fa-chevron-right"></i>
-            <span>Add Project</span>
-          </div>
-        </div> -->
+
             </div>
         </div>
     </div>

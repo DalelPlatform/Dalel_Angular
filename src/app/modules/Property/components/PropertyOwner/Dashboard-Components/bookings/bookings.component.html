@@ -28,7 +28,8 @@
           <div class="booking-title">{{ booking.PropertyName }}</div>
           <div class="booking-id">Booking ID: {{ booking.Id }} &bull; Room</div>
         </div>
-        <button class="manage-btn" *ngIf="activeTab === 'upcoming'">Accept Booking</button>
+        <button class="manage-btn" *ngIf="activeTab === 'upcoming'" (click)="acceptBooking(booking.Id)">Accept Booking</button>
+        <button class="manage-btn" *ngIf="activeTab === 'upcoming'" (click)="rejectBooking(booking.Id)">Reject Booking</button>
         <button class="manage-btn" *ngIf="activeTab === 'canceled'">Manage Booking</button>
         <button class="manage-btn" *ngIf="activeTab === 'completed'">Manage Booking</button>
       </div>

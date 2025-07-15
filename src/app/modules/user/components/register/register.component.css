@@ -1,31 +1,33 @@
 body {
-    background-image: url('/assets/images/best-hotels-in-aswan-egypt-1.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    opacity: 0.9;
-  }
-  
-  .Title {
-    color: #5143d9;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .submit-l {
-    background: linear-gradient(135deg, #5143d9, #8e44ec);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: 0.3s ease;
-  }
-  
-  .submit-l:hover {
-    background: linear-gradient(135deg, #8e44ec, #5143d9);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(81, 67, 217, 0.4);
-    cursor: pointer;
-  }
+  background-image: url('/assets/images/best-hotels-in-aswan-egypt-1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.9;
+}
+
+.Title {
+  color: #5143d9;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.submit-l {
+  background: linear-gradient(135deg, #5143d9, #8e44ec);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.submit-l:hover {
+  background: linear-gradient(135deg, #8e44ec, #5143d9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(81, 67, 217, 0.4);
+  cursor: pointer;
+}
+
+/* First and Last Name fields are side by side using Bootstrap's col-md-6. Adjust spacing if needed. */

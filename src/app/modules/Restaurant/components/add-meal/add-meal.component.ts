@@ -54,6 +54,7 @@ export class AddMealComponent {
       Duration: ['', [
 
       ]],
+      RestaurantMenuItemImages: [[]],
 
 
 
@@ -73,7 +74,7 @@ export class AddMealComponent {
     event.preventDefault();
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
-      this.sendForm.append('RestaurantImage', files[i], files[i].name);
+      this.sendForm.append('RestaurantMenuItemImages', files[i], files[i].name);
     }
     console.log('Files added to FormData:', files.length);
 

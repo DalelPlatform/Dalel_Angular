@@ -106,7 +106,7 @@
             <div class="input-with-icon">
               <i class="input-icon fa-solid fa-location-dot"></i>
               <input type="text" class="form-control" id="Address" formControlName="Address"
-                placeholder="restaurant@example.com">
+                placeholder="Address">
             </div>
             <!-- validation -->
             @if(formControls['Address'].invalid && formControls['Address'].touched ){
@@ -306,6 +306,12 @@
 
         <!-- ======================================================================= -->
 
+        <!-- Map Section -->
+        <div class="mb-4">
+          <label class="form-label">Select Location on Map</label>
+          <div id="map" #mapContainer style="height: 400px; width: 100%; border-radius: 15px; border: 2px solid #e0e5ec;"></div>
+        </div>
+
         <div class="mb-4">
           <label class="form-label">Upload Restaurant Images</label>
           <div class="file-upload-wrapper">
@@ -315,8 +321,22 @@
                 <div>Drag & drop images or <span class="text-primary">browse</span></div>
                 <div class="small text-muted mt-1">Supported formats: JPEG, PNG, GIF</div>
               </div>
-              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImage">
+              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImage" #fileInput multiple accept="image/*">
             </label>
+          </div>
+          <!-- Image Previews -->
+          <div class="selected-files-preview" *ngIf="selectedFiles && selectedFiles.length > 0">
+            <div class="preview-title">Selected Photos ({{selectedFiles.length}})</div>
+            <div class="preview-grid">
+              <div class="preview-item" *ngFor="let url of previewUrls; let i = index">
+                <div class="preview-image" [style.backgroundImage]="'url(' + url + ')'"></div>
+                <button type="button" class="preview-remove" (click)="removeFile(i)">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -111,12 +111,10 @@ export class AddServiceRequestComponent implements OnInit {
     this.serviceRequestService.createServiceRequest(formData).subscribe({
       next: (res) => {
         console.log('✅ Response:', res);
-        this.toastr.success(res?.message || 'Service request created successfully');
         this.router.navigate(['/service-requests']);
       },
       error: (err) => {
         console.error('Error creating service request:', err);
-        this.toastr.error(err.error?.message || 'Failed to create service request');
         this.isLoading = false;
       },
       complete: () => {

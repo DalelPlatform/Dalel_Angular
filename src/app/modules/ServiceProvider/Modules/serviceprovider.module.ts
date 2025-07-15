@@ -15,15 +15,16 @@ import { RequestDetailsComponent } from '../request-details/request-details-comp
 import { CompleteProfileServiceProviderComponent } from '../complete-profile-service-provider/complete-profile-service-provider.component';
 import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
 import { TruncatePipe } from '../Pipes/truncate.pipe';
-import { ServiceProviderProfileComponent } from '../service-provider-profile/service-provider-profile.component';
-import { ServiceProviderProjectsComponent } from '../service-provider-projects/service-provider-projects.component';
-import { ServiceProviderReviewsComponent } from '../service-provider-reviews/service-provider-reviews.component';
-import { ServiceProviderProposalsComponent } from '../service-provider-proposals/service-provider-proposals.component';
-import { ServiceProviderSharedModule } from './service-provider-shared.module';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
-import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
+import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
-
+import { SearchProvidersComponent } from '../LandingPageComponents/search-providers/search-providers.component';
+import { ProviderProfileComponent } from '../LandingPageComponents/provider-profile/provider-profile.component';
+import { ChatComponent } from '../Chat/Components/chat/chat.component';
+import { clientGuard } from '../../../Services/Guards/Client/client.guard';
+import { filter } from 'rxjs';
+import { FilterPipe } from '../Clinet-ServiceProvider/filter.pipe';
+import { authGuard } from '../../../Services/Guards/auth.guard';
 let routes: Routes = [
   {
     path: "ServiceProviderlayout",
@@ -38,8 +39,8 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
       },
       {
-        path:"ProjectsList", component: ProjectsListComponent,
-        canActivate:[serviceProviderGuard]
+        path: "ProjectsList", component: ProjectsListComponent,
+        canActivate: [serviceProviderGuard]
       },
       {
         path: "ProposalList", component: ProposalListComponent,
@@ -52,13 +53,25 @@ let routes: Routes = [
 
       },
       {
-        path:"ProviderReview", component: ReviewsListComponent,
+        path: "ProviderReview", component: ReviewsListComponent,
         canActivate: [serviceProviderGuard]
       }
     ]
   },
+  {
+    path: "ServiceProvider/ClientAllRequests",
+    component: ServiceProviderAllRequestsComponent,
+  },
+  {
+    path: "ServiceProvider/ClientRequests", component: AllRequestsComponent,
+    canActivate: [clientGuard]
+  },
+  {
+    path: 'ServiceChat', component: ChatComponent,
+    // canActivate:[serviceProviderGuard, clientGuard]
+  },
   { path: 'request/:id', component: RequestDetailsComponent },
-  
+
   {
     path: "EditProfile", component: EditProfileComponent,
     canActivate: [serviceProviderGuard]
@@ -71,8 +84,15 @@ let routes: Routes = [
     canActivate: [serviceProviderGuard]
   },
   {
-    path:"EditSchedule", component: EditScheduleComponent,
-    canActivate:[serviceProviderGuard]
+    path: "EditSchedule", component: EditScheduleComponent,
+    canActivate: [serviceProviderGuard]
+  },
+  {
+    path: "ServiceProvider/SearchServiceProviders", component: SearchProvidersComponent
+  }
+  ,
+  {
+    path: "ProviderProfile", component: ProviderProfileComponent
   }
 
 
@@ -89,23 +109,22 @@ let routes: Routes = [
     AllRequestsComponent,
     RequestDetailsComponent,
     ReviewsListComponent,
+    ProviderProfileComponent,
+    // SearchProvidersComponent,
     ServiceProviderAllRequestsComponent,
     CompleteProfileServiceProviderComponent,
-    ServiceProviderProfileComponent,
-    ServiceProviderProjectsComponent,
-    ServiceProviderProposalsComponent,
-    ServiceProviderReviewsComponent
   ],
   imports: [
     CommonModule,
+    ChatComponent,
     ReactiveFormsModule,
     FormsModule,
-    ServiceProviderSharedModule,
     ServiceProviderLayoutComponent,
     TruncatePipe,
     NgxPaginationModule,
+    FilterPipe,
     RouterModule.forChild(routes),
-],
+  ],
   providers: []
 })
 export class ServiceproviderModule { }

@@ -21,22 +21,31 @@ import { CartCheckoutComponent } from './Client/cart-checkout/cart-checkout.comp
 import { clientGuard } from '../../Services/Guards/Client/client.guard';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { SharedModule } from '../../shared/shared.module';
+import { RestaurantOwnerLayoutComponent } from './RestaurantOwner/restaurant-owner-layout/restaurant-owner-layout.component';
+import { AllMealsComponent } from './RestaurantOwner/ProfileComponents/all-meals/all-meals.component';
+import { ReservationsComponent } from './RestaurantOwner/ProfileComponents/reservations/reservations.component';
+import { SettingsComponent } from '../Property/components/PropertyOwner/Dashboard-Components/settings/settings.component';
+import { RestaurantSettingsComponent } from './RestaurantOwner/ProfileComponents/settings/settings.component';
 
 let routes: Routes = [
 
   {
     path: "owner",
-    component: RestaurantLayoutComponent,
+    component: RestaurantOwnerLayoutComponent,
     canActivate:[restaurantOwnerGuard],
     children: [
       {path: "add-restaurant", component: AddRestaurantFormComponent },
-
       {path : "add-meal", component:AddMealComponent},
+      {path : "restaurant-meals", component:AllMealsComponent},
+      {path : "reservations", component: ReservationsComponent},
+      {path : "settings", component: RestaurantSettingsComponent},
+
 
 
 
       ]
   },
+  
   {
     path: "client",
     component: RestaurantLayoutComponent,
@@ -67,7 +76,11 @@ let routes: Routes = [
     MenuItemsComponent,
     MealDetailsComponent,
     CartCheckoutComponent,
-    RestaurantLayoutComponent
+    RestaurantLayoutComponent,
+    RestaurantOwnerLayoutComponent,
+    AllMealsComponent,
+    ReservationsComponent,
+    RestaurantSettingsComponent,
 
 
   ],
@@ -77,6 +90,7 @@ let routes: Routes = [
     RouterModule.forChild(routes),
     NgxPaginationModule,
     SharedModule,
+    
   ]
 })
 export class RestaurantModuleModule { }
