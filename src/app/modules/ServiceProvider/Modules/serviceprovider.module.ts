@@ -58,11 +58,11 @@ let routes: Routes = [
     ]
   },
   {
-    path: "ClientAllRequests",
+    path: "ServiceProvider/ClientAllRequests",
     component: ServiceProviderAllRequestsComponent,
   },
   {
-    path: "ClientRequests", component: AllRequestsComponent,
+    path: "ServiceProvider/ClientRequests", component: AllRequestsComponent,
     canActivate: [clientGuard]
   },
   {
@@ -87,7 +87,7 @@ let routes: Routes = [
     canActivate: [serviceProviderGuard]
   },
   {
-    path: "SearchServiceProviders", component: SearchProvidersComponent
+    path: "ServiceProvider/SearchServiceProviders", component: SearchProvidersComponent
   }
   ,
   {

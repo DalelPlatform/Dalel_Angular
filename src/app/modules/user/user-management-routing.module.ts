@@ -13,7 +13,7 @@ export const accountRoutes: Routes = [
   { path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  {path: 'ServiceRequest/add', component: AddServiceRequestComponent, canActivate: [authGuard] },
+  {path: 'ServiceProvider/ServiceRequest/add', component: AddServiceRequestComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({
