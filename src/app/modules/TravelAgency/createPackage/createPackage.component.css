@@ -22,3 +22,8 @@ color: white;
     line-height: 21;
     text-align: center;
 }
+option{
+  background-color:#eeeeee24;
+  border:none;
+  border-radius:10px
+}

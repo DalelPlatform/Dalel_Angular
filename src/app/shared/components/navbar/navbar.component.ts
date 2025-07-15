@@ -67,9 +67,11 @@ constructor(private notificationService: NotificationService, private cookieServ
   loadNotifications() {
     this.notificationService.getNotifications().subscribe({
       next: (res) => {
-        this.notifications = res;
-        console.log("Notifications loaded:", this.notifications);
-
+        this.notifications = res.filter((n: any) =>
+    n.message?.toLowerCase().includes('rate package')
+  );
+    console.log("Notifications loaded:", this.notifications); 
+        
       }
       , error: (err) => {
         if (err.status === 401) {
@@ -182,7 +184,7 @@ constructor(private notificationService: NotificationService, private cookieServ
   logout() {
     console.log("g")
     this.cookieService.deleteAll();
-    this.router.navigate(['/mainPage']);
+    this.router.navigate(['/login']);
     this.isLoggedIn = false;
   }
 
