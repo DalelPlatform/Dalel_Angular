@@ -41,6 +41,9 @@
 
   <!-- Reviews List -->
   <div class="reviews-content" *ngIf="!loading && !error && reviews.length > 0">
+          <p>Loading: {{loading}}</p>
+      <p>Error: {{error}}</p>
+      <p>Count: {{reviews.length}}</p>
     <!-- Page Size Selector -->
     <div class="controls-bar">
       <div class="pagination-info">
@@ -52,6 +55,8 @@
 
     <!-- Reviews List -->
     <div class="reviews-list">
+
+
       <div class="review-card" *ngFor="let review of reviews; trackBy: trackByReviewId">
         <div class="review-header">
           <div class="reviewer-info">
@@ -90,6 +95,8 @@
         </div>
       </div>
     </div>
+    <pre>{{ reviews | json }}</pre>
+
 
     <!-- Pagination -->
     <div class="pagination-style" *ngIf="totalPages > 1">

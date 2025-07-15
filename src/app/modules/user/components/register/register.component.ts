@@ -72,7 +72,7 @@ export class RegisterComponent {
               this.toastr.success('Registration successful!', 'Success');
              
               // Redirect to login page after successful registration
-              this.router.navigate(['/user/login']);
+              this.router.navigate(['/login']);
               
             } else {
               this.toastr.error('Registration failed.', 'Error');

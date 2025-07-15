@@ -33,7 +33,7 @@ export class ReviewsListComponent implements OnInit, OnDestroy, OnChanges {
   private destroy$ = new Subject<void>();
   private loadReviewsSubject = new Subject<void>();
 
-  constructor(private reviewsService: RatingService, private route: ActivatedRoute,private router: Router) {
+  constructor(private reviewsService: RatingService, private route: ActivatedRoute, private router: Router) {
     // Debounce the loadReviews calls to prevent excessive API calls
     this.loadReviewsSubject
       .pipe(
@@ -48,16 +48,11 @@ export class ReviewsListComponent implements OnInit, OnDestroy, OnChanges {
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       this.providerId = params.get('providerId') || '';
-      if (this.providerId) {
-        this.performLoadReviews(); // الفنكشن اللي بتجيب الريفيوز
-      }
     });
-    if (this.providerId) {
-      this.loadReviews();
 
-      // this.loadAverageRating();
-    }
+  this.performLoadReviews()
   }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['providerId'] && changes['providerId'].currentValue) {
@@ -92,12 +87,16 @@ export class ReviewsListComponent implements OnInit, OnDestroy, OnChanges {
 
           if (response.Success && response.Data) {
             this.reviews = response.Data.Data;
+            console.log(this.reviews);
+
             this.totalCount = response.Data.TotalCount;
             this.pageSize = response.Data.PageSize;
             this.currentPage = response.Data.PageNumber;
             this.totalPages = Math.ceil(this.totalCount / this.pageSize);
           } else {
+
             this.error = response.Message || 'Failed to load reviews';
+            console.log(this.error);
             this.reviews = [];
             this.totalCount = 0;
           }
@@ -112,10 +111,9 @@ export class ReviewsListComponent implements OnInit, OnDestroy, OnChanges {
       });
 
   }
-Back()
-{
-  this.router.navigate(["/ServiceProviderlayout/ServiceProvider"])
-}
+  Back() {
+    this.router.navigate(["/ServiceProviderlayout/ServiceProvider"])
+  }
 
   onPageChange(page: number): void {
     if (page !== this.currentPage && page >= 1 && page <= this.totalPages) {
