@@ -16,12 +16,14 @@ import { CompleteProfileServiceProviderComponent } from '../complete-profile-ser
 import { AllRequestsComponent } from '../Clinet-ServiceProvider/all-requests/all-requests.component';
 import { TruncatePipe } from '../Pipes/truncate.pipe';
 import { ProjectsListComponent } from '../projects-list/projects-list.component';
-import { EditScheduleComponent }  from '../edit-schedule/edit-schedule.component';
+import { EditScheduleComponent } from '../edit-schedule/edit-schedule.component';
 import { ReviewsListComponent } from '../reviews-list/reviews-list.component';
 import { SearchProvidersComponent } from '../LandingPageComponents/search-providers/search-providers.component';
 import { ProviderProfileComponent } from '../LandingPageComponents/provider-profile/provider-profile.component';
 import { ChatComponent } from '../Chat/Components/chat/chat.component';
 import { clientGuard } from '../../../Services/Guards/Client/client.guard';
+import { filter } from 'rxjs';
+import { FilterPipe } from '../Clinet-ServiceProvider/filter.pipe';
 let routes: Routes = [
   {
     path: "ServiceProviderlayout",
@@ -36,8 +38,8 @@ let routes: Routes = [
         canActivate: [serviceProviderGuard]
       },
       {
-        path:"ProjectsList", component: ProjectsListComponent,
-        canActivate:[serviceProviderGuard]
+        path: "ProjectsList", component: ProjectsListComponent,
+        canActivate: [serviceProviderGuard]
       },
       {
         path: "ProposalList", component: ProposalListComponent,
@@ -50,17 +52,25 @@ let routes: Routes = [
 
       },
       {
-        path:"ProviderReview", component: ReviewsListComponent,
+        path: "ProviderReview", component: ReviewsListComponent,
         canActivate: [serviceProviderGuard]
       }
     ]
   },
   {
-    path:'ServiceChat', component:ChatComponent ,
+    path: "ClientAllRequests",
+    component: ServiceProviderAllRequestsComponent,
+  },
+  {
+    path: "ClientRequests", component: AllRequestsComponent,
+    canActivate: [clientGuard]
+  },
+  {
+    path: 'ServiceChat', component: ChatComponent,
     // canActivate:[serviceProviderGuard, clientGuard]
   },
   { path: 'request/:id', component: RequestDetailsComponent },
-  
+
   {
     path: "EditProfile", component: EditProfileComponent,
     canActivate: [serviceProviderGuard]
@@ -73,16 +83,16 @@ let routes: Routes = [
     canActivate: [serviceProviderGuard]
   },
   {
-    path:"EditSchedule", component: EditScheduleComponent,
-    canActivate:[serviceProviderGuard]
+    path: "EditSchedule", component: EditScheduleComponent,
+    canActivate: [serviceProviderGuard]
   },
   {
-    path:"SearchServiceProviders", component:SearchProvidersComponent
+    path: "SearchServiceProviders", component: SearchProvidersComponent
   }
-,
-{
-  path:"ProviderProfile", component:ProviderProfileComponent
-}
+  ,
+  {
+    path: "ProviderProfile", component: ProviderProfileComponent
+  }
 
 
 ]
@@ -111,8 +121,9 @@ let routes: Routes = [
     ServiceProviderLayoutComponent,
     TruncatePipe,
     NgxPaginationModule,
+    FilterPipe,
     RouterModule.forChild(routes),
-],
+  ],
   providers: []
 })
 export class ServiceproviderModule { }

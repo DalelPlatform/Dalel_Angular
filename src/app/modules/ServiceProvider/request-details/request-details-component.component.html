@@ -165,7 +165,8 @@
 
         <!-- Provider Header -->
         <div class="proposal-header" *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
-          <div class="provider-avatar">
+          
+          <div class="provider-avatar" (click)="viewProviderDetails(provider.UserId)">
             <img [src]="provider.Image" alt="Provider Image" class="provider-image" />
             <div class="provider-status"></div>
           </div>
@@ -184,6 +185,10 @@
             <div class="provider-price">
               <i class="fas fa-tag me-1"></i>
               {{ provider.Price }} {{ provider.PriceUnit }}
+            </div>
+            <div class="provider-price">
+              <i class="fas fa-tag me-1"></i>
+            <strong>Phone:</strong> 01144882688
             </div>
           </div>
         </div>
