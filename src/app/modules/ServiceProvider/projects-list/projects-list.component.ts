@@ -28,7 +28,6 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
   selectedProject: Project | null = null;
   providerProfile!: ServiceProvider;
   providerId!: string;
-  selectedImageFile: File | null = null;
   imagePreview: string = '';
 
 
@@ -203,18 +202,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     this.selectedProject = project;
     this.showEditModal = true;
   }
-  onEditImageSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input?.files?.length) {
-      this.selectedImageFile = input.files[0];
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(this.selectedImageFile);
-    }
-  }
 
   submitEdit(): void {
     if (!this.selectedProject) return;
@@ -226,9 +214,7 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
     formData.append('PriceUnit', this.selectedProject.PriceUnit);
     formData.append('ServiceProviderId', this.selectedProject.ServiceProviderId); // لو مطلوب من الباك
 
-    if (this.selectedImageFile) {
-      formData.append('Image', this.selectedImageFile);
-    }
+
 
     this.projectService.updateProject(this.selectedProject.Id, formData).subscribe({
       next: (res) => {
