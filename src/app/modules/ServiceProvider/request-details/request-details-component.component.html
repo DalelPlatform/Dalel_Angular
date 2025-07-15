@@ -13,11 +13,9 @@
         </div>
       </div>
 
-      <!-- Right Column: Request Details -->
       <div class="col-md-8">
         <div class="card-content">
 
-          <!-- Header Section -->
           <div class="request-header">
             <div class="title-section">
               <h2 class="request-title">
@@ -37,7 +35,6 @@
             </div>
           </div>
 
-          <!-- Details Grid -->
           <div class="details-grid">
             <div class="row">
               <div class="detail-item m-2">
@@ -83,7 +80,6 @@
             </div>
           </div>
 
-          <!-- Request Date -->
           <div class="request-date">
             <i class="far fa-clock me-2"></i>
             Posted in {{ request.Date | date:'mediumDate' }}
@@ -94,7 +90,6 @@
     </div>
   </div>
 
-  <!-- Add Proposal Button -->
   <div class="proposal-actions g-2" *ngIf="isServiceProvider && !showAddProposalForm">
     <button class="btn-add-proposal" (click)="showAddProposalForm = true">
       <i class="fas fa-plus-circle me-2"></i>
@@ -108,7 +103,6 @@
     </a>
   </div>
 
-  <!-- Proposal Form -->
   <div *ngIf="showAddProposalForm" class="proposal-form-container">
     <div class="form-header">
       <h3>
@@ -149,7 +143,6 @@
     </form>
   </div>
 
-  <!-- Proposals Section -->
   <div class="proposals-section">
     <div class="section-header">
       <h3>
@@ -158,12 +151,10 @@
       </h3>
     </div>
 
-    <!-- Proposals List -->
     <div *ngIf="proposals.length > 0; else noProposals" class="proposals-grid">
       <div *ngFor="let proposal of proposals" class="proposal-card">
         <p *ngIf="!providerProfiles[proposal.ServiceProviderId]">No provider info for ID {{ proposal.ServiceProviderId }}</p>
 
-        <!-- Provider Header -->
         <div class="proposal-header" *ngIf="providerProfiles[proposal.ServiceProviderId] as provider">
           
           <div class="provider-avatar" (click)="viewProviderDetails(provider.UserId)">
@@ -193,7 +184,6 @@
           </div>
         </div>
 
-        <!-- Proposal Content -->
         <div class="proposal-content">
           <div class="proposal-price">
             <i class="fas fa-dollar-sign"></i>
@@ -214,7 +204,6 @@
             {{ proposal.Date | date:'medium' }}
           </div>
 
-          <!-- Action buttons for Pending proposals -->
           <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Pending">
             <button class="btn-accept" [disabled]="isProposalAcceptDisabled(proposal)"
               (click)="openDynamicModal(proposal.Id, 'accept')">
@@ -227,7 +216,6 @@
             </button>
           </div>
           
-          <!-- Action buttons for Accepted proposals -->
           <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Accepted">
             <button class="btn-accept" (click)="openDynamicModal(proposal.Id, 'complete')">
               <i class="fas fa-check me-2"></i>
@@ -239,7 +227,6 @@
             </button>
           </div>
 
-          <!-- Action buttons for Completed proposals -->
           <div class="proposal-actions" *ngIf="isClient && proposal.Status === proposalStatus.Completed">
             <button class="btn-accept" *ngIf="isClient && proposal.Status === proposalStatus.Completed" (click)="openReviewModal(proposal.Id)">
               <i class="fas fa-star me-2"></i>
@@ -250,7 +237,6 @@
       </div>
     </div>
 
-    <!-- No Proposals Message -->
     <ng-template #noProposals>
       <div class="no-proposals">
         <div class="no-proposals-icon">
@@ -262,7 +248,6 @@
     </ng-template>
   </div>
 
-  <!-- Confirmation Modal -->
   <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modern-modal">
@@ -294,7 +279,6 @@
     </div>
   </div>
 
-  <!-- Information Modal -->
   <div class="modal fade" id="infoModal" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modern-modal">
@@ -306,7 +290,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <!-- dynamic message will be inserted here -->
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
@@ -317,7 +300,6 @@
     </div>
   </div>
 
-  <!-- Review Modal -->
   <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modern-modal">
