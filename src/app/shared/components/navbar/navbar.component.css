@@ -820,7 +820,7 @@ cursor: pointer;
 }
 
 .free-delivery-banner {
-  background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+  background: var(--accent-color);
   color: white;
   padding: 10px;
   border-radius: 8px;
@@ -899,4 +899,20 @@ cursor: pointer;
 }
 a{
   cursor:pointer
+}
+.btn-shopping{
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+.btn-checkout{
+  background-color: var(--darkPlus-color);
+  color: white;
+}
+.btn-shopping:hover{
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  color: white;
+}
+.btn-checkout:hover{
+  background-color: var(--accent-color);
+  color: white;
 }

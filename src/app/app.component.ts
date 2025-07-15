@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { AppModule } from './app.module';
 import { Router } from '@angular/router';
 import { LoaderService } from './Services/loader.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { LoaderService } from './Services/loader.service';
 })
 export class AppComponent {
   title = 'Dalel';
-  constructor(private router: Router , public serviceloader : LoaderService) {
+  constructor(private router: Router , public serviceloader : LoaderService, private cookieService: CookieService) {
 
 
   }
@@ -31,5 +32,11 @@ export class AppComponent {
   }
   goToCompleteProfile() {
     this.router.navigate(['/complete-profile']);
+  }
+
+  showNavbar(): boolean {
+    const role = this.cookieService.get('Role');
+    const currentUrl = this.router.url;
+    return role === 'Client' && currentUrl !== '/mainPage';
   }
 }

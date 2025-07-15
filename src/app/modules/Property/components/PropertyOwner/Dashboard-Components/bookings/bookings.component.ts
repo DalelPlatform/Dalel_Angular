@@ -17,11 +17,12 @@ export class BookingsComponent implements OnInit {
 
 
   bookings: IBookingProperty[] = [];
+  public BookingStatus = BookingStatus;
 
   constructor(private bookingService: PropertyOwnerService){}
   get filteredBookings() {
     if(this.activeTab === 'upcoming'){
-      return this.bookings.filter(b => b.Status === BookingStatus.Pending);
+      return this.bookings.filter(b => b.Status === BookingStatus.Pending || b.Status === BookingStatus.Confirmed);
     }
     if(this.activeTab === 'canceled'){
       return this.bookings.filter(b => b.Status === BookingStatus.Cancelled);
@@ -43,26 +44,28 @@ export class BookingsComponent implements OnInit {
   acceptBooking(id: number) {
     this.bookingService.acceptBooking(id).subscribe((res) => {
       console.log(res);
+      this.reloadBookings();
     });
   }
 
   rejectBooking(id: number) {
     this.bookingService.rejectBooking(id).subscribe((res) => {
       console.log(res);
+      this.reloadBookings();
     });
   }
-  
 
-
-  ngOnInit() {
-    this.setTab('upcoming');
+  reloadBookings() {
     this.bookingService.getAllBookings().subscribe((res) => {
       this.bookings = res.Data;
       console.log(res);
       console.log(this.bookings);
     });
+  }
 
-
+  ngOnInit() {
+    this.setTab('upcoming');
+    this.reloadBookings();
   }
 
 }

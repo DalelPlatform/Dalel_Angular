@@ -21,6 +21,8 @@ export class MealDetailsComponent implements OnInit {
 
   mealId !: number;
 
+  selectedImageIndex: number = 0;
+  quantity: number = 1;
 
 
   constructor(private service: RestaurantService) { }
@@ -36,6 +38,15 @@ export class MealDetailsComponent implements OnInit {
 
 
 
+  }
+
+  changeQuantity(change: number) {
+    const newQuantity = this.quantity + change;
+    if (newQuantity < 1) {
+      this.quantity = 1;
+    } else {
+      this.quantity = newQuantity;
+    }
   }
 
   onclick(){

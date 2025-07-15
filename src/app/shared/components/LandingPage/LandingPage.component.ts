@@ -19,17 +19,17 @@ features = [
   {
     icon: '../../../assets/Frame 1157.png',
     title: 'Competitive Prices',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+    description: 'Discover the best deals with good Prices'
   },
   {
     icon: '../../../assets/Frame 1158.png',
     title: 'Secure Booking',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+    description: 'Book your next property with confidence.'
   },
   {
     icon: '../../../assets/Frame 1159.png',
     title: 'Seamless Experience',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+    description: 'Enjoy a hassle-free booking experience.'
   }
 ];
 

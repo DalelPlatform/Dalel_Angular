@@ -16,6 +16,9 @@ class="offcanvas-lg offcanvas-start" tabindex="-1" id="profileMenu" style="z-ind
     <div class="position-relative">
         <img [src]="img" class="profile-pic" alt="Profile">
         <a href="#" class="position-absolute top-0 end-0"><i class="fas fa-edit"></i></a>
+        <a routerLink="/mainPage" class="go-home-btn position-absolute top-0 start-0" title="Go to Main Page">
+          <i class="fas fa-home"></i>
+        </a>
     </div>
     <h5 >{{ FullName }}</h5>
     <p class="text-muted">{{ Email }}</p>
