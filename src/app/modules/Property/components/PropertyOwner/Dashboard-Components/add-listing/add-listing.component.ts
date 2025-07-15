@@ -209,7 +209,7 @@ export class AddListingComponent implements OnInit, AfterViewInit{
       this.propertyService.updateProperty(this.sendForm, this.propertyId).subscribe({
         next: () => {
           this.toastr.success("Property updated successfully!");
-          this.router.navigate(['/owner/listings']);
+          this.router.navigate(['/property/owner/listings']);
         },
         error: (err) => {
           console.error(err);
@@ -221,7 +221,7 @@ export class AddListingComponent implements OnInit, AfterViewInit{
       this.propertyService.registerProperty(this.sendForm, token).subscribe({
         next: () => {
           this.toastr.success("Property added successfully!");
-          this.router.navigate(['/owner/listings']);
+          this.router.navigate(['/property/owner/listings']);
         },
         error: (err) => {
           console.error(err);

@@ -3,13 +3,13 @@ import { SharedModule } from "../../shared.module";
 import { AgencyService } from '../../../Services/TravelAgency/agency.service';
 import { ToastrService } from 'ngx-toastr';
 import { TopPackageCartComponent } from "../topPackageCart/topPackageCart.component";
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-LandingPage',
   templateUrl: './LandingPage.component.html',
   styleUrls: ['./LandingPage.component.css'],
-  imports: [SharedModule, TopPackageCartComponent]
+  imports: [SharedModule, TopPackageCartComponent,RouterLink]
 })
 export class LandingPageComponent implements OnInit {
   topPackages: any[] = [];
