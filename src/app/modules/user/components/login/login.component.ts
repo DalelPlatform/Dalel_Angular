@@ -70,7 +70,7 @@ export class LoginComponent {
       
       }
     else if(res.Role ==="TravelAgencyOwner"){
-                 this.router.navigate(['/agancy/owner/create-agency']);
+                 this.router.navigate(['/agancy/owner/insights']);
               }
               else if(res.Role ==="Client"){
                       this.router.navigate(['/mainPage']);

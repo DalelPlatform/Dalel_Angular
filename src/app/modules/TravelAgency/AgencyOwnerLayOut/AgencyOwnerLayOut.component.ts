@@ -17,7 +17,7 @@ export class AgencyOwnerLayOutComponent implements OnInit {
     // { label: 'List Packages', icon: 'fas fa-credit-card', route: 'ListPackage' },
     { label: 'Notification', icon: 'fas fa-bell', route: 'notifications' },
     { label: 'insights', icon: 'fa-solid fa-chart-line', route: 'insights' },
-    { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },
+    // { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },
   ];
   constructor( private notificationService: NotificationService, private cookieService: CookieService) { }
 

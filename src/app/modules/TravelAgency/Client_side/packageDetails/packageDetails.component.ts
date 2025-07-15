@@ -15,6 +15,7 @@ export class PackageDetailsComponent implements OnInit {
  id: number | null = null;
     packages: any[] = [];
     Packagereviews: any[] = [];
+     today: Date = new Date();
     selectedScheduleId: number | null = null;
      packageForm!: FormGroup;
     selectedTab: string = 'overview';

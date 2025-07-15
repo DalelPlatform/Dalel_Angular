@@ -77,7 +77,9 @@
         <h5 class="card-title"><strong>Date:</strong>  {{ item.Date | date:'medium' }}</h5>
         <p class="card-text"><strong>Slots Available:</strong>  {{ item.SlotsAvailable }}</p>
      
- <button class="btn book" (click)="booking(item.Id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Book</button>
+ <button class="btn book" (click)="booking(item.Id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+  [disabled]="item.Date < today" 
+ >  {{ item.Date < today ? 'Trip Finished' : 'Book' }}</button>
       </div>
     </div>
   </div>

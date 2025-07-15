@@ -58,7 +58,9 @@ toggleNotifications() {
 loadNotifications() {
   this.notificationService.getNotifications().subscribe( {
       next: (res) => {
-        this.notifications = res;
+        this.notifications = res.filter((n: any) =>
+    n.message?.toLowerCase().includes('rate package')
+  );
     console.log("Notifications loaded:", this.notifications); 
         
       }
