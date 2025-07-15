@@ -184,7 +184,7 @@ constructor(private notificationService: NotificationService, private cookieServ
   logout() {
     console.log("g")
     this.cookieService.deleteAll();
-    this.router.navigate(['/mainPage']);
+    this.router.navigate(['/login']);
     this.isLoggedIn = false;
   }
 

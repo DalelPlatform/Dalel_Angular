@@ -144,6 +144,10 @@ addreviewPackage(data: any, token: string): Observable<any> {
 
  return this.http.get(`${this.apiUrl}AgencyPackage/TopPackages`);
   }
+  getTopProperties() :Observable<any>{
+
+ return this.http.get(`http://localhost:5070/api/Property/get-top-three-bookings`);
+  }
 }
 
 

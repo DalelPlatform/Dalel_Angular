@@ -4,15 +4,17 @@ import { AgencyService } from '../../../Services/TravelAgency/agency.service';
 import { ToastrService } from 'ngx-toastr';
 import { TopPackageCartComponent } from "../topPackageCart/topPackageCart.component";
 import { Router, RouterLink } from '@angular/router';
+import { PropertyownerModule } from '../../../modules/Property/propertyowner.module';
 
 @Component({
   selector: 'app-LandingPage',
   templateUrl: './LandingPage.component.html',
   styleUrls: ['./LandingPage.component.css'],
-  imports: [SharedModule, TopPackageCartComponent,RouterLink]
+  imports: [SharedModule, TopPackageCartComponent,RouterLink,PropertyownerModule]
 })
 export class LandingPageComponent implements OnInit {
   topPackages: any[] = [];
+  topProperties: any[] = [];
 features = [
   {
     icon: '../../../assets/Frame 1157.png',
@@ -61,7 +63,21 @@ exploreCards = [
       }
     });
      ;
-     console.log(this.topPackages)
+   this.topPropery()
+  }
+  topPropery(){
+    console.log("tes")
+     this.agencyService.getTopProperties().subscribe(
+      {
+      next: (res: any) => {
+      this.topProperties =res.Data
+      console.log("topprop",this.topProperties)
+      },
+      error: (err) => {
+       this.toastr.error("An unexpected error occurred")
+       
+      }
+    });
   }
    viewPackages(id: number) {
       console.log(id)

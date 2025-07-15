@@ -61,7 +61,7 @@ export class MenuItemsComponent implements OnInit {
         // console.log("there is getMenuItems")
         // console.log(res.Data);
         this.menu = res.Data;
-        console.log(`this is res : ${res}`)
+        console.log("this is res", res);
         // console.log(this.menu)
       },
       error: (err) => {
