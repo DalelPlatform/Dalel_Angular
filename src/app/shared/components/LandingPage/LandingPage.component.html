@@ -1,4 +1,4 @@
-<!-- <app-navbar></app-navbar> -->
+<app-navbar></app-navbar>
 
 <section id="hero" class="hero-carousel">
   <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -7,12 +7,36 @@
         <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
              style="background-image: url('https://booking.webestica.com/assets/images/gallery/14.jpg');">
           <div>
-            <h1 class="display-4 fw-bold">Find Top Hotels Nearby</h1>
-            <p class="lead">Book your dream stay with us now.</p>
-            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" href="#">Explore Now</a>
+            <h1 class="display-4 fw-bold">Find Properties Aswan</h1>
+            <p class="lead">Book your dream stay now.</p>
+            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" [routerLink]="['/property/client/search-property']">Book Now</a>
           </div>
         </div>
       </div>
+
+      <div class="carousel-item">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
+             style="background-image: url('../../../assets/service.jpg');">
+          <div>
+            <h1 class="display-4 fw-bold">Best Services For your Home</h1>
+            <p class="lead">Choose from the most expert in aswan.</p>
+            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn animate-up" [routerLink]="['/serviceprovider/client/ClientAllRequests']">Start Booking</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-item">
+        <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
+             style="background-image: url('../../../assets/pexels-naimbic-2290753.jpg');">
+          <div>
+            <h1 class="display-4 fw-bold">Find Best Restaurants in Aswan</h1>
+            <p class="lead">Order Delicious food now.</p>
+            <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" [routerLink]="['/restaurant/client/search-restaurant']">Book Now</a>
+          </div>
+        </div>
+      </div>
+      
+
       <div class="carousel-item">
         <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
              style="background-image: url('../../../assets/image 13 (1).png');">
@@ -23,6 +47,7 @@
           </div>
         </div>
       </div>
+
     </div>
 
     <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">

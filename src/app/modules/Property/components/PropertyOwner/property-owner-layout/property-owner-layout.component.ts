@@ -16,7 +16,6 @@ export class PropertyOwnerLayoutComponent implements OnInit {
     { label: 'Reviews', icon: 'fas fa-heart', route: 'review' },
     { label: 'Settings', icon: 'fas fa-cog', route: 'settings' },
     { label: 'Delete Profile', icon: 'fas fa-trash', route: 'delete' },
-    { label: 'Sign Out', icon: 'fas fa-sign-out-alt', route: 'logout' },
   ];
   constructor() { }
 

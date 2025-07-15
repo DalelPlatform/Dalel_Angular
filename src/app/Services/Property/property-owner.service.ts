@@ -30,6 +30,16 @@ export class PropertyOwnerService {
     return this.http.put(`${environment.baseApi}Property/${id}`, data);
   }
 
+  acceptBooking(id: number): Observable<any> {
+    return this.http.put(`${environment.baseApi}Property/accept-booking/${id}`, {});
+  }
+  rejectBooking(id: number): Observable<any> {
+    return this.http.put(`${environment.baseApi}Property/reject-booking/${id}`, {});
+  }
+  SearchProperties(data: any): Observable<any> {
+    return this.http.post(`${environment.baseApi}Property/search-available-properties`, data);
+  }
+
   DeleteProperty(id: number): Observable<any> {
     return this.http.delete(`${environment.baseApi}Property/delete-property/${id}`);
   }

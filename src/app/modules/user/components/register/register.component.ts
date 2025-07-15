@@ -4,6 +4,7 @@ import { AccountService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,11 @@ export class RegisterComponent {
     ConfirmPassowrd: '',
     Role: ''
   };
-  constructor(private accountSrv:AccountService,private router: Router) { }
+  constructor(
+    private accountSrv: AccountService,
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
   //
   Send() {
     if (
@@ -35,7 +40,7 @@ export class RegisterComponent {
       !this.user.NationalId ||
       !this.user.PhoneNumber
     ) {
-      alert('Please fill all fields');
+      this.toastr.error('Please fill all fields', 'Validation Error');
       return;
     }
 
@@ -46,16 +51,16 @@ export class RegisterComponent {
     forkJoin([username$, email$, nationalId$]).subscribe({
       next: ([resUsername, resEmail, resNatId]) => {
         if (resUsername?.Status === 400) {
-          alert('Username is already taken');
+          this.toastr.error('Username is already taken', 'Registration Error');
           return;
         }
         if (resEmail?.Status === 400) {
-          alert('Email is already taken');
+          this.toastr.error('Email is already taken', 'Registration Error');
           return;
         }
         console.log(resNatId);
         if (resNatId?.Status === 400) {
-          alert('National ID is already used');
+          this.toastr.error('National ID is already used', 'Registration Error');
           return;
         }
 
@@ -64,26 +69,22 @@ export class RegisterComponent {
           next: (res) => {
             if (res?.Success || res?.Status === 200) {
               console.log(res)
-              alert('Registration successful!');
+              this.toastr.success('Registration successful!', 'Success');
              
-              if (this.user.Role === 'ServiceProvider') {
-                this.router.navigate(['/user/complete-profile']);
-              }
-              if (this.user.Role === 'HotelOwner') {
-                this.router.navigate(['/hotel-owner']);
-              }
+              // Redirect to login page after successful registration
+              this.router.navigate(['/user/login']);
               
             } else {
-              alert('Registration failed.');
+              this.toastr.error('Registration failed.', 'Error');
             }
           },
           error: (err) => {
-            alert('Registration failed: ' + (err.message || 'Unknown error'));
+            this.toastr.error('Registration failed: ' + (err.message || 'Unknown error'), 'Error');
           }
         });
       },
       error: (err) => {
-        alert('Validation request failed: ' + (err.message || 'Unknown error'));
+        this.toastr.error('Validation request failed: ' + (err.message || 'Unknown error'), 'Error');
       }
     });
   }

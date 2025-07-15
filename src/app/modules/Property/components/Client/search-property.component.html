@@ -1,0 +1,56 @@
+<div class="search-container">
+  <!-- Hero Section with Search -->
+  <div class="hero-section">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">{{ list?.length || 0 }} Hotels in {{ searchData.location ? searchData.location : 'Your City' }}</h1>
+      <!-- Floating Search Bar -->
+      <div class="search-bar-wrapper">
+        <form class="search-bar-form" (ngSubmit)="onSearchFormSubmit($event)">
+          <!-- Location Input -->
+          <div class="search-bar-field">
+            <span class="search-bar-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            </span>
+            <div class="search-bar-content">
+              <label class="search-bar-label">Location</label>
+              <input type="text" class="search-bar-input" placeholder="San Jacinto, USA" [(ngModel)]="searchData.location" name="location">
+            </div>
+          </div>
+          <!-- Check In - Out -->
+          <div class="search-bar-field">
+            <span class="search-bar-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            </span>
+            <div class="search-bar-content">
+              <label class="search-bar-label">Check in – out</label>
+              <input type="text" class="search-bar-input" [value]="searchData.checkIn | date:'d MMM' + ' to ' + (searchData.checkOut | date:'d MMM')" readonly>
+            </div>
+          </div>
+          <!-- Guests & Rooms -->
+          <div class="search-bar-field">
+            <span class="search-bar-icon">
+              <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
+            <div class="search-bar-content">
+              <label class="search-bar-label">Guests & rooms</label>
+              <input type="text" class="search-bar-input" [value]="searchData.guests + ' Guests ' + searchData.rooms + ' Room'" readonly>
+            </div>
+          </div>
+          <!-- Search Button -->
+          <button type="submit" class="search-bar-btn" [disabled]="isLoading">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.35-4.35"></path>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Content Section and rest of the page remain unchanged -->
+  <div class="content-section">
+    <!-- ... existing code ... -->
+    <ng-content></ng-content>
+  </div>
+</div> 
