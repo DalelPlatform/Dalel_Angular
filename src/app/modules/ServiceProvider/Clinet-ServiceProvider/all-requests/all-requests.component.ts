@@ -4,6 +4,7 @@ import { ServiceRequestDetails } from '../../Models/service-request.model';
 import { Observable } from 'rxjs';
 import { AccountService } from '../../../user/services/user.service';
 import { CookieOptions, CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 // import { FilterPipe } from '../filter.pipe';
 export interface ClientRequest {
   Id: string;
@@ -49,7 +50,7 @@ export class AllRequestsComponent implements OnInit {
   pendingCount = 0;
   inProgressCount = 0;
 
-  constructor(private clientService: RequestService, private accountSerivce: AccountService, private cookieService: CookieService) {} 
+  constructor(private clientService: RequestService, private accountSerivce: AccountService, private cookieService: CookieService, private router: Router) {} 
 
   ngOnInit() {
     this.loadClientRequests();
@@ -104,18 +105,6 @@ export class AllRequestsComponent implements OnInit {
     this.loadClientRequests();
   }
 
-  getStatusBadgeClass(status: string): string {
-    switch (status) {
-      case 'Pending': return 'badge-warning';
-      case 'Accepted': return 'badge-success';
-      case 'InProgress': return 'badge-info';
-      case 'Completed': return 'badge-primary';
-      case 'Cancelled': return 'badge-danger';
-      default: return 'badge-secondary';
-    }
-  }
-
-
   formatPrice(price: number): string {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -133,8 +122,8 @@ export class AllRequestsComponent implements OnInit {
   }
   
   refreshData() {
-    this.currentPage = 1;
-    this.loadClientRequests();
+    this.router.navigate(["/mainPage"])
+ 
   }
 
   viewDetails(request: ClientRequest) {
@@ -153,7 +142,9 @@ export class AllRequestsComponent implements OnInit {
       console.log('Delete request:', request);
     }
   }
-
+    viewClientDetails(request: any) {
+  this.router.navigate(['/request', request.Id]);
+}
   private calculateStatusCounts() {
     this.acceptedCount = this.clientRequests.filter(r => r.Status === 'Accepted').length;
     this.pendingCount = this.clientRequests.filter(r => r.Status === 'Pending').length;
