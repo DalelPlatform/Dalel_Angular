@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RequestService } from '../Services/request.service';
 import { ProposalService } from '../Services/proposal.service';
 import { ServiceRequestDetails } from '../Models/service-request.model';
@@ -60,6 +60,7 @@ export class RequestDetailsComponent implements OnInit {
     private requestService: RequestService,
     private proposalService: ProposalService,
     private cookieService: CookieService,
+    private router: Router,
     private ServiceProviderService: ServiceProviderService
   ) {
     this.requestId = Number(this.route.snapshot.paramMap.get('id'));
@@ -120,7 +121,9 @@ export class RequestDetailsComponent implements OnInit {
     const hasAccepted = this.proposals.some(p => p.Status === ProposalStatus.Accepted);
     return hasAccepted && proposal.Status !== ProposalStatus.Accepted;
   }
-
+viewProviderDetails(providerId: string): void {
+    this.router.navigate(['/ProviderProfile'], { queryParams: { userId: providerId } });
+  }
   loadRequestDetails(): void {
     this.requestService.getRequestById(this.requestId).subscribe({
       next: (response) => {

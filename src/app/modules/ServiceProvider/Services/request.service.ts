@@ -91,4 +91,14 @@ export class RequestService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<any>(`${environment.baseApi}ServiceProviderReview/create`, model, { headers });
   }
+  getClientRequests(pageSize: number = 5, pageNumber: number = 1): Observable<any> {
+    const params = new HttpParams()
+      .set('pageSize', pageSize)
+      .set('pageNumber', pageNumber);
+
+    const token = this.cookieService.get('Token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get(`${this.apiUrl}/client`, { params, headers });
+  }
 }

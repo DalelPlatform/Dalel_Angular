@@ -1,6 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../Services/request.service';
 import { ServiceRequestDetails } from '../../Models/service-request.model';
+import { Observable } from 'rxjs';
+import { AccountService } from '../../../user/services/user.service';
+import { CookieOptions, CookieService } from 'ngx-cookie-service';
+// import { FilterPipe } from '../filter.pipe';
+export interface ClientRequest {
+  Id: string;
+  ClientId: string;
+  Title: string;
+  CategoryServicesId: number;
+  Description: string;
+  Address: string;
+  Date: Date;
+  DueDate: Date;
+  StartPrice: number;
+  Imagepath?: string;
+  Status: 'Pending' | 'Accepted' | 'InProgress' | 'Completed' | 'Cancelled';
+  ClientName?: string;
+  CategoryName?: string;
+}
+
+export interface ClientRequestsResponse {
+  Data: any;
+  totalCount: number;
+  pageNumber: number;
+  pageSize: number;
+  totalPages: number;
+}
 @Component({
   selector: 'app-all-requests',
   standalone: false,
@@ -8,104 +35,130 @@ import { ServiceRequestDetails } from '../../Models/service-request.model';
   styleUrl: './all-requests.component.css'
 })
 export class AllRequestsComponent implements OnInit {
-
-  requests: ServiceRequestDetails[] = [];
-  isLoading = true;
-  pageSize = 5;
+  clientRequests: ClientRequest[] = [];
   currentPage = 1;
+  pageSize = 6;
   totalCount = 0;
   totalPages = 0;
-  pages: number[] = [];
+  isLoading = false;
+  error: string | null = null;
+    userProfile: any = null;
+  
+  // Status counts
+  acceptedCount = 0;
+  pendingCount = 0;
+  inProgressCount = 0;
 
-  constructor(private requestService: RequestService) { }
+  constructor(private clientService: RequestService, private accountSerivce: AccountService, private cookieService: CookieService) {} 
 
-  ngOnInit(): void {
-    this.loadRequests();
+  ngOnInit() {
+    this.loadClientRequests();
   }
-  sortRequestsByDate(): void {
-  this.requests.sort((a, b) => {
-    return new Date(b.Date).getTime() - new Date(a.Date).getTime();
-  });
-}
-  loadRequests(): void {
-    this.isLoading = true;
-    this.requestService.getAcceptedRequests(this.pageSize, this.currentPage)
-      .subscribe({
-        next: (response) => {
-          this.requests = response.Data.Data;
-                    this.sortRequestsByDate();
 
-          this.totalCount = response.Data.TotalCount;
-          this.totalPages = Math.ceil(this.totalCount / this.pageSize);
-          this.generatePageNumbers();
+  loadClientRequests() {
+    this.isLoading = true;
+    this.error = null;
+
+    this.clientService.getClientRequests(this.pageSize, this.currentPage)
+      .subscribe({
+        next: (response: ClientRequestsResponse) => {
+          this.clientRequests = response.Data.Data || [];
+          this.totalCount = response.totalCount || 0;
+          this.totalPages = response.totalPages || 0;
+          this.calculateStatusCounts();
+          this.loadUserProfile();
+          console.log(this.clientRequests);
+          
+        
           this.isLoading = false;
-        }
-        ,
-        error: (err) => {
-          console.error('Error loading requests:', err);
+        },
+        error: (error: any) => {
+          this.error = 'Failed to load client requests. Please try again.';
           this.isLoading = false;
+          console.error('Error loading client requests:', error);
         }
       });
-
   }
 
-  generatePageNumbers(): void {
-    this.pages = [];
-    const maxVisiblePages = 5;
-    
-    let startPage = Math.max(1, this.currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(this.totalPages, startPage + maxVisiblePages - 1);
-
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+   loadUserProfile() {
+    const token = this.cookieService.get('Token'); // أو localStorage.getItem('Token')
+    if (!token) {
+      this.error = 'User not authenticated.';
+      return;
     }
 
-    for (let i = startPage; i <= endPage; i++) {
-      this.pages.push(i);
+    this.accountSerivce.getProfile(token).subscribe({
+      next: (response) => {
+        this.userProfile = response.Data || response; // حسب شكل الـ API
+        console.log('User profile:', this.userProfile);
+      },
+      error: (err) => {
+        this.error = 'Failed to load profile.';
+        console.error(err);
+      }
+    });
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadClientRequests();
+  }
+
+  getStatusBadgeClass(status: string): string {
+    switch (status) {
+      case 'Pending': return 'badge-warning';
+      case 'Accepted': return 'badge-success';
+      case 'InProgress': return 'badge-info';
+      case 'Completed': return 'badge-primary';
+      case 'Cancelled': return 'badge-danger';
+      default: return 'badge-secondary';
     }
   }
 
-  goToPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages && page !== this.currentPage) {
-      this.currentPage = page;
-      this.loadRequests();
+
+  formatPrice(price: number): string {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0
+    }).format(price);
+  }
+
+  formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  }
+  
+  refreshData() {
+    this.currentPage = 1;
+    this.loadClientRequests();
+  }
+
+  viewDetails(request: ClientRequest) {
+    // Implement view details logic
+    console.log('View details for:', request);
+  }
+
+  editRequest(request: ClientRequest) {
+    // Implement edit logic
+    console.log('Edit request:', request);
+  }
+
+  deleteRequest(request: ClientRequest) {
+    // Implement delete logic
+    if (confirm('Are you sure you want to delete this request?')) {
+      console.log('Delete request:', request);
     }
   }
 
-  getStatusText(status: number): string {
-    switch(status) {
-      case 2: return 'Accepted';
-      case 1: return 'Pending';
-      case 0: return 'Rejected';
-      default: return 'Unknown';
-    }
+  private calculateStatusCounts() {
+    this.acceptedCount = this.clientRequests.filter(r => r.Status === 'Accepted').length;
+    this.pendingCount = this.clientRequests.filter(r => r.Status === 'Pending').length;
+    this.inProgressCount = this.clientRequests.filter(r => r.Status === 'InProgress').length;
   }
 
-  getStatusClass(status: number): string {
-    switch(status) {
-      case 2: return 'bg-success';
-      case 1: return 'bg-warning text-dark';
-      case 0: return 'bg-danger';
-      default: return 'bg-secondary';
-    }
-  }
-  viewRequestDetails(requestId: number): void {
-    window.location.href = `/request/${requestId}`;
-}
-  getTimeSince(dateString: string): string {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    
-    if (diffInSeconds < 60) return `${diffInSeconds} ثانية`;
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)} دقيقة`;
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)} ساعة`;
-    return `${Math.floor(diffInSeconds / 86400)} يوم`;
-  }
-
-  getCategoryName(categoryId: number): string {
-  const category = this.requests.find(req => req.CategoryServicesId === categoryId);
-  return category ? category.CategoryName : 'Unknown Category';
-}
 
 }
