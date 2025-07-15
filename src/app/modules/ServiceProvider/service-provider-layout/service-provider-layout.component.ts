@@ -19,7 +19,7 @@ export class ServiceProviderLayoutComponent implements OnInit {
     { label: 'Proposals List', icon: 'fa-solid fa-list-ul', route: 'ProposalList' },
     { label: 'All Requests', icon: 'fa-solid fa-bullhorn', route: 'AllRequests' },
     { label: 'Reviews List', icon: 'fas fa-search', route: 'ProviderReview' },
-    { label: 'Sign Out', icon: 'fas fa-sign-out-alt', route: 'logout' },
+    // { label: 'Sign Out', icon: 'fas fa-sign-out-alt', route: 'logout' },
   ];
   constructor() { }
 

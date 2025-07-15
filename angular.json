@@ -33,7 +33,9 @@
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
-              "node_modules/leaflet/dist/leaflet.js"
+                "node_modules/leaflet/dist/leaflet.js"
+
+
             ]
           },
           "configurations": {

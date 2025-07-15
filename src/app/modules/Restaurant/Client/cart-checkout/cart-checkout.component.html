@@ -13,82 +13,33 @@
         <div class="section-header">
           <i class="fas fa-map-marker-alt section-icon"></i>
           <span>Delivery Address</span>
-          <button class="btn btn-add-address ms-auto">Add a new address</button>
+          <!-- <button class="btn btn-add-address ms-auto">Add a new address</button> -->
         </div>
 
-           <form id="addressForm">
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="fullAddress" class="form-label">Full Address <span style="color: #e74c3c;">*</span></label>
-                                <textarea class="form-control" id="fullAddress" rows="3" placeholder="Enter your complete address" required></textarea>
-                            </div>
-                        </div>
+        <form id="addressForm">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label for="fullAddress" class="form-label">Full Address <span style="color: #e74c3c;">*</span></label>
+              <textarea #address class="form-control" id="fullAddress" rows="3"
+                placeholder="Enter your complete address" required></textarea>
+            </div>
+          </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="city" class="form-label">City <span style="color: #e74c3c;">*</span></label>
-                                <input type="text" class="form-control" id="city" placeholder="Enter city" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="phoneNumber" class="form-label">Phone Number <span style="color: #e74c3c;">*</span></label>
-                                <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
-                            </div>
-                        </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="city" class="form-label">City <span style="color: #e74c3c;">*</span></label>
+              <input #city type="text" class="form-control" id="city" placeholder="Enter city" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number <span style="color: #e74c3c;">*</span></label>
+              <input #phone type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+            </div>
+          </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="state" class="form-label">State/Province</label>
-                                <input type="text" class="form-control" id="state" placeholder="Enter state/province">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="zipCode" class="form-label">ZIP/Postal Code</label>
-                                <input type="text" class="form-control" id="zipCode" placeholder="Enter ZIP/postal code">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <label for="country" class="form-label">Country <span style="color: #e74c3c;">*</span></label>
-                                <select class="form-control" id="country" required>
-                                    <option value="">Select Country</option>
-                                    <option value="US">United States</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="UK">United Kingdom</option>
-                                    <option value="AU">Australia</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="FR">France</option>
-                                    <option value="IN">India</option>
-                                    <option value="JP">Japan</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="MX">Mexico</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="saveAddress">
-                            <label class="form-check-label" for="saveAddress">
-                                Save this address for future orders
-                            </label>
-                        </div>
-
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="defaultAddress">
-                            <label class="form-check-label" for="defaultAddress">
-                                Set as default address
-                            </label>
-                        </div>
-                    </form>
+        </form>
       </div>
 
-      <!-- Delivery Time Section -->
-      <!-- <div class="section-card">
-        <div class="section-header">
-          <i class="fas fa-clock section-icon"></i>
-          <span>Delivery time</span>
-        </div>
-        <p class="text-muted">Select your preferred delivery time</p>
-      </div> -->
+
 
       <!-- Delivery Instructions Section -->
       <div class="section-card">
@@ -96,7 +47,7 @@
           <i class="fas fa-clipboard-list section-icon"></i>
           <span>Delivery instructions</span>
         </div>
-        <textarea class="form-control" id="deliveryInstructions" rows="3"
+        <textarea #notes class="form-control" id="deliveryInstructions" rows="3"
           placeholder="Enter any special instructions for delivery (e.g., Leave at door, Ring doorbell, etc.)"
           maxlength="500">
   </textarea>
@@ -112,27 +63,24 @@
         </div>
 
         <!-- Amount Input -->
-        <!-- <div class="amount-section">
-                        <label class="amount-label">Amount <span style="color: #e74c3c;">*</span></label>
-                        <input type="text" class="amount-input" placeholder="Enter amount" value="$110.39">
-                    </div> -->
+
 
         <!-- Payment Methods -->
         <div class="payment-methods-section">
           <div class="payment-methods-title">Payment Methods</div>
 
           <div class="payment-method-option">
-            <input type="radio" name="paymentMethod" id="cashOnDelivery" value="cash">
+            <input type="radio" name="paymentMethod" id="cashOnDelivery" value="cash" checked #paymentCash>
             <label for="cashOnDelivery">Cash on Delivery</label>
           </div>
 
           <div class="payment-method-option">
-            <input type="radio" name="paymentMethod" id="paypalMethod" value="paypal" checked>
+            <input type="radio" name="paymentMethod" id="paypalMethod" value="paypal" #paymentPaypal>
             <label for="paypalMethod">PayPal</label>
           </div>
 
           <div class="payment-method-option">
-            <input type="radio" name="paymentMethod" id="stripeMethod" value="stripe">
+            <input type="radio" name="paymentMethod" id="stripeMethod" value="stripe" #paymentStripe>
             <label for="stripeMethod">Stripe</label>
           </div>
         </div>
@@ -212,6 +160,17 @@
           </div>
         </div>
       </div>
+      <!-- <button class="btn btn-checkout" (click)="submitCheckout(
+  address.value,
+  city.value,
+  phone.value,
+  notes.value,
+  getSelectedPaymentMethod()
+)"> -->
+        <i class="fas fa-shopping-cart me-2"></i>
+        Check Out Now
+      <!-- </button> -->
     </div>
+
   </div>
 </div>

@@ -140,8 +140,8 @@
 
 .retry-btn {
   padding: 10px 20px;
-  background: #3b82f6;
-  color: white;
+  background: var(--secondary-color);
+  color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -179,8 +179,8 @@
 }
 
 .review-card {
-  background: #873db8;
-  color: white;
+  background: var(--secondary-color);
+  color: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 24px;
@@ -309,83 +309,7 @@
   font-size: 12px;
 }
 
-/* Pagination */
-.pagination-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-  padding-top: 24px;
-  border-top: 1px solid #f1f5f9;
-}
 
-.pagination-wrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.pagination-controls-container {
-  display: flex;
-  align-items: center;
-}
-
-/* Pagination Controls Styling */
-::ng-deep .pagination-controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-::ng-deep .pagination-controls .ngx-pagination {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-::ng-deep .pagination-controls .ngx-pagination li {
-  display: flex;
-  align-items: center;
-}
-
-::ng-deep .pagination-controls .ngx-pagination li a,
-::ng-deep .pagination-controls .ngx-pagination li span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  min-width: 40px;
-  height: 40px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  color: #6b7280;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-::ng-deep .pagination-controls .ngx-pagination li a:hover {
-  background: #f8fafc;
-  border-color: #d1d5db;
-  color: #374151;
-}
-
-::ng-deep .pagination-controls .ngx-pagination li.current a,
-::ng-deep .pagination-controls .ngx-pagination li.current span {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  color: white;
-}
-
-::ng-deep .pagination-controls .ngx-pagination li.disabled a,
-::ng-deep .pagination-controls .ngx-pagination li.disabled span {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
 
 /* Empty State */
 .empty-state {

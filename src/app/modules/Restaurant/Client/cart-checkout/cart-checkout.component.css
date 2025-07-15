@@ -101,28 +101,29 @@
             color: white;
         }
 
-        .order-summary {
-            background: white;
+         .order-summary {
+            background: var(--li-color);
             border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            padding: 25px;
-            height: fit-content;
-            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-bottom: 20px;
         }
 
         .order-title {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 600;
             color: var(--darkPlus-color);
             margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--light-bg);
+            padding-bottom: 10px;
         }
 
         .order-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .order-item:last-child {
@@ -130,14 +131,15 @@
         }
 
         .item-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            margin-right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            background-color: var(--accent-color);
         }
 
         .item-details {
@@ -146,43 +148,95 @@
 
         .item-name {
             font-weight: 500;
-            margin-bottom: 2px;
-        }
-
-        .item-size {
-            color: var(--dark-color);
-            font-size: 0.9rem;
+            color: var(--darkPlus-color);
+            font-size: 1rem;
         }
 
         .item-quantity {
+            background-color: var(--light-bg);
             color: var(--dark-color);
-            margin: 0 15px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-right: 10px;
+            min-width: 30px;
+            text-align: center;
         }
 
         .item-price {
             font-weight: 600;
-            color: var(--darkPlus-color);
+            color: var(--primary-color);
+            font-size: 1rem;
+            min-width: 60px;
+            text-align: right;
         }
 
         .order-totals {
-            border-top: 2px solid #e5e7eb;
+            margin-top: 20px;
+            border-top: 2px solid var(--light-bg);
             padding-top: 15px;
-            margin-top: 15px;
         }
 
         .total-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            align-items: center;
+            padding: 8px 0;
+            font-size: 0.95rem;
         }
 
-        .total-row.grand-total {
+        .total-row span:first-child {
+            color: var(--dark-color);
+        }
+
+        .total-row span:last-child {
+            font-weight: 500;
+            color: var(--darkPlus-color);
+        }
+
+        .grand-total {
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+            padding-top: 15px;
             font-size: 1.1rem;
             font-weight: 600;
+        }
+
+        .grand-total span {
             color: var(--darkPlus-color);
-            border-top: 1px solid #e5e7eb;
-            padding-top: 8px;
-            margin-top: 8px;
+        }
+
+        .btn-checkout {
+            /* background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); */
+            background: transparent;
+            border: 2px solid var(--accent-color);
+
+            color: var(--dark-color);
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            width: 100%;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-checkout:hover {
+            /* background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%); */
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            color: var(--li-color);
+        }
+
+        .btn-checkout:active {
+            transform: translateY(0);
+        }
+
+        .text-muted {
+            color: var(--dark-color);
         }
 
         .action-links {

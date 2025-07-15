@@ -1,57 +1,53 @@
 <!-- Enhanced Projects List Template -->
 <div class="container-fluid py-4">
     <!-- Header Section -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="mb-1 text-primary fw-bold">
+    <div class="header-section">
+        <div class="header-content">
+            <h2 class="page-title">
                 <i class="bi bi-folder-plus me-2"></i>Your Projects
             </h2>
-            <p class="text-muted mb-0">Manage and organize your service projects</p>
+            <p class="page-subtitle">Manage and organize your service projects</p>
         </div>
-        <button class="btn btn-primary btn-lg" (click)="refreshProjects()" [disabled]="isLoading">
-            <i class="bi bi-arrow-clockwise me-2" [class.spinner-border]="isLoading"
-                [class.spinner-border-sm]="isLoading"></i>
-            {{isLoading ? 'Loading...' : 'Refresh'}}
-        </button>
+
     </div>
 
     <!-- Loading State -->
-    <div *ngIf="isInitializing" class="text-center py-5">
+    <div *ngIf="isInitializing" class="loading-state">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
-        <p class="mt-3 text-muted">Initializing your projects...</p>
+        <p class="mt-3">Initializing your projects...</p>
     </div>
 
     <!-- Main Content -->
     <div *ngIf="!isInitializing">
         <!-- Search and Controls -->
-        <div class="card shadow-sm mb-4">
+        <div class="search-controls-card">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-6">
-                        <div class="input-group">
-                            <span class="input-group-text bg-primary text-white">
+                        <div class="search-input-group">
+                            <span class="search-icon">
                                 <i class="bi bi-search"></i>
                             </span>
-                            <input type="text" class="form-control form-control-lg"
+                            <input type="text" class="search-input"
                                 placeholder="Search projects by name or description..." [(ngModel)]="searchTerm"
                                 (input)="onSearchChange()" />
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="d-flex gap-2 justify-content-md-end mt-2 mt-md-0">
-                            <button class="btn btn-outline-primary" (click)="changeSort('name')"
+                        <div class="sort-buttons">
+                            <button class="sort-btn" (click)="changeSort('name')"
                                 [class.active]="sortBy === 'name'">
                                 <i class="bi" [ngClass]="getSortIcon('name')"></i>
                                 Name
                             </button>
-                            <button class="btn btn-outline-primary" (click)="changeSort('price')"
+                            <button class="sort-btn" (click)="changeSort('price')"
                                 [class.active]="sortBy === 'price'">
                                 <i class="bi" [ngClass]="getSortIcon('price')"></i>
                                 Price
                             </button>
-                            <button class="btn btn-outline-primary" (click)="changeSort('date')"
+                            <button class="sort-btn" (click)="changeSort('date')"
                                 [class.active]="sortBy === 'date'">
                                 <i class="bi" [ngClass]="getSortIcon('date')"></i>
                                 Date
@@ -63,84 +59,76 @@
         </div>
 
         <!-- Results Info -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="text-muted">
+        <div class="results-info">
+            <div class="info-item">
                 <i class="bi bi-info-circle me-1"></i>
                 Showing {{filteredProjects.length}} of {{totalItems}} projects
             </div>
-            <div class="text-muted">
+            <div class="info-item">
                 Page {{currentPage}} of {{totalPages}}
             </div>
         </div>
 
         <!-- Projects Grid -->
-        <p *ngIf="filteredProjects.length === 0">No projects found</p>
-        <div class="row g-4" *ngIf="filteredProjects.length > 0">
-            <div class="col-lg-4 col-md-6" *ngFor="let project of filteredProjects">
-                <div class="card h-100 shadow-sm border-0 project-card">
-                    <!-- Project Image -->
-                    <div class="position-relative">
-                        <img *ngIf="project.Image; else noImage" [src]="project.Image"
-                            class="card-img-top project-image" alt="{{project.Name}}" [style.height.px]="200"
-                            [style.object-fit]="'cover'" />
-                        <ng-template #noImage>
-                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center"
-                                [style.height.px]="200">
-                                <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
-                            </div>
-                        </ng-template>
-                        <div class="position-absolute top-0 end-0 p-2">
-                            <span class="badge bg-primary">{{project.PriceUnit}}</span>
+        <div class="projects-grid" *ngIf="filteredProjects.length > 0">
+            <div class="project-card" *ngFor="let project of filteredProjects">
+                <!-- Project Image -->
+                <div class="project-image-container">
+                    <img *ngIf="project.Image; else noImage" [src]="project.Image"
+                        class="project-image" alt="{{project.Name}}" />
+                    <ng-template #noImage>
+                        <div class="no-image-placeholder">
+                            <i class="bi bi-image"></i>
                         </div>
+                    </ng-template>
+                    <div class="price-badge">
+                        <span>{{project.PriceUnit}}</span>
                     </div>
+                </div>
 
-                    <!-- Card Body -->
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-truncate mb-2" [title]="project.Name">
-                            {{project.Name}}
-                        </h5>
-                        <p class="card-text text-muted small mb-3 flex-grow-1" [title]="project.Description">
-                            {{project.Description | slice:0:100}}{{project.Description.length > 100 ? '...' : ''}}
-                        </p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="text-success fw-bold">
-                                <i class="bi bi-currency-dollar me-1"></i>
-                                {{formatPrice(project.ApproximatePrice)}} EGP
-                            </div>
-                            <small class="text-muted">
-                                ID: {{project.Id}}
-                            </small>
+                <!-- Card Body -->
+                <div class="project-card-body">
+                    <h5 class="project-title" [title]="project.Name">
+                        {{project.Name}}
+                    </h5>
+                    <p class="project-description" [title]="project.Description">
+                        {{project.Description | slice:0:100}}{{project.Description.length > 100 ? '...' : ''}}
+                    </p>
+                    <div class="project-meta">
+                        <div class="project-price">
+                            <i class="bi bi-currency-dollar me-1"></i>
+                            {{formatPrice(project.ApproximatePrice)}} EGP
                         </div>
+                        <small class="project-id">
+                            ID: {{project.Id}}
+                        </small>
                     </div>
+                </div>
 
-                    <!-- Card Footer -->
-                    <div class="card-footer bg-transparent border-0 pt-0" *ngIf="providerId">
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-outline-info flex-fill" (click)="openDetails(project)" type="button">
-                                <i class="bi bi-eye me-1"></i>
-                                View
-                            </button>
-                            <button class="btn btn-outline-warning flex-fill" (click)="openEdit(project)" type="button">
-                                <i class="bi bi-pencil me-1"></i>
-                                Edit
-                            </button>
-                            <button class="btn btn-outline-danger flex-fill" (click)="openDelete(project)"
-                                type="button">
-                                <i class="bi bi-trash me-1"></i>
-                                Delete
-                            </button>
-                        </div>
-                    </div>
+                <!-- Card Footer -->
+                <div class="project-card-footer" *ngIf="providerId">
+                    <button class="action-btn view-btn" (click)="openDetails(project)" type="button">
+                        <i class="bi bi-eye"></i>
+                        View
+                    </button>
+                    <button class="action-btn edit-btn" (click)="openEdit(project)" type="button">
+                        <i class="bi bi-pencil"></i>
+                        Edit
+                    </button>
+                    <button class="action-btn delete-btn" (click)="openDelete(project)" type="button">
+                        <i class="bi bi-trash"></i>
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
 
         <!-- Empty State -->
-        <div *ngIf="filteredProjects.length === 0 && !isLoading" class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-folder-x display-1 text-muted mb-3"></i>
-                <h3 class="text-muted mb-2">No Projects Found</h3>
-                <p class="text-muted mb-4">
+        <div *ngIf="filteredProjects.length === 0 && !isLoading" class="empty-state">
+            <div class="empty-state-content">
+                <i class="bi bi-folder-x empty-icon"></i>
+                <h3 class="empty-title">No Projects Found</h3>
+                <p class="empty-subtitle">
                     <span *ngIf="searchTerm">No projects match your search criteria.</span>
                     <span *ngIf="!searchTerm">You haven't created any projects yet.</span>
                 </p>
@@ -152,212 +140,197 @@
         </div>
 
         <!-- Pagination -->
-        <nav *ngIf="totalPages > 1" aria-label="Projects pagination" class="mt-4">
-            <ul class="pagination justify-content-center">
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                    <button class="page-link" (click)="changePage(1)" [disabled]="currentPage === 1">
+        <div class="pagination-style" *ngIf="totalPages > 1">
+            <ul class="ngx-pagination">
+                <li [class.disabled]="currentPage === 1">
+                    <a (click)="changePage(1)" aria-label="First">
                         <i class="bi bi-chevron-double-left"></i>
-                    </button>
+                    </a>
                 </li>
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                    <button class="page-link" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+                <li [class.disabled]="currentPage === 1">
+                    <a (click)="changePage(currentPage - 1)" aria-label="Previous">
                         <i class="bi bi-chevron-left"></i>
-                    </button>
+                    </a>
                 </li>
 
-                <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="currentPage === page">
-                    <button class="page-link" (click)="changePage(page)">{{page}}</button>
+                <li *ngFor="let page of getPageNumbers()" [class.current]="currentPage === page">
+                    <a (click)="changePage(page)">{{page}}</a>
                 </li>
 
-                <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <button class="page-link" (click)="changePage(currentPage + 1)"
-                        [disabled]="currentPage === totalPages">
+                <li [class.disabled]="currentPage === totalPages">
+                    <a (click)="changePage(currentPage + 1)" aria-label="Next">
                         <i class="bi bi-chevron-right"></i>
-                    </button>
+                    </a>
                 </li>
-                <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <button class="page-link" (click)="changePage(totalPages)" [disabled]="currentPage === totalPages">
+                <li [class.disabled]="currentPage === totalPages">
+                    <a (click)="changePage(totalPages)" aria-label="Last">
                         <i class="bi bi-chevron-double-right"></i>
-                    </button>
+                    </a>
                 </li>
             </ul>
-        </nav>
+        </div>
     </div>
 </div>
 
-<!-- Backdrop for modals -->
-<div class="modal-backdrop fade show" *ngIf="showDetailsModal || showDeleteModal || showEditModal"></div>
+<!-- Modal Backdrop -->
+<div class="modal-backdrop" *ngIf="showDetailsModal || showDeleteModal || showEditModal" (click)="closeModals()"></div>
 
 <!-- View Details Modal -->
-<div class="modal fade show d-block" *ngIf="showDetailsModal" tabindex="-1" role="dialog"
-    aria-labelledby="detailsModalLabel">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title" id="detailsModalLabel">
-                    <i class="bi bi-info-circle me-2"></i>
-                    Project Details
-                </h5>
-                <button type="button" class="btn-close btn-close-white" (click)="closeModals()"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row" *ngIf="selectedProject">
-                    <div class="col-md-6" *ngIf="selectedProject.Image">
-                        <img [src]="selectedProject.Image" class="img-fluid rounded shadow-sm mb-3"
-                            alt="Project Image" />
+<div class="custom-modal" *ngIf="showDetailsModal">
+    <div class="modal-container modal-lg">
+        <div class="modal-header details-header">
+            <h5 class="modal-title">
+                <i class="bi bi-info-circle me-2"></i>
+                Project Details
+            </h5>
+            <button type="button" class="modal-close-btn" (click)="closeModals()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row" *ngIf="selectedProject">
+                <div class="col-md-6" *ngIf="selectedProject.Image">
+                    <img [src]="selectedProject.Image" class="modal-image" alt="Project Image" />
+                </div>
+                <div class="col-md-6">
+                    <h4 class="modal-project-title">{{selectedProject.Name}}</h4>
+                    <div class="modal-field">
+                        <label class="field-label">Description:</label>
+                        <div class="field-content">{{selectedProject.Description}}</div>
                     </div>
-                    <div class="col-md-6">
-                        <h4 class="text-primary mb-3">{{selectedProject.Name}}</h4>
-                        <div class="mb-3">
-                            <label class="form-label fw-bold text-muted">Description:</label>
-                            <p class="border rounded p-3 bg-light">{{selectedProject.Description}}</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label fw-bold text-muted">Price:</label>
-                                <p class="h5 text-success">{{formatPrice(selectedProject.ApproximatePrice)}} EGP</p>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label fw-bold text-muted">Unit:</label>
-                                <p class="h5">{{selectedProject.PriceUnit}}</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="modal-field">
+                                <label class="field-label">Price:</label>
+                                <div class="field-price">{{formatPrice(selectedProject.ApproximatePrice)}} EGP</div>
                             </div>
                         </div>
-                        <div class="mt-3">
-                            <label class="form-label fw-bold text-muted">Project ID:</label>
-                            <p class="text-muted">{{selectedProject.Id}}</p>
+                        <div class="col-6">
+                            <div class="modal-field">
+                                <label class="field-label">Unit:</label>
+                                <div class="field-content">{{selectedProject.PriceUnit}}</div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="modal-field">
+                        <label class="field-label">Project ID:</label>
+                        <div class="field-content">{{selectedProject.Id}}</div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="closeModals()">
-                    <i class="bi bi-x-circle me-2"></i>
-                    Close
-                </button>
-                <button class="btn btn-warning" (click)="openEdit(selectedProject!); showDetailsModal = false;">
-                    <i class="bi bi-pencil me-2"></i>
-                    Edit Project
-                </button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeModals()">
+                <i class="bi bi-x-circle me-2"></i>
+                Close
+            </button>
+            <button class="btn btn-warning" (click)="openEdit(selectedProject!); showDetailsModal = false;">
+                <i class="bi bi-pencil me-2"></i>
+                Edit Project
+            </button>
         </div>
     </div>
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div class="modal fade show d-block" *ngIf="showDeleteModal" tabindex="-1" role="dialog"
-    aria-labelledby="deleteModalLabel">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deleteModalLabel">
+<div class="custom-modal" *ngIf="showDeleteModal">
+    <div class="modal-container">
+        <div class="modal-header delete-header">
+            <h5 class="modal-title">
+                <i class="bi bi-exclamation-triangle me-2"></i>
+                Confirm Deletion
+            </h5>
+            <button type="button" class="modal-close-btn" (click)="closeModals()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="delete-confirmation">
+                <i class="bi bi-trash delete-icon"></i>
+                <h5 class="delete-title">Are you sure you want to delete this project?</h5>
+                <p class="delete-project-name">
+                    Project: <strong>{{selectedProject?.Name}}</strong>
+                </p>
+                <div class="delete-warning">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    Confirm Deletion
-                </h5>
-                <button type="button" class="btn-close btn-close-white" (click)="closeModals()"></button>
-            </div>
-            <div class="modal-body">
-                <div class="text-center">
-                    <i class="bi bi-trash text-danger mb-3" style="font-size: 3rem;"></i>
-                    <h5 class="mb-3">Are you sure you want to delete this project?</h5>
-                    <p class="text-muted mb-3">
-                        Project: <strong class="text-dark">{{selectedProject?.Name}}</strong>
-                    </p>
-                    <div class="alert alert-warning">
-                        <i class="bi bi-exclamation-triangle me-2"></i>
-                        This action cannot be undone.
-                    </div>
+                    This action cannot be undone.
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="closeModals()" [disabled]="isDeleting">
-                    <i class="bi bi-x-circle me-2"></i>
-                    Cancel
-                </button>
-                <button class="btn btn-danger" (click)="confirmDelete()" [disabled]="isDeleting">
-                    <i class="bi bi-trash me-2" *ngIf="!isDeleting"></i>
-                    <span class="spinner-border spinner-border-sm me-2" *ngIf="isDeleting"></span>
-                    {{isDeleting ? 'Deleting...' : 'Yes, Delete'}}
-                </button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeModals()" [disabled]="isDeleting">
+                <i class="bi bi-x-circle me-2"></i>
+                Cancel
+            </button>
+            <button class="btn btn-danger" (click)="confirmDelete()" [disabled]="isDeleting">
+                <i class="bi bi-trash me-2" *ngIf="!isDeleting"></i>
+                <span class="spinner-border spinner-border-sm me-2" *ngIf="isDeleting"></span>
+                {{isDeleting ? 'Deleting...' : 'Yes, Delete'}}
+            </button>
         </div>
     </div>
 </div>
 
-<!-- Edit Modal Placeholder -->
-<div class="modal fade show d-block" *ngIf="showEditModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header bg-warning text-dark">
-                <h5 class="modal-title" id="editModalLabel">
-                    <i class="bi bi-pencil me-2"></i>
-                    Edit Project
-                </h5>
-                <button type="button" class="btn-close" (click)="closeModals()"></button>
-            </div>
-            <div class="modal-body" *ngIf="selectedProject">
-                <form #editForm="ngForm">
-                    <!-- Name -->
-                    <div class="mb-3">
-                        <label class="form-label">Project Name</label>
-                        <input type="text" class="form-control" name="Name" [(ngModel)]="selectedProject.Name"
-                            required />
-                    </div>
+<!-- Edit Modal -->
+<div class="custom-modal" *ngIf="showEditModal">
+    <div class="modal-container modal-lg">
+        <div class="modal-header edit-header">
+            <h5 class="modal-title">
+                <i class="bi bi-pencil me-2"></i>
+                Edit Project
+            </h5>
+            <button type="button" class="modal-close-btn" (click)="closeModals()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedProject">
+            <form #editForm="ngForm" class="edit-form">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" name="Name" [(ngModel)]="selectedProject.Name" required />
+                </div>
 
-                    <!-- Description -->
-                    <div class="mb-3">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" name="Description" rows="3"
-                            [(ngModel)]="selectedProject.Description" required></textarea>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="Description" rows="3"
+                        [(ngModel)]="selectedProject.Description" required></textarea>
+                </div>
 
-                    <!-- Price -->
-                    <div class="mb-3">
-                        <label class="form-label">Approximate Price</label>
-                        <input type="number" class="form-control" name="ApproximatePrice"
-                            [(ngModel)]="selectedProject.ApproximatePrice" required />
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Approximate Price</label>
+                    <input type="number" class="form-control" name="ApproximatePrice"
+                        [(ngModel)]="selectedProject.ApproximatePrice" required />
+                </div>
 
-                    <!-- Price Unit -->
-                    <div class="mb-3">
-                        <label class="form-label">Price Unit</label>
-                        <select class="form-select" name="PriceUnit" [(ngModel)]="selectedProject.PriceUnit" required>
-                            <option value="per_hour">Per Hour</option>
-                            <option value="per_day">Per Project</option>
-                        </select>
-                    </div>
+                <div class="form-group">
+                    <label class="form-label">Price Unit</label>
+                    <select class="form-select" name="PriceUnit" [(ngModel)]="selectedProject.PriceUnit" required>
+                        <option value="per_hour">Per Hour</option>
+                        <option value="per_day">Per Project</option>
+                    </select>
+                </div>
 
-                    <!-- Current Image Preview -->
-                    <div class="mb-3 text-center">
-                        <label class="form-label d-block">Current Image</label>
+                <div class="form-group text-center">
+                    <label class="form-label">Current Image</label>
+                    <div class="current-image-preview">
                         <img *ngIf="imagePreview || selectedProject.Image" [src]="imagePreview || selectedProject.Image"
-                            class="rounded" alt="Project Image" style="max-width: 100%; max-height: 200px;" />
+                            class="preview-image" alt="Project Image" />
                     </div>
+                </div>
 
-                    <!-- Upload New Image -->
-                    <div class="mb-3">
-                        <label class="form-label">Change Project Image</label>
-                        <input type="file" class="form-control" accept="image/*"
-                            (change)="onEditImageSelected($event)" />
-                    </div>
-
-                    <!-- Save Button -->
-                    <div class="text-end">
-                        <button type="button" class="btn btn-primary" [disabled]="editForm.invalid"
-                            (click)="submitEdit()">
-                            <i class="bi bi-check-circle me-1"></i>
-                            Save Changes
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-
-            <div class="modal-footer">
-                <button class="btn btn-secondary" (click)="closeModals()">
-                    <i class="bi bi-x-circle me-2"></i>
-                    Close
-                </button>
-            </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-primary" [disabled]="editForm.invalid" (click)="submitEdit()">
+                        <i class="bi bi-check-circle me-1"></i>
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" (click)="closeModals()">
+                <i class="bi bi-x-circle me-2"></i>
+                Close
+            </button>
         </div>
     </div>
 </div>

@@ -163,9 +163,10 @@
           </div>
         </div>
 
+
         <!-- Upload Images -->
         <div class="mb-4">
-          <label class="form-label">Upload Restaurant Images</label>
+          <label class="form-label">Upload Property Images</label>
           <div class="file-upload-wrapper">
             <label class="file-upload-label">
               <div class="text-center">
@@ -173,7 +174,8 @@
                 <div>Drag & drop images or <span class="text-primary">browse</span></div>
                 <div class="small text-muted mt-1">Supported formats: JPEG, PNG, GIF</div>
               </div>
-              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImage">
+              <input (change)="ChooseFile($event)" type="file" class="file-upload-input" id="RestaurantImages" multiple
+                accept="image/*">
             </label>
           </div>
         </div>
@@ -189,7 +191,7 @@
         <button type="submit" class="btn btn-gradient">
           <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status"
             aria-hidden="true"></span>
-          Submit Restaurant
+          Submit
         </button>
       </form>
     </div>

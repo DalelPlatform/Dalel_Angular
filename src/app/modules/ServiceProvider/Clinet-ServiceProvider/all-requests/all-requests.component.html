@@ -1,69 +1,150 @@
-<div class="container-fluid px-4 py-4">
-  <h2 class="text-center mb-4">Service Requests</h2>
-
-  <!-- Requests Grid - Enhanced Booking.com Style -->
-  <div class="row">
-
-    <div *ngFor="let request of requests" class="col-12 mb-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body p-4">
-          <h4 class="card-title mb-2">{{ request.Title || 'Untitled' }}</h4>
-
-          <p class="mb-2">
-            <strong><i class="bi bi-tag-fill text-secondary me-2"></i>Category:</strong>
-            {{ request.CategoryName || getCategoryName(request.CategoryServicesId) }}
-          </p>
-
-          <p class="mb-2">
-            <strong><i class="bi bi-calendar2-check-fill text-success me-2"></i>Preferred Date:</strong>
-            {{ request.DueDate | date: 'mediumDate' }}
-          </p>
-
-          <small class="text-muted">
-            <i class="bi bi-clock-history me-1"></i>
-            Posted {{ getTimeSince(request.Date) }} ago
-          </small>
-
-          <div class="text-end mt-3">
-            <button class="btn btn-sm text-white" style="background-color: #6f42c1;"
-              (click)="viewRequestDetails(request.Id)">
-              View Details
-            </button>
-          </div>
+<div class="container-fluid py-4">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h2 class="page-title mb-1">Client Requests</h2>
+          <p class="text-muted mb-0">Manage and track all client service requests</p>
+        </div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-primary" (click)="refreshData()" [disabled]="isLoading">
+            <i class="fas fa-sync-alt me-2"></i>Refresh
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Pagination (Enhanced but same functionality) -->
-  <div *ngIf="totalCount > pageSize" class="d-flex justify-content-center mt-5">
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="goToPage(1)" aria-label="First">
-            <i class="bi bi-chevron-double-left"></i>
-          </a>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="goToPage(currentPage - 1)" aria-label="Previous">
-            <i class="bi bi-chevron-left"></i>
-          </a>
-        </li>
-
-        <li *ngFor="let page of pages" class="page-item" [class.active]="page === currentPage">
-          <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-        </li>
-
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="goToPage(currentPage + 1)" aria-label="Next">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="goToPage(totalPages)" aria-label="Last">
-            <i class="bi bi-chevron-double-right"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="stats-card">
+        <div class="stats-icon bg-primary">
+          <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="stats-content">
+          <h3>{{ totalCount }}</h3>
+          <p>Total Requests</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="stats-card">
+        <div class="stats-icon bg-success">
+          <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stats-content">
+          <h3>{{ acceptedCount }}</h3>
+          <p>Accepted</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="stats-card">
+        <div class="stats-icon bg-warning">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stats-content">
+          <h3>{{ pendingCount }}</h3>
+          <p>Pending</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="stats-card">
+        <div class="stats-icon bg-info">
+          <i class="fas fa-cog"></i>
+        </div>
+        <div class="stats-content">
+          <h3>{{ inProgressCount }}</h3>
+          <p>In Progress</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3 text-muted">Loading client requests...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !isLoading" class="alert alert-danger" role="alert">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ error }}
+  </div>
+
+  <!-- Requests Grid -->
+  <div *ngIf="!isLoading && !error">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mb-4" *ngFor="let request of clientRequests">
+        <div class="request-card">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h5 class="card-title mb-1">{{ request.Title }}</h5>
+                <p class="text-muted small mb-0">
+                  <i class="fas fa-user me-1"></i>{{ userProfile.UserName || 'Client #' + request.ClientId }}
+                </p>
+              </div>
+              <!-- <span class="badge" [class]="getStatusBadgeClass(request.Status)">
+                {{ request.Status }}
+              </span> -->
+            </div>
+          </div>
+
+          <div class="card-image" *ngIf="request.Imagepath">
+            <img [src]="request.Imagepath" [alt]="request.Title" class="img-fluid">
+          </div>
+
+          <div class="card-body">
+            <p class="card-description">{{ request.Description }}</p>
+            
+            <div class="request-details">
+              <div class="detail-item">
+                <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                <span>{{ request.Address }}</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar text-success me-2"></i>
+                <span>Due: {{ formatDate(request.DueDate) }}</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-dollar-sign text-warning me-2"></i>
+                <span>Budget: {{ formatPrice(request.StartPrice) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="clientRequests.length === 0" class="text-center py-5">
+      <div class="empty-state">
+        <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+        <h4 class="text-muted">No Requests Found</h4>
+        <p class="text-muted">There are no client requests to display at the moment.</p>
+        <button class="btn btn-primary" (click)="refreshData()">
+          <i class="fas fa-sync-alt me-2"></i>Refresh
+        </button>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-style" *ngIf="totalPages > 1">
+      <pagination-controls
+        (pageChange)="onPageChange($event)"
+        [maxSize]="5"
+        [directionLinks]="true"
+        [autoHide]="true"
+        previousLabel="Previous"
+        nextLabel="Next">
+      </pagination-controls>
+    </div>
+  </div>
+</div>

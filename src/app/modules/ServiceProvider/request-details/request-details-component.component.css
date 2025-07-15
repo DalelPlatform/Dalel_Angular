@@ -1,4 +1,4 @@
-.text-purple { color: #6f42c1; }
+ .text-purple { color: #6f42c1; }
 .text-orange { color: #fd7e14; }
 .bg-purple { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important; color: #fff; }
 .bg-orange { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) !important; color: #fff; }
@@ -190,7 +190,6 @@
   text-align: center;
 }
 
-/* Proposal Actions */
 .proposal-actions {
   text-align: center;
   margin: 2rem 0;
@@ -251,7 +250,6 @@
 }
 
 
-/* Proposal Form */
 .proposal-form-container {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -336,7 +334,6 @@
   transform: translateY(-2px);
 }
 
-/* Proposals Section */
 .proposals-section {
   margin-top: 3rem;
 }
@@ -482,7 +479,6 @@
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
-/* No Proposals */
 .no-proposals {
   text-align: center;
   padding: 4rem 2rem;
@@ -500,7 +496,6 @@
   margin-bottom: 1rem;
 }
 
-/* Modal */
 .modern-modal {
   border-radius: 2rem;
   border: none;
@@ -539,7 +534,6 @@
   padding: 1.5rem;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .request-header {
     flex-direction: column;
@@ -558,4 +552,4 @@
     flex-direction: column;
     gap: 0.5rem;
   }
-}
+} 

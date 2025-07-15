@@ -116,5 +116,44 @@ export class CartCheckoutComponent implements OnInit {
       window.open('https://stripe.com', '_blank');
     }
   }
+
+
+
+//   submitCheckout(
+//   address: string,
+//   city: string,
+//   phoneNumber: string,
+//   notes: string,
+//   paymentMethod: string
+// ) {
+//   const checkoutData = {
+//     address,
+//     city,
+//     phoneNumber,
+//     notes,
+//     paymentMethod,
+//     cartItems: this.cartItems,
+//     total: this.supTotal + 16.84
+//   };
+
+//   console.log('Checkout Data:', checkoutData);
+
+//   // 📨 ابعتهم للباك اند هنا مثلاً:
+//   this.http.post('/api/checkout', checkoutData).subscribe({
+//     next: (res) => console.log('Order placed!', res),
+//     error: (err) => console.error('Checkout failed:', err)
+//   });
+// }
+
+
+getSelectedPaymentMethod(): string {
+  const methods = ['cashOnDelivery', 'paypalMethod', 'stripeMethod'];
+  for (const method of methods) {
+    const el = document.getElementById(method) as HTMLInputElement;
+    if (el && el.checked) return el.value;
+  }
+  return '';
+}
+
 }
 
