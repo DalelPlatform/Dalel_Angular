@@ -1,25 +1,90 @@
-.heading{
-    color: #5143d9;
+.heading {
+  color: #5143d9;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
 }
+
+/* Modern Card Style */
 .card {
+  background: linear-gradient(145deg, #ffffff, #f4f2ff);
+  border: none;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  box-shadow: 0 15px 30px rgba(81, 67, 217, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
-  border-radius: 1rem;
 }
 
 .card:hover {
-  transform: scale(1.03) translateY(-5px);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0 25px 40px rgba(81, 67, 217, 0.2);
 }
 
-.veiw{
-color: white;
-    background-color: #5143d9;
-    font-weight: 600; 
-    width: fit-content;
+.card-body p {
+  margin-bottom: 0.7rem;
+  font-size: 0.95rem;
 }
-.delete{
+
+/* Stylish Badge */
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: #b08900;
+}
+
+.status-badge.verified {
+  background-color: #d4edda;
+  color: #1e7e34;
+}
+
+.status-badge.rejected {
+  background-color: #f8d7da;
+  color: #c82333;
+}
+
+/* Action buttons */
+.card-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.6rem;
+}
+
+.card-actions button {
+  border: none;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.card-actions .view {
+  background-color: #5143d9;
   color: white;
-    font-weight: 600; 
-    width: fit-content;
+}
+
+.card-actions .update {
+  background-color: #6c757d;
+  color: white;
+}
+
+.card-actions .delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.card-actions button:hover {
+  opacity: 0.9;
+}
+a{
+  cursor:pointer
 }

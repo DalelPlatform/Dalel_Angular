@@ -55,7 +55,7 @@
           </div>
       <div class="mb-3">
         <label class="form-label">Agency *</label>
-        <select class="form-control" formControlName="AgencyId">
+        <select class="form-control custom-select-purple" formControlName="AgencyId" >
           <option value="">Select Agency</option>
           <option *ngFor="let agency of agencies" [value]="agency.Id">{{ agency.BusinessName }}</option>
         </select>

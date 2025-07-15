@@ -15,7 +15,8 @@ export class PackageDetailsComponent implements OnInit {
  id: number | null = null;
     packages: any[] = [];
     Packagereviews: any[] = [];
-     today: Date = new Date();
+   today: string = new Date().toISOString();
+
     selectedScheduleId: number | null = null;
      packageForm!: FormGroup;
     selectedTab: string = 'overview';
@@ -25,6 +26,7 @@ private toastr: ToastrService,
 private router: Router,   private fb: FormBuilder,) { }
 
   ngOnInit() {
+    console.log("today",this.today)
        this.id = Number(this.route.snapshot.paramMap.get('Id'));
     this.loadPackages(this.id)
     this.initForm();
