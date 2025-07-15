@@ -1,7 +1,8 @@
 <div class="container">
   <h2 class="title">Agency Packages</h2>
+@if (packages.length > 0) {
+    <div class="card-grid">
 
-  <div class="card-grid">
     <div *ngFor="let pkg of packages" class="package-card">
         <img *ngIf="pkg.ImagePath" [src]="pkg.ImagePath" alt="package Image" style="height: 100%;"/>
       <div class="card-header">
@@ -28,4 +29,12 @@
 </div>
     </div>
   </div>
+}
+ @else {
+  <div class="text-center py-5">
+    <p class="text-secondary fw-bold" style="color: #5143d9;">
+      There are no packages available.
+    </p>
+  </div>
+}
 </div>

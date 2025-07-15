@@ -41,8 +41,8 @@
         <div class="hero-slide d-flex align-items-center justify-content-center text-center text-white"
              style="background-image: url('../../../assets/image 13 (1).png');">
           <div>
-            <h1 class="display-4 fw-bold">Enjoy Luxury and Comfort</h1>
-            <p class="lead">Choose from 1000+ premium hotels and resorts.</p>
+            <h1 class="display-4 fw-bold">Find Best Package in Aswan</h1>
+            <p class="lead">Choose from the most expert in aswan.</p>
             <a class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn animate-up" href="#">Start Booking</a>
           </div>
         </div>
@@ -83,6 +83,21 @@
   <app-topPackageCart [package]="topPackages"></app-topPackageCart>
 </div>
 </section>
+<section >
+ <div class="container">
+  <!-- <app-property-card [property]="topProperties"></app-property-card> -->
+</div>
+</section>
+<section >
+ <div class="container">
+      <h2 class="fw-bold mb-4">OUR SERVICES</h2>
+      <img src ='../../../assets/service.jpg' style="width:100%"/>
+  
+         
+</div>
+    <a class="btn btn-light fw-semibold rounded-pill px-4 py-2  animated-btn"
+       [routerLink]="['/ServiceProvider/SearchServiceProviders']" style="width:fit-content;display:flex;margin:1rem auto;border:1px solid #5143d9;">Show</a>
+</section>
 <section class="py-5 bg-light text-center">
   <div class="container">
     <h2 class="fw-bold mb-4">OUR PARTNERS</h2>
@@ -104,8 +119,9 @@
         <h1 class="display-4 fw-bold text-uppercase">Explore Aswan</h1>
         <hr class="bg-white opacity-75 my-4">
         <p class="mb-4">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+          Discover the best of Aswan with our curated travel packages. 
+          From ancient temples to modern attractions, we've got you covered.
+          Book your next adventure today!
         </p>
     <button class="btn btn-light fw-semibold rounded-pill px-4 py-2 animated-btn" (click)="viewAllPackages()">
   See all <span class="ms-2">→</span>

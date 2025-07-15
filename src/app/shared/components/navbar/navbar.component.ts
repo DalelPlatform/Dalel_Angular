@@ -67,9 +67,11 @@ constructor(private notificationService: NotificationService, private cookieServ
   loadNotifications() {
     this.notificationService.getNotifications().subscribe({
       next: (res) => {
-        this.notifications = res;
-        console.log("Notifications loaded:", this.notifications);
-
+        this.notifications = res.filter((n: any) =>
+    n.message?.toLowerCase().includes('rate package')
+  );
+    console.log("Notifications loaded:", this.notifications); 
+        
       }
       , error: (err) => {
         if (err.status === 401) {
@@ -182,7 +184,7 @@ constructor(private notificationService: NotificationService, private cookieServ
   logout() {
     console.log("g")
     this.cookieService.deleteAll();
-    this.router.navigate(['/mainPage']);
+    this.router.navigate(['/login']);
     this.isLoggedIn = false;
   }
 
@@ -190,5 +192,53 @@ constructor(private notificationService: NotificationService, private cookieServ
   goToMenu() {
     this.router.navigate(['/restaurant/client/menuitems']);
 
+  }
+
+  goToProfile() {
+    const role = this.cookieService.get('Role');
+    switch (role) {
+      case 'RestaurantOwner':
+        this.router.navigate(['/restaurant/owner/']);
+        break;
+      case 'PropertyOwner':
+        this.router.navigate(['/property/owner/']);
+        break;
+      case 'TravelAgencyOwner':
+        this.router.navigate(['/agancy/owner/dashboard']);
+        break;
+      case 'ServiceProvider':
+        this.router.navigate(['/ServiceProviderlayout/ServiceProvider']);
+        break;
+      case 'Client':
+        this.router.navigate(['/user/profile']);
+        break;
+      // Add more roles as needed
+      default:
+        this.router.navigate(['/mainPage']);
+    }
+  }
+
+  goToSettings() {
+    const role = this.cookieService.get('Role');
+    switch (role) {
+      case 'RestaurantOwner':
+        this.router.navigate(['/restaurant/owner/settings']);
+        break;
+      case 'PropertyOwner':
+        this.router.navigate(['/property/owner/settings']);
+        break;
+      case 'TravelAgencyOwner':
+        this.router.navigate(['/agancy/owner/settings']);
+        break;
+      case 'ServiceProvider':
+        this.router.navigate(['/ServiceProvider/settings']);
+        break;
+      case 'Client':
+        this.router.navigate(['/user/settings']);
+        break;
+      // Add more roles as needed
+      default:
+        this.router.navigate(['/mainPage']);
+    }
   }
 }

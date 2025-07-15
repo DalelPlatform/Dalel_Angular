@@ -40,7 +40,7 @@ this.Email = Email || '';
 logout() {
   console.log("g")
 this.cookieService.deleteAll();
+this.isLoggedIn = false;           
   this.router.navigate(['/mainPage']);   
-  this.isLoggedIn = false;           
 }
 }

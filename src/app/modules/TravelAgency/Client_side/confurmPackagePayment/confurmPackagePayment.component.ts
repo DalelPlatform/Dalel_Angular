@@ -61,7 +61,7 @@ bookingId :this.bookingId
       console.log("this is res",res)
    
           this.toastr.success(res.Message)
-        
+         this.router.navigate(['/agancy/client/Packages']);
         },
         error: (err) => {
           console.log(err)
