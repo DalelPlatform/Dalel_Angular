@@ -24,6 +24,7 @@ import { ChatComponent } from '../Chat/Components/chat/chat.component';
 import { clientGuard } from '../../../Services/Guards/Client/client.guard';
 import { filter } from 'rxjs';
 import { FilterPipe } from '../Clinet-ServiceProvider/filter.pipe';
+import { authGuard } from '../../../Services/Guards/auth.guard';
 let routes: Routes = [
   {
     path: "ServiceProviderlayout",
